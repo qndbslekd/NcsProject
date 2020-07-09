@@ -6,7 +6,7 @@
 	<title>Insert title here</title>
 	<link href="/resources/css/main.css"" rel="stylesheet" type="text/css">
 </head>
-<body>
+<body>TEST
 <h1 align="center">main Project Main</h1>
 </body>
 </html>
