@@ -9,10 +9,11 @@
 </head>
 <body>
 	<form action="recipeStepInsertForm.jsp" method="post">
+		<input type="hidden" name="writer" value="테스트"/>
 		<table>
 			<tr>
 				<td>제목</td>
-				<td><input type="text" name="recipeName" required /></td>
+				<td width="300"><input type="text" name="recipeName" required /></td>
 			</tr>
 			<tr>
 				<td>채식유형</td>
@@ -20,7 +21,7 @@
 					<input type="radio" name="vegiType" value="vegan" required />비건<br/>
 					<input type="radio" name="vegiType" value="lacto" required />락토<br/>
 					<input type="radio" name="vegiType" value="ovo" required />오보<br/>
-					<input type="radio" name="vegiType" value="lactoOvo" required />락토오보<br/>
+					<input type="radio" name="vegiType" value="lacto ovo" required />락토오보<br/>
 					<input type="radio" name="vegiType" value="pesco" required />페스코<br/>
 					<input type="radio" name="vegiType" value="pollo" required />폴로<br/>
 					<input type="radio" name="vegiType" value="flexitarian" required />플렉시테리언<br/>
@@ -39,11 +40,19 @@
 				<td>
 					<select name="difficulty" required >
 						<option value="" disabled selected>난이도를 선택하세요</option>
-						<option value="easy">쉬움</option>
-						<option value="normal">보통</option>
-						<option value="hard">어려움</option>
+						<option value="쉬움">쉬움</option>
+						<option value="보통">보통</option>
+						<option value="어려움">어려움</option>
 					</select>
 				</td>
+			</tr>
+			<tr>
+				<td>칼로리</td>
+				<td><input type="number" name="cal" /></td>
+			</tr>
+			<tr>
+				<td>재료</td>
+				<td><textarea cols="40" rows="5" placeholder="예) 감자 1개, 양파 2개, 고추장 두스푼, ..." style="resize:none"></textarea></td>
 			</tr>
 			<tr>
 				<td>요리 단계</td>
