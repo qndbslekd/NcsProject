@@ -1,3 +1,4 @@
+<%@page import="jspNcsProject.dto.RecipeDTO"%>
 <%@page import="jspNcsProject.dao.RecipeContentDAO"%>
 <%@page import="jspNcsProject.dto.RecipeContentDTO"%>
 <%@page import="com.oreilly.servlet.MultipartRequest"%>
@@ -15,7 +16,7 @@
 
 	RecipeContentDAO dao = RecipeContentDAO.getInstance();
 	
-	String path = request.getRealPath("imgs");
+	String path = request.getRealPath("recipe/imgs");
 	int max = 1024*1024*10;
 	String enc = "utf-8";
 	DefaultFileRenamePolicy dp = new DefaultFileRenamePolicy();
@@ -33,12 +34,20 @@
 	String tag = mr.getParameter("tag");
 	String cookingTime = mr.getParameter("cookingTime");
 	
+	RecipeDTO recipe = new RecipeDTO();
+	recipe.setRecipeStep(recipeStep);
+	recipe.setRecipeName(recipeName);
+	recipe.setThumbnail(thumbnail);
+	recipe.setWriter(writer);
+	recipe.setVegiType(vegiType);
+	recipe.setDifficulty(difficulty);
+	recipe.setCal(Integer.parseInt(cal));
+	recipe.setQuantity(Integer.parseInt(quantity));
+	recipe.setIngredients(ingredients);
+	recipe.setTag(tag);
+	recipe.setCookingTime(Integer.parseInt(cookingTime));
 	
-	
-	
-	
-	
-	
+	int recipeNum = dao.insertRecipeBoard(recipe);
 	
 	//레시피 세부내용 넣기
 	for ( int i = 1; i <= recipeStep; i++) {
@@ -46,10 +55,12 @@
 		String content = mr.getParameter("step" + i);
 		String img = mr.getFilesystemName("img" + i);
 		
+		dto.setRecipeNum(recipeNum);
 		dto.setStep(i);
 		dto.setContent(content);
 		dto.setImg(img);
 		
+		dao.insertRecipeContent(dto);
 	}
 	
 	
