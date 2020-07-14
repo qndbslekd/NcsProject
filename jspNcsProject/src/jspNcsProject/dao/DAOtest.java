@@ -27,7 +27,7 @@ public class DAOtest {
 		Context env = (Context)ctx.lookup("java:comp/env");
 		DataSource ds = (DataSource)env.lookup("jdbc/orcl");
 		return ds.getConnection();
-	}
+	} 
 	
 	public int getTest() {
 		try {
