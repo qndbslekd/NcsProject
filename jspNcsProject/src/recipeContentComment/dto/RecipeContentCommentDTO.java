@@ -1,4 +1,4 @@
-package jspNcsProject.dto;
+package recipeContentComment.dto;
 
 import java.sql.Timestamp;
 

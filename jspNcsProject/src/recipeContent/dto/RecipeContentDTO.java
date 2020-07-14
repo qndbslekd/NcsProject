@@ -1,4 +1,4 @@
-package jspNcsProject.dto;
+package recipeContent.dto;
 
 public class RecipeContentDTO {
 	
