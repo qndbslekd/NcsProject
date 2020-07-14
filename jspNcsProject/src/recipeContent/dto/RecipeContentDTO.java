@@ -1,4 +1,4 @@
-package recipe;
+package recipeContent.dto;
 
 public class RecipeContentDTO {
 	
