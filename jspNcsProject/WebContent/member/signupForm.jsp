@@ -1,15 +1,3 @@
-<<<<<<< HEAD
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="EUC-KR">
-<title>Insert title here</title>
-</head>
-<body>
-
-=======
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -18,7 +6,8 @@
 	<title>Insert title here</title>
 	<link href="../resource/team05_style.css" rel="stylesheet" type="text/css">
 </head>
-<body>
+<jsp:include page="../header.jsp"></jsp:include>
+<body> 
 	<h1 align="center">회원가입</h1>
 	<table>
 	<form method="post" action="signupPro.jsp" enctype="multipart/form-data">
@@ -76,10 +65,6 @@
 			</td> 
 		</tr>
 	</form>
-<<<<<<< HEAD
->>>>>>> branch 'develop' of https://github.com/ysk0951/codinnnnng.git
-=======
 	</table> 
->>>>>>> branch 'develop' of https://github.com/ysk0951/codinnnnng.git
 </body>
 </html>
