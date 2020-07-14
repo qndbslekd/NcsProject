@@ -1,15 +1,3 @@
-<<<<<<< HEAD
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="EUC-KR">
-<title>Insert title here</title>
-</head>
-<body>
-
-=======
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -19,9 +7,13 @@
 	<link href="../resource/team05_style.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-	<h1 align="center">회원가입</h1>
+	<h1 align="center">회원정보수정</h1>
 	<form method="post" action="signupPro.jsp" ctype="multipart/form-data">
 	<table>
+		<tr>
+			<td>프로필 사진</td>
+			<td>*</td> 
+		</tr>
 		<tr>
 			<td>아이디*</td>
 			<td><input type="text" name="id" /></td>
@@ -41,13 +33,12 @@
 		</tr>
 		<tr>
 			<td>이름*</td>
-			<td><input type="text" name="name"  /></td>
+			<td>***</td>
 		</tr>
 		<tr>
 			<td>주민번호*</td> 
 			<td>
-				<input type="text" name="name"  maxlength="6" size="6"/>- 
-				<input type="text" name="name"  maxlength="1" size="1"/>
+				******-*
 			</td>
 		</tr>
 		<tr>
@@ -61,7 +52,7 @@
 						<option value="페스코 베지터리언">페스코 베지터리언</option>
 						<option value="폴로 베지터리언">폴로 베지터리언</option>
 						<option value="플렉시터리언">플렉시터리언</option>
-				</select>
+				</select> 
 			</td>
 		</tr>
 		<tr>
@@ -70,13 +61,12 @@
 		</tr>		
 		<tr>
 			<td colspan="2" align="center">
-				<input type="submit" value="가입"/>
+				<input type="submit" value="수정"/>
 				<input type="reset" name="reset" value="재입력" />
 				<input type="button" value="취소" onclick="window.location='main.jsp'"/>
 			</td> 
 		</tr>
 	</table> 
 	</form>
->>>>>>> branch 'develop' of https://github.com/ysk0951/codinnnnng.git
 </body>
 </html>
