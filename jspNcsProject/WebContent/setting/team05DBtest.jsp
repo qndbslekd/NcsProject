@@ -6,6 +6,8 @@
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
 </head>
+<!--CSS-->
+<link href="../resource/team05_style.css" rel="stylesheet" type="text/css">
 <body>
 <%
 	DAOtest test = DAOtest.getInstance();
