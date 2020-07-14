@@ -21,7 +21,7 @@
 			<td> 비밀번호 </td>
 		</tr>
 		<tr>
-			<td><input typr="password" name="pw"/> </td>
+			<td><input type="password" name="pw"/> </td>
 		</tr>
 	</table>
 </form>
