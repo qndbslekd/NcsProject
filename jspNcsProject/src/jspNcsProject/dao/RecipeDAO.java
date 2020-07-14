@@ -33,7 +33,7 @@ public class RecipeDAO {
 		ArrayList recipeList = null;
 		try {
 			conn= getConnection();
-			String sql = null;
+			String sql = "";
 			
 			
 		} catch (Exception e) {
