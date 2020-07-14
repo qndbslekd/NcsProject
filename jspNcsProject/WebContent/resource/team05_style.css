@@ -1,7 +1,7 @@
 @charset "UTF-8";
 BODY {
 	FONT-SIZE: 9pt; COLOR: #77878F; LINE-HEIGHT: 160%; FONT-FAMILY: 맑은 고딕,verdana,tahoma; 
-	background-color: #8bc34a;
+	
 }
 TABLE { 
 	width: 500; margin: auto; text-align: center; border: 1px solid #77878F; border-collapse: collapse; background-color: #AAB9BD;
