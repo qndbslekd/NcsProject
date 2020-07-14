@@ -39,12 +39,12 @@ public class MemberDAO {
 			pstmt.setString(1,dto.getId());
 			pstmt.setString(2,dto.getPw());
 			pstmt.setString(3,dto.getName());
-			pstmt.setString(4,dto.getAge());
-			pstmt.setString(5,dto.getId());
-			pstmt.setString(6,dto.getId());
-			pstmt.setString(7,dto.getId());
-			pstmt.setString(8,dto.getId());
-			pstmt.setString(9,dto.getId());
+			pstmt.setString(4,dto.getId_number());
+			pstmt.setString(5,dto.getAge());
+			pstmt.setString(6,dto.getGender());
+			pstmt.setString(7,dto.getVegi_type());
+			pstmt.setString(8,dto.getProfile_img());
+			pstmt.setString(9,null);//offence URL
 			result = pstmt.executeUpdate();
 			System.out.println("[Insert된 회원의 수"+result+"]");
 		} catch (Exception e) {
