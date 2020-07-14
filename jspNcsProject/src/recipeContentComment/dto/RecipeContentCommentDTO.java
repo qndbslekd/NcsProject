@@ -1,4 +1,4 @@
-package recipe;
+package recipeContentComment.dto;
 
 import java.sql.Timestamp;
 
