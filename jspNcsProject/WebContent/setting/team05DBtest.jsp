@@ -11,9 +11,6 @@
 	DAOtest test = DAOtest.getInstance();
 	test.getTest();
 
-
-
-
 %>
 </body>
 </html>
