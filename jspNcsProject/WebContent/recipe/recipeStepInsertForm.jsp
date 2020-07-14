@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>레시피 세부내용 작성</title>
+<link rel="stylesheet" href="../resource/team05_style.css">
 </head>
 <%
 	request.setCharacterEncoding("utf-8");
@@ -36,17 +37,23 @@
 		<table>
 			<tr>
 				<td>대표 이미지 등록</td>
-				<td><input type="file" name="thumbnail"/></td>
+				<td colspan="3"><input type="file" name="thumbnail"/></td>
 			</tr>
 			<tr>
-				<td>요리 세부 내용</td>
+				<td colspan="4">요리 세부 내용</td>
 			</tr>	
+			
 			<%for(int i = 1; i <= recipeStep; i++) { %>		
 			<tr>
 				<td><Strong><%=i %></Strong></td>
-				<td><input type="text" readonly name="content" value="<%=i%>"/></td>
+				<td><input type="text" name="step<%=i%>"/></td>
+				<td><input type="file" name="img<%=i %>"/></td>
 			</tr>
 			<%} %>
+			
+			<tr>
+				<td colspan="4"><input type="button" onclick="history.back()" value="돌아가기"><input type="submit" value="작성하기"/></td>
+			</tr>
 		</table>
 		
 		
