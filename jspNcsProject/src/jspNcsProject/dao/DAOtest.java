@@ -21,7 +21,7 @@ public class DAOtest {
 	public static DAOtest getInstance() {
 		return instance;
 	}
-	
+	 
 	public Connection getConnection() throws Exception {
 		Context ctx = (Context)new InitialContext();
 		Context env = (Context)ctx.lookup("java:comp/env");
