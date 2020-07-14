@@ -1,3 +1,15 @@
+<<<<<<< HEAD
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+
+=======
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -8,8 +20,8 @@
 </head>
 <body>
 	<h1 align="center">회원가입</h1>
-	<form method="post" action="signupPro.jsp" ctype="multipart/form-data">
 	<table>
+	<form method="post" action="signupPro.jsp" enctype="multipart/form-data">
 		<tr>
 			<td>아이디*</td>
 			<td><input type="text" name="id" /></td>
@@ -34,8 +46,8 @@
 		<tr>
 			<td>주민번호*</td> 
 			<td>
-				<input type="text" name="name"  maxlength="6" size="6"/>- 
-				<input type="text" name="name"  maxlength="1" size="1"/>
+				<input type="text" name="id_number1"  maxlength="6" size="6"/>- 
+				<input type="text" name="id_number2"  maxlength="1" size="1"/>
 			</td>
 		</tr>
 		<tr>
@@ -63,7 +75,11 @@
 				<input type="button" value="취소" onclick="window.location='main.jsp'"/>
 			</td> 
 		</tr>
-	</table> 
 	</form>
+<<<<<<< HEAD
+>>>>>>> branch 'develop' of https://github.com/ysk0951/codinnnnng.git
+=======
+	</table> 
+>>>>>>> branch 'develop' of https://github.com/ysk0951/codinnnnng.git
 </body>
 </html>
