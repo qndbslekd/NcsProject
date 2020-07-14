@@ -16,6 +16,8 @@ public class RecipeDTO {
 	String ingredients; // 재료들 
 	int rating; // 평점
 	String tag; // 태그
+	int cookingTime;
+	
 	public int getNum() {
 		return num;
 	}
@@ -94,5 +96,13 @@ public class RecipeDTO {
 	public void setTag(String tag) {
 		this.tag = tag;
 	}
+	public int getCookingTime() {
+		return cookingTime;
+	}
+	public void setCookingTime(int cookingTime) {
+		this.cookingTime = cookingTime;
+	}
+	
+	
 	
 }
