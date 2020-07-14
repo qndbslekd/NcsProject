@@ -21,9 +21,10 @@
 	String quantity = request.getParameter("quantity");
 	String ingredients = request.getParameter("ingredients");
 	String tag = request.getParameter("tag");
+	String cookingTime = request.getParameter("cookingTime");
 %>
 <body>
-	<form method="post" action="recipeStepInsertPro.jsp">
+	<form method="post" action="recipeStepInsertPro.jsp" enctype="multipart/form-data">
 		<input type="hidden" name="recipeStep" value="<%=recipeStep%>"/>
 		<input type="hidden" name="recipeName" value="<%=recipeName%>"/>
 		<input type="hidden" name="writer" value="<%=writer%>"/>
@@ -33,6 +34,7 @@
 		<input type="hidden" name="quantity" value="<%=quantity%>"/>
 		<input type="hidden" name="ingredients" value="<%=ingredients%>"/>
 		<input type="hidden" name="tag" value="<%=tag%>"/>
+		<input type="hidden" name="cookingTime" value="<%=cookingTime%>"/>
 
 		<table>
 			<tr>
@@ -52,7 +54,8 @@
 			<%} %>
 			
 			<tr>
-				<td colspan="4"><input type="button" onclick="history.back()" value="돌아가기"><input type="submit" value="작성하기"/></td>
+				<td colspan="4"><input type="button" onclick="history.back()" value="돌아가기">
+				<input type="submit" value="작성하기"/></td>
 			</tr>
 		</table>
 		
