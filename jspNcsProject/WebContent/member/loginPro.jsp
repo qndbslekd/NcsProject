@@ -24,11 +24,16 @@
 	
 	MemberDAO dao = MemberDAO.getInstance();
 	boolean res = dao.loginCheck(id, pw);
+	String name = dao.getMemberName(id, pw);
+	
 	
 	if(res){
 		session.setAttribute("memId", id);
 		session.setAttribute("memPw", pw);
-		
+		session.setAttribute("memName", name);
+		System.out.println(session.getAttribute("memId"));
+		System.out.println(session.getAttribute("memPw"));
+		System.out.println(session.getAttribute("memName"));
 		
 		if(auto != null){
 			Cookie c1 = new Cookie("autoId", id);
@@ -42,9 +47,12 @@
 			response.addCookie(c3);
 		}
 		response.sendRedirect("main.jsp");
-	}else{
-		
-	}
+	}else{%>
+		<script>
+			alert("비밀번호나 아이디가 틀렸습니다");
+			history.go(-1);
+		</script>
+	<%}
 	
 %>
 <body>
