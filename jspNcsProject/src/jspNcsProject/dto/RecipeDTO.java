@@ -1,9 +1,8 @@
-package recipe;
+package jspNcsProject.dto;
 
 import java.sql.Timestamp;
 
-public class RecipeBoardDTO {
-	
+public class RecipeDTO {
 	int num; // 글번호 
 	int recipeStep; // 조리단계
 	String recipeName; //  레시피 이름
@@ -96,6 +95,4 @@ public class RecipeBoardDTO {
 		this.tag = tag;
 	}
 	
-	
-
 }
