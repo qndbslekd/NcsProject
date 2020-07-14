@@ -6,6 +6,7 @@
 	<title>Insert title here</title>
 	<link href="../resource/team05_style.css" rel="stylesheet" type="text/css">
 </head>
+<jsp:include page="../header.jsp"></jsp:include>
 <body>
 	<br/>
 	<h1 align="center"> 로그인 </h1>
