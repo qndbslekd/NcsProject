@@ -22,8 +22,16 @@
 	String tag = request.getParameter("tag");
 %>
 <body>
-	<form>
-		<input type="hidden" name="recipe_name" />
+	<form method="post" action="recipeStepInsertPro.jsp">
+		<input type="hidden" name="recipeStep" value="<%=recipeStep%>"/>
+		<input type="hidden" name="recipeName" value="<%=recipeName%>"/>
+		<input type="hidden" name="writer" value="<%=writer%>"/>
+		<input type="hidden" name="vegiType" value="<%=vegiType%>"/>
+		<input type="hidden" name="difficulty" value="<%=difficulty%>"/>
+		<input type="hidden" name="cal" value="<%=cal%>"/>
+		<input type="hidden" name="quantity" value="<%=quantity%>"/>
+		<input type="hidden" name="ingredients" value="<%=ingredients%>"/>
+		<input type="hidden" name="tag" value="<%=tag%>"/>
 
 		<table>
 			<tr>
@@ -31,7 +39,14 @@
 				<td><input type="file" name="thumbnail"/></td>
 			</tr>
 			<tr>
-			
+				<td>요리 세부 내용</td>
+			</tr>	
+			<%for(int i = 1; i <= recipeStep; i++) { %>		
+			<tr>
+				<td><Strong><%=i %></Strong></td>
+				<td><input type="text" readonly name="content" value="<%=i%>"/></td>
+			</tr>
+			<%} %>
 		</table>
 		
 		
