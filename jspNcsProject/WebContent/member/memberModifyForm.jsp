@@ -52,7 +52,7 @@
 						<option value="페스코 베지터리언">페스코 베지터리언</option>
 						<option value="폴로 베지터리언">폴로 베지터리언</option>
 						<option value="플렉시터리언">플렉시터리언</option>
-				</select>
+				</select> 
 			</td>
 		</tr>
 		<tr>
