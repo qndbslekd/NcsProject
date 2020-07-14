@@ -60,18 +60,44 @@ public class MemberDAO {
 	
 	public boolean loginCheck(String id, String pw) {
 		boolean result = false;
+		System.out.println(id);
+		System.out.println(pw);
 		try {
-			conn = getConnection();
 			String sql = "select * from member where id=? and pw=?";
+			conn = getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, id);
 			pstmt.setString(2, pw);
-			
 			rs = pstmt.executeQuery();
-			
 			if(rs.next()) {
 				result = true;
+			}else {
+				System.out.println("return FALSE");
 			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(rs != null)try {rs.close();}catch(Exception e) {e.printStackTrace();}
+			if(pstmt != null)try {rs.close();}catch(Exception e) {e.printStackTrace();}
+			if(conn != null)try {rs.close();}catch(Exception e) {e.printStackTrace();}		
+		}
+		return result;
+	}
+	
+	public String getMemberName(String id, String pw) {
+		String result="";
+		try {
+			conn = getConnection();
+			String sql = "SELECT name FROM MEMBER WHERE id=? AND pw=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setString(2, pw);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getString("name");
+				System.out.println(result);
+			}
+			
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
