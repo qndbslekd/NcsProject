@@ -7,6 +7,10 @@
 	<link href="../resource/team05_style.css" rel="stylesheet" type="text/css">
 </head>
 <jsp:include page="../header.jsp"></jsp:include>
+<%
+	String id = (String)session.getAttribute("memId");
+	if(id==null){
+%>
 <body>
 	<br/>
 	<h1 align="center"> 로그인 </h1>
@@ -31,4 +35,7 @@
 		</table>
 	</form>
 </body>
+<%}else{ 
+	response.sendRedirect("main.jsp");	
+} %>
 </html>
