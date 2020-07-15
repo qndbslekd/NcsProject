@@ -40,6 +40,7 @@ System.out.println(dto);
 		<tr>
 			<td>비밀번호*</td>
 			<td><input type="password" name="pw" value="<%=dto.getPw() %>"/></td>
+			<input type="hidden" value="<%=dto.getPw() %>" name = "pw"/>
 		</tr>
 		<tr>
 			<td>비밀번호 확인*</td>
@@ -47,14 +48,12 @@ System.out.println(dto);
 		</tr>
 		<tr>
 			<td>활동명*</td>
-			<td><%=dto.getName()%>**</td>
+			<td><input type="test" value="<%=dto.getName() %>" name = "name"/></td>
 		</tr>
 		<tr>
 			<td>주민번호*</td>  
 			<td><%=dto.getId_number().substring(0, 6)%>
 			-<%=dto.getId_number().charAt(dto.getId_number().length()-1) %>
-			<%-- <%=dto.getId_number().substring(0, 6) %>-
-			<%=dto.getId_number().substring(6, 7) %> --%>
 			</td>
 		</tr> 
 		<tr>
