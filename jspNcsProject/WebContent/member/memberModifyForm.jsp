@@ -23,7 +23,7 @@ System.out.println(dto);
 %>
 <body>
 	<h1 align="center">회원정보수정</h1>
-	<form method="post" action="memberModifyPro.jsp" ctype="multipart/form-data">
+	<form method="post" action="memberModifyPro.jsp" enctype="multipart/form-data">
 	<table>
 		<tr> 
 			<td>기존 프로필 사진</td>
@@ -31,7 +31,7 @@ System.out.println(dto);
 		</tr>
 		<tr>
 			<td>변경할 프로필 사진</td>
-			<td><input type="file" name="profile_img" value="<%=dto.getProfile_img()%>"/></td>
+			<td><input type="file" name="profile_img" /></td>
 			<input type ="hidden" name ="profile_img_before" value="<%=dto.getProfile_img()%>"/>
 		</tr>
 		<tr>

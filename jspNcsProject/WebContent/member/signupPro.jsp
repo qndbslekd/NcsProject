@@ -74,12 +74,12 @@ dto.setVegi_type(vegi_type);
 dto.setProfile_img(profile_img);
 System.out.println(dto.toString());
 dao.insertMember(dto);  
-
+ 
 //이미지 파일만 업로드하기
 String contentType = mr.getContentType("profile_img");
 String[] type = contentType.split("/");
 if(!(type !=null && type[0].equals("image"))){
-	File f = mr.getFile("upload");
+	File f = mr.getFile("profile_img");
 	f.delete();
 }
 
