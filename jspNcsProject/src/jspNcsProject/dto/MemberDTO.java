@@ -1,5 +1,7 @@
 package jspNcsProject.dto;
 
+import java.sql.Timestamp;
+
 public class MemberDTO {
 	private String id ;
 	private String pw ;
@@ -12,6 +14,8 @@ public class MemberDTO {
     private int offence_count ;
     private String offence_url ;
     private String state;
+    private Timestamp regdate;
+    
 	public String getId() {
 		return id;
 	}
@@ -77,6 +81,12 @@ public class MemberDTO {
 	}
 	public void setState(String state) {
 		this.state = state;
+	}
+	public Timestamp getRegdate() {
+		return regdate;
+	}
+	public void setRegdate(Timestamp regdate) {
+		this.regdate = regdate;
 	}
 	@Override
 	public String toString() {
