@@ -8,12 +8,16 @@
 <link rel="stylesheet" href="../resource/team05_style.css">
 </head>
 <body>
+<jsp:include page="../header.jsp"/>
 	<form action="recipeStepInsertForm.jsp" method="post">
-		<input type="hidden" name="writer" value="테스트"/>
 		<table>
 			<tr>
 				<td>제목</td>
 				<td width="300"><input type="text" name="recipeName" required /></td>
+			</tr>
+			<tr>
+				<td>작성자</td>
+				<td><input type="text" name="writer" value="<%=session.getAttribute("memName")%>" readonly/></td>
 			</tr>
 			<tr>
 				<td>채식유형</td>
@@ -52,11 +56,15 @@
 			</tr>
 			<tr>
 				<td>재료</td>
-				<td><textarea cols="40" rows="5" placeholder="예) 감자 1개, 양파 2개, 고추장 두스푼, ..." style="resize:none"></textarea></td>
+				<td><textarea cols="40" rows="5" placeholder="예) 감자 1개, 양파 2개, 고추장 두스푼, ..." style="resize:none" name="ingredients"></textarea></td>
 			</tr>
 			<tr>
 				<td>요리 단계</td>
 				<td><input type="number" name="recipeStep" required />단계</td>
+			</tr>
+			<tr>
+				<td>키워드</td>
+				<td><input type="text" placeholder="예) 태그,태그,태그 ..." style="resize:none" name="tag" /></td>
 			</tr>
 			<tr>
 				<td colspan="2"><input type="submit" value="레시피 작성단계로" />
