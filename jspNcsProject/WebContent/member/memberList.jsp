@@ -71,19 +71,34 @@
 				<td> 강퇴 </td>
 			</tr>
 			<%for(int i =0;i<memberList.size();i++){%>
-			<tr>
-				<td><%=memberList.get(i).getId()%></td>
-				<td><%=memberList.get(i).getPw()%></td>
-				<td><%=memberList.get(i).getAge()%></td>
-				<td><%=memberList.get(i).getGender()%></td>
-				<td><%=memberList.get(i).getName()%></td>
-				<td><%=memberList.get(i).getRegdate()%></td>
-				<td><%=memberList.get(i).getOffence_count()%></td>
-				<td><%=memberList.get(i).getOffence_url()%></td> 
-				<td><%=memberList.get(i).getState()%></td>
-				<td><button onclick="window.location='memberKickOutPro.jsp'" >강퇴</button></td>
-			</tr>
-			<%} %>
+				<%if(memberList.get(i).getOffence_count()>=5){%>
+				<tr>
+					<td style="background-color: red;"><%=memberList.get(i).getId()%></td>
+					<td style="background-color: red;"><%=memberList.get(i).getPw()%></td>
+					<td style="background-color: red;"><%=memberList.get(i).getAge()%></td>
+					<td style="background-color: red;"><%=memberList.get(i).getGender()%></td>
+					<td style="background-color: red;"><%=memberList.get(i).getName()%></td>
+					<td style="background-color: red;"><%=memberList.get(i).getRegdate()%></td>
+					<td style="background-color: red;"><%=memberList.get(i).getOffence_count()%></td>
+					<td style="background-color: red;"><%=memberList.get(i).getOffence_url()%></td> 
+					<td style="background-color: red;"><%=memberList.get(i).getState()%></td>
+					<td style="background-color: red;"><button onclick="window.location='memberKickOutPro.jsp'" >강퇴</button></td>
+				</tr>	
+				<%}else{%>
+				<tr>
+					<td><%=memberList.get(i).getId()%></td>
+					<td><%=memberList.get(i).getPw()%></td>
+					<td><%=memberList.get(i).getAge()%></td>
+					<td><%=memberList.get(i).getGender()%></td>
+					<td><%=memberList.get(i).getName()%></td>
+					<td><%=memberList.get(i).getRegdate()%></td>
+					<td><%=memberList.get(i).getOffence_count()%></td>
+					<td><%=memberList.get(i).getOffence_url()%></td> 
+					<td><%=memberList.get(i).getState()%></td>
+					<td><button onclick="window.location='memberKickOutPro.jsp'" >강퇴</button></td>
+				</tr>
+			<%		}
+				}%>
 			<tr>
 				<td><button onclick="window.location='main.jsp'">메인으로</button></td>
 			</tr>				
