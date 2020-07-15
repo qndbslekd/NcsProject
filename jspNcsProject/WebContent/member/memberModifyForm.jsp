@@ -31,7 +31,8 @@ System.out.println(dto);
 		</tr>
 		<tr>
 			<td>변경할 프로필 사진</td>
-			<td><input type="file" name="profile_img" /></td>
+			<td><input type="file" name="profile_img" value="<%=dto.getProfile_img()%>"/></td>
+			<input type ="hidden" name ="profile_img_before" value="<%=dto.getProfile_img()%>"/>
 		</tr>
 		<tr>
 			<td>아이디*</td>
@@ -40,7 +41,7 @@ System.out.println(dto);
 		<tr>
 			<td>비밀번호*</td>
 			<td><input type="password" name="pw" value="<%=dto.getPw() %>"/></td>
-			<input type="hidden" value="<%=dto.getPw() %>" name = "pw"/>
+			<input type="hidden" value="<%=dto.getPw()%>" name = "pw"/>
 		</tr>
 		<tr>
 			<td>비밀번호 확인*</td>
