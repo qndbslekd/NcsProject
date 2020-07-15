@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<link href="./resource/team05_style.css" type="text/css" rel="stylesheet"/>
+<link href="../resource/team05_style.css" type="text/css" rel="stylesheet"/>
 <title>header</title>
 <style>
 	#header{
