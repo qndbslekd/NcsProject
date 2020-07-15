@@ -7,7 +7,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
-	<link href="style.css" rel="stylesheet" type="text/css">
+	<link href="../team05_style.css" rel="stylesheet" type="text/css">
 </head>
 <jsp:include page="../header.jsp"></jsp:include>
 <%
@@ -33,7 +33,11 @@
 		int number = 0;
 		
 		MemberDAO dao = MemberDAO.getInstance();
-		//dao.seletAllMember();
+		count = dao.selectAllMember();
+		
+		if(count > 0){
+			//dao.getSearchMemberList(startRow, endRow);
+		}
 	%>
 
 <body>
@@ -51,15 +55,37 @@
 	<%}else{ %>
 		<table>
 			<tr>
-				<td> </td>
-				<td> </td>
-				<td> </td>
-				<td> </td>
-				<td> </td>
-				<td> </td>
-				<td> </td>
-				<td> </td>
-				<td> </td>
+				<td> 회원 ID </td>
+				<td> PW </td>
+				<td> 생년월일 </td>
+				<td> 성별 </td>
+				<td> 이름 </td>
+				<td> 가입일 </td>
+				<td> 신고누적횟수</td>
+				<td> 신고당한 게시글</td>
+				<td> 활동정지 </td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
 			</tr>
 			<tr>
 				<td><button onclick="window.location='main.jsp'">메인으로</button></td>
