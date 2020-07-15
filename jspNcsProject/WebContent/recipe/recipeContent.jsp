@@ -1,4 +1,6 @@
-<%@page import="jspNcsProject.dao.DAOtest"%>
+
+<%@page import="jspNcsProject.dto.RecipeDTO"%>
+<%@page import="jspNcsProject.dao.RecipeDAO"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -17,8 +19,9 @@
 	
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
 	
-	DAOtest daoTest = DAOtest.getInstance();
-	daoTest.getRecipe(num);
+	RecipeDAO recipeDAO = RecipeDAO.getInstance();
+	RecipeDTO recipeBoard = new RecipeDTO();
+	recipeBoard = recipeDAO.selectRecipeBoard(num);
 %>
 <body>
 	<br />
