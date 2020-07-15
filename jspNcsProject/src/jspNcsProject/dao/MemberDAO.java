@@ -78,8 +78,8 @@ public class MemberDAO {
 			e.printStackTrace();
 		}finally {
 			if(rs != null)try {rs.close();}catch(Exception e) {e.printStackTrace();}
-			if(pstmt != null)try {rs.close();}catch(Exception e) {e.printStackTrace();}
-			if(conn != null)try {rs.close();}catch(Exception e) {e.printStackTrace();}		
+			if(pstmt != null)try {pstmt.close();}catch(Exception e) {e.printStackTrace();}
+			if(conn != null)try {conn.close();}catch(Exception e) {e.printStackTrace();}		
 		}
 		return result;
 	}
@@ -102,12 +102,11 @@ public class MemberDAO {
 			e.printStackTrace();
 		}finally {
 			if(rs != null)try {rs.close();}catch(Exception e) {e.printStackTrace();}
-			if(pstmt != null)try {rs.close();}catch(Exception e) {e.printStackTrace();}
-			if(conn != null)try {rs.close();}catch(Exception e) {e.printStackTrace();}		
+			if(pstmt != null)try {pstmt.close();}catch(Exception e) {e.printStackTrace();}
+			if(conn != null)try {conn.close();}catch(Exception e) {e.printStackTrace();}		
 		}
 		return result;
 	}
-	
 	//아이디 중복검사
 	public boolean confirmId(String id) {
 		boolean result = false;
@@ -128,6 +127,26 @@ public class MemberDAO {
 			if(pstmt!=null)try {rs.close();} catch (SQLException e) {e.printStackTrace();}
 			if(conn!=null)try {rs.close();} catch (SQLException e) {e.printStackTrace();}
 		}
+		return result;
+	}
+	
+	public int deleteMember(String id) {
+		int result=0;
+		try {
+			conn = getConnection();
+			String sql = "delete from member where id=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			result = pstmt.executeUpdate();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(rs != null)try {rs.close();}catch(Exception e) {e.printStackTrace();}
+			if(pstmt != null)try {pstmt.close();}catch(Exception e) {e.printStackTrace();}
+			if(conn != null)try {conn.close();}catch(Exception e) {e.printStackTrace();}
+		}
+		System.out.println(result);
 		return result;
 	}
 	
