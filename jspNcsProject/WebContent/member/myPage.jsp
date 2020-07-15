@@ -39,6 +39,11 @@
 				<button onclick="window.location='logoutPro.jsp'">로그아웃</button>
 			</td>
 		</tr>
+		<%if(session.getAttribute("memId").equals("admin")){ %>
+			<tr>
+				<td colspan="3"> <button onclick="window.location='memberList.jsp'">관리자 페이지</button></td>
+			</tr>
+		<%} %>
 	</table>
 </body>
 </html>
