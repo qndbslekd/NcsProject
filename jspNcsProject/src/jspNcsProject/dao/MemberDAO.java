@@ -60,8 +60,13 @@ public class MemberDAO {
 		return result;
 	}
 	
-	public boolean loginCheck(String id, String pw) {
-		boolean result = false;
+	public int loginCheck(String id, String pw) {
+		
+		//1 > 로그인가능
+		//0 > 회원가입필요
+		//-1 > 강퇴당한 회원
+		
+		int result = 0;
 		System.out.println(id);
 		System.out.println(pw);
 		try {
@@ -72,7 +77,10 @@ public class MemberDAO {
 			pstmt.setString(2, pw);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
-				result = true;
+				result = 1;		
+				if(rs.getString("state").equals("강퇴")) {
+					result = -1;
+				}
 			}else {
 				System.out.println("return FALSE");
 			}
@@ -336,5 +344,25 @@ public class MemberDAO {
 			if(conn!=null)try {conn.close();} catch (SQLException e) {e.printStackTrace();}
 		}
 		return memberList;
+	}
+	
+	public int kickOffMember(String id) {
+		int result=0;
+		try {
+			conn = getConnection();
+			String sql ="UPDATE MEMBER SET state=? WHERE id=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "강퇴");
+			pstmt.setString(2, id);
+			result = pstmt.executeUpdate();
+			System.out.println("result"+result);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(rs!=null)try {rs.close();} catch (SQLException e) {e.printStackTrace();}
+			if(pstmt!=null)try {pstmt.close();} catch (SQLException e) {e.printStackTrace();}
+			if(conn!=null)try {conn.close();} catch (SQLException e) {e.printStackTrace();}
+		}
+		return result;
 	}
 }

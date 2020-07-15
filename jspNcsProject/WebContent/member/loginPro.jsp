@@ -12,7 +12,7 @@
 	String pw = request.getParameter("pw");
 	String auto = request.getParameter("auto");	
 	MemberDAO dao = MemberDAO.getInstance();
-	boolean res = dao.loginCheck(id, pw);
+	int res = dao.loginCheck(id, pw);
 	String name = dao.getMemberName(id, pw);
 	
 	Cookie [] coo = request.getCookies();
@@ -24,7 +24,7 @@
 			if(c.getName().equals("autoName")) name = c.getValue();
 		}
 	}
-	if(res){
+	if(res == 1){
 		session.setAttribute("memId", id);
 		session.setAttribute("memPw", pw);
 		session.setAttribute("memName", name);
@@ -48,13 +48,17 @@
 			response.addCookie(c4);
 		}
 		response.sendRedirect("main.jsp");
-	}else{%>
+	}else if(res == 0){%>
 		<script>
-			alert("비밀번호나 아이디가 틀렸습니다");
+			alert("아이디와 비밀번호를 다시 확인해주세요");
 			history.go(-1);
 		</script>
-	<%}
-%>
+	<%}else if(res==-1){%>
+		<script>
+			alert("강퇴당한 회원입니다");
+			history.go(-1);
+		</script>
+	<% }%>
 <body>
 
 </body>
