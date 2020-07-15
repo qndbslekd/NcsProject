@@ -23,7 +23,45 @@
 	}
 	
 </style>
-</head>
+</head> 
+<%
+	System.out.println("HEADER START");
+	System.out.println("Header Session값 : "+session.getAttribute("memId"));
+	if(session.getAttribute("memId")==null){ //비로그인상태(세션없을때)
+		// 세션이 없지만 쿠키가 있는지 2중 체크
+		String id = null, pw = null, auto = "n",name = null;
+		Cookie[] cookies = request.getCookies();
+		if(cookies !=null){
+			for(Cookie cookie : cookies){
+				if(cookie.getName().equals("autoId")){
+					id = cookie.getValue();
+					System.out.println("쿠키 아이디 :"+id);
+					}		
+				if(cookie.getName().equals("autoPw")){
+					pw = cookie.getValue();
+					System.out.println("쿠키 pw :"+pw);
+					}		
+				if(cookie.getName().equals("autoCh")) {
+					auto = cookie.getValue();
+					System.out.println("쿠키 auto :"+auto);
+					}
+				if(cookie.getName().equals("autoName")) {
+					auto = cookie.getValue();
+					System.out.println("쿠키 name :"+name);
+					}	
+			}
+		}
+		System.out.println("loginPro Header Redirect TEST0"+auto);
+		
+		if(auto.equals("y")){
+			System.out.println("loginPro Header Redirect TEST1");
+		}
+		if(auto.equals("y")&&id!=null&&pw!=null){
+			System.out.println("loginPro Header Redirect TEST2");
+			response.sendRedirect("loginPro.jsp");		
+		}
+	}
+%>
 <body>
 	<table id="header">
 		<tr>
