@@ -23,10 +23,19 @@
 		boolean res = dao.loginCheck(id, pw);
 		
 		if(res){
-			//dao.deleteMember(id);
+			dao.deleteMember(id);
+			session.invalidate();
+			Cookie[] coo = request.getCookies();
+			if(coo != null){
+				for(Cookie c : coo){
+					if(c.getName().equals("autoId") || c.getName().equals("autoPw") || c.getName().equals("autoCh")){
+						c.setMaxAge(0);
+						response.addCookie(c);
+					}
+						
+				}
+			}
 		}
-		
-		
 %>
 <body>
 
