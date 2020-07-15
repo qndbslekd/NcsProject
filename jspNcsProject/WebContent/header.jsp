@@ -49,9 +49,9 @@
 		</tr>
 		<tr>
 			<td class="tab" onclick="window.location='information.jsp'">채식정보</td>
-			<td class="tab" onclick="window.location='./recipe/recipeList.jsp'">레시피</td>
-			<td class="tab" onclick="window.location='./product/productList.jsp'">제품</td>
-			<td class="tab" onclick="window.location='./freeboard/board.jsp'">자유게시판</td>
+			<td class="tab" onclick="window.location='../recipe/recipeList.jsp'">레시피</td>
+			<td class="tab" onclick="window.location='../product/productList.jsp'">제품</td>
+			<td class="tab" onclick="window.location='../freeboard/board.jsp'">자유게시판</td>
 		</tr>
 		
 	</table>
