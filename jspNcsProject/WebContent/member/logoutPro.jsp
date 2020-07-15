@@ -19,9 +19,6 @@ request.setCharacterEncoding("UTF-8");
 	}
 	session.invalidate();	// 세션삭제
 	response.sendRedirect("main.jsp");	//로그아웃 처리후 메인으로 이동
-
-
-
 %>
 <body>
 </body>

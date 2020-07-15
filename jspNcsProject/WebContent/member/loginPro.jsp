@@ -8,9 +8,14 @@
 </head>
 <%
 	request.setCharacterEncoding("UTF-8");
+	//TEST AUTOLOGIN
+	System.out.println("AUTO VAL :"+request.getParameter("auto"));
 	String id = request.getParameter("id");
 	String pw = request.getParameter("pw");
-	String auto = request.getParameter("auto");	
+	String auto ="n";
+	if(request.getParameter("auto")!=null){
+		auto = "y";
+	}
 	MemberDAO dao = MemberDAO.getInstance();
 	int res = dao.loginCheck(id, pw);
 	String name = dao.getMemberName(id, pw);
@@ -24,16 +29,12 @@
 			if(c.getName().equals("autoName")) name = c.getValue();
 		}
 	}
+	
 	if(res == 1){
 		session.setAttribute("memId", id);
 		session.setAttribute("memPw", pw);
 		session.setAttribute("memName", name);
-	/* 
-		System.out.println(session.getAttribute("memId"));
-		System.out.println(session.getAttribute("memPw"));
-		System.out.println(session.getAttribute("memName"));
-	*/
-		if(auto != null){
+		if(auto.equals("y")){
 			Cookie c1 = new Cookie("autoId", id);
 			Cookie c2 = new Cookie("autoPw", pw);
 			Cookie c3 = new Cookie("autoCh", auto);
