@@ -10,12 +10,14 @@ public class RecipeDTO {
 	String writer; // 작성자
 	Timestamp reg; // 작성시간
 	String vegiType; // 베지테리언타입
+	int cookingTime; // 요리시간 
 	String difficulty; // 난이도
 	int cal; // 칼로리
 	int quantity;	// 분량
 	String ingredients; // 재료들 
 	int rating; // 평점
 	String tag; // 태그
+	
 	public int getNum() {
 		return num;
 	}
@@ -58,6 +60,12 @@ public class RecipeDTO {
 	public void setVegiType(String vegiType) {
 		this.vegiType = vegiType;
 	}
+	public int getCookingTime() {
+		return cookingTime;
+	}
+	public void setCookingTime(int cookingTime) {
+		this.cookingTime = cookingTime;
+	}
 	public String getDifficulty() {
 		return difficulty;
 	}
@@ -94,5 +102,6 @@ public class RecipeDTO {
 	public void setTag(String tag) {
 		this.tag = tag;
 	}
+	
 	
 }
