@@ -22,7 +22,6 @@
 		background-color: rgb(139, 195, 74);
 	}
 	
-
 </style>
 </head>
 <body>
@@ -38,13 +37,13 @@
 			<%if(session.getAttribute("memId") == null){
 			%>
 			<td>
-				<button onclick="window.location='./member/loginForm.jsp'">로그인</button>
-				<button onclick="window.location='./member/signupForm.jsp'">회원가입</button>
+				<button onclick="window.location='/jnp/member/loginForm.jsp'">로그인</button>
+				<button onclick="window.location='/jnp/member/signupForm.jsp'">회원가입</button>
 			</td>
 			<%}else{%>
 			<td>
-				<button onclick="window.location='./member/logoutPro.jsp'">로그아웃</button>
-				<button onclick="window.location='./member/myPage.jsp'">마이페이지</button>
+				<button onclick="window.location='/jnp/member/logoutPro.jsp'">로그아웃</button>
+				<button onclick="window.location='/jnp/member/myPage.jsp'">마이페이지</button>
 			</td>
 			<%} %>
 		</tr>

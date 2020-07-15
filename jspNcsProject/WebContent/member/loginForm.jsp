@@ -1,16 +1,3 @@
-<<<<<<< HEAD
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="EUC-KR">
-<title>Insert title here</title>
-</head>
-<body>
-
-</body>
-=======
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -19,6 +6,11 @@
 	<title>Insert title here</title>
 	<link href="../resource/team05_style.css" rel="stylesheet" type="text/css">
 </head>
+<jsp:include page="../header.jsp"></jsp:include>
+<%
+	String id = (String)session.getAttribute("memId");
+	if(id==null){
+%>
 <body>
 	<br/>
 	<h1 align="center"> 로그인 </h1>
@@ -37,13 +29,13 @@
 			</tr>
 			<tr>
 				<td colspan="2">
-				<input type="checkbox" name="auto" value="1">자동로그인
+				<input type="checkbox" name="auto" value="1"/>자동로그인
 				<input type="button" value="회원가입" onclick="window.location='signupFrom.jsp'"/></td>
 			</tr>
 		</table>
 	</form>
-	
-
 </body>
->>>>>>> branch 'develop' of https://github.com/ysk0951/codinnnnng.git
+<%}else{ 
+	response.sendRedirect("main.jsp");	
+} %>
 </html>
