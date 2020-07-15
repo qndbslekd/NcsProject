@@ -23,7 +23,11 @@
 		MemberDAO dao = MemberDAO.getInstance();
 		boolean res = false;
 		int res_= dao.loginCheck(id, pw);
+<<<<<<< HEAD
 		if(res_==1)res = true;
+=======
+		if(res_== 1)res = true;
+>>>>>>> branch 'develop' of https://github.com/ysk0951/codinnnnng.git
 		if(res){
 			dao.deleteMember(id);
 			session.invalidate();
