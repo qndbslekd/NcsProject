@@ -39,12 +39,12 @@ public class MemberDAO {
 			pstmt.setString(1,dto.getId());
 			pstmt.setString(2,dto.getPw());
 			pstmt.setString(3,dto.getName());
-			pstmt.setString(4,dto.getAge());
-			pstmt.setString(5,dto.getId());
-			pstmt.setString(6,dto.getId());
-			pstmt.setString(7,dto.getId());
-			pstmt.setString(8,dto.getId());
-			pstmt.setString(9,dto.getId());
+			pstmt.setString(4,dto.getId_number());
+			pstmt.setString(5,dto.getAge());
+			pstmt.setString(6,dto.getGender());
+			pstmt.setString(7,dto.getVegi_type());
+			pstmt.setString(8,dto.getProfile_img());
+			pstmt.setString(9,null);//offence URL
 			result = pstmt.executeUpdate();
 			System.out.println("[Insert된 회원의 수"+result+"]");
 		} catch (Exception e) {
@@ -57,4 +57,57 @@ public class MemberDAO {
 		}
 		return result;
 	}
+	
+	public boolean loginCheck(String id, String pw) {
+		boolean result = false;
+		System.out.println(id);
+		System.out.println(pw);
+		try {
+			String sql = "select * from member where id=? and pw=?";
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setString(2, pw);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = true;
+			}else {
+				System.out.println("return FALSE");
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(rs != null)try {rs.close();}catch(Exception e) {e.printStackTrace();}
+			if(pstmt != null)try {rs.close();}catch(Exception e) {e.printStackTrace();}
+			if(conn != null)try {rs.close();}catch(Exception e) {e.printStackTrace();}		
+		}
+		return result;
+	}
+	
+	public String getMemberName(String id, String pw) {
+		String result="";
+		try {
+			conn = getConnection();
+			String sql = "SELECT name FROM MEMBER WHERE id=? AND pw=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setString(2, pw);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getString("name");
+				System.out.println(result);
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(rs != null)try {rs.close();}catch(Exception e) {e.printStackTrace();}
+			if(pstmt != null)try {rs.close();}catch(Exception e) {e.printStackTrace();}
+			if(conn != null)try {rs.close();}catch(Exception e) {e.printStackTrace();}		
+		}
+		return result;
+	}
+	
+	
+	
 }
