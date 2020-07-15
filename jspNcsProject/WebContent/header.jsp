@@ -31,10 +31,9 @@
 		// 세션이 없지만 쿠키가 있는지 2중 체크
 		String id = null, pw = null, auto = "n",name = null; 
 		Cookie[] cookies = request.getCookies();
-		if(cookies !=null){
+		if(cookies !=null){ 
 			for(Cookie cookie : cookies){
 				System.out.println("Cookie Null Test :"+cookie.getName());
-				
 				if(cookie.getName().equals("autoId")){
 					id = cookie.getValue();
 					System.out.println("쿠키 아이디 :"+id);
@@ -53,7 +52,6 @@
 					}	
 			}
 		} 
-		
 		if(auto.equals("y")&&id!=null&&pw!=null){
 			System.out.println("loginPro Header Redirect TEST2 : session = cookie ");
 			session.setAttribute("memId", id);
