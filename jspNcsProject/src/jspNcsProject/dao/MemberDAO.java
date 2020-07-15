@@ -78,8 +78,8 @@ public class MemberDAO {
 			e.printStackTrace();
 		}finally {
 			if(rs != null)try {rs.close();}catch(Exception e) {e.printStackTrace();}
-			if(pstmt != null)try {rs.close();}catch(Exception e) {e.printStackTrace();}
-			if(conn != null)try {rs.close();}catch(Exception e) {e.printStackTrace();}		
+			if(pstmt != null)try {pstmt.close();}catch(Exception e) {e.printStackTrace();}
+			if(conn != null)try {conn.close();}catch(Exception e) {e.printStackTrace();}		
 		}
 		return result;
 	}
@@ -102,12 +102,80 @@ public class MemberDAO {
 			e.printStackTrace();
 		}finally {
 			if(rs != null)try {rs.close();}catch(Exception e) {e.printStackTrace();}
-			if(pstmt != null)try {rs.close();}catch(Exception e) {e.printStackTrace();}
-			if(conn != null)try {rs.close();}catch(Exception e) {e.printStackTrace();}		
+			if(pstmt != null)try {pstmt.close();}catch(Exception e) {e.printStackTrace();}
+			if(conn != null)try {conn.close();}catch(Exception e) {e.printStackTrace();}		
+		}
+		return result;
+	}
+	//아이디 중복검사
+	public boolean confirmId(String id) {
+		boolean result = false;
+		try {
+			String sql = "select * from member where id = ?";
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = true;
+			}
+			System.out.println("confirmId "+result);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(rs!=null)try {rs.close();} catch (SQLException e) {e.printStackTrace();}
+			if(pstmt!=null)try {rs.close();} catch (SQLException e) {e.printStackTrace();}
+			if(conn!=null)try {rs.close();} catch (SQLException e) {e.printStackTrace();}
 		}
 		return result;
 	}
 	
+	public int deleteMember(String id) {
+		int result=0;
+		try {
+			conn = getConnection();
+			String sql = "delete from member where id=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			result = pstmt.executeUpdate();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(rs != null)try {rs.close();}catch(Exception e) {e.printStackTrace();}
+			if(pstmt != null)try {pstmt.close();}catch(Exception e) {e.printStackTrace();}
+			if(conn != null)try {conn.close();}catch(Exception e) {e.printStackTrace();}
+		}
+		System.out.println(result);
+		return result;
+	}
 	
-	
+	public MemberDTO modifyData(String id) {
+		MemberDTO result =null;
+		try {
+			String sql = "select * from member where id = ?";
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			if(rs.next()){
+				result = new MemberDTO();
+				result.setId(rs.getString("id"));
+				result.setPw(rs.getString("pw"));
+				result.setName(rs.getString("name"));
+				result.setId_number(rs.getString("id_number"));
+				result.setAge(rs.getString("age"));
+				result.setGender(rs.getString("gender"));
+				result.setVegi_type(rs.getString("vegi_type"));
+				result.setProfile_img(rs.getString("profile_img"));
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(rs!=null)try {rs.close();} catch (SQLException e) {e.printStackTrace();}
+			if(pstmt!=null)try {rs.close();} catch (SQLException e) {e.printStackTrace();}
+			if(conn!=null)try {rs.close();} catch (SQLException e) {e.printStackTrace();}
+		}
+		return result;
+	}
 }
