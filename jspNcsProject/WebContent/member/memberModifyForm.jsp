@@ -27,7 +27,7 @@ System.out.println(dto);
 	<table>
 		<tr> 
 			<td>기존 프로필 사진</td>
-			<td><img src="/jnp/save/<%=dto.getProfile_img()%>"></td> 
+			<td><img src="/jnp/save/<%=dto.getProfile_img()%>"></td>  
 		</tr>
 		<tr>
 			<td>변경할 프로필 사진</td>
