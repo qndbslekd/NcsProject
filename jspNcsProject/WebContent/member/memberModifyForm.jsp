@@ -1,3 +1,5 @@
+<%@page import="jspNcsProject.dto.MemberDTO"%>
+<%@page import="jspNcsProject.dao.MemberDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -6,41 +8,55 @@
 	<title>Insert title here</title>
 	<link href="../resource/team05_style.css" rel="stylesheet" type="text/css">
 </head>
+<%if(session.getAttribute("memId")==null){%>
+	<script type="text/javascript">
+		alert("로그인후 이용해주세요.");
+		window.location = "main.jsp";
+	</script>
+<%}else{%>
+<jsp:include page="../header.jsp"></jsp:include>
+<%
+String id = session.getAttribute("memId").toString();
+MemberDAO dao = MemberDAO.getInstance();
+MemberDTO dto = dao.modifyData(id); 
+System.out.println(dto);
+%>
 <body>
 	<h1 align="center">회원정보수정</h1>
-	<form method="post" action="signupPro.jsp" ctype="multipart/form-data">
+	<form method="post" action="memberModifyPro.jsp" ctype="multipart/form-data">
 	<table>
+		<tr> 
+			<td>기존 프로필 사진</td>
+			<td><img src="/jnp/save/<%=dto.getProfile_img()%>"></td>  
+		</tr>
 		<tr>
-			<td>프로필 사진</td>
-			<td>*</td> 
+			<td>변경할 프로필 사진</td>
+			<td><input type="file" name="profile_img" /></td>
 		</tr>
 		<tr>
 			<td>아이디*</td>
-			<td><input type="text" name="id" /></td>
-		</tr>
-		<!--중복 id 체크버튼-->
-		<tr>
-			<td>중복체크</td>
-			<td><input type="button" value="중복확인" onclick="confirmId(this.form)"></td>
+			<td><%=dto.getId() %></td>
 		</tr>
 		<tr>
 			<td>비밀번호*</td>
-			<td><input type="password" name="pw" /></td>
+			<td><input type="password" name="pw" value="<%=dto.getPw() %>"/></td>
 		</tr>
 		<tr>
 			<td>비밀번호 확인*</td>
 			<td><input type="password" name="pwCh" /></td>
 		</tr>
 		<tr>
-			<td>이름*</td>
-			<td>***</td>
+			<td>활동명*</td>
+			<td><%=dto.getName()%>**</td>
 		</tr>
 		<tr>
-			<td>주민번호*</td> 
-			<td>
-				******-*
+			<td>주민번호*</td>  
+			<td><%=dto.getId_number().substring(0, 6)%>
+			-<%=dto.getId_number().charAt(dto.getId_number().length()-1) %>
+			<%-- <%=dto.getId_number().substring(0, 6) %>-
+			<%=dto.getId_number().substring(6, 7) %> --%>
 			</td>
-		</tr>
+		</tr> 
 		<tr>
 			<td>채식주의 타입</td>
 			<td>
@@ -56,10 +72,6 @@
 			</td>
 		</tr>
 		<tr>
-			<td>프로필 사진</td>
-			<td><input type="file" name="profile_img" /></td>
-		</tr>		
-		<tr>
 			<td colspan="2" align="center">
 				<input type="submit" value="수정"/>
 				<input type="reset" name="reset" value="재입력" />
@@ -69,4 +81,5 @@
 	</table> 
 	</form>
 </body>
+<%} %>
 </html>

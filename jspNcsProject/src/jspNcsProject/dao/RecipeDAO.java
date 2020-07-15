@@ -122,6 +122,43 @@ public class RecipeDAO {
 		
 	} 
 	
+	// 레시피내용만 가져오는 메서드
+	public RecipeDTO selectRecipeBoard(int num) {
+		RecipeDTO recipeBoard = null;
+		try {
+			conn = getConnection();
+			String sql = "select * from recipe_board where num=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				recipeBoard = new RecipeDTO();
+				recipeBoard.setNum(Integer.parseInt(rs.getString("num")));
+				recipeBoard.setRecipeStep(Integer.parseInt(rs.getString("recipe_step")));
+				recipeBoard.setRecipeName(rs.getString("recipe_name"));
+				recipeBoard.setThumbnail(rs.getString("thumbnail"));
+				recipeBoard.setWriter(rs.getString("writer"));
+				recipeBoard.setReg(rs.getTimestamp("reg"));
+				recipeBoard.setVegiType(rs.getString("vegi_type"));
+				recipeBoard.setCookingTime(Integer.parseInt(rs.getString("cooking_time")));
+				recipeBoard.setDifficulty(rs.getString("difficulty"));
+				recipeBoard.setCal(Integer.parseInt(rs.getString("cal")));
+				recipeBoard.setQuantity(Integer.parseInt(rs.getString("quantity")));
+				recipeBoard.setIngredients(rs.getString("ingredients"));
+				recipeBoard.setRating(Integer.parseInt(rs.getString("rating")));
+				recipeBoard.setTag(rs.getString("tag"));
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(rs != null)try {rs.close();}catch(Exception e) {e.printStackTrace();}
+			if(pstmt != null)try {pstmt.close();}catch(Exception e) {e.printStackTrace();}
+			if(conn != null)try {conn.close();}catch(Exception e) {e.printStackTrace();}
+		}
+		return recipeBoard;
+	}
+	
 	
 	
 }
