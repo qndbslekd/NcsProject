@@ -1,7 +1,6 @@
 package jspNcsProject.dto;
 
 public class RecipeContentDTO {
-	
 	int num;
 	int recipeNum;
 	int step;
@@ -13,18 +12,11 @@ public class RecipeContentDTO {
 	public void setNum(int num) {
 		this.num = num;
 	}
-<<<<<<< HEAD
-=======
 	
->>>>>>> branch 'develop' of https://github.com/ysk0951/codinnnnng.git
 	public int getRecipeNum() {
 		return recipeNum;
 	}
-<<<<<<< HEAD
-	public void setRecipe_num(int recipeNum) {
-=======
 	public void setRecipeNum(int recipeNum) {
->>>>>>> branch 'develop' of https://github.com/ysk0951/codinnnnng.git
 		this.recipeNum = recipeNum;
 	}
 	public int getStep() {
@@ -45,6 +37,4 @@ public class RecipeContentDTO {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	
-	
 }
