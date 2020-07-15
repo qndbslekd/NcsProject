@@ -13,7 +13,7 @@
 </head>
 <jsp:include page="../header.jsp"></jsp:include>
 <%
-	if(!session.getAttribute("memId").toString().equals("admin")){%>
+	if(!session.getAttribute("memId").toString().equals("admin")||session.getAttribute("memId")==null){%>
 		<script>
 			alert("관리자 페이지 입니다.");
 			window.location="main.jsp";
@@ -36,12 +36,27 @@
 		int number = 0;
 		
 		MemberDAO dao = MemberDAO.getInstance();
-		count = dao.selectAllMember();
+		
+		String option = request.getParameter("option");
+		String search = request.getParameter("search");
+		System.out.println("Roption : "+request.getParameter("option"));
+		System.out.println("Rsearch : "+request.getParameter("search"));
 		List<MemberDTO> memberList = new ArrayList<MemberDTO>();
-		if(count > 0){
-			memberList = dao.getSearchMemberList(startRow, endRow);
+		
+		if(search==null||search.equals("")){
+			count = dao.selectAllMember();
+			if(count > 0){
+				memberList = dao.getSearchMemberList(startRow, endRow);
+			}
+			System.out.println("LIST SIZE : "+memberList.size());
+		}else{
+			count = dao.selectAllMember(option,search);
+			System.out.println("Search Count"+count);
+			if(count > 0){
+				memberList = dao.getSearchMemberList(startRow, endRow,option,search);
+			}
+			System.out.println("LIST SIZE : "+memberList.size());
 		}
-		System.out.println("LIST SIZE : "+memberList.size());
 	%>
 
 <body>
@@ -85,7 +100,7 @@
 					<td style="background-color: red;"><button onclick="window.location='memberKickOutPro.jsp'" >강퇴</button></td>
 				</tr>	
 				<%}else{%>
-				<tr>
+				<tr> 
 					<td><%=memberList.get(i).getId()%></td>
 					<td><%=memberList.get(i).getPw()%></td>
 					<td><%=memberList.get(i).getAge()%></td>
@@ -100,10 +115,21 @@
 			<%		}
 				}%>
 			<tr>
-				<td><button onclick="window.location='main.jsp'">메인으로</button></td>
-			</tr>				
+			<td colspan="10">
+				<button onclick="window.location='main.jsp'">메인으로</button>
+				<form action="memberList.jsp" method="get">
+				<select name="option">
+						<option value="id">id</option>
+						<option value="name">활동명</option>
+				</select>
+				<input type="text" name="search" /> <input type="submit" value="검색" />
+				</form>
+			</td>
+		</tr>				 
 		</table>	
-	<%} %>
-</body>
+		<%
+			}
+		%>
+	</body>
 <%}%>
 </html>

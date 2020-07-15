@@ -247,6 +247,28 @@ public class MemberDAO {
 		return result;
 	}
 	
+	//search overloading
+	public int selectAllMember(String option,String search) {
+		int result=0;
+		try {
+			conn = getConnection();
+			String sql = "select count(*) from member where "+option+" like '%"+search+"%'";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt(1);
+				System.out.println(result);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(rs!=null)try {rs.close();} catch (SQLException e) {e.printStackTrace();}
+			if(pstmt!=null)try {pstmt.close();} catch (SQLException e) {e.printStackTrace();}
+			if(conn!=null)try {conn.close();} catch (SQLException e) {e.printStackTrace();}
+		}
+		return result;
+	}
+	
 	public List getSearchMemberList(int start, int end) {
 		List memberList = new ArrayList<MemberDTO>();
 		try {
@@ -254,6 +276,41 @@ public class MemberDAO {
 			String sql = "select id,pw,age,gender,name,regdate,offence_count,offence_url,state,r from "
 					+ "(select id,pw,age,gender,name,regdate,offence_count,offence_url,state, rownum r from "
 					+ "(select * from MEMBER ORDER BY OFFENCE_COUNT desc)) where r>=? and r<=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, start);
+			pstmt.setInt(2, end);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				MemberDTO dto = new MemberDTO();
+				dto.setId(rs.getString("id"));
+				dto.setPw(rs.getString("pw"));
+				dto.setAge(rs.getString("age"));
+				dto.setGender(rs.getString("gender"));
+				dto.setName(rs.getString("name"));
+				dto.setRegdate(rs.getTimestamp("regdate"));
+				dto.setOffence_count(rs.getInt("offence_count"));
+				dto.setOffence_url(rs.getString("offence_url"));
+				dto.setState(rs.getString("state"));				
+				memberList.add(dto);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(rs!=null)try {rs.close();} catch (SQLException e) {e.printStackTrace();}
+			if(pstmt!=null)try {pstmt.close();} catch (SQLException e) {e.printStackTrace();}
+			if(conn!=null)try {conn.close();} catch (SQLException e) {e.printStackTrace();}
+		}
+		return memberList;
+	}
+	
+	//search overloading
+	public List getSearchMemberList(int start, int end,String option,String search) {
+		List memberList = new ArrayList<MemberDTO>();
+		try {
+			conn = getConnection();
+			String sql = "select id,pw,age,gender,name,regdate,offence_count,offence_url,state,r from "
+					+ "(select id,pw,age,gender,name,regdate,offence_count,offence_url,state, rownum r from "
+					+ "(select * from MEMBER where "+option+" like '%"+search+"%' ORDER BY OFFENCE_COUNT desc)) where r>=? and r<=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, start);
 			pstmt.setInt(2, end);
