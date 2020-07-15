@@ -9,6 +9,7 @@
 <%
 	request.setCharacterEncoding("UTF-8");
 	//TEST AUTOLOGIN
+	System.out.println("===LOGIN PRO===");
 	System.out.println("AUTO VAL :"+request.getParameter("auto"));
 	String id = request.getParameter("id");
 	String pw = request.getParameter("pw");
@@ -20,21 +21,25 @@
 	int res = dao.loginCheck(id, pw);
 	String name = dao.getMemberName(id, pw);
 	
-	Cookie [] coo = request.getCookies();
-	if(coo != null){
-		for(Cookie c : coo){
-			if(c.getName().equals("autoId")) id = c.getValue();
-			if(c.getName().equals("autoPw")) pw = c.getValue();
-			if(c.getName().equals("autoCh")) auto = c.getValue();
-			if(c.getName().equals("autoName")) name = c.getValue();
-		}
-	}
-	
 	if(res == 1){
 		session.setAttribute("memId", id);
 		session.setAttribute("memPw", pw);
 		session.setAttribute("memName", name);
+		System.out.println("LOGIN PRO AUTO"+auto);
+		
+		//로그인시 기존 쿠키 연장
+		/* Cookie [] coo = request.getCookies();
+		if(coo != null){
+			for(Cookie c : coo){
+				if(c.getName().equals("autoId")) id = c.getValue();
+				if(c.getName().equals("autoPw")) pw = c.getValue();
+				if(c.getName().equals("autoCh")) auto = c.getValue();
+				if(c.getName().equals("autoName")) name = c.getValue();
+			}
+		} */
+		
 		if(auto.equals("y")){
+			System.out.println("LOGIN PRO AUTO LOGIN COOKIE SETTING");
 			Cookie c1 = new Cookie("autoId", id);
 			Cookie c2 = new Cookie("autoPw", pw);
 			Cookie c3 = new Cookie("autoCh", auto);
@@ -47,7 +52,12 @@
 			response.addCookie(c2);
 			response.addCookie(c3);
 			response.addCookie(c4);
+			System.out.println("Cookie Set Test : "+c1.getName());
+			System.out.println("Cookie Set Test : "+c2.getName());
+			System.out.println("Cookie Set Test : "+c3.getName());
+			System.out.println("Cookie Set Test : "+c4.getName());
 		}
+		System.out.println("===LOGIN PRO END===");
 		response.sendRedirect("main.jsp");
 	}else if(res == 0){%>
 		<script>
