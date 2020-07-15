@@ -134,13 +134,13 @@ public class RecipeDAO {
 			if(rs.next()) {
 				recipeBoard = new RecipeDTO();
 				recipeBoard.setNum(Integer.parseInt(rs.getString("num")));
-				recipeBoard.setRecipeStep(Integer.parseInt(rs.getString("recipeStep")));
-				recipeBoard.setRecipeName(rs.getString("recipeName"));
+				recipeBoard.setRecipeStep(Integer.parseInt(rs.getString("recipe_step")));
+				recipeBoard.setRecipeName(rs.getString("recipe_name"));
 				recipeBoard.setThumbnail(rs.getString("thumbnail"));
 				recipeBoard.setWriter(rs.getString("writer"));
 				recipeBoard.setReg(rs.getTimestamp("reg"));
-				recipeBoard.setVegiType(rs.getString("vegiType"));
-				recipeBoard.setCookingTime(Integer.parseInt(rs.getString("cookingTime")));
+				recipeBoard.setVegiType(rs.getString("vegi_type"));
+				recipeBoard.setCookingTime(Integer.parseInt(rs.getString("cooking_time")));
 				recipeBoard.setDifficulty(rs.getString("difficulty"));
 				recipeBoard.setCal(Integer.parseInt(rs.getString("cal")));
 				recipeBoard.setQuantity(Integer.parseInt(rs.getString("quantity")));

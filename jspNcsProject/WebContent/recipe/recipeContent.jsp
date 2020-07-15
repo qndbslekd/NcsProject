@@ -1,4 +1,7 @@
 
+<%@page import="java.util.List"%>
+<%@page import="jspNcsProject.dto.RecipeContentDTO"%>
+<%@page import="jspNcsProject.dao.RecipeContentDAO"%>
 <%@page import="jspNcsProject.dto.RecipeDTO"%>
 <%@page import="jspNcsProject.dao.RecipeDAO"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -22,6 +25,24 @@
 	RecipeDAO recipeDAO = RecipeDAO.getInstance();
 	RecipeDTO recipeBoard = new RecipeDTO();
 	recipeBoard = recipeDAO.selectRecipeBoard(num);
+	
+
+	
+	// recipeContentList : 레시피 조리단계  담아준 리스트 -> for문 돌려서 뽑기
+	
+	//selectRecipeContent
+	
+	RecipeContentDTO recipeContentdto = new RecipeContentDTO();
+	RecipeContentDAO recipeContentdao = RecipeContentDAO.getInstance();
+	/*
+	List recipeContentList = null;
+	recipeContentList = recipeContentdao.selectRecipeContent(16);
+	for(int i = 0; i < recipeContentList.size(); i++){
+		recipeContentdto = (RecipeContentDTO)recipeContentList.get(i);
+		System.out.println(recipeContentdto.getContent());
+		
+	}
+	*/
 %>
 <body>
 	<br />

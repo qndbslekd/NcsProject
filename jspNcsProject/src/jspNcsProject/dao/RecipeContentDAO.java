@@ -48,14 +48,16 @@ public class RecipeContentDAO {
 					recipeContent.setNum(rs.getInt("num"));
 					recipeContent.setRecipe_num(rs.getInt("recipe_num"));
 					recipeContent.setStep(rs.getInt("step"));
-					
+					recipeContentList.add(recipeContent);
 				}while(rs.next());
 			}
 			
 		}catch(Exception e) {
-			
+			e.printStackTrace();
 		}finally {
-			
+			if(rs != null)try {rs.close();}catch(Exception e) {e.printStackTrace();}
+			if(pstmt != null)try {pstmt.close();}catch(Exception e) {e.printStackTrace();}
+			if(conn != null)try {conn.close();}catch(Exception e) {e.printStackTrace();}
 		}
 		
 		return recipeContentList;
