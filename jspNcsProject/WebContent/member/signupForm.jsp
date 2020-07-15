@@ -4,13 +4,61 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
-	<link href="../resource/team05_style.css" rel="stylesheet" type="text/css">
 </head>
+<link href="../resource/team05_style.css" rel="stylesheet" type="text/css">
 <jsp:include page="../header.jsp"></jsp:include>
+<script type="text/javascript">
+	function confirmId(inputForm) {
+		if (!inputForm.id.value) {
+			return;
+		}
+		var url = "cofirmId.jsp?id=" + inputForm.id.value;
+		open(
+				url,
+				"아이디 중복 체크",
+				"toolbar=no,location=no,status = no, menubar = no, scrollbars = no,resizable = no, width = 300,height = 200");
+	}
+	// 유효성 검사 수정전
+	/* function check() {
+		var inputs = document.inputForm;
+		console.log(inputs);
+		if (!inputs.id.value) {
+			alert("아이디를 입력하세요");
+			return false;
+		}
+		if (!inputs.pw.value) {
+			alert("비밀번호를 입력하세요");
+			return false;
+		}
+		if (!inputs.name.value) {
+			alert("이름을 입력하세요");
+			return false;
+		}
+		if (!inputs.birth.value) {
+			alert("생년월일을 입력하세요");
+			return false;
+		}
+		if (!inputs.email.value) {
+			alert("이메일을 입력하세요");
+			return false;
+		}
+		if (!inputs.pwCh.value) {
+			alert("비밀번호 확인란를 입력하세요");
+			return false;
+		}
+		if (inputs.pw.value != inputs.pwCh.value) {
+			alert("비밀번호를 동일하게 입력하세요");
+			return false;
+		}
+	} */
+</script>
+<%
+if(session.getAttribute("memId")==null){
+%>
 <body> 
 	<h1 align="center">회원가입</h1>
+	<form method="post" action="signupPro.jsp" enctype="multipart/form-data" name ="inputForm" onsubmit="return check()" accept-charset="utf-8">
 	<table>
-	<form method="post" action="signupPro.jsp" enctype="multipart/form-data">
 		<tr>
 			<td>아이디*</td>
 			<td><input type="text" name="id" /></td>
@@ -64,7 +112,12 @@
 				<input type="button" value="취소" onclick="window.location='main.jsp'"/>
 			</td> 
 		</tr>
-	</form>
 	</table> 
+	</form>
 </body>
+<%}else{
+	System.out.println("Session=!null redirect > main");
+	response.sendRedirect("main.jsp");
+}
+%>
 </html>
