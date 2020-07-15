@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -172,10 +173,12 @@ public class MemberDAO {
 		}catch (Exception e) {
 			e.printStackTrace();
 		}finally {
-			if(rs!=null)try {rs.close();} catch (SQLException e) {e.printStackTrace();}
-			if(pstmt!=null)try {rs.close();} catch (SQLException e) {e.printStackTrace();}
-			if(conn!=null)try {rs.close();} catch (SQLException e) {e.printStackTrace();}
+			if(rs!=null)try {rs.close();} catch (Exception e) {e.printStackTrace();}
+			if(pstmt!=null)try {rs.close();} catch (Exception e) {e.printStackTrace();}
+			if(conn!=null)try {rs.close();} catch (Exception e) {e.printStackTrace();}
 		}
 		return result;
 	}
+	
+	
 }

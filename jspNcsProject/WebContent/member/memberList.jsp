@@ -33,21 +33,37 @@
 		int number = 0;
 		
 		MemberDAO dao = MemberDAO.getInstance();
-		List memberList = null;
-		
-		String sel = request.getParameter("sel");
-		String search = request.getParameter("search");
-		if(sel != null && search != null){
-			//count = dao.getSearchMemberCount(sel, search);
-		}
-		
-		
-		
-		
-		
 %>
 <body>
-
+	<br/>
+	<h1 align="center"> 회원목록 </h1>
+	<%if(count == 0){ %>
+		<table>
+			<tr>
+				<td> 가입한 회원이 없습니다.</td>
+			</tr>
+			<tr>
+				<td><button onclick="window.location='main.jsp'">메인으로</button></td>
+			</tr>				
+		</table>
+	<%}else{ %>
+		<table>
+			<tr>
+				<td> </td>
+				<td> </td>
+				<td> </td>
+				<td> </td>
+				<td> </td>
+				<td> </td>
+				<td> </td>
+				<td> </td>
+				<td> </td>
+			</tr>
+			<tr>
+				<td><button onclick="window.location='main.jsp'">메인으로</button></td>
+			</tr>				
+		</table>	
+	<%} %>
 </body>
 <%}%>
 </html>
