@@ -6,9 +6,16 @@
 	<title>Insert title here</title>
 	<link href="../resource/team05_style.css" rel="stylesheet" type="text/css">
 </head>
+<%
+	if(session.getAttribute("memId") == null){%>
+		<script>
+			alert("로그인 후 이용하세요");
+			window.location="loginForm.jsp";
+		</script>
+	<%}
+%>
 <body>
 <h1 align="center"> 마이 페이지 </h1> 
-<form>
 	<table>
 		<tr> 
 			<td>
@@ -26,8 +33,12 @@
 				<a onclick="window.location='myComment.jsp'"><img src="../resource/comment.png"><br/>내가 쓴 댓글</a>
 			</td>
 		</tr>
+		<tr>
+			<td colspan="2">
+				<button onclick="window.location='main.jsp'">메인으로</button>
+				<button onclick="window.location='logoutPro.jsp'">로그아웃</button>
+			</td>
+		</tr>
 	</table>
-</form>
-
 </body>
 </html>
