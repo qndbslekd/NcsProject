@@ -17,6 +17,7 @@ public class RecipeDTO {
 	String ingredients; // 재료들 
 	int rating; // 평점
 	String tag; // 태그
+
 	
 	public int getNum() {
 		return num;
@@ -102,6 +103,7 @@ public class RecipeDTO {
 	public void setTag(String tag) {
 		this.tag = tag;
 	}
-	
+
+
 	
 }
