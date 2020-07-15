@@ -17,13 +17,13 @@ public class RecipeDAO {
 	private ResultSet rs = null;
 	private PreparedStatement pstmt = null;
 	
-	private static RecipeDTO instance = new RecipeDTO();
-	public static RecipeDTO getInstance() {
+	private static RecipeDAO instance = new RecipeDAO();
+	public static RecipeDAO getInstance() {
 		return instance;
 	}
 	
 	public Connection getConnection() throws Exception{
-		Context ctx = new InitialContext();
+		Context ctx = (Context)new InitialContext();
 		Context env  = (Context)ctx.lookup("java:comp/env");
 		DataSource ds = (DataSource)env.lookup("jdbc/orcl");
 		return ds.getConnection();	
@@ -34,11 +34,12 @@ public class RecipeDAO {
 		int count = 0;
 		try {
 			conn= getConnection();
-			String sql = "select count(*) from recipe_board";
+			String sql = "SELECT count(*) FROM recipe_board";
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
-			if(rs.next()) count = rs.getInt("1");
-			
+			if(rs.next()) {
+				count = rs.getInt(1);
+			} 	
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -46,7 +47,6 @@ public class RecipeDAO {
 			if(pstmt!=null)try { pstmt.close();}catch(Exception e) {e.printStackTrace();}
 			if(conn!=null)try { conn.close();}catch(Exception e) {e.printStackTrace();}		
 		}
-		
 		return count;
 	}
 	
@@ -82,7 +82,7 @@ public class RecipeDAO {
 			if(conn!=null)try { conn.close();}catch(Exception e) {e.printStackTrace();}
 			
 		}
-		return recipeList= null;
+		return recipeList;
 		
 	} 
 	
