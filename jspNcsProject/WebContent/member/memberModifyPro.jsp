@@ -61,7 +61,7 @@
 		}
 	}
 	response.sendRedirect("main.jsp");
-%>
+%> 
 <body>
 </body>
 </html>
