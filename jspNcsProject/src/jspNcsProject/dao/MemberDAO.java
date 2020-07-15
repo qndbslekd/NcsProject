@@ -209,6 +209,25 @@ public class MemberDAO {
 			String sql = "select count(*) from member";
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt(1);
+				System.out.println(result);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(rs!=null)try {rs.close();} catch (SQLException e) {e.printStackTrace();}
+			if(pstmt!=null)try {pstmt.close();} catch (SQLException e) {e.printStackTrace();}
+			if(conn!=null)try {conn.close();} catch (SQLException e) {e.printStackTrace();}
+		}
+		return result;
+	}
+	
+	public List getSearchMemberList(int start, int end) {
+		List memberList = null;
+		try {
+			conn = getConnection();
+			String sql = "select id,pw,name,age,gender,offence_count,offence_url,state,reg from member";
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
@@ -217,7 +236,12 @@ public class MemberDAO {
 			if(conn!=null)try {conn.close();} catch (SQLException e) {e.printStackTrace();}
 		}
 		
-		return result;
+		return memberList;
 	}
+	
+	
+	
+	
+	
 	
 }
