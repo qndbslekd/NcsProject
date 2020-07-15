@@ -131,6 +131,29 @@ public class MemberDAO {
 		return result;
 	}
 	
+	//활동명 중복검사
+		public boolean confirmName(String name) {
+			boolean result = false;
+			try {
+				String sql = "select * from member where name = ?";
+				conn = getConnection();
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, name);
+				rs = pstmt.executeQuery();
+				if(rs.next()) {
+					result = true;
+				}
+				System.out.println("confirmId "+result);
+			}catch (Exception e) {
+				e.printStackTrace();
+			}finally {
+				if(rs!=null)try {rs.close();} catch (SQLException e) {e.printStackTrace();}
+				if(pstmt!=null)try {rs.close();} catch (SQLException e) {e.printStackTrace();}
+				if(conn!=null)try {rs.close();} catch (SQLException e) {e.printStackTrace();}
+			}
+			return result;
+		}
+	
 	public int deleteMember(String id) {
 		int result=0;
 		try {

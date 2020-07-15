@@ -7,45 +7,87 @@
 	<title>Insert title here</title>
 	<link href="style.css" rel="stylesheet" type="text/css">
 </head>
-<%
-request.setCharacterEncoding("UTF-8");
-String id = request.getParameter("id");
-MemberDAO dao = MemberDAO.getInstance();
-boolean result = dao.confirmId(id);
+<% 
+	request.setCharacterEncoding("UTF-8");
+	String id = request.getParameter("id");
+	String name = request.getParameter("name");	
+	System.out.println("id"+id);
+	System.out.println("name"+name);
+	MemberDAO dao = MemberDAO.getInstance();
+	boolean result = false;
+	if(id!=null){
+		result = dao.confirmId(id);
+	}else if(name!=null){
+		result = dao.confirmName(name);
+	}
 %>
+<script type="text/javascript">
+	function setId(){
+		opener.document.inputForm.id.value = "<%=id%>";
+		self.close();
+	}
+	function setName(){
+		opener.document.inputForm.name.value = "<%=name%>";
+		self.close();
+	}
+</script>
 <body>
-	<%if(result){%>
-		<table>
-			<tr>
-				<td><%=id %>이미 사용중인 아이디입니다.</td>
-			</tr>
-		</table>
-		<form action="cofirmId.jsp">
+	<%if(id!=null){%>
+		<%if(result){%>
 			<table>
-			<tr>
-				<td>
-					다른아이디를 사용하세요<br>
-					<input type="text" name="id"/>
-					<input type="submit" value="아이디 중복확인"/>
-				</td>
-			</tr>
-		</table>
-		</form>
-	<%}else{%>
-		<table>
-			<tr>
-				<td>
-					<%=id %>는 사용하실수 있는 아이디입니다.
-					<input type="button" value="닫기" onclick="setId()"/> 
-				</td>
-			</tr>
-		</table>
-	<%} %>
-	<script type="text/javascript">
-		function setId(){
-			opener.document.inputForm.id.value = "<%=id%>";
-			self.close();
-		}
-	</script>
+				<tr>
+					<td><%=id %>이미 사용중인 아이디입니다.</td>
+				</tr>
+			</table>
+			<form action="cofirmId.jsp">
+				<table>
+				<tr>
+					<td>
+						다른아이디를 사용하세요<br>
+						<input type="text" name="id"/>
+						<input type="submit" value="아이디 중복확인"/>
+					</td>
+				</tr>
+			</table>
+			</form>
+		<%}else{%>
+			<table>
+				<tr>
+					<td>
+						<%=id %>는 사용하실수 있는 아이디입니다.
+						<input type="button" value="닫기" onclick="setId()"/> 
+					</td>
+				</tr>
+			</table>
+		<%} %>
+	<%}else if(name!=null){%>
+		<%if(result){%>
+			<table>
+				<tr>
+					<td><%=name %>이미 사용중인 활동명입니다.</td>
+				</tr>
+			</table>
+			<form action="cofirmId.jsp">
+				<table>
+				<tr>
+					<td>
+						다른활동명를 사용하세요<br>
+						<input type="text" name="name"/>
+						<input type="submit" value="활동명 중복확인"/>
+					</td>
+				</tr>
+			</table>
+			</form>
+		<%}else{%>
+			<table>
+				<tr>
+					<td>
+						<%=name %>는 사용하실수 있는 활동명입니다.
+						<input type="button" value="닫기" onclick="setName()"/> 
+					</td>
+				</tr>
+			</table>
+		<%} %>
+	<%}%>
 </body>
 </html>

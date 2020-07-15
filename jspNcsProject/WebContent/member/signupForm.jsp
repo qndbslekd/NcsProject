@@ -18,6 +18,16 @@
 				"아이디 중복 체크",
 				"toolbar=no,location=no,status = no, menubar = no, scrollbars = no,resizable = no, width = 300,height = 200");
 	}
+	function confirmName(inputForm) {
+		if (!inputForm.name.value) {
+			return;
+		}
+		var url = "cofirmId.jsp?name=" + inputForm.name.value;
+		open(
+				url,
+				"아이디 중복 체크",
+				"toolbar=no,location=no,status = no, menubar = no, scrollbars = no,resizable = no, width = 300,height = 200");
+	}
 	// 유효성 검사 수정전
 	/* function check() {
 		var inputs = document.inputForm;
@@ -65,7 +75,7 @@ if(session.getAttribute("memId")==null){
 		</tr>
 		<!--중복 id 체크버튼-->
 		<tr>
-			<td>중복체크</td>
+			<td>아이디 중복체크</td>
 			<td><input type="button" value="중복확인" onclick="confirmId(this.form)"></td>
 		</tr>
 		<tr>
@@ -77,8 +87,12 @@ if(session.getAttribute("memId")==null){
 			<td><input type="password" name="pwCh" /></td>
 		</tr>
 		<tr>
-			<td>이름*</td>
+			<td>활동명*</td>
 			<td><input type="text" name="name"  /></td>
+		</tr>
+		<tr>
+			<td>활동명 중복체크</td>
+			<td><input type="button" value="중복확인" onclick="confirmName(this.form)"></td>
 		</tr>
 		<tr>
 			<td>주민번호*</td> 
