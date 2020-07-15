@@ -178,4 +178,27 @@ public class MemberDAO {
 		}
 		return result;
 	}
+	
+	public int updateMember(MemberDTO dto) {
+		int result = 0;
+		try {
+			String sql = "UPDATE MEMBER SET profile_img = ? ,pw=?,name=?,vegi_type=? WHERE id =?";
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,dto.getProfile_img());
+			pstmt.setString(2,dto.getPw());
+			pstmt.setString(3,dto.getName());
+			pstmt.setString(4,dto.getVegi_type());
+			pstmt.setString(5,dto.getId());
+			result = pstmt.executeUpdate();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(rs!=null)try {rs.close();} catch (SQLException e) {e.printStackTrace();}
+			if(pstmt!=null)try {rs.close();} catch (SQLException e) {e.printStackTrace();}
+			if(conn!=null)try {rs.close();} catch (SQLException e) {e.printStackTrace();}
+		}
+		System.out.println("Update Count : "+result);
+		return result;
+	}
 }
