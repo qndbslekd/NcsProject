@@ -82,7 +82,7 @@
 					<td style="background-color: red;"><%=memberList.get(i).getOffence_count()%></td>
 					<td style="background-color: red;"><%=memberList.get(i).getOffence_url()%></td> 
 					<td style="background-color: red;"><%=memberList.get(i).getState()%></td>
-					<td style="background-color: red;"><button onclick="window.location='memberKickOutPro.jsp'" >강퇴</button></td>
+					<td style="background-color: red;"><button onclick="window.location='memberKickOutPro.jsp?id=<%=memberList.get(i).getId() %>'" >강퇴</button></td>
 				</tr>	
 				<%}else{%>
 				<tr>
@@ -95,15 +95,36 @@
 					<td><%=memberList.get(i).getOffence_count()%></td>
 					<td><%=memberList.get(i).getOffence_url()%></td> 
 					<td><%=memberList.get(i).getState()%></td>
-					<td><button onclick="window.location='memberKickOutPro.jsp'" >강퇴</button></td>
+					<td><button onclick="window.location='memberKickOutPro.jsp?id=<%=memberList.get(i).getId() %>'" >강퇴</button></td>
 				</tr>
 			<%		}
 				}%>
 			<tr>
-				<td><button onclick="window.location='main.jsp'">메인으로</button></td>
+				<td colspan="10"><button onclick="window.location='main.jsp'">메인으로</button></td>
 			</tr>				
 		</table>	
+		<br/>
+		<div align="center">
+		<%
+			if(count >0){
+				int pageCount = count / pageSize + (count % pageSize == 0 ? 0 : 1);
+				int pageBlock = 10;		
+				int startPage = (int)((currPage-1)/pageBlock)*pageBlock +1;	// 1 11 21 ...
+				int endPage = startPage + pageBlock -1;	// 10 20 30 ...
+				if(endPage > pageCount) endPage = pageCount;
+				if(startPage > pageBlock){%>
+						<a href="memberList.jsp?pageNum=<%=startPage-pageBlock%>"> &lt; </a>	
+					<%}
+					for(int i =startPage; i<= endPage; i++){%>
+						<a href="memberList.jsp?pageNum=<%=i%>" class="pageNums"> &nbsp; <%= i%> &nbsp; </a>
+					<%}
+					if(endPage < pageCount){%>
+						<a href="memberList.jsp?pageNum=<%=startPage+pageBlock%>"> &gt; </a>
+					<%}
+			}
+		%>
+		</div>
 	<%} %>
 </body>
-<%}%>
+<%} %>
 </html>
