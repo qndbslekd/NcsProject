@@ -30,7 +30,7 @@
 			<tr>
 				<td colspan="2">
 				<input type="checkbox" name="auto" value="1"/>자동로그인
-				<input type="button" value="회원가입" onclick="window.location='signupFrom.jsp'"/></td>
+				<input type="button" value="회원가입" onclick="window.location='signupForm.jsp'"/></td>
 			</tr>
 		</table>
 	</form>
