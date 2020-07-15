@@ -33,7 +33,9 @@
 		int number = 0;
 		
 		MemberDAO dao = MemberDAO.getInstance();
-%>
+		//dao.seletAllMember();
+	%>
+
 <body>
 	<br/>
 	<h1 align="center"> 회원목록 </h1>

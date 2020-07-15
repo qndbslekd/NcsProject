@@ -174,8 +174,8 @@ public class MemberDAO {
 			e.printStackTrace();
 		}finally {
 			if(rs!=null)try {rs.close();} catch (Exception e) {e.printStackTrace();}
-			if(pstmt!=null)try {rs.close();} catch (Exception e) {e.printStackTrace();}
-			if(conn!=null)try {rs.close();} catch (Exception e) {e.printStackTrace();}
+			if(pstmt!=null)try {pstmt.close();} catch (Exception e) {e.printStackTrace();}
+			if(conn!=null)try {conn.close();} catch (Exception e) {e.printStackTrace();}
 		}
 		return result;
 	}
@@ -195,10 +195,29 @@ public class MemberDAO {
 			e.printStackTrace();
 		}finally {
 			if(rs!=null)try {rs.close();} catch (SQLException e) {e.printStackTrace();}
-			if(pstmt!=null)try {rs.close();} catch (SQLException e) {e.printStackTrace();}
-			if(conn!=null)try {rs.close();} catch (SQLException e) {e.printStackTrace();}
+			if(pstmt!=null)try {pstmt.close();} catch (SQLException e) {e.printStackTrace();}
+			if(conn!=null)try {conn.close();} catch (SQLException e) {e.printStackTrace();}
 		}
 		System.out.println("Update Count : "+result);
 		return result;
 	}
+	
+	public int selectAllMember() {
+		int result=0;
+		try {
+			conn = getConnection();
+			String sql = "select count(*) from member";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(rs!=null)try {rs.close();} catch (SQLException e) {e.printStackTrace();}
+			if(pstmt!=null)try {pstmt.close();} catch (SQLException e) {e.printStackTrace();}
+			if(conn!=null)try {conn.close();} catch (SQLException e) {e.printStackTrace();}
+		}
+		
+		return result;
+	}
+	
 }
