@@ -21,9 +21,21 @@ MemberDAO dao = MemberDAO.getInstance();
 MemberDTO dto = dao.modifyData(id); 
 System.out.println(dto);
 %>
+<script type="text/javascript">
+	function confirmName(inputForm) {
+		if (!inputForm.name.value) {
+			return;
+		}
+		var url = "cofirmId.jsp?name=" + inputForm.name.value;
+		open(
+				url,
+				"아이디 중복 체크",
+				"toolbar=no,location=no,status = no, menubar = no, scrollbars = no,resizable = no, width = 300,height = 200");
+	}
+</script>
 <body>
 	<h1 align="center">회원정보수정</h1>
-	<form method="post" action="memberModifyPro.jsp" enctype="multipart/form-data">
+	<form method="post" action="memberModifyPro.jsp" enctype="multipart/form-data" name ="inputForm">
 	<table>
 		<tr> 
 			<td>기존 프로필 사진</td>
@@ -50,6 +62,10 @@ System.out.println(dto);
 		<tr>
 			<td>활동명*</td>
 			<td><input type="test" value="<%=dto.getName() %>" name = "name"/></td>
+		</tr>
+		<tr>
+			<td>활동명 중복체크</td>
+			<td><input type="button" value="중복확인" onclick="confirmName(this.form)"></td>
 		</tr>
 		<tr>
 			<td>주민번호*</td>  
