@@ -38,17 +38,28 @@
 		MemberDAO dao = MemberDAO.getInstance();
 		
 		String option = request.getParameter("option");
+		String offence = request.getParameter("offence");
 		String search = request.getParameter("search");
+		
+		System.out.println("Roffence : "+request.getParameter("offence"));
 		System.out.println("Roption : "+request.getParameter("option"));
 		System.out.println("Rsearch : "+request.getParameter("search"));
 		List<MemberDTO> memberList = new ArrayList<MemberDTO>();
 		
 		if(search==null||search.equals("")){
-			count = dao.selectAllMember();
-			if(count > 0){
-				memberList = dao.getSearchMemberList(startRow, endRow);
+			if(offence==null){
+				count = dao.selectAllMember();
+				if(count > 0){
+					memberList = dao.getSearchMemberList(startRow, endRow);
+				}
+				System.out.println("LIST SIZE : "+memberList.size());
+			}else if(offence.equals("1")){
+				count = dao.selectAllMemberByOffence();
+				if(count > 0){
+					memberList = dao.getSearchMemberListByOffence(startRow, endRow);
+				}
+				System.out.println("LIST SIZE : "+memberList.size());				
 			}
-			System.out.println("LIST SIZE : "+memberList.size());
 		}else{
 			count = dao.selectAllMember(option,search);
 			System.out.println("Search Count"+count);
@@ -117,6 +128,7 @@
 			<tr>
 				<td colspan="10">
 					<button onclick="window.location='main.jsp'">메인으로</button>
+					<button onclick="window.location='memberList.jsp?offence=1'">신고받은 회원 조회</button>
 					
 					<form action="memberList.jsp" method="get">
 					<select name="option">
