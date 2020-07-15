@@ -9,19 +9,25 @@
 <body>
 <br/>
 <h1 align="center"> 회원 탈퇴 </h1>
-<form action="memberDeleteForm.jsp" method="post">
+<form action="memberDeletePro.jsp" method="post">
 	<table>
 		<tr>
 			<td> 아이디 </td>
 		</tr>
 		<tr>
-			<td><input type="text" name="id"/></td>
+			<td> <%=session.getAttribute("memId") %></td>
 		</tr>
 		<tr>
 			<td> 비밀번호 </td>
 		</tr>
 		<tr>
 			<td><input type="password" name="pw"/> </td>
+		</tr>
+		<tr>
+			<td>
+				<input type="submit" value="확인"/>
+				<input type="button" value="취소" onclick="window.location='myPage.jsp'"/>
+			</td>
 		</tr>
 	</table>
 </form>

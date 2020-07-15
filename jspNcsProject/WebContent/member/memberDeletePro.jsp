@@ -5,6 +5,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
+	<link href="../resource/team05_style.css" rel="stylesheet" type="text/css">
 </head>
 <%
 	if(session.getAttribute("memId") == null){%>
@@ -13,10 +14,10 @@
 			window.location="loginForm.jsp";
 		</script>
 	<%}else{
-		
 		request.setCharacterEncoding("UTF-8");
 		
-		String id = (String)session.getAttribute("id");
+		String id = (String)session.getAttribute("memId");
+		System.out.println(id);
 		String pw = request.getParameter("pw");
 		
 		MemberDAO dao = MemberDAO.getInstance();
@@ -32,13 +33,24 @@
 						c.setMaxAge(0);
 						response.addCookie(c);
 					}
-						
 				}
 			}
-		}
 %>
 <body>
-
+	<table>
+		<tr>
+			<td> 회원 정보가 삭제 되었습니다. </td>
+		</tr>
+		<tr>
+			<td><button onclick="window.location='main.jsp'"> 메인으로 </button></td>
+		</tr>
+	</table>	
+		<%}else{%>
+		<script>
+		alert("비밀번호를 잘못 기입하셨습니다.")
+		history.go(-1);
+	</script>
 </body>
-<% }%>
+<%		} 
+			}%>
 </html>
