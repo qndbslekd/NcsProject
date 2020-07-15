@@ -47,5 +47,6 @@
 <body>
 	<br />
 	<h1 align="center">   content </h1>
+	<button onclick="window.location='recipeModifyForm.jsp?num=<%=num %>'">수정</button>
 </body>
 </html>
