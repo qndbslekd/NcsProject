@@ -36,7 +36,7 @@ public class InfomationDAO {
 		List<InfomationDTO> informationDTOList =new ArrayList<InfomationDTO>();
 		try {
 			conn = getConnection();
-			String sql = "select * from INFORMATION";
+			String sql = "select * from INFORMATION ORDER BY NUM";
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
@@ -54,5 +54,25 @@ public class InfomationDAO {
 			if(conn!=null) {try {conn.close();} catch (SQLException e) {e.printStackTrace();}}
 		}
 		return informationDTOList;
+	}
+	
+	public int updateInfomation(String num,String subject,String content) {
+		int result=0; 
+		try {
+			conn = getConnection();
+			String sql = "UPDATE INFORMATION SET SUBJECT =?,CONTENT =? WHERE NUM = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, subject);
+			pstmt.setString(2, content);
+			pstmt.setInt(3, Integer.parseInt(num));
+			result= pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(rs!=null) {try {rs.close();} catch (SQLException e) {e.printStackTrace();}}
+			if(pstmt!=null) {try {pstmt.close();} catch (SQLException e) {e.printStackTrace();}}
+			if(conn!=null) {try {conn.close();} catch (SQLException e) {e.printStackTrace();}}
+		}
+		return result;
 	}
 }
