@@ -20,12 +20,16 @@
 	<body>
 		<table>
 		<%for(int i=0;i<information.size();i++){%>
-			<tr>
-				<td><%=information.get(i).getSubject() %></td>
-			</tr> 
-			<tr>
-				<td style="text-align: left;"><%=information.get(i).getContent()%></td>
-			</tr>
+			<thead>
+				<tr>
+					<th><%=information.get(i).getSubject() %></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td style="text-align: left;"><%=information.get(i).getContent()%></td>
+				</tr>
+			</tbody>
 		<%} %>
 		</table>
 	</body>
