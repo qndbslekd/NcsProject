@@ -97,13 +97,15 @@
 	//where절 쿼리 처리
 	String whereQuery="where 1=1";	
 	//요리명 검색
-	if(!name.equals("") && name!=null){
+	
+	
+	if(name!=null && !name.equals("")){
 		//앞뒤 공백제거
 		name = name.trim();
 		whereQuery += (" and recipe_name like '%"+name+"%'");
 	}
 	//재료로 검색
- 	if(!ingredients.equals("") && ingredients!=null){
+ 	if( ingredients!=null && !ingredients.equals("")){
 		String[] splitIngredients = ingredients.split(",");// 구분자로 재료구분
 		
 		for(int i = 0 ; i < splitIngredients.length ; i++){//재료명 앞뒤 공백제거
@@ -115,7 +117,7 @@
 	
 	}
 	//채식 타입으로 검색
-	if(!vegiType.equals("") && vegiType!=null){
+	if( vegiType != null && !vegiType.equals("") ){
 		if(!vegiType.equals("total")){
 			whereQuery += (" and vegi_type ='"+vegiType+"'");
 		}	
@@ -129,38 +131,26 @@
 	}
 	//칼로리 검색
 	
-	if((!calMore.equals("") && calMore!=null )|| (!calUnder.equals("") && calMore!=null)){//둘중 하나라도 값이 있을때	
-		if((!calMore.equals("") && calMore!=null ) &&  (!calUnder.equals("") && calMore!=null)){ // 둘다 있는경우
-			int calMoreNum = Integer.parseInt(calMore);
-			int calUnderNum = Integer.parseInt(calUnder);
-			whereQuery +=(" and cal >= "+ calMoreNum + " and cal<="+calUnderNum);
-		}else if((!calMore.equals("") && calMore!=null )){//이상값만 있는경우
-			int calMoreNum = Integer.parseInt(calMore);
-			whereQuery += (" and cal >= "+calMoreNum);
-		}else if((!calUnder.equals("") && calMore!=null)){ //이하값만 있는경우
-			int calUnderNum = Integer.parseInt(calUnder);
-			whereQuery += (" and cal <= "+calUnderNum);
-		}
-		
-		/*
-		
-		if(!calMore.equals("") && calUnder.equals("")){//이상값만 있는경우
-			int calMoreNum = Integer.parseInt(calMore);
-			whereQuery += (" and cal >= "+calMoreNum);
-		}else if(calMore.equals("") && !calUnder.equals("")){ //이하값만 있는경우
-			int calUnderNum = Integer.parseInt(calUnder);
-			whereQuery += (" and cal <= "+calUnderNum);
-		}else if(!calMore.equals("") &&  !calUnder.equals("")){ // 둘다 있는경우
-			int calMoreNum = Integer.parseInt(calMore);
-			int calUnderNum = Integer.parseInt(calUnder);
-			whereQuery +=(" and cal >= "+ calMoreNum + " and cal<="+calUnderNum);
-		}
-		*/
-	}
+	// null 100
+	// "" null
 	
+	
+	if(( calMore!=null && !calMore.equals("") )|| (calUnder!= null && !calUnder.equals(""))){//둘중 하나라도 값이 있을때	
+		if(( calMore!=null  && !calMore.equals("")) && (calUnder!=null && !calUnder.equals(""))){ // 둘다 있는경우
+			int calMoreNum = Integer.parseInt(calMore);
+			int calUnderNum = Integer.parseInt(calUnder);
+			whereQuery +=(" and cal >= "+ calMoreNum + " and cal<="+calUnderNum);	
+		}else if(calMore!=null && !calMore.equals("")){//이상값만 있는경우
+			int calMoreNum = Integer.parseInt(calMore);
+			whereQuery += (" and cal >= "+calMoreNum) ;
+		}else if(calUnder!= null  && !calUnder.equals("")){ //이하값만 있는경우
+			int calUnderNum = Integer.parseInt(calUnder);
+			whereQuery += (" and cal <= "+calUnderNum);
+		}
+	}
 
 	//작가 검색
-	if(!writer.equals("")){
+	if(writer!=null || !writer.equals("")){
 		writer = writer.trim();//앞뒤 공백제거
 		whereQuery += (" and writer like '%"+writer+"%'");
 	}
@@ -200,47 +190,46 @@
 			<table id="search">
 				<tr>
 					<td>요리명</td>
-					<td colspan='7'><input type="text" name="name" <%if(!name.equals(""))%>value="<%=name%>" /></td>
+					<td colspan='7'><input type="text" name="name" <%if(name!= null && !name.equals(""))%>value="<%=name%>" /></td>
 				</tr>
 				<tr>
 					<td>재료명</td>
-					<td colspan='7'><input type="text" name="ingredients" placeholder="재료1,재료2,.." <%if(!ingredients.equals(""))%>value="<%=ingredients%>" /></td>
+					<td colspan='7'><input type="text" name="ingredients" placeholder="재료1,재료2,.." <%if(ingredients!=null && !ingredients.equals(""))%>value="<%=ingredients%>" /></td>
 				</tr>
 				<tr>
 					<td>분류</td>
 					<td>채식유형별</td>
 					<td>
-						<select name="vegiType">
-						
-							<option value="total" <%if(vegiType.equals("total"))%>selected>전체</option>
-							<option value="vegan"<%if(vegiType.equals("vegan"))%>selected>비건</option>
-							<option value="lacto"<%if(vegiType.equals("lacto"))%>selected>락토</option>
-							<option value="ovo"<%if(vegiType.equals("ovo"))%>selected>오보</option>
-							<option value="lacto ovo"<%if(vegiType.equals("lacto ovo"))%>selected>락토 오보</option>
-							<option value="pesco"<%if(vegiType.equals("pesco"))%>selected>페스코</option>
-							<option value="pollo"<%if(vegiType.equals("pollo"))%>selected>폴로</option>
-							<option value="flexitarian"<%if(vegiType.equals("flexitarian"))%>selected>플렉시테리언</option>	
+						<select name="vegiType">							
+							<option value="total" <%if(vegiType != null && vegiType.equals("total"))%>selected>전체</option>
+							<option value="vegan"<%if(vegiType != null && vegiType.equals("vegan"))%>selected>비건</option>
+							<option value="lacto"<%if(vegiType != null && vegiType.equals("lacto"))%>selected>락토</option>
+							<option value="ovo"<%if(vegiType != null && vegiType.equals("ovo"))%>selected>오보</option>
+							<option value="lacto ovo"<%if(vegiType != null && vegiType.equals("lacto ovo"))%>selected>락토 오보</option>
+							<option value="pesco"<%if(vegiType != null && vegiType.equals("pesco"))%>selected>페스코</option>
+							<option value="pollo"<%if(vegiType != null && vegiType.equals("pollo"))%>selected>폴로</option>
+							<option value="flexitarian"<%if(vegiType != null && vegiType.equals("flexitarian"))%>selected>플렉시테리언</option>	
 						</select>
 						<img src="./img/question.png" width="20px" height="20px" />
 					</td>	
 					<td>난이도별</td>
 					<td>
 						<select name="difficulty">
-							<option value="전체" <%if(difficulty.equals("전체"))%>selected>전체</option>
-							<option value="쉬움" <%if(difficulty.equals("쉬움"))%>selected>쉬움</option>
-							<option value="보통" <%if(difficulty.equals("보통"))%>selected>보통</option>
-							<option value="어려움" <%if(difficulty.equals("어려움"))%>selected>어려움</option>
+							<option value="전체" <%if(difficulty!=null && difficulty.equals("전체"))%>selected>전체</option>
+							<option value="쉬움" <%if(difficulty!=null && difficulty.equals("쉬움"))%>selected>쉬움</option>
+							<option value="보통" <%if(difficulty!=null && difficulty.equals("보통"))%>selected>보통</option>
+							<option value="어려움" <%if(difficulty!=null && difficulty.equals("어려움"))%>selected>어려움</option>
 						</select>
 					</td>
 					<td>열량</td>
 					<td>
-					<input type="text" name="calMore" <%if(!name.equals(""))%> value="<%=calMore%>" />~
-					<input type="text" name="calUnder" <%if(!name.equals(""))%> value="<%=calUnder%>"/>
+					<input type="text" name="calMore" <%if(difficulty!=null && !name.equals(""))%> value="<%=calMore%>" />~
+					<input type="text" name="calUnder" <%if(difficulty!=null && !name.equals(""))%> value="<%=calUnder%>"/>
 					</td>
 				</tr>
 				<tr>
 					<td>작성자</td>
-					<td colspan='7'><input type="text" name="writer" <%if(!writer.equals(""))%> value="<%=writer%>"/></td>
+					<td colspan='7'><input type="text" name="writer" <%if(writer!= null && !writer.equals(""))%> value="<%=writer%>"/></td>
 				</tr>
 				<tr>
 					<td colspan='8'><input type="submit" value="검색"/></td>
