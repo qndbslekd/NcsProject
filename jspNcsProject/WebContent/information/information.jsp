@@ -16,8 +16,7 @@
 <%
 	InfomationDAO dao = InfomationDAO.getInstance();
 	List<InfomationDTO> information = dao.getInfomation();
-	System.out.println(information);
-%>
+	%>
 	<body>
 		<table>
 		<%for(int i=0;i<information.size();i++){%>
