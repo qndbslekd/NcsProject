@@ -130,9 +130,6 @@ a:hover {
 			<td class="tab" onclick="window.location='/jnp/recipe/recipeList.jsp'">레시피</td>
 			<td class="tab" onclick="window.location='/jnp/product/productList.jsp'">제품</td>
 			<td class="tab" onclick="window.location='/jnp/freeboard/board.jsp'">자유게시판</td>
-			<td class="tab" oncllick="window.location='/jnp/recipe/recipeList.jsp'">레시피</td>
-			<td class="tab" oncllick="window.location='/jnp/product/productList.jsp'">제품</td>
-			<td class="tab" onclick="window.location='/jnp/freeboard/board2.jsp'">자유게시판</td>
 		</tr>
 	</table>
 </body>
