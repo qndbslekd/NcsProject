@@ -67,5 +67,4 @@ public class RecipeContentCommentDTO {
 	public void setReg(Timestamp reg) {
 		this.reg = reg;
 	}
-	
 }
