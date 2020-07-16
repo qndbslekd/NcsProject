@@ -87,10 +87,10 @@
 	List recipeList = null;
 	count = dao.getRecipeCount();
 	
+	
 	if(count>0){
 		recipeList = dao.seletAllReceipeByReg(startRow, endRow);
 	}
-	System.out.println(recipeList);
 	
 	int rowNum = 5;
 		

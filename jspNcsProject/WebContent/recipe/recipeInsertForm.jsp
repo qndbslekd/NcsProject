@@ -8,9 +8,9 @@
 <link rel="stylesheet" href="../resource/team05_style.css">
 </head>
 <%
-	String memName = (String) session.getAttribute("memName");
+	String memId = (String) session.getAttribute("memId");
 
-	if(memName==null) { %>
+	if(memId==null) { %>
 	<script> alert("로그인 후 이용해주세요."); window.location="../member/loginForm.jsp"; </script>
 	<%} else { %>
 <body>
@@ -23,7 +23,7 @@
 			</tr>
 			<tr>
 				<td>작성자</td>
-				<td><input type="text" name="writer" value="<%=session.getAttribute("memName")%>" readonly/></td>
+				<td><%=session.getAttribute("memName") %><input type="hidden" name="writer" value="<%=memId%>" /></td>
 			</tr>
 			<tr>
 				<td>채식유형</td>
