@@ -3,14 +3,14 @@ package jspNcsProject.dto;
 import java.sql.Timestamp;
 
 public class RecipeCommentDTO {
-	int num;
-	int recipeNum;
-	int ref;
-	int re_level;
-	int re_step;
-	String content;
-	String name;
-	Timestamp reg;
+	private int num;
+	private int recipeNum;
+	private int ref;
+	private int re_level;
+	private int re_step;
+	private String content;
+	private String name;
+	private Timestamp reg;
 	
 	
 	public int getNum() {
