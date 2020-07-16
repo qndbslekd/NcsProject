@@ -63,6 +63,7 @@
 <body>
 	<br />
 	<h1 align="center">   content </h1>
+<<<<<<< HEAD
 	
 	<table border="1">
 		<tr >

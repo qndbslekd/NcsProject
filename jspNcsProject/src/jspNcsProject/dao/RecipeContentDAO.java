@@ -146,7 +146,6 @@ public class RecipeContentDAO {
 			if(conn!=null) try {conn.close();}catch(Exception e) { e.printStackTrace();}
 		}
 	}
-	
 	//레시피 세부 내용만 가져오기
 	public List selectRecipeContent(int num) {
 		List list = null;
@@ -220,12 +219,10 @@ public class RecipeContentDAO {
 		try {
 			conn = getConnection();
 			
-			
 			String sql = "delete from recipe_content where recipe_num=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			pstmt.executeUpdate();
-			
 			
 		} catch (Exception e) {
 			e.printStackTrace();
