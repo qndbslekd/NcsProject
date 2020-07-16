@@ -25,19 +25,21 @@
 	
 		width : 200px;
 		height : 300px;
-		border: 1px solid black;
 		float: left;
 		margin: 20px 20px; 		
 	}
 	
 	.thumbnail {
-		width: 200px;
 		height: 200px;
-		border: 1px solid black;
+		border-top : 1px solid black;	
+		border-right : 1px solid black;	
+		border-left : 1px solid black;	
+		
 	}
 	
 	.info{
-		height: 100px;		
+		height: 100px;	
+		border: 1px solid black;	
 	}
 	
 	.info .row {	
@@ -80,50 +82,80 @@
 	int startRow = (currPage-1)*pageSize +1;
 	int endRow = currPage*pageSize;
 	int count = 0;
-
 	
+	String mode= "num";
+	//mode가 num이면 최신순, rating이면 평점순
+	if(request.getParameter("mode")!=null){
+		mode= request.getParameter("mode");
+	}
+
+
 	RecipeDAO dao = RecipeDAO.getInstance();
 	
 	List recipeList = null;
 	count = dao.getRecipeCount();
 	
-	if(count>0){
-		recipeList = dao.seletAllReceipeByReg(startRow, endRow);
-	}
-	System.out.println(recipeList);
 	
+	if(count>0){
+		recipeList = dao.seletAllReceipe(startRow, endRow, mode);
+	}
 	int rowNum = 5;
 		
 %>
 <body>
 	<jsp:include page="../header.jsp" flush="false"/>
-	<form>
-	<table id="search">
-		<tr>
-			<td>요리명</td>
-			<td><input type="text" name="name"/></td>
-		</tr>
-		<tr>
-			<td>재료명</td>
-			<td><input type="text" name="ingredients" placeholder="재료1,재료2,.."/></td>
-		</tr>
-		<tr>
-			<td>분류</td>
-			<td>채식유형별</td>
-			<td>난이도별</td>
-			<td>열량</td>
-			<td>이상~이하</td>
-		</tr>
-		<tr>
-			<td>작성자</td>
-			<td><input type="text" name="writer"/></td>
-		</tr>
-		<tr>
-			<td></td>
-			<td><input type="submit" name="검색"/></td>
-		</tr>
-	</table>
+	<form action="recipeSearchList.jsp" name="searchForm" method="post">
+		<input type="hidden" name="mode" value="num"/>
+		<table id="search">
+			<tr>
+				<td>요리명</td>
+				<td colspan='7'><input type="text" name="name"/></td>
+			</tr>
+			<tr>
+				<td>재료명</td>
+				<td colspan='7'><input type="text" name="ingredients" placeholder="재료1,재료2,.."/></td>
+			</tr>
+			<tr>
+				<td>분류</td>
+				<td>채식유형별</td>
+				<td>
+					<select name="vegiType">
+						<option value="total" selected>전체</option>
+						<option value="vegan">비건</option>
+						<option value="lacto">락토</option>
+						<option value="ovo">오보</option>
+						<option value="lacto ovo">락토 오보</option>
+						<option value="pesco">페스코</option>
+						<option value="pollo">폴로</option>
+						<option value="flexitarian">플렉시테리언</option>	
+					</select>
+					<img src="./imgs/question.png" width="20px" height="20px" />
+				</td>	
+				<td>난이도별</td>
+				<td>
+					<select name="difficulty">
+						<option value="전체" selected>전체</option>
+						<option value="쉬움">쉬움</option>
+						<option value="보통">보통</option>
+						<option value="어려움">어려움</option>
+					</select>
+				</td>
+				<td>열량</td>
+				<td>
+				<input type="text" name="calMore"/>~
+				<input type="text" name="calUnder"/>
+				</td>
+			</tr>
+			<tr>
+				<td>작성자</td>
+				<td colspan='7'><input type="text" name="writer"/></td>
+			</tr>
+			<tr>
+				<td colspan='8'><input type="submit" value="검색"/></td>
+			</tr>
+		</table>
 	</form>
+	
 	<div class="sub-wrapper">
 		<% if(session.getAttribute("memId")!= null){ %>
 		<div>
@@ -131,7 +163,11 @@
 		</div>
 		<%}%>
 		<div class="total_recipe">
-			<h3>총 2345개의 레시피가 있습니다.</h3>
+			<h3>총 <%=count %>개의 레시피가 있습니다.</h3>		
+		</div>
+		<div class="sort_button">
+				<button onclick="window.location='recipeList.jsp?mode=num'">최신순</button>
+				<button onclick="window.location='recipeList.jsp?mode=rating'">평점순</button>
 		</div>
 	</div>
 	
@@ -144,7 +180,7 @@
 		%>
 			<div class="recipe" onclick="window.location='recipeContent.jsp?num=<%=recipe.getNum()%>'">
 				<div class="thumbnail">
-					<img src=""/>
+					<img width="198px" height="198px" src="/jnp/recipe/imgs/<%=recipe.getThumbnail()%>"/>
 				</div>
 				<div class="info">
 					<div class="row"><%=recipe.getRecipeName()%></div>
