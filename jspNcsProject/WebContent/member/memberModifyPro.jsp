@@ -37,6 +37,9 @@
 	String pw = mr.getParameter("pw");
 	String name = mr.getParameter("name");
 	String vegi_type = mr.getParameter("vegi_type");
+	System.out.println("pw"+pw);
+	System.out.println("name"+name);
+	System.out.println("vegi_type"+vegi_type);
 	MemberDTO dto = new MemberDTO();
 	dto.setId(session.getAttribute("memId").toString());
 	dto.setProfile_img(profile_img);

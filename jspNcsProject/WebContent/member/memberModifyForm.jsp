@@ -53,7 +53,6 @@ System.out.println(dto);
 		<tr>
 			<td>비밀번호*</td>
 			<td><input type="password" name="pw" value="<%=dto.getPw() %>"/></td>
-			<input type="hidden" value="<%=dto.getPw()%>" name = "pw"/>
 		</tr>
 		<tr>
 			<td>비밀번호 확인*</td>
