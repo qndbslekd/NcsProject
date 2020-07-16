@@ -8,9 +8,11 @@
 </head>
 <%
 	request.setCharacterEncoding("UTF-8");
+
 	String id = request.getParameter("id");
 	String pw = request.getParameter("pw");
-	String auto = request.getParameter("auto");	
+	String auto = request.getParameter("auto");
+	
 	MemberDAO dao = MemberDAO.getInstance();
 	int res = dao.loginCheck(id, pw);
 	String name = dao.getMemberName(id, pw);
@@ -23,6 +25,10 @@
 			if(c.getName().equals("autoCh")) auto = c.getValue();
 			if(c.getName().equals("autoName")) name = c.getValue();
 		}
+		System.out.println("id : " +id);
+		System.out.println("pw : " +pw);
+		System.out.println("auto : " +auto);
+		System.out.println("name : " +name);
 	}
 	if(res == 1){
 		session.setAttribute("memId", id);

@@ -7,9 +7,8 @@
 </head>
 <%
 request.setCharacterEncoding("UTF-8");
-//쿠키삭제
 	Cookie[] coo = request.getCookies();
-	if(coo != null){	// 체크하고 지워야됨 쿠키가 있으면 지워라. 반복문을 바로 돌리면 nullPointerException 뜰 수도 있음
+	if(coo != null){
 		for(Cookie c : coo){
 			if(c.getName().equals("autoId") || c.getName().equals("autoPw") || c.getName().equals("autoCh")||c.getName().equals("autoName")){
 				c.setMaxAge(0);
@@ -17,10 +16,8 @@ request.setCharacterEncoding("UTF-8");
 			}
 		}
 	}
-	session.invalidate();	// 세션삭제
-	response.sendRedirect("main.jsp");	//로그아웃 처리후 메인으로 이동
-
-
+	session.invalidate();
+	response.sendRedirect("main.jsp");
 
 %>
 <body>
