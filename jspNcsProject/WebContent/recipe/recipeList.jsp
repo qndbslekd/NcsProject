@@ -25,19 +25,21 @@
 	
 		width : 200px;
 		height : 300px;
-		border: 1px solid black;
 		float: left;
 		margin: 20px 20px; 		
 	}
 	
 	.thumbnail {
-		width: 200px;
 		height: 200px;
-		border: 1px solid black;
+		border-top : 1px solid black;	
+		border-right : 1px solid black;	
+		border-left : 1px solid black;	
+		
 	}
 	
 	.info{
-		height: 100px;		
+		height: 100px;	
+		border: 1px solid black;	
 	}
 	
 	.info .row {	
@@ -172,7 +174,7 @@
 		%>
 			<div class="recipe" onclick="window.location='recipeContent.jsp?num=<%=recipe.getNum()%>'">
 				<div class="thumbnail">
-					<img src=""/>
+					<img width="198px" height="198px" src="/jnp/recipe/imgs/<%=recipe.getThumbnail()%>"/>
 				</div>
 				<div class="info">
 					<div class="row"><%=recipe.getRecipeName()%></div>

@@ -176,7 +176,9 @@
 					RecipeDTO recipe  = (RecipeDTO)searchRecipeList.get(i);
 		%>
 		<div class="recipe">
-			<div class="thumbnail"></div>
+			<div class="thumbnail">
+				<img width="150px" height="146px" src="/jnp/recipe/imgs/<%=recipe.getThumbnail()%>"/>
+			</div>
 			<div class="info">
 				<div class='row title' ><%=recipe.getRecipeName() %></div>
 				<div class='row'>posted by <%=recipe.getWriter() %></div>
