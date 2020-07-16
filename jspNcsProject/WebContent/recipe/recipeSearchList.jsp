@@ -97,13 +97,13 @@
 	//where절 쿼리 처리
 	String whereQuery="where 1=1";	
 	//요리명 검색
-	if(!name.equals("")){
+	if(!name.equals("") && name!=null){
 		//앞뒤 공백제거
 		name = name.trim();
 		whereQuery += (" and recipe_name like '%"+name+"%'");
 	}
 	//재료로 검색
- 	if(!ingredients.equals("")){
+ 	if(!ingredients.equals("") && ingredients!=null){
 		String[] splitIngredients = ingredients.split(",");// 구분자로 재료구분
 		
 		for(int i = 0 ; i < splitIngredients.length ; i++){//재료명 앞뒤 공백제거
@@ -115,21 +115,35 @@
 	
 	}
 	//채식 타입으로 검색
-	if(!vegiType.equals("")){
+	if(!vegiType.equals("") && vegiType!=null){
 		if(!vegiType.equals("total")){
 			whereQuery += (" and vegi_type ='"+vegiType+"'");
 		}	
 	}
 	
 	//난이도로 검색
-	if(!difficulty.equals("")){
+	if(!difficulty.equals("") && difficulty!=null){
 		if(!difficulty.equals("전체")){
 			whereQuery += (" and difficulty='"+difficulty+"'");
 		}
 	}
 	//칼로리 검색
 	
-	if(!calMore.equals("") || !calUnder.equals("")){
+	if((!calMore.equals("") && calMore!=null )|| (!calUnder.equals("") && calMore!=null)){//둘중 하나라도 값이 있을때	
+		if((!calMore.equals("") && calMore!=null ) &&  (!calUnder.equals("") && calMore!=null)){ // 둘다 있는경우
+			int calMoreNum = Integer.parseInt(calMore);
+			int calUnderNum = Integer.parseInt(calUnder);
+			whereQuery +=(" and cal >= "+ calMoreNum + " and cal<="+calUnderNum);
+		}else if((!calMore.equals("") && calMore!=null )){//이상값만 있는경우
+			int calMoreNum = Integer.parseInt(calMore);
+			whereQuery += (" and cal >= "+calMoreNum);
+		}else if((!calUnder.equals("") && calMore!=null)){ //이하값만 있는경우
+			int calUnderNum = Integer.parseInt(calUnder);
+			whereQuery += (" and cal <= "+calUnderNum);
+		}
+		
+		/*
+		
 		if(!calMore.equals("") && calUnder.equals("")){//이상값만 있는경우
 			int calMoreNum = Integer.parseInt(calMore);
 			whereQuery += (" and cal >= "+calMoreNum);
@@ -141,6 +155,7 @@
 			int calUnderNum = Integer.parseInt(calUnder);
 			whereQuery +=(" and cal >= "+ calMoreNum + " and cal<="+calUnderNum);
 		}
+		*/
 	}
 	
 
