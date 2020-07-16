@@ -8,9 +8,10 @@
 	body {
 		margin: 0; 
 	}
-</style>
+</style> 
 </head>
 <body>
 	<img  src="/jnp/resource/error.png" style="width: 100vw; height: 100vh" />
 </body>
 </html>
+ 
