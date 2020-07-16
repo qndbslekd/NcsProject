@@ -4,15 +4,15 @@ import java.sql.Timestamp;
 
 public class RecipeContentCommentDTO {
 	
-	int num;
-	int recipe_num;
-	int content_num;
-	int ref;
-	int re_level;
-	int re_step;
-	String content;
-	String name;
-	Timestamp reg;
+	private int num;
+	private int recipe_num;
+	private int content_num;
+	private int ref;
+	private int re_level;
+	private int re_step;
+	private String content;
+	private String name;
+	private Timestamp reg;
 	public int getNum() {
 		return num;
 	}
