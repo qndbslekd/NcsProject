@@ -43,6 +43,7 @@ public class InfomationDAO {
 				InfomationDTO dto = new InfomationDTO();
 				dto.setSubject(rs.getString("subject"));
 				dto.setContent(rs.getString("content"));
+				dto.setNum(rs.getInt("num"));
 				informationDTOList.add(dto);
 			}
 		} catch (Exception e) {
