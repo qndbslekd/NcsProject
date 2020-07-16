@@ -1,7 +1,6 @@
-<%@page import="jspNcsProject.dao.InfomationDAO"%>
 <%@page import="jspNcsProject.dto.InfomationDTO"%>
-<%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
+<%@page import="jspNcsProject.dao.InfomationDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -10,38 +9,30 @@
 	<title>Insert title here</title>
 	<link href="../resource/team05_style.css" rel="stylesheet" type="text/css">
 </head>
-<jsp:include page="../header.jsp"></jsp:include>
-<h1 align="center">채식정보 페이지</h1>
-<hr/>
 <%
 
 	InfomationDAO dao = InfomationDAO.getInstance();
 	List<InfomationDTO> information = dao.getInfomation();
-	
-	String id = (String)session.getAttribute("memId");
-	if(id == null){
-		id = "";	
-	}
 %>
-	<body>
+<body>
+	<form action="informationModifyPro.jsp" method="post">
 		<table>
-		<%if(id.equals("admin")){ %>
 			<tr>
 				<td>
-					<button onclick="window.location = 'InformationModifyForm.jsp'" >수정페이지로 이동</button>
+					<input type="submit" value="수정">
 				</td>
-			</tr>
-		<% }%>s
+			</tr>			
 		<%for(int i=0;i<information.size();i++){%> 
 			<tr>
-					<th style=" font-size: 100%;"><%=information.get(i).getSubject() %></th>
+					<th style=" font-size: 100%;"><input type="text" value="<%=information.get(i).getSubject()%>" name="subject"/></th>
 			</tr>
 			<tbody>
 				<tr>
-					<td style="text-align: left;"><%=information.get(i).getContent()%></td>
+					<td style="text-align: left;"><textarea rows="20" cols="100" name="content"> <%=information.get(i).getContent()%></textarea></td>
 				</tr>
 			</tbody> 
 		<%} %>
 		</table>
+	</form>
 	</body>
 </html>
