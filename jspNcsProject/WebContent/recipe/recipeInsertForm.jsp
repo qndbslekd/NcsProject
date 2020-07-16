@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="../resource/team05_style.css">
 </head>
 <body>
+	<!-- 검색조건6가지 중 최소하나는 입력해야함 -->
 	<form action="recipeStepInsertForm.jsp" method="post">
 		<input type="hidden" name="writer" value="테스트"/>
 		<table>
