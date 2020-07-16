@@ -3,20 +3,20 @@ package jspNcsProject.dto;
 import java.sql.Timestamp;
 
 public class RecipeDTO {
-	int num; // 글번호 
-	int recipeStep; // 조리단계
-	String recipeName; //  레시피 이름
-	String thumbnail; // 썸네일 파일명
-	String writer; // 작성자
-	Timestamp reg; // 작성시간
-	String vegiType; // 베지테리언타입
-	int cookingTime; // 요리시간 
-	String difficulty; // 난이도
-	int cal; // 칼로리
-	int quantity;	// 분량
-	String ingredients; // 재료들 
-	int rating; // 평점
-	String tag; // 태그
+	private int num; // 글번호 
+	private int recipeStep; // 조리단계
+	private String recipeName; //  레시피 이름
+	private String thumbnail; // 썸네일 파일명
+	private String writer; // 작성자
+	private Timestamp reg; // 작성시간
+	private String vegiType; // 베지테리언타입
+	private int cookingTime; // 요리시간 
+	private String difficulty; // 난이도
+	private int cal; // 칼로리
+	private int quantity;	// 분량
+	private String ingredients; // 재료들 
+	private double rating; // 평점
+	private String tag; // 태그
 
 	
 	public int getNum() {
@@ -91,10 +91,10 @@ public class RecipeDTO {
 	public void setIngredients(String ingredients) {
 		this.ingredients = ingredients;
 	}
-	public int getRating() {
+	public double getRating() {
 		return rating;
 	}
-	public void setRating(int rating) {
+	public void setRating(double rating) {
 		this.rating = rating;
 	}
 	public String getTag() {
