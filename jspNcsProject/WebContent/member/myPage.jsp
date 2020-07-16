@@ -12,7 +12,7 @@
 			alert("로그인 후 이용하세요");
 			window.location="loginForm.jsp";
 		</script>
-	<%}
+	<%}else{
 %>
 <body>
 <h1 align="center"> 마이 페이지 </h1> 
@@ -43,7 +43,7 @@
 			<tr>
 				<td colspan="3"> <button onclick="window.location='memberList.jsp'">관리자 페이지</button></td>
 			</tr>
-		<%} %>
+		<%}} %>
 	</table>
 </body>
 </html>
