@@ -1,3 +1,5 @@
+<%@page import="java.util.List"%>
+<%@page import="jspNcsProject.dao.RecipeDAO"%>
 <%@page import="jspNcsProject.dto.RecipeDTO"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -80,78 +82,156 @@
 </style>
 <%
 	request.setCharacterEncoding("utf-8");
-	//recuoeSerachPro.jsp에서 파라미터들 받아오기 :검색값, 검색결과리스트
-	//검색값
-	String name = (String)request.getAttribute("name");//요리명
-	String ingredients = (String)request.getAttribute("ingredients");//재료명
-	String vegiType  = (String)request.getAttribute("vegiType");//채식 유형
-	String difficulty = (String)request.getAttribute("difficulty");//난이도
-	String calMore = (String)request.getAttribute("calMore");// 칼로리 하한선
-	String calUnder = (String)request.getAttribute("calUnder");//칼로리 상한선
-	String writer = (String)request.getAttribute("writer");//작성자
+	//검색 값 파라미터들 받아오기 :검색값, 검색결과리스트	
+	//검색조건 6가지
+	
 
-	//검색결과리스트
-	ArrayList searchRecipeList = (ArrayList)request.getAttribute("searchRecipeList");
-	int count = 0;
-	if(searchRecipeList != null){
-		count = searchRecipeList.size();
+	String name = request.getParameter("name");//요리명
+	String ingredients = request.getParameter("ingredients");//재료명
+	String vegiType  = request.getParameter("vegiType");//채식 유형
+	String difficulty = request.getParameter("difficulty");//난이도
+	String calMore = request.getParameter("calMore");// 칼로리 하한선
+	String calUnder = request.getParameter("calUnder");//칼로리 상한선
+	String writer = request.getParameter("writer");//작성자
+		
+	//where절 쿼리 처리
+	String whereQuery="where 1=1";	
+	//요리명 검색
+	if(!name.equals("")){
+		//앞뒤 공백제거
+		name = name.trim();
+		whereQuery += (" and recipe_name like '%"+name+"%'");
+	}
+	//재료로 검색
+ 	if(!ingredients.equals("")){
+		String[] splitIngredients = ingredients.split(",");// 구분자로 재료구분
+		
+		for(int i = 0 ; i < splitIngredients.length ; i++){//재료명 앞뒤 공백제거
+			splitIngredients[i] =  splitIngredients[i].trim();
+		}
+		for(int i = 0; i < splitIngredients.length ; i++){
+			whereQuery += (" and ingredients like '%"+splitIngredients[i]+"%'");
+		}
+	
+	}
+	//채식 타입으로 검색
+	if(!vegiType.equals("")){
+		if(!vegiType.equals("total")){
+			whereQuery += (" and vegi_type ='"+vegiType+"'");
+		}	
+	}
+	
+	//난이도로 검색
+	if(!difficulty.equals("")){
+		if(!difficulty.equals("전체")){
+			whereQuery += (" and difficulty='"+difficulty+"'");
+		}
+	}
+	//칼로리 검색
+	
+	if(!calMore.equals("") || !calUnder.equals("")){
+		if(!calMore.equals("") && calUnder.equals("")){//이상값만 있는경우
+			int calMoreNum = Integer.parseInt(calMore);
+			whereQuery += (" and cal >= "+calMoreNum);
+		}else if(calMore.equals("") && !calUnder.equals("")){ //이하값만 있는경우
+			int calUnderNum = Integer.parseInt(calUnder);
+			whereQuery += (" and cal <= "+calUnderNum);
+		}else if(!calMore.equals("") &&  !calUnder.equals("")){ // 둘다 있는경우
+			int calMoreNum = Integer.parseInt(calMore);
+			int calUnderNum = Integer.parseInt(calUnder);
+			whereQuery +=(" and cal >= "+ calMoreNum + " and cal<="+calUnderNum);
+		}
+	}
+	
+
+	//작가 검색
+	if(!writer.equals("")){
+		writer = writer.trim();//앞뒤 공백제거
+		whereQuery += (" and writer like '%"+writer+"%'");
+	}
+		
+	RecipeDAO dao = RecipeDAO.getInstance();
+	
+	int pageSize =20;
+	//최신순
+	
+	String pageNum = request.getParameter("pageNum");
+	if(pageNum == null) pageNum ="1";
+	
+	int currPage = Integer.parseInt(pageNum);
+	int startRow = (currPage-1)*pageSize +1;
+	int endRow = currPage*pageSize;
+	
+	String mode="num";
+	//mode가 num이면 최신순, rating이면 평점순
+	if(request.getParameter("mode")!=null){
+		mode= request.getParameter("mode");
 	}
 	
 	
-
+	List searchRecipeList = dao.searchRecipeList(startRow, endRow, whereQuery, mode);
+	
+	//검색결과리스트
+	int count = 0;
+	if(searchRecipeList !=null) count= searchRecipeList.size();
+	
+	//카운트 처리
 %>
 </head>
 <body>
-	<jsp:include page="../header.jsp" flush="false"/>
-		<table id="search">
-			<tr>
-				<td>요리명</td>
-				<td colspan='7'><input type="text" name="name" <%if(!name.equals(""))%>value="<%=name%>" /></td>
-			</tr>
-			<tr>
-				<td>재료명</td>
-				<td colspan='7'><input type="text" name="ingredients" placeholder="재료1,재료2,.." <%if(!ingredients.equals(""))%>value="<%=ingredients%>" /></td>
-			</tr>
-			<tr>
-				<td>분류</td>
-				<td>채식유형별</td>
-				<td>
-					<select name="vegiType">
-					
-						<option value="total" <%if(vegiType.equals("total"))%>selected>전체</option>
-						<option value="vegan"<%if(vegiType.equals("vegan"))%>selected>비건</option>
-						<option value="lacto"<%if(vegiType.equals("lacto"))%>selected>락토</option>
-						<option value="ovo"<%if(vegiType.equals("ovo"))%>selected>오보</option>
-						<option value="lacto ovo"<%if(vegiType.equals("lacto ovo"))%>selected>락토 오보</option>
-						<option value="pesco"<%if(vegiType.equals("pesco"))%>selected>페스코</option>
-						<option value="pollo"<%if(vegiType.equals("pollo"))%>selected>폴로</option>
-						<option value="flexitarian"<%if(vegiType.equals("flexitarian"))%>selected>플렉시테리언</option>	
-					</select>
-					<img src="./img/question.png" width="20px" height="20px" />
-				</td>	
-				<td>난이도별</td>
-				<td>
-					<select name="difficulty">
-						<option value="전체" <%if(difficulty.equals("전체"))%>selected>전체</option>
-						<option value="쉬움" <%if(difficulty.equals("쉬움"))%>selected>쉬움</option>
-						<option value="보통" <%if(difficulty.equals("보통"))%>selected>보통</option>
-						<option value="어려움" <%if(difficulty.equals("어려움"))%>selected>어려움</option>
-					</select>
-				</td>
-				<td>열량</td>
-				<td>
-				<input type="text" name="calMore" <%if(!name.equals(""))%> value="<%=calMore%>" />~
-				<input type="text" name="calUnder" <%if(!name.equals(""))%> value="<%=calUnder%>"/>
-				</td>
-			</tr>
-			<tr>
-				<td>작성자</td>
-				<td colspan='7'><input type="text" name="writer" <%if(!writer.equals(""))%> value="<%=writer%>"/></td>
-			</tr>
-			<tr>
-				<td colspan='8'><input type="submit" value="검색"/></td>
-			</tr>
-		</table>
+	<form action="recipeSearchList.jsp" name="searchForm" method="post">
+		<input type="hidden" name="mode" value="num"/>
+		<jsp:include page="../header.jsp" flush="false"/>
+			<table id="search">
+				<tr>
+					<td>요리명</td>
+					<td colspan='7'><input type="text" name="name" <%if(!name.equals(""))%>value="<%=name%>" /></td>
+				</tr>
+				<tr>
+					<td>재료명</td>
+					<td colspan='7'><input type="text" name="ingredients" placeholder="재료1,재료2,.." <%if(!ingredients.equals(""))%>value="<%=ingredients%>" /></td>
+				</tr>
+				<tr>
+					<td>분류</td>
+					<td>채식유형별</td>
+					<td>
+						<select name="vegiType">
+						
+							<option value="total" <%if(vegiType.equals("total"))%>selected>전체</option>
+							<option value="vegan"<%if(vegiType.equals("vegan"))%>selected>비건</option>
+							<option value="lacto"<%if(vegiType.equals("lacto"))%>selected>락토</option>
+							<option value="ovo"<%if(vegiType.equals("ovo"))%>selected>오보</option>
+							<option value="lacto ovo"<%if(vegiType.equals("lacto ovo"))%>selected>락토 오보</option>
+							<option value="pesco"<%if(vegiType.equals("pesco"))%>selected>페스코</option>
+							<option value="pollo"<%if(vegiType.equals("pollo"))%>selected>폴로</option>
+							<option value="flexitarian"<%if(vegiType.equals("flexitarian"))%>selected>플렉시테리언</option>	
+						</select>
+						<img src="./img/question.png" width="20px" height="20px" />
+					</td>	
+					<td>난이도별</td>
+					<td>
+						<select name="difficulty">
+							<option value="전체" <%if(difficulty.equals("전체"))%>selected>전체</option>
+							<option value="쉬움" <%if(difficulty.equals("쉬움"))%>selected>쉬움</option>
+							<option value="보통" <%if(difficulty.equals("보통"))%>selected>보통</option>
+							<option value="어려움" <%if(difficulty.equals("어려움"))%>selected>어려움</option>
+						</select>
+					</td>
+					<td>열량</td>
+					<td>
+					<input type="text" name="calMore" <%if(!name.equals(""))%> value="<%=calMore%>" />~
+					<input type="text" name="calUnder" <%if(!name.equals(""))%> value="<%=calUnder%>"/>
+					</td>
+				</tr>
+				<tr>
+					<td>작성자</td>
+					<td colspan='7'><input type="text" name="writer" <%if(!writer.equals(""))%> value="<%=writer%>"/></td>
+				</tr>
+				<tr>
+					<td colspan='8'><input type="submit" value="검색"/></td>
+				</tr>
+			</table>
+		</form>
 	
 	<div class="sub-wrapper">
 		<% if(session.getAttribute("memId")!= null){ %>
@@ -163,8 +243,28 @@
 			<h3>총 <%=count %>개의 레시피가 있습니다.</h3>
 		</div>
 		<div class="sort_button">
-				<button onclick="window.location='recipeList.jsp'">최신순</button>
-				<button onclick="window.location='recipeList.jsp'">평점순</button>
+				<form action="recipeSearchList.jsp">
+					<input type="hidden" name="name" value="<%=name%>" />
+					<input type="hidden" name="ingredients" value="<%=ingredients%>" />
+					<input type="hidden" name="vegiType" value="<%=vegiType%>" />
+					<input type="hidden" name="difficulty" value="<%=difficulty%>" />
+					<input type="hidden" name="calMore" value="<%=calMore%>" />
+					<input type="hidden" name="calUnder" value="<%=calUnder%>" />
+					<input type="hidden" name="writer" value="<%=writer%>" />
+					<input type="hidden" name="mode" value="num" />
+					<input type="submit" value="최신순"/>	
+				</form>
+				<form action="recipeSearchList.jsp">
+					<input type="hidden" name="name" value="<%=name%>" />
+					<input type="hidden" name="ingredients" value="<%=ingredients%>" />
+					<input type="hidden" name="vegiType" value="<%=vegiType%>" />
+					<input type="hidden" name="difficulty" value="<%=difficulty%>" />
+					<input type="hidden" name="calMore" value="<%=calMore%>" />
+					<input type="hidden" name="calUnder" value="<%=calUnder%>" />
+					<input type="hidden" name="writer" value="<%=writer%>" />
+					<input type="hidden" name="mode" value="rating"/>
+					<input type="submit" value="평점순"/>	
+				</form>
 		</div>
 	</div>
 	<div id="searchRecipe-wrapper">

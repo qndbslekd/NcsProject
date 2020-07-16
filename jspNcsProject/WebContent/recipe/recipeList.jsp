@@ -82,24 +82,29 @@
 	int startRow = (currPage-1)*pageSize +1;
 	int endRow = currPage*pageSize;
 	int count = 0;
-
 	
+	String mode= "num";
+	//mode가 num이면 최신순, rating이면 평점순
+	if(request.getParameter("mode")!=null){
+		mode= request.getParameter("mode");
+	}
+
+
 	RecipeDAO dao = RecipeDAO.getInstance();
 	
 	List recipeList = null;
 	count = dao.getRecipeCount();
 	
 	if(count>0){
-		recipeList = dao.seletAllReceipeByReg(startRow, endRow);
+		recipeList = dao.seletAllReceipe(startRow, endRow, mode);
 	}
-	
-	
 	int rowNum = 5;
 		
 %>
 <body>
 	<jsp:include page="../header.jsp" flush="false"/>
-	<form action="recipeSearchPro.jsp" name="searchForm" method="post">
+	<form action="recipeSearchList.jsp" name="searchForm" method="post">
+		<input type="hidden" name="mode" value="num"/>
 		<table id="search">
 			<tr>
 				<td>요리명</td>
@@ -160,8 +165,8 @@
 			<h3>총 <%=count %>개의 레시피가 있습니다.</h3>		
 		</div>
 		<div class="sort_button">
-				<button onclick="window.location='recipeList.jsp'">최신순</button>
-				<button onclick="window.location='recipeList.jsp'">평점순</button>
+				<button onclick="window.location='recipeList.jsp?mode=num'">최신순</button>
+				<button onclick="window.location='recipeList.jsp?mode=rating'">평점순</button>
 		</div>
 	</div>
 	

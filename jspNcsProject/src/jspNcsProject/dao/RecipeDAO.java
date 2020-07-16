@@ -51,12 +51,19 @@ public class RecipeDAO {
 	}
 	
 	//recipeList 최신순으로 가져오기
-	public List seletAllReceipeByReg(int startrow, int endrow) {
+	public List seletAllReceipe(int startrow, int endrow, String mode) {
 		ArrayList recipeList = null;
 		try {
 			conn= getConnection();
-			String sql = "select b.* from(select rownum r, a.* "
+			String sql = "";
+			if(mode.equals("num")) {
+				sql = "select b.* from(select rownum r, a.* "
 					+ "from(select * from recipe_board order by num desc)a order by num desc)b where r >= ? and r<=?";
+			}else if(mode.equals("rating")) {//mode가 rating
+				sql="select b.* from(select rownum r, a.* "
+						+ "from(select * from recipe_board order by rating desc, num desc)a order by rating desc,num desc)b where r>=? and r<=?";			
+			}
+					
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, startrow);
 			pstmt.setInt(2, endrow);
@@ -86,41 +93,6 @@ public class RecipeDAO {
 		
 	} 
 	
-	//평점순으로 가져오기
-	public List seletAllReceipeByRating(int startrow, int endrow) {
-		ArrayList recipeList = null;
-		try {
-			conn= getConnection();
-			String sql = "select b.* from(select rownum r, a.* "
-					+ "from(select * from recipe_board order by rating desc)a order by rating desc)b where r >= ? and r<=?";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, startrow);
-			pstmt.setInt(2, endrow);
-			rs = pstmt.executeQuery();
-			if(rs.next()) {
-				recipeList = new ArrayList();
-				do{
-					RecipeDTO recipe = new RecipeDTO();
-					recipe.setNum(rs.getInt("num"));
-					recipe.setRecipeName(rs.getString("recipe_name"));
-					recipe.setThumbnail(rs.getString("thumbnail"));
-					recipe.setWriter(rs.getString("writer"));	
-					recipe.setRating(0);
-					recipeList.add(recipe);				
-				}while(rs.next());			
-			}
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			if(rs!=null)try { rs.close();}catch(Exception e) {e.printStackTrace();}
-			if(pstmt!=null)try { pstmt.close();}catch(Exception e) {e.printStackTrace();}
-			if(conn!=null)try { conn.close();}catch(Exception e) {e.printStackTrace();}
-			
-		}
-		return recipeList= null;
-		
-	} 
 	
 	// 레시피내용만 가져오는 메서드
 	public RecipeDTO selectRecipeBoard(int num) {
@@ -159,13 +131,24 @@ public class RecipeDAO {
 		return recipeBoard;
 	}
 	
-	public List searchRecipeList(String whereQuery, String mode) {
+	public List searchRecipeList(int startrow, int endrow, String whereQuery, String mode) {
 		//mode는 최신순인 경우 num, 평점순인경우 rating
 		ArrayList searchRecipeList =null;
 		try {
+			String sql = "";
 			conn = getConnection();
-			String sql ="select * from recipe_board "+ whereQuery + " order by "+ mode +" desc";
+			if(mode.equals("num")) {
+				sql = "select b.* from(select rownum r, a.* "
+					+ "from(select * from recipe_board "+ whereQuery +" order by num desc)a order by num desc)b where r >= ? and r<=?";
+			}else if(mode.equals("rating")) {//mode가 rating
+				sql="select b.* from(select rownum r, a.* "
+						+ "from(select * from recipe_board "+ whereQuery +" order by rating desc, num desc)a order by rating desc,num desc)b where r>=? and r<=?";			
+			}
+						
+			//String sql ="select * from recipe_board "+ whereQuery + " order by "+ mode +" desc";
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startrow);
+			pstmt.setInt(2, endrow);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				searchRecipeList = new ArrayList();
