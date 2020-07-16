@@ -198,5 +198,35 @@ public class RecipeDAO {
 	}
 	
 	
+	//레시피 삭제
+	public void deleteRecipeBoard(int num) {
+		try {
+			conn = getConnection();
+			//레시피 세부내용 댓글 삭제
+			RecipeContentCommentDAO rccDAO = RecipeContentCommentDAO.getInstance();
+			rccDAO.deleteRecipeContentCommentAll(num);
+			//레시피 세부내용 삭제
+			RecipeContentDAO rcDAO = RecipeContentDAO.getInstance();
+			rcDAO.deleteRecipeContent(num);
+			//레시피 댓글 내용 삭제
+			RecipeCommentDAO rcmDAO = RecipeCommentDAO.getInstance();
+			rcmDAO.deleteRecipeCommentAll(num);
+					
+			//레시피 정보 삭제
+			String sql = "delete from recipe_board where num=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			pstmt.executeUpdate();
+					
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(pstmt != null)try {pstmt.close();}catch(Exception e) {e.printStackTrace();}
+			if(conn != null)try {conn.close();}catch(Exception e) {e.printStackTrace();}
+		}
+	}
+	
+	
 	
 }

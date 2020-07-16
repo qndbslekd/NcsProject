@@ -21,8 +21,9 @@
 		String pw = request.getParameter("pw");
 		
 		MemberDAO dao = MemberDAO.getInstance();
-		boolean res = dao.loginCheck(id, pw);
-		
+		boolean res = false;
+		int res_= dao.loginCheck(id, pw);
+		if(res_==1)res = true;
 		if(res){
 			dao.deleteMember(id);
 			session.invalidate();
