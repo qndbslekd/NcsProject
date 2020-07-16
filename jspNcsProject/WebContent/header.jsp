@@ -12,30 +12,6 @@
 	border-collapse: collapse;
 }
 
-<<<<<<< HEAD
-	}
-	
-	#header .title{
-		font-size: 40px;
-		
-	}
-	#header .tab{
-		width :250px;
-		background-color: rgb(139, 195, 74);
-	}
-	a:link {
-		text-decoration: none;
-		color: #ffff;
-	}
-	a:visited {
-	text-decoration: none;
-		color: #ffff;
-	}
-	a:hover {
-	text-decoration: underline;
-		color: #559AFC;
-	}
-=======
 #header .title {
 	font-size: 40px;
 }
@@ -44,6 +20,31 @@
 	width: 250px;
 	background-color: rgb(139, 195, 74);
 }
+
+a:link {
+	text-decoration: none;
+	color: #ffff;
+}
+
+a:visited {
+	text-decoration: none;
+	color: #ffff;
+}
+
+a:hover {
+	text-decoration: underline;
+	color: #559AFC;
+}
+
+#header .title {
+	font-size: 40px;
+}
+
+#header .tab {
+	width: 250px;
+	background-color: rgb(139, 195, 74);
+}
+
 a:link {
 	text-decoration: none;
 	color: #ffff;
@@ -63,7 +64,6 @@ a:hover {
 	text-decoration: underline;
 	color: #559AFC;
 }
->>>>>>> branch 'develop' of https://github.com/ysk0951/codinnnnng.git
 </style>
 </head> 
 <%
