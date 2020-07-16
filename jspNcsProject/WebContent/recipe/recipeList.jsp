@@ -90,40 +90,64 @@
 	if(count>0){
 		recipeList = dao.seletAllReceipeByReg(startRow, endRow);
 	}
-	System.out.println(recipeList);
+	
 	
 	int rowNum = 5;
 		
 %>
 <body>
 	<jsp:include page="../header.jsp" flush="false"/>
-	<form>
-	<table id="search">
-		<tr>
-			<td>요리명</td>
-			<td><input type="text" name="name"/></td>
-		</tr>
-		<tr>
-			<td>재료명</td>
-			<td><input type="text" name="ingredients" placeholder="재료1,재료2,.."/></td>
-		</tr>
-		<tr>
-			<td>분류</td>
-			<td>채식유형별</td>
-			<td>난이도별</td>
-			<td>열량</td>
-			<td>이상~이하</td>
-		</tr>
-		<tr>
-			<td>작성자</td>
-			<td><input type="text" name="writer"/></td>
-		</tr>
-		<tr>
-			<td></td>
-			<td><input type="submit" name="검색"/></td>
-		</tr>
-	</table>
+	<form action="recipeSearchPro.jsp" name="searchForm" method="post">
+		<table id="search">
+			<tr>
+				<td>요리명</td>
+				<td colspan='7'><input type="text" name="name"/></td>
+			</tr>
+			<tr>
+				<td>재료명</td>
+				<td colspan='7'><input type="text" name="ingredients" placeholder="재료1,재료2,.."/></td>
+			</tr>
+			<tr>
+				<td>분류</td>
+				<td>채식유형별</td>
+				<td>
+					<select name="vegiType">
+						<option value="total" selected>전체</option>
+						<option value="vegan">비건</option>
+						<option value="lacto">락토</option>
+						<option value="ovo">오보</option>
+						<option value="lacto ovo">락토 오보</option>
+						<option value="pesco">페스코</option>
+						<option value="pollo">폴로</option>
+						<option value="flexitarian">플렉시테리언</option>	
+					</select>
+					<img src="./imgs/question.png" width="20px" height="20px" />
+				</td>	
+				<td>난이도별</td>
+				<td>
+					<select name="difficulty">
+						<option value="전체" selected>전체</option>
+						<option value="쉬움">쉬움</option>
+						<option value="보통">보통</option>
+						<option value="어려움">어려움</option>
+					</select>
+				</td>
+				<td>열량</td>
+				<td>
+				<input type="text" name="calMore"/>~
+				<input type="text" name="calUnder"/>
+				</td>
+			</tr>
+			<tr>
+				<td>작성자</td>
+				<td colspan='7'><input type="text" name="writer"/></td>
+			</tr>
+			<tr>
+				<td colspan='8'><input type="submit" value="검색"/></td>
+			</tr>
+		</table>
 	</form>
+	
 	<div class="sub-wrapper">
 		<% if(session.getAttribute("memId")!= null){ %>
 		<div>
@@ -131,7 +155,11 @@
 		</div>
 		<%}%>
 		<div class="total_recipe">
-			<h3>총 2345개의 레시피가 있습니다.</h3>
+			<h3>총 <%=count %>개의 레시피가 있습니다.</h3>		
+		</div>
+		<div class="sort_button">
+				<button onclick="window.location='recipeList.jsp'">최신순</button>
+				<button onclick="window.location='recipeList.jsp'">평점순</button>
 		</div>
 	</div>
 	
