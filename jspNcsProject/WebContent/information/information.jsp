@@ -1,3 +1,7 @@
+<%@page import="jspNcsProject.dao.InfomationDAO"%>
+<%@page import="jspNcsProject.dto.InfomationDTO"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -7,11 +11,23 @@
 	<link href="../resource/team05_style.css" rel="stylesheet" type="text/css">
 </head>
 <jsp:include page="../header.jsp"></jsp:include>
+<h1 align="center">채식정보 페이지</h1>
+<hr/>
 <%
-//InformationDTO dto = new InformationDTO();
-
-
+	InfomationDAO dao = InfomationDAO.getInstance();
+	List<InfomationDTO> information = dao.getInfomation();
+	System.out.println(information);
 %>
-<body>
-</body>
+	<body>
+		<table>
+		<%for(int i=0;i<information.size();i++){%>
+			<tr>
+				<td><%=information.get(i).getSubject() %></td>
+			</tr> 
+			<tr>
+				<td style="text-align: left;"><%=information.get(i).getContent()%></td>
+			</tr>
+		<%} %>
+		</table>
+	</body>
 </html>
