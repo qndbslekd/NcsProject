@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -58,8 +60,13 @@ public class MemberDAO {
 		return result;
 	}
 	
-	public boolean loginCheck(String id, String pw) {
-		boolean result = false;
+	public int loginCheck(String id, String pw) {
+		
+		//1 > 로그인가능
+		//0 > 회원가입필요
+		//-1 > 강퇴당한 회원
+		
+		int result = 0;
 		System.out.println(id);
 		System.out.println(pw);
 		try {
@@ -70,7 +77,10 @@ public class MemberDAO {
 			pstmt.setString(2, pw);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
-				result = true;
+				result = 1;		
+				if(rs.getString("state").equals("강퇴")) {
+					result = -1;
+				}
 			}else {
 				System.out.println("return FALSE");
 			}
@@ -130,6 +140,29 @@ public class MemberDAO {
 		return result;
 	}
 	
+	//활동명 중복검사
+		public boolean confirmName(String name) {
+			boolean result = false;
+			try {
+				String sql = "select * from member where name = ?";
+				conn = getConnection();
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, name);
+				rs = pstmt.executeQuery();
+				if(rs.next()) {
+					result = true;
+				}
+				System.out.println("confirmId "+result);
+			}catch (Exception e) {
+				e.printStackTrace();
+			}finally {
+				if(rs!=null)try {rs.close();} catch (SQLException e) {e.printStackTrace();}
+				if(pstmt!=null)try {rs.close();} catch (SQLException e) {e.printStackTrace();}
+				if(conn!=null)try {rs.close();} catch (SQLException e) {e.printStackTrace();}
+			}
+			return result;
+		}
+	
 	public int deleteMember(String id) {
 		int result=0;
 		try {
@@ -172,9 +205,220 @@ public class MemberDAO {
 		}catch (Exception e) {
 			e.printStackTrace();
 		}finally {
+			if(rs!=null)try {rs.close();} catch (Exception e) {e.printStackTrace();}
+			if(pstmt!=null)try {pstmt.close();} catch (Exception e) {e.printStackTrace();}
+			if(conn!=null)try {conn.close();} catch (Exception e) {e.printStackTrace();}
+		}
+		return result;
+	}
+	public int updateMember(MemberDTO dto) {
+		int result = 0;
+		try {
+			String sql = "UPDATE MEMBER SET profile_img = ? ,pw=?,name=?,vegi_type=? WHERE id =?";
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,dto.getProfile_img());
+			pstmt.setString(2,dto.getPw());
+			pstmt.setString(3,dto.getName());
+			pstmt.setString(4,dto.getVegi_type());
+			pstmt.setString(5,dto.getId());
+			result = pstmt.executeUpdate();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
 			if(rs!=null)try {rs.close();} catch (SQLException e) {e.printStackTrace();}
-			if(pstmt!=null)try {rs.close();} catch (SQLException e) {e.printStackTrace();}
-			if(conn!=null)try {rs.close();} catch (SQLException e) {e.printStackTrace();}
+			if(pstmt!=null)try {pstmt.close();} catch (SQLException e) {e.printStackTrace();}
+			if(conn!=null)try {conn.close();} catch (SQLException e) {e.printStackTrace();}
+		}
+		System.out.println("Update Count : "+result);
+		return result;
+	}
+	
+	public int selectAllMember() {
+		int result=0;
+		try {
+			conn = getConnection();
+			String sql = "select count(*) from member";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt(1);
+				System.out.println(result);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(rs!=null)try {rs.close();} catch (SQLException e) {e.printStackTrace();}
+			if(pstmt!=null)try {pstmt.close();} catch (SQLException e) {e.printStackTrace();}
+			if(conn!=null)try {conn.close();} catch (SQLException e) {e.printStackTrace();}
+		}
+		return result;
+	}
+	
+	//search overloading
+	public int selectAllMember(String option,String search) {
+		int result=0;
+		try {
+			conn = getConnection();
+			String sql = "select count(*) from member where "+option+" like '%"+search+"%'";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt(1);
+				System.out.println(result);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(rs!=null)try {rs.close();} catch (SQLException e) {e.printStackTrace();}
+			if(pstmt!=null)try {pstmt.close();} catch (SQLException e) {e.printStackTrace();}
+			if(conn!=null)try {conn.close();} catch (SQLException e) {e.printStackTrace();}
+		}
+		return result;
+	}
+	
+	//Offence member
+	public int selectAllMemberByOffence() {
+		int result=0;
+		try {
+			conn = getConnection();
+			String sql = "select count(*) from member where OFFENCE_COUNT > 0";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt(1);
+				System.out.println(result);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(rs!=null)try {rs.close();} catch (SQLException e) {e.printStackTrace();}
+			if(pstmt!=null)try {pstmt.close();} catch (SQLException e) {e.printStackTrace();}
+			if(conn!=null)try {conn.close();} catch (SQLException e) {e.printStackTrace();}
+		}
+		return result;
+	}
+	
+	public List getSearchMemberList(int start, int end) {
+		List memberList = new ArrayList<MemberDTO>();
+		try {
+			conn = getConnection();
+			String sql = "select id,pw,age,gender,name,regdate,offence_count,offence_url,state,r from "
+					+ "(select id,pw,age,gender,name,regdate,offence_count,offence_url,state, rownum r from "
+					+ "(select * from MEMBER ORDER BY OFFENCE_COUNT desc)) where r>=? and r<=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, start);
+			pstmt.setInt(2, end);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				MemberDTO dto = new MemberDTO();
+				dto.setId(rs.getString("id"));
+				dto.setPw(rs.getString("pw"));
+				dto.setAge(rs.getString("age"));
+				dto.setGender(rs.getString("gender"));
+				dto.setName(rs.getString("name"));
+				dto.setRegdate(rs.getTimestamp("regdate"));
+				dto.setOffence_count(rs.getInt("offence_count"));
+				dto.setOffence_url(rs.getString("offence_url"));
+				dto.setState(rs.getString("state"));				
+				memberList.add(dto);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(rs!=null)try {rs.close();} catch (SQLException e) {e.printStackTrace();}
+			if(pstmt!=null)try {pstmt.close();} catch (SQLException e) {e.printStackTrace();}
+			if(conn!=null)try {conn.close();} catch (SQLException e) {e.printStackTrace();}
+		}
+		return memberList;
+	}
+	
+	//search overloading
+	public List getSearchMemberList(int start, int end,String option,String search) {
+		List memberList = new ArrayList<MemberDTO>();
+		try {
+			conn = getConnection();
+			String sql = "select id,pw,age,gender,name,regdate,offence_count,offence_url,state,r from "
+					+ "(select id,pw,age,gender,name,regdate,offence_count,offence_url,state, rownum r from "
+					+ "(select * from MEMBER where "+option+" like '%"+search+"%' ORDER BY OFFENCE_COUNT desc)) where r>=? and r<=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, start);
+			pstmt.setInt(2, end);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				MemberDTO dto = new MemberDTO();
+				dto.setId(rs.getString("id"));
+				dto.setPw(rs.getString("pw"));
+				dto.setAge(rs.getString("age"));
+				dto.setGender(rs.getString("gender"));
+				dto.setName(rs.getString("name"));
+				dto.setRegdate(rs.getTimestamp("regdate"));
+				dto.setOffence_count(rs.getInt("offence_count"));
+				dto.setOffence_url(rs.getString("offence_url"));
+				dto.setState(rs.getString("state"));				
+				memberList.add(dto);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(rs!=null)try {rs.close();} catch (SQLException e) {e.printStackTrace();}
+			if(pstmt!=null)try {pstmt.close();} catch (SQLException e) {e.printStackTrace();}
+			if(conn!=null)try {conn.close();} catch (SQLException e) {e.printStackTrace();}
+		}
+		return memberList;
+	}
+	
+	//offnectMember
+	public List getSearchMemberListByOffence(int start, int end) {
+		List memberList = new ArrayList<MemberDTO>();
+		try {
+			conn = getConnection();
+			String sql = "select id,pw,age,gender,name,regdate,offence_count,offence_url,state,r from "
+					+ "(select id,pw,age,gender,name,regdate,offence_count,offence_url,state, rownum r from "
+					+ "(select * from MEMBER where OFFENCE_COUNT>0 ORDER BY OFFENCE_COUNT desc)) where r>=? and r<=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, start);
+			pstmt.setInt(2, end);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				MemberDTO dto = new MemberDTO();
+				dto.setId(rs.getString("id"));
+				dto.setPw(rs.getString("pw"));
+				dto.setAge(rs.getString("age"));
+				dto.setGender(rs.getString("gender"));
+				dto.setName(rs.getString("name"));
+				dto.setRegdate(rs.getTimestamp("regdate"));
+				dto.setOffence_count(rs.getInt("offence_count"));
+				dto.setOffence_url(rs.getString("offence_url"));
+				dto.setState(rs.getString("state"));				
+				memberList.add(dto);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(rs!=null)try {rs.close();} catch (SQLException e) {e.printStackTrace();}
+			if(pstmt!=null)try {pstmt.close();} catch (SQLException e) {e.printStackTrace();}
+			if(conn!=null)try {conn.close();} catch (SQLException e) {e.printStackTrace();}
+		}
+		return memberList;
+	}
+	
+	public int kickOffMember(String id) {
+		int result=0;
+		try {
+			conn = getConnection();
+			String sql ="UPDATE MEMBER SET state=? WHERE id=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "강퇴");
+			pstmt.setString(2, id);
+			result = pstmt.executeUpdate();
+			System.out.println("result"+result);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(rs!=null)try {rs.close();} catch (SQLException e) {e.printStackTrace();}
+			if(pstmt!=null)try {pstmt.close();} catch (SQLException e) {e.printStackTrace();}
+			if(conn!=null)try {conn.close();} catch (SQLException e) {e.printStackTrace();}
 		}
 		return result;
 	}

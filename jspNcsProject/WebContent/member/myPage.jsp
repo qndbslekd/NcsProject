@@ -6,13 +6,14 @@
 	<title>Insert title here</title>
 	<link href="../resource/team05_style.css" rel="stylesheet" type="text/css">
 </head>
+<jsp:include page="../header.jsp"></jsp:include>
 <%
 	if(session.getAttribute("memId") == null){%>
 		<script>
 			alert("로그인 후 이용하세요");
 			window.location="loginForm.jsp";
 		</script>
-	<%}
+	<%}else{
 %>
 <body>
 <h1 align="center"> 마이 페이지 </h1> 
@@ -43,7 +44,7 @@
 			<tr>
 				<td colspan="3"> <button onclick="window.location='memberList.jsp'">관리자 페이지</button></td>
 			</tr>
-		<%} %>
+		<%}} %>
 	</table>
 </body>
 </html>
