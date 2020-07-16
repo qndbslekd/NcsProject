@@ -7,21 +7,38 @@
 <link href="../resource/team05_style.css" type="text/css" rel="stylesheet"/>
 <title>header</title>
 <style>
-	#header{
-		width :1000px;
-		border-collapse: collapse;
+#header {
+	width: 1000px;
+	border-collapse: collapse;
+}
 
-	}
-	
-	#header .title{
-		font-size: 40px;
-		
-	}
-	#header .tab{
-		width :250px;
-		background-color: rgb(139, 195, 74);
-	}
-	
+#header .title {
+	font-size: 40px;
+}
+
+#header .tab {
+	width: 250px;
+	background-color: rgb(139, 195, 74);
+}
+a:link {
+	text-decoration: none;
+	color: #ffff;
+}
+
+a:visited {
+	text-decoration: none;
+	color: #ffff;
+}
+
+a:active {
+	text-decoration: none;
+	color: #ffff;
+}
+
+a:hover {
+	text-decoration: underline;
+	color: #559AFC;
+}
 </style>
 </head> 
 <%
@@ -63,7 +80,7 @@
 	<table id="header">
 		<tr>
 			
-			<td class="title" colspan="4">BEGIN VEGAN</td>
+			<td class="title" colspan="4"><a href="/jnp/member/main.jsp">BEGIN VEGAN</a></td>
 		<tr>
 		<tr>
 			<td>
@@ -83,10 +100,10 @@
 			<%} %>
 		</tr>
 		<tr>
-			<td class="tab" onclick="window.location='information.jsp'">채식정보</td>
-			<td class="tab" onclick="window.location='../recipe/recipeList.jsp'">레시피</td>
-			<td class="tab" onclick="window.location='../product/productList.jsp'">제품</td>
-			<td class="tab" onclick="window.location='../freeboard/board.jsp'">자유게시판</td>
+			<td class="tab" onclick="window.location='/jnp/information.jsp'">채식정보</td>
+			<td class="tab" oncllick="window.location='/jnp/recipe/recipeList.jsp'">레시피</td>
+			<td class="tab" oncllick="window.location='/jnp/product/productList.jsp'">제품</td>
+			<td class="tab" oncllick="window.location='/jnp/freeboard/board.jsp'">자유게시판</td>
 		</tr>
 		
 	</table>
