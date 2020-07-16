@@ -8,6 +8,7 @@
 </head>
 <%
 	request.setCharacterEncoding("UTF-8");
+
 	//TEST AUTOLOGIN
 	System.out.println("===LOGIN PRO===");
 	System.out.println("AUTO VAL :"+request.getParameter("auto"));
@@ -21,6 +22,19 @@
 	int res = dao.loginCheck(id, pw);
 	String name = dao.getMemberName(id, pw);
 	
+	Cookie [] coo = request.getCookies();
+	if(coo != null){
+		for(Cookie c : coo){
+			if(c.getName().equals("autoId")) id = c.getValue();
+			if(c.getName().equals("autoPw")) pw = c.getValue();
+			if(c.getName().equals("autoCh")) auto = c.getValue();
+			if(c.getName().equals("autoName")) name = c.getValue();
+		}
+		System.out.println("id : " +id);
+		System.out.println("pw : " +pw);
+		System.out.println("auto : " +auto);
+		System.out.println("name : " +name);
+	}
 	if(res == 1){
 		session.setAttribute("memId", id);
 		session.setAttribute("memPw", pw);

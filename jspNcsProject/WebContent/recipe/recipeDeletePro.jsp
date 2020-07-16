@@ -10,7 +10,7 @@
 <title>글 삭제 처리</title>
 </head>
 <%
-	String memName = (String) session.getAttribute("memName");
+	String memId = (String) session.getAttribute("memId");
 
 	int num = Integer.parseInt(request.getParameter("num"));
 	RecipeDAO recipedao = RecipeDAO.getInstance();
@@ -19,9 +19,9 @@
 	//글 정보 가져오기
 	RecipeDTO recipe = recipedao.selectRecipeBoard(num);
 	
-	if(!memName.equals(recipe.getWriter()) && !memName.equals("관리자")) {
+	if(!memId.equals(recipe.getWriter()) && !memId.equals("admin")) {
 		%> <script> alert("작성자만 삭제할 수 있습니다."); history.go(-1); </script><%
-	} else if (memName.equals("관리자")){	//관리자일 경우 비밀번호 확인 없이 삭제
+	} else if (memId.equals("admin")){	//관리자일 경우 비밀번호 확인 없이 삭제
 		recipedao.deleteRecipeBoard(num);
 		%> <script> alert("삭제되었습니다."); window.location='recipeList.jsp'; </script><%
 	} else {
