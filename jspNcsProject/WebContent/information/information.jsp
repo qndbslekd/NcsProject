@@ -31,7 +31,7 @@
 					<button onclick="window.location = 'InformationModifyForm.jsp'" >수정페이지로 이동</button>
 				</td>
 			</tr>
-		<% }%>s
+		<% }%>
 		<%for(int i=0;i<information.size();i++){%> 
 			<tr>
 					<th style=" font-size: 100%;"><%=information.get(i).getSubject() %></th>

@@ -31,6 +31,7 @@
 					<td style="text-align: left;"><textarea rows="20" cols="100" name="content"> <%=information.get(i).getContent()%></textarea></td>
 				</tr>
 			</tbody> 
+			<input type="hidden" value= "<%=information.get(i).getNum()%>" name="num"/>
 		<%} %>
 		</table>
 	</form>
