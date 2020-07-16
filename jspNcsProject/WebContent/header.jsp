@@ -97,6 +97,7 @@ a:hover {
 		if(auto.equals("y")&&id!=null&&pw!=null){
 			System.out.println("loginPro Header Redirect TEST2 : session = cookie ");
 			session.setAttribute("memId", id);
+			session.setAttribute("memName", name);
 		}
 		System.out.println("===HEADER END===");
 	}
