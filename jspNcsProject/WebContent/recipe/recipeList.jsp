@@ -81,6 +81,15 @@
 	
 
 </style>
+<script>
+	function question(){
+		var win = window.open("recipeListVegiTypeInfo.jsp","채식유형 정보","width=900,height=850,left=500,top=500,scrollbars=yes,")
+		
+	}
+
+
+
+</script>
 </head>
 <%
 	
@@ -141,7 +150,7 @@
 						<option value="pollo">폴로</option>
 						<option value="flexitarian">플렉시테리언</option>	
 					</select>
-					<img src="./imgs/question.png" width="20px" height="20px" />
+					<img src="./imgs/question.png" width="20px" height="20px" onclick="question()" />
 				</td>	
 				<td>난이도별</td>
 				<td>
