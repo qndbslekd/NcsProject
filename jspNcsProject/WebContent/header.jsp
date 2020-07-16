@@ -23,7 +23,42 @@
 	}
 	
 </style>
-</head>
+</head> 
+<%
+	System.out.println("===HEADER START===");
+	System.out.println("Header Session값 : "+session.getAttribute("memId"));
+	if(session.getAttribute("memId")==null){ //비로그인상태(세션없을때)
+		// 세션이 없지만 쿠키가 있는지 2중 체크
+		String id = null, pw = null, auto = "n",name = null; 
+		Cookie[] cookies = request.getCookies();
+		if(cookies !=null){ 
+			for(Cookie cookie : cookies){
+				System.out.println("Cookie Null Test :"+cookie.getName());
+				if(cookie.getName().equals("autoId")){
+					id = cookie.getValue();
+					System.out.println("쿠키 아이디 :"+id);
+					}		
+				if(cookie.getName().equals("autoPw")){
+					pw = cookie.getValue();
+					System.out.println("쿠키 pw :"+pw);
+					}		
+				if(cookie.getName().equals("autoCh")) {
+					auto = cookie.getValue();
+					System.out.println("쿠키 auto :"+auto);
+					}
+				if(cookie.getName().equals("autoName")) {
+					name = cookie.getValue();
+					System.out.println("쿠키 name :"+name);
+					}	
+			}
+		} 
+		if(auto.equals("y")&&id!=null&&pw!=null){
+			System.out.println("loginPro Header Redirect TEST2 : session = cookie ");
+			session.setAttribute("memId", id);
+		}
+		System.out.println("===HEADER END===");
+	}
+%>
 <body>
 	<table id="header">
 		<tr>
@@ -49,9 +84,9 @@
 		</tr>
 		<tr>
 			<td class="tab" onclick="window.location='information.jsp'">채식정보</td>
-			<td class="tab" onclick="window.location='./recipe/recipeList.jsp'">레시피</td>
-			<td class="tab" onclick="window.location='./product/productList.jsp'">제품</td>
-			<td class="tab" onclick="window.location='./freeboard/board.jsp'">자유게시판</td>
+			<td class="tab" onclick="window.location='../recipe/recipeList.jsp'">레시피</td>
+			<td class="tab" onclick="window.location='../product/productList.jsp'">제품</td>
+			<td class="tab" onclick="window.location='../freeboard/board.jsp'">자유게시판</td>
 		</tr>
 		
 	</table>

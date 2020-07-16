@@ -6,7 +6,6 @@
 	<title>Insert title here</title>
 	<link href="../resource/team05_style.css" rel="stylesheet" type="text/css">
 </head>
-<jsp:include page="../header.jsp"></jsp:include>
 <%
 	String id = (String)session.getAttribute("memId");
 	if(id==null){
