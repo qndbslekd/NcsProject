@@ -17,6 +17,8 @@
 		}
 	#searchRecipe-wrapper{
 		width : 968px;
+		height: auto;
+		display: overflow;
 		margin: 0 auto;
 	}
 	#searchRecipe-wrapper .recipe{
@@ -74,10 +76,17 @@
 	}
 	
 	h2{
-		color: black;
+		color: black;	
+	}
+	.paging{
+		width: 960px;
+		margin: 0 auto;
+		text-align: center;
 		
-		
-		
+	}
+	.page{
+		display: inline-block;
+		color : black;
 	}
 </style>
 <%
@@ -294,8 +303,36 @@
 			</div>		
 		</div>		
 		<%	}
-		} %>
+		} %>		
+	</div>
+	
+	<div class="paging">
+	<%
+		if(count>0){
+			
+			int pageCount = count/pageSize + (count%pageSize == 0? 0 :1);
+			int pageBlock = 10;
+			
+			int startPage = ((currPage-1)/pageBlock)*pageBlock +1;
+			int endPage = startPage + pageBlock - 1;
+			
+			if(endPage > pageCount) endPage= pageCount;
 		
+			if(startPage > pageBlock){%>
+				<div class="page" onclick="window.location='recipeSearchList.jsp?pageNum=<%=startPage-pageBlock%>&name=<%=name%>&ingredients=<%=ingredients%>&vegiType=<%=vegiType%>&difficulty=<%=difficulty%>&calMore=<%=calMore%>&calUnder=<%=calUnder%>&writer=<%=writer%>&mode=<%=mode%>'">&lt;</div>
+			<%}
+	
+			for(int i = startPage ; i<= endPage; i++ ){%>
+				<div class="page" onclick="window.location='recipeSearchList.jsp?pageNum=<%=i%>&name=<%=name%>&ingredients=<%=ingredients%>&vegiType=<%=vegiType%>&difficulty=<%=difficulty%>&calMore=<%=calMore%>&calUnder=<%=calUnder%>&writer=<%=writer%>&mode=<%=mode%>'">&nbsp;<%=i %></div>	
+			<%}
+			
+			if(endPage > pageCount){%>
+				<div class="page" onclick="window.location='recipeSearchList.jsp?pageNum=<%=startPage+pageBlock%>&name=<%=name%>&ingredients=<%=ingredients%>&vegiType=<%=vegiType%>&difficulty=<%=difficulty%>&calMore=<%=calMore%>&calUnder=<%=calUnder%>&writer=<%=writer%>&mode=<%=mode%>'">&gt;</div>		
+			<%}		
+			}
+	
+	
+	%>
 	</div>
 </body>
 </html>
