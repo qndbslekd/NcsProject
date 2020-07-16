@@ -159,6 +159,44 @@ public class RecipeDAO {
 		return recipeBoard;
 	}
 	
+	public List searchRecipeList(String whereQuery, String mode) {
+		//mode는 최신순인 경우 num, 평점순인경우 rating
+		ArrayList searchRecipeList =null;
+		try {
+			conn = getConnection();
+			String sql ="select * from recipe_board "+ whereQuery + " order by "+ mode +" desc";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				searchRecipeList = new ArrayList();
+				do {
+					RecipeDTO recipe = new RecipeDTO();
+					recipe.setNum(rs.getInt("num"));
+					recipe.setRecipeName(rs.getString("recipe_name"));
+					recipe.setWriter(rs.getString("writer"));
+					recipe.setRating(rs.getInt("rating"));
+					recipe.setVegiType(rs.getString("vegi_type"));
+					recipe.setDifficulty(rs.getString("difficulty"));
+					recipe.setCookingTime(rs.getInt("cooking_time"));
+					recipe.setQuantity(rs.getInt("quantity"));
+					recipe.setCal(rs.getInt("cal"));
+					recipe.setIngredients(rs.getString("ingredients"));
+					recipe.setThumbnail(rs.getString("thumbNail"));					
+					searchRecipeList.add(recipe);					
+				}while(rs.next());
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(rs != null)try {rs.close();}catch(Exception e) {e.printStackTrace();}
+			if(pstmt != null)try {pstmt.close();}catch(Exception e) {e.printStackTrace();}
+			if(conn != null)try {conn.close();}catch(Exception e) {e.printStackTrace();}
+		}
+				
+		return searchRecipeList;		
+	}
+	
 	
 	//레시피 삭제
 	public void deleteRecipeBoard(int num) {

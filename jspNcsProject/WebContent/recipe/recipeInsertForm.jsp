@@ -14,6 +14,7 @@
 	<script> alert("로그인 후 이용해주세요."); window.location="../member/loginForm.jsp"; </script>
 	<%} else { %>
 <body>
+
 <jsp:include page="../header.jsp"/>
 	<form action="recipeStepInsertForm.jsp" method="post">
 		<table>
