@@ -19,8 +19,8 @@
 	RecipeDTO recipe = dao.selectRecipeBoard(num);
 	
 	
-	String memName = (String) session.getAttribute("memName");
-	if(!memName.equals(recipe.getWriter()) && !memName.equals("관리자")) {
+	String memId = (String) session.getAttribute("memId");
+	if(!memId.equals(recipe.getWriter()) && !memId.equals("admin")) {
 		%> <script> alert("작성자만 수정할 수 있습니다."); history.go(-1); </script> <%
 	} else {
 	
@@ -38,7 +38,7 @@
 			</tr>
 			<tr>
 				<td>작성자</td>
-				<td><input type="text" name="writer" value="<%=session.getAttribute("memName")%>" readonly/></td>
+				<td><%=session.getAttribute("memName") %><input type="hidden" name="writer" value="<%=memId%>" /></td>
 			</tr>
 			<tr>
 				<td>채식유형</td>
@@ -73,7 +73,7 @@
 			</tr>
 			<tr>
 				<td>칼로리</td>
-				<td><input type="number" name="cal" <%if(recipe.getCal() > 0) {  %>value="<%=recipe.getCal()%>"<%} %>"/></td>
+				<td><input type="number" name="cal" <%if(recipe.getCal() > 0) {  %>value="<%=recipe.getCal()%>"<%} %>/></td>
 			</tr>
 			<tr>
 				<td>재료</td>

@@ -12,15 +12,15 @@
 </head>
 <%
 
-	String memName = (String) session.getAttribute("memName");
+	String memId = (String) session.getAttribute("memId");
 
 	int num = Integer.parseInt(request.getParameter("num"));
 	RecipeDAO dao = RecipeDAO.getInstance();
 	RecipeDTO recipe = dao.selectRecipeBoard(num);
 	
-	if(!memName.equals(recipe.getWriter()) && !memName.equals("관리자")) {
+	if(!memId.equals(recipe.getWriter()) && !memId.equals("admin")) {
 		%> <script> alert("작성자만 삭제할 수 있습니다."); history.go(-1); </script><%
-	} else if(memName.equals("관리자")){%>
+	} else if(memId.equals("admin")){%>
 <body>
 	<jsp:include page="../header.jsp" flush="false"/>
 		<table>

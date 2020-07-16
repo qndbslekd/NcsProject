@@ -20,6 +20,31 @@
 	width: 250px;
 	background-color: rgb(139, 195, 74);
 }
+
+a:link {
+	text-decoration: none;
+	color: #ffff;
+}
+
+a:visited {
+	text-decoration: none;
+	color: #ffff;
+}
+
+a:hover {
+	text-decoration: underline;
+	color: #559AFC;
+}
+
+#header .title {
+	font-size: 40px;
+}
+
+#header .tab {
+	width: 250px;
+	background-color: rgb(139, 195, 74);
+}
+
 a:link {
 	text-decoration: none;
 	color: #ffff;
@@ -72,6 +97,7 @@ a:hover {
 		if(auto.equals("y")&&id!=null&&pw!=null){
 			System.out.println("loginPro Header Redirect TEST2 : session = cookie ");
 			session.setAttribute("memId", id);
+			session.setAttribute("memName", name);
 		}
 		System.out.println("===HEADER END===");
 	}
@@ -105,8 +131,6 @@ a:hover {
 			<td class="tab" onclick="window.location='/jnp/product/productList.jsp'">제품</td>
 			<td class="tab" onclick="window.location='/jnp/freeboard/board.jsp'">자유게시판</td>
 		</tr>
-		
 	</table>
-
 </body>
 </html>
