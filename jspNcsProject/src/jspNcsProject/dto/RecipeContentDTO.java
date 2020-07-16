@@ -1,11 +1,11 @@
 package jspNcsProject.dto;
 
 public class RecipeContentDTO {
-	int num;
-	int recipeNum;
-	int step;
-	String img;
-	String content;
+	private int num;
+	private int recipeNum;
+	private int step;
+	private String img;
+	private String content;
 	public int getNum() {
 		return num;
 	}

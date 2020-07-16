@@ -95,6 +95,7 @@
 	List recipeList = null;
 	count = dao.getRecipeCount();
 	
+	
 	if(count>0){
 		recipeList = dao.seletAllReceipe(startRow, endRow, mode);
 	}
