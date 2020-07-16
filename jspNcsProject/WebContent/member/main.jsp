@@ -7,6 +7,8 @@
 	<link href="../resource/team05_style.css" rel="stylesheet" type="text/css">
 </head>
 <jsp:include page="../header.jsp"></jsp:include>
+<%
+%>
 <body>
 </body>
 </html>

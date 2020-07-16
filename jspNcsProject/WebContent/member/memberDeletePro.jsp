@@ -23,7 +23,7 @@
 		MemberDAO dao = MemberDAO.getInstance();
 		boolean res = false;
 		int res_= dao.loginCheck(id, pw);
-		if(res_== 1)res = true;
+		if(res_==1)res = true;
 		if(res){
 			dao.deleteMember(id);
 			session.invalidate();
