@@ -69,7 +69,7 @@ public class RecipeDAO {
 					recipe.setRecipeName(rs.getString("recipe_name"));
 					recipe.setThumbnail(rs.getString("thumbnail"));
 					recipe.setWriter(rs.getString("writer"));	
-					recipe.setRating(0);
+					recipe.setRating(rs.getDouble("rating"));
 					recipeList.add(recipe);				
 				}while(rs.next());			
 			}
@@ -105,7 +105,7 @@ public class RecipeDAO {
 					recipe.setRecipeName(rs.getString("recipe_name"));
 					recipe.setThumbnail(rs.getString("thumbnail"));
 					recipe.setWriter(rs.getString("writer"));	
-					recipe.setRating(0);
+					recipe.setRating(rs.getDouble("rating"));
 					recipeList.add(recipe);				
 				}while(rs.next());			
 			}
@@ -145,7 +145,7 @@ public class RecipeDAO {
 				recipeBoard.setCal(Integer.parseInt(rs.getString("cal")));
 				recipeBoard.setQuantity(Integer.parseInt(rs.getString("quantity")));
 				recipeBoard.setIngredients(rs.getString("ingredients"));
-				recipeBoard.setRating(Integer.parseInt(rs.getString("rating")));
+				recipeBoard.setRating(Double.parseDouble(rs.getString("rating")));
 				recipeBoard.setTag(rs.getString("tag"));
 			}
 			
