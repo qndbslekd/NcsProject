@@ -46,7 +46,7 @@
 				<input type="button" value="취소" onclick="window.location='productList.jsp'"/>
 			</td>
 			
-		</tr>
+		</tr>	
 	</table>
 </form>
 
