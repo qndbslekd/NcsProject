@@ -14,11 +14,10 @@
 	String comment = request.getParameter("commentContent");
 	int contentNum = Integer.parseInt(request.getParameter("contentNum"));
 	int recipeNum = Integer.parseInt(request.getParameter("recipeNum"));
-	String memName = (String)session.getAttribute("memName");
+	String memId = (String)session.getAttribute("memId");
 	int reLevel = Integer.parseInt(request.getParameter("reLevel"));
 	int reStep = Integer.parseInt(request.getParameter("reStep"));
 	int ref = Integer.parseInt(request.getParameter("ref"));
-
 	
 	RecipeContentCommentDTO dto = new RecipeContentCommentDTO();
 	RecipeContentCommentDAO dao = RecipeContentCommentDAO.getInstance();
@@ -28,7 +27,7 @@
 	dto.setReLevel(reLevel);
 	dto.setReStep(reStep);
 	dto.setContent(comment);
-	dto.setName(memName);
+	dto.setName(memId);
 	dto.setReg(new Timestamp(System.currentTimeMillis()));
 	dto.setRef(ref);
 		

@@ -17,7 +17,6 @@ String num = request.getParameter("recipeNum");
 <jsp:setProperty property="*" name="comment"/>
 <%
 RecipeCommentDAO dao = RecipeCommentDAO.getInstance();
-System.out.println(comment.getReceiver());
 dao.insertRecipeComment(comment);
 
 
