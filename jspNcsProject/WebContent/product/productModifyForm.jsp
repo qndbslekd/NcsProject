@@ -1,3 +1,5 @@
+	<%@page import="jspNcsProject.dto.ProductDTO"%>
+<%@page import="jspNcsProject.dao.ProductDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -8,15 +10,20 @@
 </head>
 <jsp:include page="../header.jsp"/>
 <%
-	if(session.getAttribute("memId") == null){%>
+	if(session.getAttribute("memId") == null || !session.getAttribute("memId").equals("admin")){%>
 		<script>
-			alert("로그인 후 이용해주세요");
+			alert("관리자만 이용할 수 있습니다.");
 			window.location="productList.jsp";
 		</script>
 	<%}
+String name = request.getParameter("name");
+ProductDAO dao = ProductDAO.getInstance();
+//ProductDTO dto = dao.updateProduct(name); 
+
+
 %>
 <body>
-<form action="productInsertPro.jsp">
+<form action="productModifyPro.jsp" method="post">
 	<table>
 		<br/>
 		<tr >
