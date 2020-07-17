@@ -26,16 +26,16 @@
 			<tr>
 				<td colspan="2">
 					<button onclick="window.location = 'productModifyForm.jsp?num=<%=dto.getNum() %>'" >수정페이지로 이동</button>
-					<button onclick="window.location = 'productDeletePro.jsp?num=<%=dto.getNum() %>'" >삭제페이지로 이동</button>
+					<button onclick="window.location = 'productDeletePro.jsp?num=<%=dto.getNum() %>'" >삭제하기</button>
 				</td>
 			</tr>
 		<% }%>
-			<tr>
+			<tr> 
 				<td rowspan="2">
-					<%if(dto.getProduct_img()!=null){ %>
-					<img src="/jnp/product/imgs/<%=dto.getProduct_img()%>">
-					<%}else{ %>
+					<%if(dto.getProduct_img()==null||dto.getProduct_img().equals("null")){ %>
 					<img src="/jnp/product/imgs/unnamed.gif">
+					<%}else{ %> 
+					<img src="/jnp/product/imgs/<%=dto.getProduct_img()%>">
 					<%} %>
 				</td>			
 				<td>
