@@ -107,13 +107,9 @@
 	//where절 쿼리 처리
 	String whereQuery="where 1=1";	
 	//요리명 검색
-<<<<<<< HEAD
 	
 	
-	if(name!=null && !name.equals("")){
-=======
 	if( name!=null && !name.equals("")){
->>>>>>> branch 'develop' of https://github.com/ysk0951/codinnnnng.git
 		//앞뒤 공백제거
 		name = name.trim();
 		whereQuery += (" and recipe_name like '%"+name+"%'");
@@ -131,11 +127,7 @@
 	
 	}
 	//채식 타입으로 검색
-<<<<<<< HEAD
-	if( vegiType != null && !vegiType.equals("") ){
-=======
 	if(vegiType!=null  && !vegiType.equals("")){
->>>>>>> branch 'develop' of https://github.com/ysk0951/codinnnnng.git
 		if(!vegiType.equals("total")){
 			whereQuery += (" and vegi_type ='"+vegiType+"'");
 		}	
@@ -149,10 +141,8 @@
 	}
 	//칼로리 검색
 	
-<<<<<<< HEAD
 	// null 100
 	// "" null
-=======
 	if((calMore!=null  && !calMore.equals("") )|| (calUnder!=null && !calUnder.equals(""))){//둘중 하나라도 값이 있을때	
 		if((!calMore.equals("") && calMore!=null ) &&  (!calUnder.equals("") && calMore!=null)){ // 둘다 있는경우
 			int calMoreNum = Integer.parseInt(calMore);
@@ -181,8 +171,6 @@
 		}
 		*/
 	}
->>>>>>> branch 'develop' of https://github.com/ysk0951/codinnnnng.git
-	
 	
 	if(( calMore!=null && !calMore.equals("") )|| (calUnder!= null && !calUnder.equals(""))){//둘중 하나라도 값이 있을때	
 		if(( calMore!=null  && !calMore.equals("")) && (calUnder!=null && !calUnder.equals(""))){ // 둘다 있는경우
@@ -199,11 +187,7 @@
 	}
 
 	//작가 검색
-<<<<<<< HEAD
 	if(writer!=null || !writer.equals("")){
-=======
-	if(!writer.equals("")|| writer != null){
->>>>>>> branch 'develop' of https://github.com/ysk0951/codinnnnng.git
 		writer = writer.trim();//앞뒤 공백제거
 		whereQuery += (" and writer like '%"+writer+"%'");
 	}
@@ -243,11 +227,7 @@
 			<table id="search">
 				<tr>
 					<td>요리명</td>
-<<<<<<< HEAD
 					<td colspan='7'><input type="text" name="name" <%if(name!= null && !name.equals(""))%>value="<%=name%>" /></td>
-=======
-					<td colspan='7'><input type="text" name="name" <%if(name!=null && !name.equals(""))%>value="<%=name%>" /></td>
->>>>>>> branch 'develop' of https://github.com/ysk0951/codinnnnng.git
 				</tr>
 				<tr>
 					<td>재료명</td>
@@ -257,17 +237,6 @@
 					<td>분류</td>
 					<td>채식유형별</td>
 					<td>
-<<<<<<< HEAD
-						<select name="vegiType">							
-							<option value="total" <%if(vegiType != null && vegiType.equals("total")){%>selected<%}%>>전체</option>
-							<option value="vegan"<%if(vegiType != null && vegiType.equals("vegan")){%>selected<%}%>>비건</option>
-							<option value="lacto"<%if(vegiType != null && vegiType.equals("lacto")){%>selected<%}%>>락토</option>
-							<option value="ovo"<%if(vegiType != null && vegiType.equals("ovo")){%>selected<%}%>>오보</option>
-							<option value="lacto ovo"<%if(vegiType != null && vegiType.equals("lacto ovo")){%>selected<%}%>>락토 오보</option>
-							<option value="pesco"<%if(vegiType != null && vegiType.equals("pesco")){%>selected<%}%>>페스코</option>
-							<option value="pollo"<%if(vegiType != null && vegiType.equals("pollo")){%>selected<%}%>>폴로</option>
-							<option value="flexitarian"<%if(vegiType != null && vegiType.equals("flexitarian")){%>selected<%}%>>플렉시테리언</option>	
-=======
 						<select name="vegiType">
 						
 							<option value="total" <%if(vegiType!=null && vegiType.equals("total"))%>selected>전체</option>
@@ -278,44 +247,27 @@
 							<option value="pesco"<%if(vegiType!=null && vegiType.equals("pesco"))%>selected>페스코</option>
 							<option value="pollo"<%if(vegiType!=null && vegiType.equals("pollo"))%>selected>폴로</option>
 							<option value="flexitarian"<%if(vegiType!=null && vegiType.equals("flexitarian"))%>selected>플렉시테리언</option>	
->>>>>>> branch 'develop' of https://github.com/ysk0951/codinnnnng.git
 						</select>
 						<img src="./imgs/question.png" width="20px" height="20px" onclick="question()" />
 					</td>	
 					<td>난이도별</td>
 					<td>
 						<select name="difficulty">
-<<<<<<< HEAD
-							<option value="전체" <%if(difficulty!=null && difficulty.equals("전체")){%>selected<%}%>>전체</option>
-							<option value="쉬움" <%if(difficulty!=null && difficulty.equals("쉬움")){%>selected<%}%>>쉬움</option>
-							<option value="보통" <%if(difficulty!=null && difficulty.equals("보통")){%>selected<%}%>>보통</option>
-							<option value="어려움" <%if(difficulty!=null && difficulty.equals("어려움")){%>selected<%}%>>어려움</option>
-=======
 							<option value="전체" <%if(difficulty!=null && difficulty.equals("전체"))%>selected>전체</option>
 							<option value="쉬움" <%if(difficulty!=null && difficulty.equals("쉬움"))%>selected>쉬움</option>
 							<option value="보통" <%if(difficulty!=null && difficulty.equals("보통"))%>selected>보통</option>
 							<option value="어려움" <%if(difficulty!=null && difficulty.equals("어려움"))%>selected>어려움</option>
->>>>>>> branch 'develop' of https://github.com/ysk0951/codinnnnng.git
 						</select>
 					</td>
 					<td>열량</td>
 					<td>
-<<<<<<< HEAD
-					<input type="text" name="calMore" <%if(difficulty!=null && !name.equals(""))%> value="<%=calMore%>" />~
-					<input type="text" name="calUnder" <%if(difficulty!=null && !name.equals(""))%> value="<%=calUnder%>"/>
-=======
 					<input type="text" name="calMore" <%if(calMore !=null && !calMore.equals(""))%> value="<%=calMore%>" />~
 					<input type="text" name="calUnder" <%if(calUnder !=null && !calUnder.equals(""))%> value="<%=calUnder%>"/>
->>>>>>> branch 'develop' of https://github.com/ysk0951/codinnnnng.git
 					</td>
 				</tr>
 				<tr>
 					<td>작성자</td>
-<<<<<<< HEAD
-					<td colspan='7'><input type="text" name="writer" <%if(writer!= null && !writer.equals(""))%> value="<%=writer%>"/></td>
-=======
 					<td colspan='7'><input type="text" name="writer" <%if(writer !=null && !writer.equals(""))%> value="<%=writer%>"/></td>
->>>>>>> branch 'develop' of https://github.com/ysk0951/codinnnnng.git
 				</tr>
 				<tr>
 					<td colspan='8'><input type="submit" value="검색"/></td>
