@@ -1,3 +1,4 @@
+<%@page import="jspNcsProject.dao.RecipeCommentDAO"%>
 <%@page import="jspNcsProject.dto.RecipeContentCommentDTO"%>																				
 <%@page import="java.util.ArrayList"%>																				
 <%@page import="jspNcsProject.dao.RecipeContentCommentDAO"%>																				
@@ -69,7 +70,7 @@ pageEncoding="UTF-8"%>
 	<table border="1">																			
 		<tr >																		
 			<td colspan="4">																	
-				<img src="/jspNcsProject/recipe/imgs/<%= recipeBoard.getThumbnail() %>" />																
+				<img src="/jnp/recipe/imgs/<%= recipeBoard.getThumbnail() %>" />																
 			</td>																	
 		</tr>																		
 		<tr>																		
@@ -84,37 +85,38 @@ pageEncoding="UTF-8"%>
 		</tr>																		
 		<tr>																		
 			<td>																	
-				인분 : <%= recipeBoard.getQuantity() %>																
+				<%= recipeBoard.getQuantity() %>인분																
 			</td>																	
 			<td>																	
-				소요시간 : <%= recipeBoard.getCookingTime() %>																
+				소요시간 : <%= recipeBoard.getCookingTime() %>분															
 			</td>																	
 			<td>																	
 				난이도 : <%= recipeBoard.getDifficulty() %>																
 			</td>																	
 			<td>																	
-				칼로리 : <%= recipeBoard.getCal() %>																
+				칼로리 : <%= recipeBoard.getCal() %>kcal															
 			</td>																	
 		</tr>																		
 		<tr>																		
 			<td colspan="2">																	
 				평점 : <%= recipeBoard.getRating() %> 
 				<%if (session.getAttribute("memId")!=null) { %>
-					<button onclick="rating()">평점 남기기</button>																
+					<button onclick="rating(<%=num%>)">평점 남기기</button>																
 				<%} %>
 			</td>																	
 			<td colspan="2">																	
-				작성자 : <%= recipeBoard.getWriter() %>																
+				작성자 : <%= recipeDAO.selectNameById(recipeBoard.getWriter()) %>		
+				<button onclick="window.location='recipeSearchList.jsp?writer=<%=recipeBoard.getWriter()%>'">레시피 더보기</button>														
 			</td>																	
 		</tr>																		
 		<tr>																		
 			<td colspan="4">																	
-				키워드 탭																
-			</td>																	
+				키워드 : <%= recipeBoard.getTag() %>																
+			</td>			
 		</tr>																		
 		<tr>																		
 			<td colspan="4">																	
-				재료 탭																
+				재료 : <%= recipeBoard.getIngredients() %>																
 			</td>																	
 		</tr>																		
 		<tr>																		
@@ -165,22 +167,26 @@ pageEncoding="UTF-8"%>
 				</table>																
 			</td>																	
 		</tr>																		
-		<tr>																		
+		<tr>	
+		<%--레시피 댓글 --%>																	
 			<td colspan="4">																	
-				댓글 탭																
+				<jsp:include page="recipeComment.jsp">
+					<jsp:param value="<%=num %>" name="num"/>
+				</jsp:include>
 			</td>																	
 		</tr>																		
 	</table>																			
 																			
-	<%if (memId.equals(recipeBoard.getWriter()) || memId.equals("admin")) { %>																				
+	<%if(memId==null){} else if (memId.equals(recipeBoard.getWriter()) || memId.equals("admin")) { %>																				
 		<button onclick="window.location='recipeModifyForm.jsp?num=<%=num %>'">수정</button>																			
 		<button onclick="window.location='recipeDeleteForm.jsp?num=<%=num %>'">삭제</button>																			
 	<%} %>																			
 </body>		
 
 <script>
-	function rating() {
-		var url = "recipeRatingForm.jsp?num=<%=num%>";
+	//평점 남기는 팝업창 띄우기
+	function rating(num) {
+		var url = "recipeRatingForm.jsp?num=" + num; 
 		var name = "평점 남기기";
 		var option = "width=400,height=400,left=600,toolbar=no,menubar=no,location=no,scrollbar=no,status=no,resizable=no";
 		
