@@ -17,12 +17,25 @@ String num = request.getParameter("recipeNum");
 <jsp:setProperty property="*" name="comment"/>
 <%
 RecipeCommentDAO dao = RecipeCommentDAO.getInstance();
+System.out.println(comment.getReceiver());
 dao.insertRecipeComment(comment);
-%>
+
+
+//대댓글이면 창닫기
+if(comment.getReceiver()!=null) {
+	%><script>
+	opener.parent.location.reload();
+	self.close();
+	</script>
+	
+<%} else {%>
+
 <script>
 	alert("댓글이 작성되었습니다.");
 </script>
-<%response.sendRedirect("recipeContent.jsp?num="+num); %>
+<%response.sendRedirect("recipeContent.jsp?num="+num); 
+} %>
+
 <body>
 
 </body>

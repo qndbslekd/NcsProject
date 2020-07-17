@@ -23,9 +23,10 @@
 <body>
 	<form method="post" action="recipeCommentInsertPro.jsp">													
 		<input type="hidden" name="recipeNum" value="<%=oriComment.getRecipeNum()%>"/>
-		<input type="hidden" name="reLevel" value="<%=oriComment.getReLevel()+1%>"/>
-		<input type="hidden" name="reStep" value="0"/>
+		<input type="hidden" name="reLevel" value="1"/>
+		<input type="hidden" name="ref" value="<%=oriComment.getRef()%>"/>
 		<input type="hidden" name="name" value="<%=session.getAttribute("memId")%>"/>
+		<input type="hidden" name="receiver" value="<%=oriComment.getName()%>"/>
 		
 		<table>
 			<tr>
@@ -36,6 +37,5 @@
 			</tr>
 		</table>
 	</form>
-
 </body>
 </html>
