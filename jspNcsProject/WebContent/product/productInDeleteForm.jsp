@@ -33,7 +33,7 @@
 		</tr>
 		<tr>
 			<td>성분</td>
-			<td ><input type="text" name="ingredients" placeholder="자연콩발효액,연두베이스순,발효주정,국산순야채양념,무" size="100"/></td>
+			<td ><input type="text" name="ingredients" placeholder="ex)자연콩발효액,연두베이스순,발효주정,국산순야채양념,무" size="100"/></td>
 		</tr>
 		<tr>
 			<td>제품 이미지</td>
