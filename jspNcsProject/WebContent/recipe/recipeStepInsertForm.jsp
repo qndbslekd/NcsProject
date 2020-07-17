@@ -24,7 +24,7 @@
 	String cookingTime = request.getParameter("cookingTime");
 %>
 <body>
-	<form method="post" action="recipeStepInsertPro.jsp" enctype="multipart/form-data">
+	<form method="post" action="recipeInsertPro.jsp" enctype="multipart/form-data">
 		<input type="hidden" name="recipeStep" value="<%=recipeStep%>"/>
 		<input type="hidden" name="recipeName" value="<%=recipeName%>"/>
 		<input type="hidden" name="writer" value="<%=writer%>"/>
