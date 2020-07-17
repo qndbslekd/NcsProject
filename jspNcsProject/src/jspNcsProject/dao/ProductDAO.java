@@ -11,6 +11,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import jspNcsProject.dto.MemberDTO;
 import jspNcsProject.dto.ProductDTO;
 import jspNcsProject.dto.RecipeDTO;
 
@@ -193,4 +194,25 @@ public class ProductDAO {
 		}
 		return productList;
 	} 
+	
+	public ProductDTO updateProduct(String name){
+		ProductDTO result = null;
+		try {
+			String sql = "select * from member where id = ?";
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, name);
+			rs = pstmt.executeQuery();
+			if(rs.next()){
+				
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(rs!=null)try {rs.close();} catch (Exception e) {e.printStackTrace();}
+			if(pstmt!=null)try {pstmt.close();} catch (Exception e) {e.printStackTrace();}
+			if(conn!=null)try {conn.close();} catch (Exception e) {e.printStackTrace();}
+		}
+		return result;
+	}
 }
