@@ -30,6 +30,16 @@
 				</td>
 			</tr>
 		<% }%>
+			<tr>
+				<form action="recommendPro.jsp" method="post" name="recommend">
+					<td colspan="2">
+						<%=dto.getRecommend()%>
+						<button onclick = "recommand()">추천</button>
+						<input type="hidden" name="history" value="default" />
+						<input type="hidden" name="num" value="<%=dto.getNum()%>" />
+					</td>
+				</form>
+			</tr>
 			<tr> 
 				<td rowspan="2">
 					<%if(dto.getProduct_img()==null||dto.getProduct_img().equals("null")){ %>
@@ -59,4 +69,12 @@
 			<tr>
 		</table>
 	</body>
+	<script type="text/javascript">
+	function recommand(){
+		var back = window.location.href ; 
+		var form = document.getElementsByName("history");
+		form[0].value = back;
+		document.recommend.submit();
+	}
+	</script>
 </html>
