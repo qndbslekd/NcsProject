@@ -94,7 +94,7 @@
 	search = request.getParameter("search");
 	System.out.println("option : "+option);
 	System.out.println("search : "+search);
-	
+	 
 	if(search==null||search.equals("")){
 		//비 검색시
 		count = dao.getProductCount();
