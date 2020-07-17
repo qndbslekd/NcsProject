@@ -97,17 +97,13 @@
 		width : 800px;
 		margin: 0 auto;	
 	}
-	
 	.tag{		
 		padding: 5px;
 		display: inline-block;
 		background-color: gray;
 		border-radius: 10px;
 		margin: 5px 0;
-	
 	}
-	
-
 </style>
 <%
 	request.setCharacterEncoding("utf-8");
@@ -124,7 +120,6 @@
 	String writer = request.getParameter("writer");//작성자
 	System.out.println("name : "+ name +" writer:"+writer);
 	String tag = request.getParameter("tag");
-		
 	//where절 쿼리 처리
 	String whereQuery="where 1=1";	
 	//요리명 검색
@@ -262,7 +257,7 @@
 	
 	//리스트 글수
 	int count = 0;
-	if(searchRecipeList !=null) count= searchRecipeList.size();
+	if(searchRecipeList !=null) count = dao.getCountSearchRecipeList(whereQuery);
 	
 	
 	
@@ -287,24 +282,24 @@
 					<td>
 						<select name="vegiType">
 						
-							<option value="total" <%if(vegiType!=null && vegiType.equals("total"))%>selected>전체</option>
-							<option value="vegan"<%if(vegiType!=null && vegiType.equals("vegan"))%>selected>비건</option>
-							<option value="lacto"<%if(vegiType!=null && vegiType.equals("lacto"))%>selected>락토</option>
-							<option value="ovo"<%if(vegiType!=null && vegiType.equals("ovo"))%>selected>오보</option>
-							<option value="lacto ovo"<%if(vegiType!=null && vegiType.equals("lacto ovo"))%>selected>락토 오보</option>
-							<option value="pesco"<%if(vegiType!=null && vegiType.equals("pesco"))%>selected>페스코</option>
-							<option value="pollo"<%if(vegiType!=null && vegiType.equals("pollo"))%>selected>폴로</option>
-							<option value="flexitarian"<%if(vegiType!=null && vegiType.equals("flexitarian"))%>selected>플렉시테리언</option>	
+							<option value="total" <%if(vegiType!=null && vegiType.equals("total")){%>selected<%}%>>전체</option>
+							<option value="vegan"<%if(vegiType!=null && vegiType.equals("vegan")){%>selected<%}%>>비건</option>
+							<option value="lacto"<%if(vegiType!=null && vegiType.equals("lacto")){%>selected<%}%>>락토</option>
+							<option value="ovo"<%if(vegiType!=null && vegiType.equals("ovo")){%>selected<%}%>>오보</option>
+							<option value="lacto ovo"<%if(vegiType!=null && vegiType.equals("lacto ovo")){%>selected<%}%>>락토 오보</option>
+							<option value="pesco"<%if(vegiType!=null && vegiType.equals("pesco")){%>selected<%}%>>페스코</option>
+							<option value="pollo"<%if(vegiType!=null && vegiType.equals("pollo")){%>selected<%}%>>폴로</option>
+							<option value="flexitarian"<%if(vegiType!=null && vegiType.equals("flexitarian")){%>selected<%}%>>플렉시테리언</option>	
 						</select>
 						<img src="./imgs/question.png" width="20px" height="20px" onclick="question()" />
 					</td>	
 					<td>난이도별</td>
 					<td>
 						<select name="difficulty">
-							<option value="전체" <%if(difficulty!=null && difficulty.equals("전체"))%>selected>전체</option>
-							<option value="쉬움" <%if(difficulty!=null && difficulty.equals("쉬움"))%>selected>쉬움</option>
-							<option value="보통" <%if(difficulty!=null && difficulty.equals("보통"))%>selected>보통</option>
-							<option value="어려움" <%if(difficulty!=null && difficulty.equals("어려움"))%>selected>어려움</option>
+							<option value="전체" <%if(difficulty!=null && difficulty.equals("전체")){%>selected<%}%>>전체</option>
+							<option value="쉬움" <%if(difficulty!=null && difficulty.equals("쉬움")){%>selected<%}%>>쉬움</option>
+							<option value="보통" <%if(difficulty!=null && difficulty.equals("보통")){%>selected<%}%>>보통</option>
+							<option value="어려움" <%if(difficulty!=null && difficulty.equals("어려움")){%>selected<%}%>>어려움</option>
 						</select>
 					</td>
 					<td>열량</td>
@@ -312,10 +307,9 @@
 					<input type="text" name="calMore" <%if(calMore !=null && !calMore.equals(""))%> value="<%=calMore%>" />~
 					<input type="text" name="calUnder" <%if(calUnder !=null && !calUnder.equals(""))%> value="<%=calUnder%>"/>
 					</td>
-				</tr>
-				<tr>
+				</tr> 
+				<tr> 
 					<td>작성자</td>
-					<td colspan='7'><input type="text" name="writer" <%if(writer !=null && !writer.equals(""))%> value="<%=writer%>"/></td>
 					<td colspan='7'><input type="text" style="width:700px;" name="writer" <%if(writer!= null && !writer.equals(""))%> value="<%=writer%>"/></td>
 				</tr>
 				<tr>
@@ -394,8 +388,8 @@
 				<div class='row'>재료: <%= recipe.getIngredients()%></div>				
 			</div>		
 		</div>		
-		<%	}
-		} %>		
+		<%	} 
+	 } %>		
 	</div>
 	
 	<div class="paging">
@@ -422,8 +416,6 @@
 				<div class="page" onclick="window.location='recipeSearchList.jsp?pageNum=<%=startPage+pageBlock%>&name=<%=name%>&ingredients=<%=ingredients%>&vegiType=<%=vegiType%>&difficulty=<%=difficulty%>&calMore=<%=calMore%>&calUnder=<%=calUnder%>&writer=<%=writer%>&mode=<%=mode%>&tag=<%=tag%>'">&gt;</div>		
 			<%}		
 			}
-	
-	
 	%>
 	</div>
 </body>
