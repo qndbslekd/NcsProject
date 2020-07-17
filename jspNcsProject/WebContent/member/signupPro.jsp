@@ -77,12 +77,13 @@ dao.insertMember(dto);
  
 //이미지 파일만 업로드하기
 String contentType = mr.getContentType("profile_img");
-String[] type = contentType.split("/");
-if(!(type !=null && type[0].equals("image"))){
-	File f = mr.getFile("profile_img");
-	f.delete();
+if(contentType!=null){
+	String[] type = contentType.split("/");
+	if(!(type !=null && type[0].equals("image"))){
+		File f = mr.getFile("profile_img");
+		f.delete();
+	}
 }
-
 //sendRedirect
 response.sendRedirect("main.jsp");
 

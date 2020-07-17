@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+    pageEncoding="utf-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="utf-8">
 <link href="../resource/team05_style.css" type="text/css" rel="stylesheet"/>
 <title>header</title>
 <style>
@@ -68,9 +68,9 @@ a:hover {
 </head> 
 <%
 	System.out.println("===HEADER START===");
-	System.out.println("Header Session°ª : "+session.getAttribute("memId"));
-	if(session.getAttribute("memId")==null){ //ºñ·Î±×ÀÎ»óÅÂ(¼¼¼Ç¾øÀ»¶§)
-		// ¼¼¼ÇÀÌ ¾øÁö¸¸ ÄíÅ°°¡ ÀÖ´ÂÁö 2Áß Ã¼Å©
+	System.out.println("Header Sessionê°’ : "+session.getAttribute("memId"));
+	if(session.getAttribute("memId")==null){ //ë¹„ë¡œê·¸ì¸ìƒíƒœ(ì„¸ì…˜ì—†ì„ë•Œ)
+		// ì„¸ì…˜ì´ ì—†ì§€ë§Œ ì¿ í‚¤ê°€ ìžˆëŠ”ì§€ 2ì¤‘ ì²´í¬
 		String id = null, pw = null, auto = "n",name = null; 
 		Cookie[] cookies = request.getCookies();
 		if(cookies !=null){ 
@@ -78,19 +78,19 @@ a:hover {
 				System.out.println("Cookie Null Test :"+cookie.getName());
 				if(cookie.getName().equals("autoId")){
 					id = cookie.getValue();
-					System.out.println("ÄíÅ° ¾ÆÀÌµð :"+id);
+					System.out.println("ì¿ í‚¤ ì•„ì´ë”” :"+id);
 					}		
 				if(cookie.getName().equals("autoPw")){
 					pw = cookie.getValue();
-					System.out.println("ÄíÅ° pw :"+pw);
+					System.out.println("ì¿ í‚¤ pw :"+pw);
 					}		
 				if(cookie.getName().equals("autoCh")) {
 					auto = cookie.getValue();
-					System.out.println("ÄíÅ° auto :"+auto);
+					System.out.println("ì¿ í‚¤ auto :"+auto);
 					}
 				if(cookie.getName().equals("autoName")) {
 					name = cookie.getValue();
-					System.out.println("ÄíÅ° name :"+name);
+					System.out.println("ì¿ í‚¤ name :"+name);
 					}	
 			}
 		} 
@@ -115,21 +115,21 @@ a:hover {
 			<%if(session.getAttribute("memId") == null){
 			%>
 			<td>
-				<button onclick="window.location='/jnp/member/loginForm.jsp'">·Î±×ÀÎ</button>
-				<button onclick="window.location='/jnp/member/signupForm.jsp'">È¸¿ø°¡ÀÔ</button>
+				<button onclick="window.location='/jnp/member/loginForm.jsp'">ë¡œê·¸ì¸</button>
+				<button onclick="window.location='/jnp/member/signupForm.jsp'">íšŒì›ê°€ìž…</button>
 			</td>
 			<%}else{%>
 			<td>
-				<button onclick="window.location='/jnp/member/logoutPro.jsp'">·Î±×¾Æ¿ô</button>
-				<button onclick="window.location='/jnp/member/myPage.jsp'">¸¶ÀÌÆäÀÌÁö</button>
+				<button onclick="window.location='/jnp/member/logoutPro.jsp'">ë¡œê·¸ì•„ì›ƒ</button>
+				<button onclick="window.location='/jnp/member/myPage.jsp'">ë§ˆì´íŽ˜ì´ì§€</button>
 			</td>
 			<%} %>
 		</tr>
 		<tr>
-			<td class="tab" onclick="window.location='/jnp/information/information.jsp'">Ã¤½ÄÁ¤º¸</td>
-			<td class="tab" onclick="window.location='/jnp/recipe/recipeList.jsp?mode=num'">·¹½ÃÇÇ</td>
-			<td class="tab" onclick="window.location='/jnp/product/productList.jsp'">Á¦Ç°</td>
-			<td class="tab" onclick="window.location='/jnp/freeboard/board.jsp'">ÀÚÀ¯°Ô½ÃÆÇ</td>
+			<td class="tab" onclick="window.location='/jnp/information/information.jsp'">ì±„ì‹ì •ë³´</td>
+			<td class="tab" onclick="window.location='/jnp/recipe/recipeList.jsp?mode=num'">ë ˆì‹œí”¼</td>
+			<td class="tab" onclick="window.location='/jnp/product/productList.jsp'">ì œí’ˆ</td>
+			<td class="tab" onclick="window.location='/jnp/freeboard/404.jsp'">ìžìœ ê²Œì‹œíŒ</td>
 		</tr>
 	</table>
 </body>
