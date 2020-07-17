@@ -76,7 +76,6 @@
 	<button onclick="commentList()">댓글 더보기</button>
 </div>
 <%}%>
-
 		
 		<%--댓글 작성 폼--%>
 		<% if(memId==null) {%>
