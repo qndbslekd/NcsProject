@@ -57,7 +57,7 @@ public class RecipeCommentDAO {
 			
 			conn = getConnection();
 			
-			String sql = "select * from recipe_comment where recipe_num=?";
+			String sql = "select * from recipe_comment where recipe_num=? order by ref asc, num asc";
 			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, num);
@@ -71,10 +71,10 @@ public class RecipeCommentDAO {
 					
 					dto.setNum(rs.getInt("num"));
 					dto.setName(rs.getString("name"));
+					dto.setReceiver(rs.getString("receiver"));
 					dto.setContent(rs.getString("content"));
 					dto.setRecipeNum(rs.getInt("recipe_num"));
 					dto.setReLevel(rs.getInt("re_level"));
-					dto.setReStep(rs.getInt("re_step"));
 					dto.setReg(rs.getTimestamp("reg"));
 					dto.setRef(rs.getInt("ref"));
 					
@@ -105,36 +105,37 @@ public class RecipeCommentDAO {
 			conn = getConnection();
 			
 			if(dto.getRef()!=0) {//받아온 ref값이 있다면(대댓글이라면)
+
+				
+				//기존 댓글들 re_step 하나씩 뒤로 미뤄주기 (새로 달린 대댓글이 위로)
+//				String sql = "update recipe_comment set re_step=re_step+1 where ref=?";
+//				pstmt = conn.prepareStatement(sql);
+//				pstmt.setInt(1, dto.getRef());
+//				pstmt.executeUpdate();
 				
 				String sql = "insert into recipe_comment values(recipe_comment_seq.nextVal, ?,?,?,?,?,?,sysdate)";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setInt(1, dto.getRecipeNum());
 				pstmt.setInt(2, dto.getRef()); //ref값 그대로넣어주고
 				pstmt.setInt(3, dto.getReLevel());
-				pstmt.setInt(4, dto.getReStep());
-				pstmt.setString(5, dto.getContent());
-				pstmt.setString(6, dto.getName());
+				pstmt.setString(4, dto.getContent());
+				pstmt.setString(5, dto.getName());
+				pstmt.setString(6, dto.getReceiver());
 				
 				pstmt.executeUpdate();
 				
 			} else {	//ref값이 없다면(일반댓글이라면) 고유번호=ref 같도록
 				
 				
-				//기존 댓글들 re_step 하나씩 뒤로 미뤄주기
-				String sql = "update recipe_comment set re_step=re_step+1 where ref=?";
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setInt(1, dto.getRef());
-				pstmt.executeUpdate();
-				
 				
 				//새 댓글 삽입
-				sql = "insert into recipe_comment values(recipe_comment_seq.nextVal, ?,recipe_comment_seq.currVal,?,?,?,?,sysdate)";
+				String sql = "insert into recipe_comment values(recipe_comment_seq.nextVal, ?,recipe_comment_seq.currVal,?,?,?,?,sysdate)";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setInt(1, dto.getRecipeNum());
 				pstmt.setInt(2, dto.getReLevel());
-				pstmt.setInt(3, dto.getReStep());
-				pstmt.setString(4, dto.getContent());
-				pstmt.setString(5, dto.getName());
+				pstmt.setString(3, dto.getContent());
+				pstmt.setString(4, dto.getName());
+				pstmt.setString(5, null);
 				pstmt.executeUpdate();
 				
 			}
@@ -168,11 +169,11 @@ public class RecipeCommentDAO {
 				
 				dto.setNum(num);
 				dto.setName(rs.getString("name"));
+				dto.setReceiver(rs.getString("receiver"));
 				dto.setContent(rs.getString("content"));
 				dto.setRecipeNum(rs.getInt("recipe_num"));
 				dto.setRef(rs.getInt("ref"));
 				dto.setReLevel(rs.getInt("re_level"));
-				dto.setReStep(rs.getInt("re_step"));
 				dto.setReg(rs.getTimestamp("reg"));
 			}
 					
