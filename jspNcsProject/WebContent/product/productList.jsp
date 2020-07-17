@@ -65,7 +65,6 @@
 </style>
 </head>
 <%
-
 	//paging
 	int pageSize =20;
 	//최신순
@@ -77,22 +76,39 @@
 	int startRow = (currPage-1)*pageSize +1;
 	int endRow = currPage*pageSize;
 	int count = 0;
+	int rowNum = 5;
 	
 	String mode = request.getParameter("mode");
 	if(mode==null){
 		mode = "num";
 	}
 	System.out.println("mode : "+mode);
-	
+
 	ProductDAO dao = ProductDAO.getInstance();
-	
 	List productList = null;
-	count = dao.getProductCount();
+
+	//search Param
+	String option = "";
+	String search = "";
+	option = request.getParameter("option");
+	search = request.getParameter("search");
+	System.out.println("option : "+option);
+	System.out.println("search : "+search);
 	
-	if(count>0){
-		productList = dao.seletAllProduct(startRow, endRow, mode);
-	} 
-	int rowNum = 5;
+	if(search==null||search.equals("")){
+		//비 검색시
+		count = dao.getProductCount();
+		if(count>0){
+			productList = dao.seletAllProduct(startRow, endRow, mode);
+		} 
+	}else{
+		//검색시
+		count = dao.getProductCount(option,search);
+		if(count>0){
+			System.out.println("count"+count);
+			productList = dao.seletAllProduct(startRow, endRow, mode,option,search);
+		} 
+	}
 %>
 <jsp:include page="../header.jsp" flush="false"/>
 <body>
@@ -122,8 +138,13 @@
 		</div>
 		
 		<div class="sort_button">
+				<%if(search==null||search.equals("")){%>
 				<button onclick="window.location='productList.jsp?mode=num'">최신순</button>
 				<button onclick="window.location='productList.jsp?mode=rating'">평점순</button>
+				<%}else{ %>
+				<button onclick="window.location='productList.jsp?mode=num&option=<%=option%>&search=<%=search%>'">최신순</button>
+				<button onclick="window.location='productList.jsp?mode=rating&option=<%=option%>&search=<%=search%>'">평점순</button>
+				<%} %>
 		</div>
 	</div>
 	<div id="recipe-wrapper">
