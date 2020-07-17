@@ -33,10 +33,10 @@
 	
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 	int x = 4;
-	if(RecipeCommentList.size() < x) {
+//	if(RecipeCommentList.size() < x) {
 		x = RecipeCommentList.size();
 				
-	}
+//	}
 	for(int i = 0; i < x; i++) {
 		//RecipeCommentDTO dto = (RecipeCommentDTO) RecipeCommentList.get(i);
 		RecipeCommentDTO dto = (RecipeCommentDTO) RecipeCommentList.get(i);
@@ -72,9 +72,11 @@
 	
 <%}%>
 <hr>
+<%--
 <div align=right >
 	<button onclick="commentList()">댓글 더보기</button>
 </div>
+ --%>
 <%}%>
 		
 		<%--댓글 작성 폼--%>
