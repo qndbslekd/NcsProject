@@ -191,13 +191,13 @@
 								<% // 댓글의 name과 memName이 동일하면 수정삭제 동일하지 않으면 아무것도 안 뜨게.
 									
 									if(dto.getName().equals(memName)){ 
-									// 댓글의 name과 memName이 동일하면 수정삭제
+									// 댓글의 name과 memName이 동일하면 수정삭제asdsad
 								%>
 										<input type="button" value="수정" onclick="window.location='#'"/>
 										<input type="button" value="삭제" onclick="window.location='#'"/>
 								<% 	}else{
 										if(recipeBoard.getWriter().equals(memName)){ // 레시피 글쓴아이디와 로그인 아이디 같으면 		
-											
+											System.out.println("reLevel: " + reLevel);
 								%>
 											<input type="button" value="답글쓰기" onclick="openReplyForm(<%= nowContentNum %>, <%= recipeNum %>, <%= reLevel %>, <%= reStep %>, <%= dto.getRef() %>);" />
 											<input type="button" value="신고" onclick="window.location='#'"/>
