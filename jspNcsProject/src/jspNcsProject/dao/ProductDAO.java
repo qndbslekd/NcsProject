@@ -195,18 +195,19 @@ public class ProductDAO {
 		return productList;
 	} 
 	
-	//
-	public ProductDTO selectProduct(String name) {
+	public ProductDTO selectProduct(String num) {
 		ProductDTO product = new ProductDTO();
 		try {
 			conn = getConnection();
-			String sql = "select * from product where name = ?";
+			String sql = "select * from product where num = ?";
 			pstmt = conn.prepareStatement(sql);
+			int num_ = Integer.parseInt(num);
+			pstmt.setInt(1, num_);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				product.setNum(rs.getInt("num"));
 				product.setName(rs.getString("name"));
-				product.setIngredients(rs.getString("setIngredients"));
+				product.setIngredients(rs.getString("ingredients"));
 				product.setDetail(rs.getString("detail"));
 				product.setProduct_img(rs.getString("product_img"));
 				product.setReg(rs.getTimestamp("reg"));
@@ -248,5 +249,21 @@ public class ProductDAO {
 		return result;
 	}
 	
-	
+	public int deleteProduct(String num) {
+		int result = 0;
+		try {
+			String sql = "DELETE FROM PRODUCT p2 WHERE num = ?";
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, Integer.parseInt(num));
+			result = pstmt.executeUpdate();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(rs!=null)try {rs.close();} catch (Exception e) {e.printStackTrace();}
+			if(pstmt!=null)try {pstmt.close();} catch (Exception e) {e.printStackTrace();}
+			if(conn!=null)try {conn.close();} catch (Exception e) {e.printStackTrace();}
+		}
+		return result;
+	}
 }
