@@ -15,9 +15,9 @@
 		window.location="productList.jsp";
 	</script>
 <%}
-	String name = request.getParameter("name");
+	String num = request.getParameter("num");
 	ProductDAO dao = ProductDAO.getInstance();
-	ProductDTO dto = dao.updateProduct(name); 
+	ProductDTO dto = dao.selectProduct(num);
 %>
 <body>
 <form action="productModifyPro.jsp" method="post" enctype="multipart/form-data">
@@ -26,6 +26,7 @@
 		<tr >
 			<td>제품명</td>
 			<td><input type="text" name="name" size="100" value="<%=dto.getName()%>"/></td>
+			<input type = "hidden" name = "num" value="<%=dto.getNum()%>"/>
 		</tr>
 		<tr>
 			<td> 내용 </td>
@@ -33,11 +34,18 @@
 		</tr>
 		<tr>
 			<td>성분</td>
-			<td ><input type="text" name="name" size="100" value="<%=dto.getIngredients()%>"/></td>
+			<td ><input type="text" name="Ingredients" size="100" value="<%=dto.getIngredients()%>"/></td>
 		</tr>
 		<tr>
 			<td>제품 이미지</td>
-			<td ><img src="/jnp/product/imgs/<%=dto.getProduct_img()%>"/></td>
+			<td >
+				<%if(dto.getProduct_img()==null||dto.getProduct_img().equals("null")){ %>
+					<img src="/jnp/product/imgs/unnamed.gif">
+				<%}else{ %> 
+					<img src="/jnp/product/imgs/<%=dto.getProduct_img()%>">
+				<%} %>
+			</td>
+			<input type="hidden" value="<%=dto.getProduct_img()%>" name = "product_img_before" /> 
 		</tr>
 		<tr>
 			<td>수정할 이미지</td>

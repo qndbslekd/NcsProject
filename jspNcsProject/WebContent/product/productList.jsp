@@ -155,7 +155,7 @@
 			ProductDTO product = (ProductDTO)(productList.get(i));
 		%>
 			<div class="recipe" onclick="window.location='productContent.jsp?num=<%=product.getNum()%>'">
-				<div class="thumbnail">
+				<div class="thumbnail"> 
 					<%if(product.getProduct_img()!=null){%>
 					<img width="198px" height="198px" src="/jnp/product/imgs/<%=product.getProduct_img()%>"/>
 					<%}else{%>
@@ -164,7 +164,21 @@
 				</div>
 				<div class="info">
 					<div class="row"><%=product.getName()%></div>
-					<div class="row">대표성분 :<%=product.getIngredients()%></div>
+					<div class="row">대표성분 :<%
+						if(product.getIngredients().contains(",")){
+							String[] ingredients = product.getIngredients().split(",");
+							int length = ingredients.length;
+							System.out.println(length);
+							if(length>3){
+								length = 3;
+							}
+							for(int j=0;j<length;j++){
+								out.print(ingredients[j]+" ");
+							}			
+						}else{
+							out.print(product.getIngredients());
+						}
+					%></div>
 					<div class="row">평점 :<%=product.getRecommend()%></div>
 				</div>			
 			</div>

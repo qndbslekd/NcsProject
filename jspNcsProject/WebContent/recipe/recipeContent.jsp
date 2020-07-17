@@ -15,40 +15,14 @@
 <meta charset="UTF-8">
 <title>Recipe Content</title>
 <link rel="stylesheet" href="../resource/team05_style.css">
+ 
 
-<style>
-	/* 이거 적용 안됨 */
-	#comment{
-		border-left:none;      
-		border- right:none;		
-		border- top:none;		
-		border- bottom:none;
-	}
-
-</style>
-	<script>
-		function openReplyForm(nowContentNum, recipeNum, reLevel, reStep, ref){
-			
-			if(reLevel == 1){ // 답글을 이미 한번 단 경우
-				window.alert("답글 작성은 한번만 가능합니다");
-				return
-			}else{
-				var url = 'recipeContentCommentInsertForm.jsp?contentNum='+nowContentNum+'&recipeNum='+recipeNum+'&reLevel='+reLevel+'&reStep='+reStep+'&ref='+ref;
-				window.name="recipeContent";
-				// 부모창 이름			
-				window.open(url, "commentInsertForm", "width=400, height=250, resizeable=no, scrollbars=no");
-				// window.open("open할 window", "자식창 이름", "팝업창옵션")
-			}
-		}
-	</script>
 </head>
 <%
 	request.setCharacterEncoding("UTF-8");
-	
 	String memName = (String)session.getAttribute("memName");
 	int num = Integer.parseInt(request.getParameter("num"));
 
-	
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
 	
 	RecipeDAO recipeDAO = RecipeDAO.getInstance();
@@ -172,42 +146,7 @@
 		</tr>
 		<tr>
 			<td colspan="4">
-				<table>
-				<h3> 조리과정</h3>
-				<%
-				int reLevel = 0;
-				int reStep = 0;
-				for(int i = 0; i < recipeContentList.size(); i++){
-					recipeContentdto = (RecipeContentDTO)recipeContentList.get(i); 
-			
-					// 조리과정 단계담아줄 변수
-					int nowContentNum = recipeContentdto.getStep();
-					
-					int recipeNum = recipeContentdto.getRecipeNum();
-					
-					%>				
-					<tr>
-						<td>단계<%= nowContentNum%>.</td>
-						<td><%= recipeContentdto.getContent() %> </td> 
-						<td>
-							<%-- 댓글쓰기 --%>
-							
-							<input type="button" value="댓글쓰기" onclick="openReplyForm(<%= nowContentNum %>, <%= recipeNum %>, <%= reLevel %>, <%= reStep %>, <%= 0 %>);" />
-								<%-- function 호출할 때 해당 조리단계 관한 변수 보내줌  --%>
-						</td>
-						<td rowspan="2">사진자리 </td>
-					</tr>
-					<tr>
-					<td colspan="3">
-						<jsp:include page="recipeStepComment.jsp">
-							<jsp:param value="<%= num%>" name="num"/>
-						</jsp:include>				
-					</td>
-					</tr>
-				<%
-				} // 조리과정 제일 큰 for문
-				%>
-				</table>
+				<jsp:include page="recipeStepComment.jsp" flush="false"/>
 		<tr>
 			<td colspan="4">
 			<h2 style="text-align:left">댓글</h2>

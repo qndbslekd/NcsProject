@@ -131,6 +131,28 @@ public class RecipeDAO {
 		return recipeBoard;
 	}
 	
+	public int getCountSearchRecipeList(String whereQuery) {
+		int count = 0;
+		try {
+			conn = getConnection();
+			String sql = "select count(*) from recipe_board "+whereQuery;
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(rs != null)try {rs.close();}catch(Exception e) {e.printStackTrace();}
+			if(pstmt != null)try {pstmt.close();}catch(Exception e) {e.printStackTrace();}
+			if(conn != null)try {conn.close();}catch(Exception e) {e.printStackTrace();}
+		}
+		
+		
+		return count;
+	}
+	
 	public List searchRecipeList(int startrow, int endrow, String whereQuery, String mode) {
 		//mode는 최신순인 경우 num, 평점순인경우 rating
 		ArrayList searchRecipeList =null;
