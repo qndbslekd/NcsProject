@@ -13,6 +13,12 @@ public class RecipeContentCommentDTO {
 	private String content;
 	private String name;
 	private Timestamp reg;
+	public int getRe_step() {
+		return re_step;
+	}
+	public void setRe_step(int re_step) {
+		this.re_step = re_step;
+	}
 	public int getNum() {
 		return num;
 	}
@@ -42,12 +48,6 @@ public class RecipeContentCommentDTO {
 	}
 	public void setRe_level(int re_level) {
 		this.re_level = re_level;
-	}
-	public int getRe_step() {
-		return re_step;
-	}
-	public void setRe_step(int re_step) {
-		this.re_step = re_step;
 	}
 	public String getContent() {
 		return content;
