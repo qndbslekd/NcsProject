@@ -72,7 +72,11 @@
 			System.out.println("Cookie Set Test : "+c4.getName());
 		}
 		System.out.println("===LOGIN PRO END===");
-		response.sendRedirect("main.jsp");
+		%>
+		<script type="text/javascript">
+			history.go(-2);
+		</script>
+		<%
 	}else if(res == 0){%>
 		<script>
 			alert("아이디와 비밀번호를 다시 확인해주세요");
