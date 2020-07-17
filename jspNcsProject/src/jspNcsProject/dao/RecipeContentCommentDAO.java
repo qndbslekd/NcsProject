@@ -95,24 +95,18 @@ public class RecipeContentCommentDAO {
 		int reLevel = dto.getReLevel();
 		int contentNum = dto.getContentNum();
 		int num = 0;
+		System.out.println("ref :" + ref);
 		String sql = "";
 		
 
 		try{
 			conn = getConnection();
 			
-			sql = "select max(num) from recipe_content_comment";
+			sql = "SELECT LAST_NUMBER FROM USER_SEQUENCES WHERE SEQUENCE_NAME=('RECIPE_CONTENT_COMMENT_SEQ')";
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
-			if(rs.next()) {
-				
+			if(rs.next()) {			
 				num = rs.getInt(1);
-
-			}
-			
-			if(reLevel == 1) {
-				System.out.println("답글 한개 이미 달음");
-				return;
 			}
 			
 			if(ref == 0) { // 댓글인 경우 
@@ -130,7 +124,7 @@ public class RecipeContentCommentDAO {
 				
 				pstmt.setInt(1, dto.getRecipeNum());
 				pstmt.setInt(2, dto.getContentNum());
-				pstmt.setInt(3, num+1);
+				pstmt.setInt(3, num);
 				pstmt.setInt(4, reLevel);
 				pstmt.setInt(5, reStep);
 				pstmt.setString(6, dto.getContent());
@@ -148,7 +142,7 @@ public class RecipeContentCommentDAO {
 				
 				reStep = reStep + 1;
 				reLevel = reLevel + 1;								
-				System.out.println(ref);
+				System.out.println("메서드에서 ref : " + ref );
 				sql = "insert into recipe_content_comment(num, recipe_num, content_num, ref, re_level, re_step, content, name, reg) values(recipe_content_comment_seq.nextVal,?,?,?,?,?,?,?,?)";
 				pstmt = conn.prepareStatement(sql);
 				
