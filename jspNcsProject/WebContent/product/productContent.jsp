@@ -26,7 +26,7 @@
 			<tr>
 				<td colspan="2">
 					<button onclick="window.location = 'productModifyForm.jsp?num=<%=dto.getNum() %>'" >수정페이지로 이동</button>
-					<button onclick="window.location = 'productDeletePro.jsp?num=<%=dto.getNum() %>'" >삭제페이지로 이동</button>
+					<button onclick="window.location = 'productDeletePro.jsp?num=<%=dto.getNum() %>'" >삭제하기</button>
 				</td>
 			</tr>
 		<% }%>
