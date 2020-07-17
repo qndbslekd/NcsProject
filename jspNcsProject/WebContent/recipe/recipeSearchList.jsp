@@ -314,22 +314,11 @@
 				</tr>
 				<tr>
 					<td>작성자</td>
-<<<<<<< HEAD
-<<<<<<< HEAD
-					<td colspan='7'><input type="text" name="writer" <%if(writer !=null && !writer.equals(""))%> value="<%=writer%>"/></td>
-=======
-=======
-					<td colspan='7'><input type="text" name="writer" <%if(writer !=null && !writer.equals(""))%> value="<%=writer%>"/></td>
->>>>>>> refs/remotes/origin/develop
 					<td colspan='7'><input type="text" style="width:700px;" name="writer" <%if(writer!= null && !writer.equals(""))%> value="<%=writer%>"/></td>
 				</tr>
 				<tr>
 					<td>태그</td>
 					<td colspan='7'><input type="text" name="tag" style="width: 700px;" placeholder="태그명1,태그명2,.." <%if(tag!=null && !tag.equals(""))%> value="<%=tag%>"/></td>
-<<<<<<< HEAD
->>>>>>> branch 'develop' of https://github.com/ysk0951/codinnnnng.git
-=======
->>>>>>> refs/remotes/origin/develop
 				</tr>
 				<tr>
 					<td colspan='8'><input type="submit" value="검색"/></td>
