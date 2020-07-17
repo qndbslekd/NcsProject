@@ -198,13 +198,17 @@ public class ProductDAO {
 	public ProductDTO updateProduct(String name){
 		ProductDTO result = null;
 		try {
-			String sql = "select * from member where id = ?";
+			String sql = "SELECT name, ingredients, detail, PRODUCT_IMG FROM PRODUCT p WHERE name=?";
 			conn = getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, name);
 			rs = pstmt.executeQuery();
 			if(rs.next()){
-				
+				result = new ProductDTO();
+				result.setName(rs.getString("name"));
+				result.setIngredients(rs.getString("ingredients"));
+				result.setDetail(rs.getString("detail"));
+				result.setProduct_img(rs.getString("product_img"));
 			}
 		}catch (Exception e) {
 			e.printStackTrace();
