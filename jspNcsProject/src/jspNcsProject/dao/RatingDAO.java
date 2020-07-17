@@ -58,7 +58,6 @@ public class RatingDAO {
 			if(pstmt != null) try { pstmt.close();} catch(Exception e) {e.printStackTrace();}
 			if(conn != null) try { conn.close();} catch(Exception e) {e.printStackTrace();}
 		}
-		System.out.println(dto.getRate());
 		return dto;
 	}
 	
