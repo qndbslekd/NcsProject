@@ -15,9 +15,9 @@
 		window.location="productList.jsp";
 	</script>
 <%}
-	String name = request.getParameter("name");
+	String num = request.getParameter("num");
 	ProductDAO dao = ProductDAO.getInstance();
-	ProductDTO dto = dao.selectProduct(name);
+	ProductDTO dto = dao.selectProduct(num);
 %>
 <body>
 <form action="productModifyPro.jsp" method="post" enctype="multipart/form-data">
