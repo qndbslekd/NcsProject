@@ -72,6 +72,17 @@ public class ProductDAO {
 					productList = new ArrayList();
 					do{
 						ProductDTO product = new ProductDTO();
+						product.setNum(rs.getInt("num"));
+						product.setName(rs.getString("name"));
+						product.setIngredients(rs.getString("ingredients"));
+						product.setDetail(rs.getString("detail"));
+						product.setProduct_img(rs.getString("product_img"));
+						product.setReg(rs.getTimestamp("reg"));
+						product.setRecommend(rs.getInt("recommend"));
+						product.setRef(rs.getInt("ref"));
+						product.setRe_level(rs.getInt("re_level"));
+						product.setRe_step(rs.getInt("re_step"));
+						productList.add(product);
 					}while(rs.next());			
 				}
 				
@@ -84,8 +95,5 @@ public class ProductDAO {
 				
 			}
 			return productList;
-			
 		} 
-	
-	
 }
