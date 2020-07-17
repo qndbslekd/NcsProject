@@ -3,6 +3,7 @@ package jspNcsProject.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -117,6 +118,36 @@ public class ProductDAO {
 			return productList;
 		} 
 		
+	//제품 등록 
+	public int insertProduct(ProductDTO dto) {
+		int result=0;
+		int ref = 0;
+		try {
+			conn = getConnection();
+			String sql_ = "SELECT MAX(NUM) FROM PRODUCT";
+			pstmt = conn.prepareStatement(sql_);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				ref = rs.getInt(1);
+			}
+			
+			String sql = "INSERT INTO product(num,name, ingredients, detail, product_img,reg,ref) values(seq_product.nextval,?,?,?,?,sysdate,?)";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,dto.getName());
+			pstmt.setString(2,dto.getIngredients());
+			pstmt.setString(3,dto.getDetail());
+			pstmt.setString(4,dto.getProduct_img());
+			pstmt.setInt(5,ref+1);
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(rs!=null) {try {rs.close();} catch (SQLException e) {e.printStackTrace();}}
+			if(pstmt!=null) {try {pstmt.close();} catch (SQLException e) {e.printStackTrace();}}
+			if(conn!=null) {try {conn.close();} catch (SQLException e) {e.printStackTrace();}}
+		}
+		return result;
+	}
 	
 	//Product 최신순으로 가져오기
 	public List seletAllProduct(int startrow, int endrow, String mode) {
