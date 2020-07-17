@@ -195,21 +195,49 @@ public class ProductDAO {
 		return productList;
 	} 
 	
-	public ProductDTO updateProduct(String name){
-		ProductDTO result = null;
+	//
+	public ProductDTO selectProduct(String name) {
+		ProductDTO product = new ProductDTO();
 		try {
-			String sql = "SELECT name, ingredients, detail, PRODUCT_IMG FROM PRODUCT p WHERE name=?";
+			conn = getConnection();
+			String sql = "select * from product where name = ?";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				product.setNum(rs.getInt("num"));
+				product.setName(rs.getString("name"));
+				product.setIngredients(rs.getString("setIngredients"));
+				product.setDetail(rs.getString("detail"));
+				product.setProduct_img(rs.getString("product_img"));
+				product.setReg(rs.getTimestamp("reg"));
+				product.setRecommend(rs.getInt("recommend"));
+				product.setRef(rs.getInt("ref"));
+				product.setRe_level(rs.getInt("RE_LEVEL"));
+				product.setRe_step(rs.getInt("RE_STEP"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(rs!=null) {try {rs.close();} catch (SQLException e) {e.printStackTrace();}}
+			if(pstmt!=null) {try {pstmt.close();} catch (SQLException e) {e.printStackTrace();}}
+			if(conn!=null) {try {conn.close();} catch (SQLException e) {e.printStackTrace();}}
+		}
+		return product;
+	}
+	
+	//수정
+	public int updateProduct(ProductDTO dto){
+		int result = 0;
+		try {
+			String sql = "UPDATE PRODUCT SET DETAIL = ?,product_img=?, INGREDIENTS = ?, name=? where num = ?";
 			conn = getConnection();
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, name);
-			rs = pstmt.executeQuery();
-			if(rs.next()){
-				result = new ProductDTO();
-				result.setName(rs.getString("name"));
-				result.setIngredients(rs.getString("ingredients"));
-				result.setDetail(rs.getString("detail"));
-				result.setProduct_img(rs.getString("product_img"));
-			}
+			pstmt.setString(1,dto.getDetail());
+			pstmt.setString(2, dto.getProduct_img());
+			pstmt.setString(3, dto.getIngredients());
+			pstmt.setString(4, dto.getName());
+			pstmt.setInt(5,dto.getNum());
+			result = pstmt.executeUpdate();
 		}catch (Exception e) {
 			e.printStackTrace();
 		}finally {
@@ -219,4 +247,6 @@ public class ProductDAO {
 		}
 		return result;
 	}
+	
+	
 }
