@@ -107,7 +107,9 @@ public class RecipeContentCommentDAO {
 			rs = pstmt.executeQuery();
 			if(rs.next()) {			
 				num = rs.getInt(1);
+
 			}
+			
 			
 			if(ref == 0) { // 댓글인 경우 
 				sql = "update recipe_content_comment set re_step=re_step+1 where content_Num=? and re_step > ?";
