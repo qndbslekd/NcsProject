@@ -118,18 +118,26 @@ public class ProductDAO {
 			return productList;
 		} 
 		
-<<<<<<< HEAD
-	//제품 등록
+	//제품 등록 
 	public int insertProduct(ProductDTO dto) {
 		int result=0;
+		int ref = 0;
 		try {
-			String sql = "INSERT INTO product(name, ingredients, detail, product_img) values(?,?,?,?,?,sysdate,0)";
 			conn = getConnection();
+			String sql_ = "SELECT MAX(NUM) FROM PRODUCT";
+			pstmt = conn.prepareStatement(sql_);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				ref = rs.getInt(1);
+			}
+			
+			String sql = "INSERT INTO product(num,name, ingredients, detail, product_img,reg,ref) values(seq_product.nextval,?,?,?,?,sysdate,?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1,dto.getName());
 			pstmt.setString(2,dto.getIngredients());
 			pstmt.setString(3,dto.getDetail());
 			pstmt.setString(4,dto.getProduct_img());
+			pstmt.setInt(5,ref+1);
 			result = pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -140,7 +148,6 @@ public class ProductDAO {
 		}
 		return result;
 	}
-=======
 	
 	//Product 최신순으로 가져오기
 	public List seletAllProduct(int startrow, int endrow, String mode) {
@@ -186,5 +193,4 @@ public class ProductDAO {
 		}
 		return productList;
 	} 
->>>>>>> branch 'develop' of https://github.com/ysk0951/codinnnnng.git
 }
