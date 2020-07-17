@@ -17,7 +17,7 @@
 <%}
 	String name = request.getParameter("name");
 	ProductDAO dao = ProductDAO.getInstance();
-	ProductDTO dto = dao.updateProduct(name); 
+	ProductDTO dto = dao.selectProduct(name);
 %>
 <body>
 <form action="productModifyPro.jsp" method="post" enctype="multipart/form-data">
@@ -26,6 +26,7 @@
 		<tr >
 			<td>제품명</td>
 			<td><input type="text" name="name" size="100" value="<%=dto.getName()%>"/></td>
+			<input type = "hidden" name = "num" value="<%=dto.getNum()%>"/>
 		</tr>
 		<tr>
 			<td> 내용 </td>

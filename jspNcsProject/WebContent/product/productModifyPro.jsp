@@ -1,3 +1,5 @@
+<%@page import="jspNcsProject.dto.ProductDTO"%>
+<%@page import="jspNcsProject.dao.ProductDAO"%>
 <%@page import="java.io.File"%>
 <%@page import="com.oreilly.servlet.MultipartRequest"%>
 <%@page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
@@ -41,12 +43,25 @@
 	
 	String name = mr.getParameter("name");
 	String detail = mr.getParameter("datail");
-	String Ingredients = mr.getParameter("Ingredients");
+	String ingredients = mr.getParameter("Ingredients");
+	String num = mr.getParameter("num");
+	
 	System.out.println("product_img"+product_img);
 	System.out.println("name"+name);
 	System.out.println("detail"+name);
 	System.out.println("Ingredients"+name);
-		
+	
+	ProductDAO dao = ProductDAO.getInstance();
+	ProductDTO dto = new ProductDTO();
+	
+	dto.setNum(Integer.parseInt(num));
+	dto.setName(name);
+	dto.setDetail(detail);
+	dto.setIngredients(ingredients);
+	dto.setProduct_img(product_img);
+	dao.updateProduct(dto);
+	
+	response.sendRedirect("productList.jsp");
 %>
 <body>
 
