@@ -120,7 +120,6 @@
 	String writer = request.getParameter("writer");//작성자
 	System.out.println("name : "+ name +" writer:"+writer);
 	String tag = request.getParameter("tag");
-		
 	//where절 쿼리 처리
 	String whereQuery="where 1=1";	
 	//요리명 검색
