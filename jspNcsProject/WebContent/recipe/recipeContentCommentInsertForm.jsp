@@ -27,7 +27,6 @@
 		<input type="hidden" name="reLevel" value="<%= reLevel %>"/>
 		<input type="hidden" name="reStep" value="<%= reStep %>"/>
 		<input type="hidden" name="ref" value="<%= ref %>"/>
-		
 		<table>
 			<tr>
 				<td colspan="2">

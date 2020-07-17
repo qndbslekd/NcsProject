@@ -14,6 +14,9 @@
 
 </head>
 <body>
+<table>
+<tr>
+<td>
 <%
 	request.setCharacterEncoding("utf-8");
 
@@ -30,15 +33,18 @@
 	if(RecipeCommentList==null) { //댓글이 하나도 없으면%>
 		<h2>댓글이 없습니다</h2>
 	<%} else { //댓글이 있으면
+	int pageSize = 4;
+	int count = RecipeCommentList.size();
+	String pageNum = request.getParameter("pageNum");
+	if(pageNum==null) pageNum="1";
+	int currPage = Integer.parseInt(pageNum);
+	
+	int startRow = pageSize*(currPage-1) ;
+	int endRow =currPage*pageSize;
 	
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-	int x = 4;
-	if(RecipeCommentList.size() < x) {
-		x = RecipeCommentList.size();
-				
-	}
-	for(int i = 0; i < x; i++) {
-		//RecipeCommentDTO dto = (RecipeCommentDTO) RecipeCommentList.get(i);
+
+	for(int i = 0; i < RecipeCommentList.size(); i++) {
 		RecipeCommentDTO dto = (RecipeCommentDTO) RecipeCommentList.get(i);
 		
 %>
@@ -50,8 +56,10 @@
 			<td style="text-align:left; border-right:none;">
 			<Strong> <%= rDAO.selectNameById(dto.getName()) %> </Strong>
 			<%if (memId != null) { %>
-					<%if (dto.getName().equals(memId)) {//내가 쓴 댓글이면 수정버튼%><button onclick="modifyComment(<%=dto.getNum()%>)">수정</button><%} %>
-					<%if (dto.getName().equals(memId) || memId.equals("admin")) {//내가 쓴 댓글(혹은 관리자)이면 삭제버튼%><button onclick="deleteComment(<%=dto.getNum()%>)">삭제</button>
+					<%if (dto.getName().equals(memId)) {//내가 쓴 댓글이면 수정버튼%>
+						<button onclick="recipeCommentModifyForm.jsp">수정</button>
+					<%} %>
+					<%if (dto.getName().equals(memId) || memId.equals("admin")) {//내가 쓴 댓글(혹은 관리자)이면 삭제버튼%><button onclick="recipeCommentDeleteForm.jsp">삭제</button>
 					<%} else { //아니면 답글, 신고버튼%> 
 						<button onclick="reply(<%=dto.getNum() %>)" >답글</button> 
 						<button onclick="report(<%=dto.getNum() %>)" >신고</button> 
@@ -72,9 +80,6 @@
 	
 <%}%>
 <hr>
-<div align=right >
-	<button onclick="commentList()">댓글 더보기</button>
-</div>
 <%}%>
 
 		
@@ -94,7 +99,9 @@
 			</table>
 		</form>
 		<%}%>
-
+</td>
+</tr>
+</table>
 </body>
 <script>
 	//신고 기능
@@ -111,31 +118,7 @@
 		var option = "width=400,height=400,left=600,toolbar=no,menubar=no,location=no,scrollbar=no,status=no,resizable=no";
 		
 		window.open(url,name,option);
-		
-	}
-	//댓글 모두 보기
-	function commentList() {
-		var url = "recipeCommentList.jsp?num=<%=num%>";
-		var name = "댓글 모두 보기";
-		var option = "width=550,height=400,left=600,toolbar=no,menubar=no,location=no,status=no,resizable=no";
-		
-		window.open(url,name,option);
 	}
 	
-	//수정 창 띄우기
-	function modifyComment(num) {
-		var url = "recipeCommentModifyForm.jsp?num=" +num;
-		var name = "댓글 수정하기";
-		var option = "width=550,height=400,left=600,toolbar=no,menubar=no,location=no,scrollbar=no,status=no,resizable=no";
-		
-		window.open(url,name,option);
-	}
-	//댓글 삭제
-	function deleteComment(num) {
-		if(confirm("정말 삭제하시겠습니까?")){
-			window.location="recipeCommentDeletePro.jsp?num=" + num;
-		}
-			
-	}
 </script>
 </html>

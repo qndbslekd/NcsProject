@@ -188,4 +188,47 @@ public class RecipeCommentDAO {
 		
 		return dto;
 	}
+	
+	
+	//댓글 수정
+	public void updateRecipeComment(int num,String content) {
+		try {
+			
+			conn = getConnection();
+			
+			String sql = "update recipe_comment set content=? where num=?";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, content);
+			pstmt.setInt(2, num);
+			
+			pstmt.executeUpdate();
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(pstmt != null) try { pstmt.close(); } catch(Exception e) {e.printStackTrace();}
+			if(conn != null) try { conn.close(); } catch(Exception e) {e.printStackTrace();}
+		}
+	}
+	
+	//댓글 하나 삭제
+	public void deleteRecipeComment(int num) {
+		try {
+			
+			conn = getConnection();
+			
+			String sql = "delete from recipe_comment where num=?";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(pstmt != null) try { pstmt.close(); } catch(Exception e) {e.printStackTrace();}
+			if(conn != null) try { conn.close(); } catch(Exception e) {e.printStackTrace();}
+		}
+	}
 }

@@ -109,7 +109,7 @@ public class RecipeContentCommentDAO {
 				num = rs.getInt(1);
 
 			}
-			
+			System.out.println("ref = " + num);
 			if(reLevel == 1) {
 				System.out.println("답글 한개 이미 달음");
 				return;

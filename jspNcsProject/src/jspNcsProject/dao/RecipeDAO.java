@@ -241,6 +241,69 @@ public class RecipeDAO {
 		return name;
 	}
 	
+	//id 받고 이미지 반환
+	public String selectImgById(String id) {
+		String img = null;
+		
+		try {
+			
+			conn = getConnection();
+			
+			String sql = "select profile_img from member where id=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				img = rs.getString(1);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(rs != null)try {rs.close();}catch(Exception e) {e.printStackTrace();}
+			if(pstmt != null)try {pstmt.close();}catch(Exception e) {e.printStackTrace();}
+			if(conn != null)try {conn.close();}catch(Exception e) {e.printStackTrace();}
+		}
+		
+		return img;
+	}
+	
+	
+	//태그 잘라서 배열로 리턴
+	public String[] selectTagSplit(int num) {
+		String[] tags = null;
+		
+		try {
+			
+			conn = getConnection();
+			
+			String sql = "select tag from recipe_board where num=?";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				tags = rs.getString(1).split(",");
+			}
+			
+					
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(rs != null)try {rs.close();}catch(Exception e) {e.printStackTrace();}
+			if(pstmt != null)try {pstmt.close();}catch(Exception e) {e.printStackTrace();}
+			if(conn != null)try {conn.close();}catch(Exception e) {e.printStackTrace();}
+		}
+		
+		return tags;
+	}
+	
+	
 	
 	
 }
