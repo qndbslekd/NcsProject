@@ -1,3 +1,5 @@
+<%@page import="jspNcsProject.dao.ProductDAO"%>
+<%@page import="jspNcsProject.dto.ProductDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -12,28 +14,37 @@
 	if(id == null){
 		id = "";	
 	}
+	String num = request.getParameter("num");
+	
+	//if num DB 에 존재하지 않으면 Back
+	ProductDAO dao = ProductDAO.getInstance();
+	ProductDTO dto = dao.selectProduct(num); 
 %>
 <body>
 		<table>
 		<%if(id.equals("admin")){ %>
 			<tr>
 				<td colspan="2">
-					<button onclick="window.location = 'productModifyForm.jsp'" >수정페이지로 이동</button>
-					<button onclick="window.location = 'productDeleteForm.jsp'" >삭제페이지로 이동</button>
+					<button onclick="window.location = 'productModifyForm.jsp?num=<%=dto.getNum() %>'" >수정페이지로 이동</button>
+					<button onclick="window.location = 'productDeletePro.jsp?num=<%=dto.getNum() %>'" >삭제페이지로 이동</button>
 				</td>
 			</tr>
 		<% }%>
 			<tr>
 				<td rowspan="2">
-					img
+					<%if(dto.getProduct_img()!=null){ %>
+					<img src="/jnp/product/imgs/<%=dto.getProduct_img()%>">
+					<%}else{ %>
+					<img src="/jnp/product/imgs/unnamed.gif">
+					<%} %>
 				</td>			
 				<td>
-					name
+					<%=dto.getName() %>
 				</td>
-			</tr>
+			</tr> 
 			<tr>
 				<td>
-					ingredi
+					<%=dto.getIngredients() %>
 				</td>
 			<tr>
 			<tr>
@@ -43,7 +54,7 @@
 			<tr>
 			<tr>
 				<td colspan="2">
-					xxxxxxxxxxxxxxxxxxxxxxxxx
+					<%=dto.getDetail()%>
 				</td>
 			<tr>
 		</table>
