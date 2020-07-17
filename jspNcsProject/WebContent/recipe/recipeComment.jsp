@@ -22,6 +22,7 @@
 	RecipeDAO rDAO = RecipeDAO.getInstance();
 	
 	int num = Integer.parseInt(request.getParameter("num"));
+	
 	//댓글 리스트 가져오기
 	RecipeCommentDAO rCDAO = RecipeCommentDAO.getInstance();
 	List RecipeCommentList = rCDAO.selectRecipeCommentAll(num);
@@ -47,7 +48,7 @@
 	<hr>
 	<table style="width:500px; " border=0>
 		<tr>
-			<%if (dto.getReLevel()>0) {%><td rowspan="2" width="50px;" style="vertical-align:top;"><img src="/jnp/recipe/imgs/replyImg.png" width="10px"/></td><%} %>
+			<%if (dto.getReLevel()>0) {%><td rowspan="2" width="20px;" style="vertical-align:top;"><img src="/jnp/recipe/imgs/replyImg.png" width="10px"/></td><%} %>
 			<td style="text-align:left; border-right:none;">
 			<Strong> <%= rDAO.selectNameById(dto.getName()) %> </Strong>
 			<%if (memId != null) { %>
@@ -62,7 +63,12 @@
 			<td style="text-align:right; border-left:none;"><%=sdf.format(dto.getReg()) %></td>
 		</tr>
 		<tr>
-			<td colspan="2" style="text-align:left;"><%=dto.getContent() %></td>
+			<td colspan="2" style="text-align:left;">
+				<%if (dto.getReceiver() !=null) { //만약 대댓글이라면 원본댓글 작성자 이름 넣어주기%>
+					<Strong><%= rDAO.selectNameById(dto.getReceiver()) %></Strong>
+				<%}%>
+				<%=dto.getContent() %>
+			</td>
 		</tr>
 	</table>
 	
