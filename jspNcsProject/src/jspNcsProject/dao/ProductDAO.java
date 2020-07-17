@@ -3,6 +3,7 @@ package jspNcsProject.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -96,4 +97,26 @@ public class ProductDAO {
 			}
 			return productList;
 		} 
+		
+	//제품 등록
+	public int insertProduct(ProductDTO dto) {
+		int result=0;
+		try {
+			String sql = "INSERT INTO product(name, ingredients, detail, product_img) values(?,?,?,?,?,sysdate,0)";
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,dto.getName());
+			pstmt.setString(2,dto.getIngredients());
+			pstmt.setString(3,dto.getDetail());
+			pstmt.setString(4,dto.getProduct_img());
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(rs!=null) {try {rs.close();} catch (SQLException e) {e.printStackTrace();}}
+			if(pstmt!=null) {try {pstmt.close();} catch (SQLException e) {e.printStackTrace();}}
+			if(conn!=null) {try {conn.close();} catch (SQLException e) {e.printStackTrace();}}
+		}
+		return result;
+	}
 }

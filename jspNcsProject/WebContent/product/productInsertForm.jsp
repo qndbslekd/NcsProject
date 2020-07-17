@@ -8,15 +8,15 @@
 </head>
 <jsp:include page="../header.jsp"/>
 <%
-	if(session.getAttribute("memId") == null){%>
+	if(session.getAttribute("memId") == null || !session.getAttribute("memId").equals("admin")){%>
 		<script>
-			alert("로그인 후 이용해주세요");
+			alert("관리자만 제품 등록이 가능합니다");
 			window.location="productList.jsp";
 		</script>
 	<%}
 %>
 <body>
-<form action="productInsertPro.jsp">
+<form action="productInsertPro.jsp" method="post" enctype="multipart/form-data">
 	<table>
 		<br/>
 		<tr >
@@ -25,11 +25,11 @@
 		</tr>
 		<tr >
 			<td>제품명</td>
-			<td><input type="text" name="subject" size="100"/></td>
+			<td><input type="text" name="name" size="100"/></td>
 		</tr>
 		<tr>
 			<td> 내용 </td>
-			<td><textarea cols="100" rows="20" name="content"></textarea></td>
+			<td><textarea cols="100" rows="20" name="datail"></textarea></td>
 		</tr>
 		<tr>
 			<td>성분</td>
