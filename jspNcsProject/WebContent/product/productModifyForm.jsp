@@ -38,7 +38,13 @@
 		</tr>
 		<tr>
 			<td>제품 이미지</td>
-			<td ><img src="/jnp/product/imgs/<%=dto.getProduct_img()%>"/></td>
+			<td >
+				<%if(dto.getProduct_img()==null||dto.getProduct_img().equals("null")){ %>
+					<img src="/jnp/product/imgs/unnamed.gif">
+				<%}else{ %> 
+					<img src="/jnp/product/imgs/<%=dto.getProduct_img()%>">
+				<%} %>
+			</td>
 			<input type="hidden" value="<%=dto.getProduct_img()%>" name = "product_img_before" /> 
 		</tr>
 		<tr>

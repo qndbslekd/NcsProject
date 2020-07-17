@@ -104,10 +104,7 @@
 		background-color: gray;
 		border-radius: 10px;
 		margin: 5px 0;
-	
 	}
-	
-
 </style>
 <%
 	request.setCharacterEncoding("utf-8");
@@ -124,6 +121,7 @@
 	String writer = request.getParameter("writer");//작성자
 	System.out.println("name : "+ name +" writer:"+writer);
 	String tag = request.getParameter("tag");
+		
 	//where절 쿼리 처리
 	String whereQuery="where 1=1";	
 	//요리명 검색
@@ -315,13 +313,20 @@
 				<tr>
 					<td>작성자</td>
 <<<<<<< HEAD
+<<<<<<< HEAD
 					<td colspan='7'><input type="text" name="writer" <%if(writer !=null && !writer.equals(""))%> value="<%=writer%>"/></td>
 =======
+=======
+					<td colspan='7'><input type="text" name="writer" <%if(writer !=null && !writer.equals(""))%> value="<%=writer%>"/></td>
+>>>>>>> branch 'develop' of https://github.com/ysk0951/codinnnnng.git
 					<td colspan='7'><input type="text" style="width:700px;" name="writer" <%if(writer!= null && !writer.equals(""))%> value="<%=writer%>"/></td>
 				</tr>
 				<tr>
 					<td>태그</td>
 					<td colspan='7'><input type="text" name="tag" style="width: 700px;" placeholder="태그명1,태그명2,.." <%if(tag!=null && !tag.equals(""))%> value="<%=tag%>"/></td>
+<<<<<<< HEAD
+>>>>>>> branch 'develop' of https://github.com/ysk0951/codinnnnng.git
+=======
 >>>>>>> branch 'develop' of https://github.com/ysk0951/codinnnnng.git
 				</tr>
 				<tr>
