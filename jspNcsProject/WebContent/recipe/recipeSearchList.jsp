@@ -202,7 +202,7 @@
 					<td>
 						<select name="vegiType">							
 							<option value="total" <%if(vegiType != null && vegiType.equals("total"))%>selected>전체</option>
-							<option value="vegan"<%if(vegiType != null && vegiType.equals("vegan"))%>selected>비건</option>
+							<option value="vegan"<%if(vegiType != null && vegiType.equals("vegan")){%>selected<%}%>>비건</option>
 							<option value="lacto"<%if(vegiType != null && vegiType.equals("lacto"))%>selected>락토</option>
 							<option value="ovo"<%if(vegiType != null && vegiType.equals("ovo"))%>selected>오보</option>
 							<option value="lacto ovo"<%if(vegiType != null && vegiType.equals("lacto ovo"))%>selected>락토 오보</option>
