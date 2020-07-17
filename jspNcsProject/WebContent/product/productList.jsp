@@ -138,7 +138,7 @@
 					<%if(product.getProduct_img()!=null){%>
 					<img width="198px" height="198px" src="/jnp/product/imgs/<%=product.getProduct_img()%>"/>
 					<%}else{%>
-					<img width="198px" height="198px" src="/jnp/product/imgs/<%=product.getProduct_img()%>"/>
+					<img width="198px" height="198px" src="/jnp/product/imgs/unnamed.gif"/>
 					<%}%>
 				</div>
 				<div class="info">
