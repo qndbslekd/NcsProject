@@ -1,3 +1,4 @@
+<%@page import="jspNcsProject.dto.ProductDTO"%>
 <%@page import="jspNcsProject.dao.ProductDAO"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
@@ -75,11 +76,11 @@
 	
 	ProductDAO dao = ProductDAO.getInstance();
 	
-	List recipeList = null;
+	List productList = null;
 	count = dao.getProductCount();
 	
 	if(count>0){
-		recipeList = dao.seletAllProduct(startRow, endRow, mode);
+		productList = dao.seletAllProduct(startRow, endRow, mode);
 	} 
 	int rowNum = 5;
 %>
@@ -102,7 +103,7 @@
 	<div class="sub-wrapper">
 		<% if(session.getAttribute("memId")!= null&&session.getAttribute("memId").equals("admin")){ %>
 		<div>
-			<button  class="write_button" onclick="window.location='productForm.jsp'" >제품 등록</button>
+			<button  class="write_button" onclick="window.location='productInsertForm.jsp'" >제품 등록</button>
 		</div>
 		<%}%>
 		
@@ -115,27 +116,30 @@
 				<button onclick="window.location='productList.jsp?mode=rating'">평점순</button>
 		</div>
 	</div>
-	
-	<%-- <div id="recipe-wrapper">
-	<%if(recipeList==null){ %>
+	<div id="recipe-wrapper">
+	<%if(productList==null){ %>
 		<h1 style="color:black;">등록된 레시피가 없습니다.</h1>
 	<%}else{
-		for(int i = 0 ; i< recipeList.size() ; i++){
-			RecipeDTO recipe = (RecipeDTO)(recipeList.get(i));
+		for(int i = 0 ; i< productList.size() ; i++){
+			ProductDTO product = (ProductDTO)(productList.get(i));
 		%>
-			<div class="recipe" onclick="window.location='recipeContent.jsp?num=<%=recipe.getNum()%>'">
+			<div class="recipe" onclick="window.location='productContent.jsp?num=<%=product.getNum()%>'">
 				<div class="thumbnail">
-					<img width="198px" height="198px" src="/jnp/recipe/imgs/<%=recipe.getThumbnail()%>"/>
+					<%if(product.getProduct_img()!=null){%>
+					<img width="198px" height="198px" src="/jnp/product/imgs/<%=product.getProduct_img()%>"/>
+					<%}else{%>
+					<img width="198px" height="198px" src="/jnp/product/imgs/<%=product.getProduct_img()%>"/>
+					<%}%>
 				</div>
 				<div class="info">
-					<div class="row"><%=recipe.getRecipeName()%></div>
-					<div class="row">posted by <%=recipe.getWriter() %></div>
-					<div class="row"><%=recipe.getRating()%>(2)</div>			
+					<div class="row"><%=product.getName()%></div>
+					<div class="row">대표성분 :<%=product.getIngredients()%></div>
+					<div class="row">평점 :<%=product.getRecommend()%></div>
 				</div>			
 			</div>
 	<%	}
 	}%>			
-	</div> --%>
+	</div>
 
 </body>
 </html>
