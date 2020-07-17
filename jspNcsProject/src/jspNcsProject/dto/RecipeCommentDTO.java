@@ -7,9 +7,9 @@ public class RecipeCommentDTO {
 	private int recipeNum;
 	private int ref;
 	private int reLevel;
-	private int reStep;
 	private String content;
 	private String name;
+	private String receiver;
 	private Timestamp reg;
 	
 	
@@ -40,11 +40,12 @@ public class RecipeCommentDTO {
 	public void setReLevel(int reLevel) {
 		this.reLevel = reLevel;
 	}
-	public int getReStep() {
-		return reStep;
+	
+	public String getReceiver() {
+		return receiver;
 	}
-	public void setReStep(int reStep) {
-		this.reStep = reStep;
+	public void setReceiver(String receiver) {
+		this.receiver = receiver;
 	}
 	public void setContent(String content) {
 		this.content = content;
