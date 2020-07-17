@@ -14,7 +14,7 @@
 
 	#search{
 		width : 800px;
-		margin-top : 100px;
+		margin-top : 50px;
 		margin-bottom : 50px;
 	}
 	#recipe-wrapper{
@@ -111,14 +111,14 @@
 	}
 
 
-	RecipeDAO dao = RecipeDAO.getInstance();
+	RecipeDAO RecipeDao = RecipeDAO.getInstance();
 	
 	List recipeList = null;
-	count = dao.getRecipeCount();
+	count = RecipeDao.getRecipeCount();
 	
 	
 	if(count>0){
-		recipeList = dao.seletAllReceipe(startRow, endRow, mode);
+		recipeList = RecipeDao.seletAllReceipe(startRow, endRow, mode);
 	}
 	int rowNum = 5;
 		
@@ -130,11 +130,11 @@
 		<table id="search">
 			<tr>
 				<td>요리명</td>
-				<td colspan='7'><input type="text" name="name"/></td>
+				<td colspan='7'><input type="text" name="name" style="width: 700px;"/></td>
 			</tr>
 			<tr>
 				<td>재료명</td>
-				<td colspan='7'><input type="text" name="ingredients" placeholder="재료1,재료2,.."/></td>
+				<td colspan='7'><input type="text" name="ingredients" style="width: 700px;"placeholder="재료1,재료2,.."/></td>
 			</tr>
 			<tr>
 				<td>분류</td>
@@ -169,7 +169,11 @@
 			</tr>
 			<tr>
 				<td>작성자</td>
-				<td colspan='7'><input type="text" name="writer"/></td>
+				<td colspan='7'><input type="text" name="writer" style="width: 700px;"/></td>
+			</tr>
+			<tr>
+				<td>태그</td>
+				<td colspan='7'><input type="text" name="tag" style="width: 700px;" placeholder="태그명1,태그명2,.."/></td>
 			</tr>
 			<tr>
 				<td colspan='8'><input type="submit" value="검색"/></td>
