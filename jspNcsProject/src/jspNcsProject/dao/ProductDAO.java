@@ -32,38 +32,59 @@ public class ProductDAO {
 	}
 	
 	//product 글 수 가져오기
-		public int getProductCount() {
-			int count = 0;
-			try {
-				conn= getConnection();
-				String sql = "SELECT count(*) FROM product";
-				pstmt = conn.prepareStatement(sql);
-				rs = pstmt.executeQuery();
-				if(rs.next()) {
-					count = rs.getInt(1);
-				} 	
-			} catch (Exception e) {
-				e.printStackTrace();
-			} finally {
-				if(rs!=null)try { rs.close();}catch(Exception e) {e.printStackTrace();}
-				if(pstmt!=null)try { pstmt.close();}catch(Exception e) {e.printStackTrace();}
-				if(conn!=null)try { conn.close();}catch(Exception e) {e.printStackTrace();}		
-			}
-			return count;
+	public int getProductCount() {
+		int count = 0;
+		try {
+			conn= getConnection();
+			String sql = "SELECT count(*) FROM product";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				count = rs.getInt(1);
+			} 	
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(rs!=null)try { rs.close();}catch(Exception e) {e.printStackTrace();}
+			if(pstmt!=null)try { pstmt.close();}catch(Exception e) {e.printStackTrace();}
+			if(conn!=null)try { conn.close();}catch(Exception e) {e.printStackTrace();}		
 		}
-		
-		//Product 최신순으로 가져오기
-		public List seletAllProduct(int startrow, int endrow, String mode) {
+		return count;
+	}
+	
+	//product 검색된 글 수 가져오기
+	public int getProductCount(String option,String search) {
+		int countForSearch = 0;
+		try {
+			conn= getConnection();
+			String sql =  "SELECT COUNT(*) FROM PRODUCT WHERE "+option+" LIKE '%"+search+"%'";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				countForSearch = rs.getInt(1);
+			} 	
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(rs!=null)try { rs.close();}catch(Exception e) {e.printStackTrace();}
+			if(pstmt!=null)try { pstmt.close();}catch(Exception e) {e.printStackTrace();}
+			if(conn!=null)try { conn.close();}catch(Exception e) {e.printStackTrace();}		
+		}
+		return countForSearch;
+	}
+	
+	//Product 최신순으로 검색하여 가져오기
+		public List seletAllProduct(int startrow, int endrow, String mode,String option,String search) {
 			ArrayList productList = null;
 			try {
 				conn= getConnection();
 				String sql = "";
 				if(mode.equals("num")) {
 					sql = "select b.* from(select rownum r, a.* "
-						+ "from(select * from product order by num desc)a order by num desc)b where r >= ? and r<=?";
+						+ "from(select * from product where "+option+" like '%"+search+"%' order by num desc)a order by num desc)b where r >= ? and r<=?";
 				}else if(mode.equals("rating")) {//mode가 rating
 					sql="select b.* from(select rownum r, a.* "
-							+ "from(select * from product order by recommend desc, num desc)a order by recommend desc,num desc)b where r>=? and r<=?";			
+							+ "from(select * from product where "+option+" like '%"+search+"%' order by recommend desc, num desc)a order by recommend desc,num desc)b where r>=? and r<=?";			
 				}
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setInt(1, startrow);
@@ -86,7 +107,6 @@ public class ProductDAO {
 						productList.add(product);
 					}while(rs.next());			
 				}
-				
 			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {
@@ -98,6 +118,7 @@ public class ProductDAO {
 			return productList;
 		} 
 		
+<<<<<<< HEAD
 	//제품 등록
 	public int insertProduct(ProductDTO dto) {
 		int result=0;
@@ -119,4 +140,51 @@ public class ProductDAO {
 		}
 		return result;
 	}
+=======
+	
+	//Product 최신순으로 가져오기
+	public List seletAllProduct(int startrow, int endrow, String mode) {
+		ArrayList productList = null;
+		try {
+			conn= getConnection();
+			String sql = "";
+			if(mode.equals("num")) {
+				sql = "select b.* from(select rownum r, a.* "
+					+ "from(select * from product order by num desc)a order by num desc)b where r >= ? and r<=?";
+			}else if(mode.equals("rating")) {//mode가 rating
+				sql="select b.* from(select rownum r, a.* "
+						+ "from(select * from product order by recommend desc, num desc)a order by recommend desc,num desc)b where r>=? and r<=?";			
+			}
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startrow);
+			pstmt.setInt(2, endrow);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				productList = new ArrayList();
+				do{
+					ProductDTO product = new ProductDTO();
+					product.setNum(rs.getInt("num"));
+					product.setName(rs.getString("name"));
+					product.setIngredients(rs.getString("ingredients"));
+					product.setDetail(rs.getString("detail"));
+					product.setProduct_img(rs.getString("product_img"));
+					product.setReg(rs.getTimestamp("reg"));
+					product.setRecommend(rs.getInt("recommend"));
+					product.setRef(rs.getInt("ref"));
+					product.setRe_level(rs.getInt("re_level"));
+					product.setRe_step(rs.getInt("re_step"));
+					productList.add(product);
+				}while(rs.next());			
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(rs!=null)try { rs.close();}catch(Exception e) {e.printStackTrace();}
+			if(pstmt!=null)try { pstmt.close();}catch(Exception e) {e.printStackTrace();}
+			if(conn!=null)try { conn.close();}catch(Exception e) {e.printStackTrace();}
+			
+		}
+		return productList;
+	} 
+>>>>>>> branch 'develop' of https://github.com/ysk0951/codinnnnng.git
 }
