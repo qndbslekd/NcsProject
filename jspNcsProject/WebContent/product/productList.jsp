@@ -154,7 +154,7 @@
 		for(int i = 0 ; i< productList.size() ; i++){
 			ProductDTO product = (ProductDTO)(productList.get(i));
 		%>
-			<div class="recipe" onclick="window.location='productContent.jsp?num=<%=product.getName()%>'">
+			<div class="recipe" onclick="window.location='productContent.jsp?name=<%=product.getName()%>'">
 				<div class="thumbnail">
 					<%if(product.getProduct_img()!=null){%>
 					<img width="198px" height="198px" src="/jnp/product/imgs/<%=product.getProduct_img()%>"/>
