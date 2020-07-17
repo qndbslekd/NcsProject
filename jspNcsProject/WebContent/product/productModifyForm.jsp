@@ -43,7 +43,7 @@
 			<td>수정할 이미지</td>
 			<td ><input type="file" name="product_img"/></td>
 		</tr>
-		<tr>
+		<tr> 
 			<td colspan="2">
 				<input type="submit" value="확인"/>
 				<input type="reset" value="재작성"/>
