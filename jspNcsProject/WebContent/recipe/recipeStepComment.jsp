@@ -7,8 +7,7 @@
 <%@page import="jspNcsProject.dto.RecipeDTO"%>
 <%@page import="jspNcsProject.dao.RecipeDAO"%>
 <%@page import="java.text.SimpleDateFormat"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -119,9 +118,6 @@
 				<td id="comment" > <%= dto.getName() %>  </td>
 				<td id="comment"> 
 					<% 
-					if(session.getAttribute("memName") == null){//if3%>
-					
-					<%}else{
 						if(dto.getName().equals(memName)){// if2 
 						// 댓글의 name과 memName이 동일하면 수정삭제 뜨게					
 					%>
@@ -136,7 +132,7 @@
 					%>											
 					<%		}// if1 끝			
 						}//if2의 else끝
-					}//if3의 else끝	
+
 					%>				
 			  	</td>
 					<%} // for1 끝								
@@ -145,7 +141,7 @@
 		</table>
 		</td>
 		</tr>
-	<% // 이거 아니라고ㅠ
+	<%
 	} // 조리과정 제일 큰 for문
 	%>
 	</table>
