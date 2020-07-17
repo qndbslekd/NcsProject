@@ -18,7 +18,9 @@
 		margin-bottom : 50px;
 	}
 	#recipe-wrapper{
+		overflow: hidden;
 		width : 968px;
+		height: auto;
 		margin: 0 auto;
 	}
 	.recipe{
@@ -63,12 +65,31 @@
 	.total_recipe{
 		color: black;
 	}
+	.paging{
+		width: 960px;
+		margin: 0 auto;
+		text-align: center;
+		
+	}
+	.page{
+		display: inline-block;
+		color : black;
+	}
 
 	
 
 	
 
 </style>
+<script>
+	function question(){
+		var win = window.open("recipeListVegiTypeInfo.jsp","채식유형 정보","width=900,height=850,left=500,top=500,scrollbars=yes,")
+		
+	}
+
+
+
+</script>
 </head>
 <%
 	
@@ -129,7 +150,7 @@
 						<option value="pollo">폴로</option>
 						<option value="flexitarian">플렉시테리언</option>	
 					</select>
-					<img src="./imgs/question.png" width="20px" height="20px" />
+					<img src="./imgs/question.png" width="20px" height="20px" onclick="question()" />
 				</td>	
 				<td>난이도별</td>
 				<td>
@@ -190,6 +211,32 @@
 			</div>
 	<%	}
 	}%>			
+	</div>
+	
+	<div class="paging">
+	<%
+		if(count>0){
+			int pageCount = count/pageSize + (count%pageSize == 0 ? 0 :1);
+			int pageBlock = 10;
+
+			int startPage = ((currPage-1)/pageBlock)*pageBlock + 1;
+			int endPage = startPage + pageBlock -1 ;
+			
+			if(endPage > pageCount) endPage = pageCount; 
+			
+			if(startPage > pageBlock){%>
+				<div class="page" onclick="window.location='recipeList.jsp?pageNum=<%=startPage-pageBlock%>'">&lt;</div>
+			<%}
+			for(int i = startPage ; i<= endPage; i++){%>
+				<div class="page" onclick="window.location='recipeList.jsp?pageNum=<%=i%>'">&nbsp;<%=i %></div>	
+			<%
+			}			
+			if(endPage > pageCount){%>
+				<div class="page" onclick="window.location='recipeList.jsp?pageNum=<%=startPage+pageBlock%>'">&gt;</div>		
+			<%}	
+		}
+	%>
+
 	</div>
 
 </body>
