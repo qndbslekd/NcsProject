@@ -156,11 +156,11 @@
 		%>
 			<div class="recipe" onclick="window.location='productContent.jsp?num=<%=product.getNum()%>'">
 				<div class="thumbnail"> 
-					<%if(product.getProduct_img()==null||product.getProduct_img().equals("null")){ %>
-						<img width="198px" height="198px" src="/jnp/product/imgs/unnamed.gif">
-					<%}else{ %> 
-						<img width="198px" height="198px" src="/jnp/product/imgs/<%=product.getProduct_img()%>">
-					<%} %>
+					<%if(product.getProduct_img()!=null){%>
+					<img width="198px" height="198px" src="/jnp/product/imgs/<%=product.getProduct_img()%>"/>
+					<%}else{%>
+					<img width="198px" height="198px" src="/jnp/product/imgs/unnamed.gif"/>
+					<%}%>
 				</div>
 				<div class="info">
 					<div class="row"><%=product.getName()%></div>
