@@ -40,7 +40,7 @@
 	for(int i = 0; i < x; i++) {
 		//RecipeCommentDTO dto = (RecipeCommentDTO) RecipeCommentList.get(i);
 		RecipeCommentDTO dto = (RecipeCommentDTO) RecipeCommentList.get(i);
-		
+		//test
 %>
 	<hr>
 	<table style="width:500px; " border=0>
