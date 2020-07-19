@@ -229,14 +229,14 @@
 			if(endPage > pageCount) endPage = pageCount; 
 			
 			if(startPage > pageBlock){%>
-				<div class="page" onclick="window.location='recipeList.jsp?pageNum=<%=startPage-pageBlock%>'">&lt;</div>
+				<div class="page" onclick="window.location='recipeList.jsp?pageNum=<%=startPage-pageBlock%>&mode=<%=mode%>'">&lt;</div>
 			<%}
 			for(int i = startPage ; i<= endPage; i++){%>
-				<div class="page" onclick="window.location='recipeList.jsp?pageNum=<%=i%>'">&nbsp;<%=i %></div>	
+				<div class="page" onclick="window.location='recipeList.jsp?pageNum=<%=i%>&mode=<%=mode%>'">&nbsp;<%=i %></div>	
 			<%
 			}			
 			if(endPage > pageCount){%>
-				<div class="page" onclick="window.location='recipeList.jsp?pageNum=<%=startPage+pageBlock%>'">&gt;</div>		
+				<div class="page" onclick="window.location='recipeList.jsp?pageNum=<%=startPage+pageBlock%>&mode=<%=mode%>'">&gt;</div>		
 			<%}	
 		}
 	%>
