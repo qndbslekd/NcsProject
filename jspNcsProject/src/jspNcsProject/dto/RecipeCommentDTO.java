@@ -6,10 +6,10 @@ public class RecipeCommentDTO {
 	private int num;
 	private int recipeNum;
 	private int ref;
-	private int re_level;
-	private int re_step;
+	private int reLevel;
 	private String content;
 	private String name;
+	private String receiver;
 	private Timestamp reg;
 	
 	
@@ -31,20 +31,21 @@ public class RecipeCommentDTO {
 	public void setRef(int ref) {
 		this.ref = ref;
 	}
-	public int getRe_level() {
-		return re_level;
-	}
-	public void setRe_level(int re_level) {
-		this.re_level = re_level;
-	}
-	public int getRe_step() {
-		return re_step;
-	}
-	public void setRe_step(int re_step) {
-		this.re_step = re_step;
-	}
 	public String getContent() {
 		return content;
+	}
+	public int getReLevel() {
+		return reLevel;
+	}
+	public void setReLevel(int reLevel) {
+		this.reLevel = reLevel;
+	}
+	
+	public String getReceiver() {
+		return receiver;
+	}
+	public void setReceiver(String receiver) {
+		this.receiver = receiver;
 	}
 	public void setContent(String content) {
 		this.content = content;

@@ -5,11 +5,11 @@ import java.sql.Timestamp;
 public class RecipeContentCommentDTO {
 	
 	private int num;
-	private int recipe_num;
-	private int content_num;
+	private int recipeNum;
+	private int contentNum;
 	private int ref;
-	private int re_level;
-	private int re_step;
+	private int reLevel;
+	private int reStep;
 	private String content;
 	private String name;
 	private Timestamp reg;
@@ -19,17 +19,17 @@ public class RecipeContentCommentDTO {
 	public void setNum(int num) {
 		this.num = num;
 	}
-	public int getRecipe_num() {
-		return recipe_num;
+	public int getRecipeNum() {
+		return recipeNum;
 	}
-	public void setRecipe_num(int recipe_num) {
-		this.recipe_num = recipe_num;
+	public void setRecipeNum(int recipeNum) {
+		this.recipeNum = recipeNum;
 	}
-	public int getContent_num() {
-		return content_num;
+	public int getContentNum() {
+		return contentNum;
 	}
-	public void setContent_num(int content_num) {
-		this.content_num = content_num;
+	public void setContentNum(int contentNum) {
+		this.contentNum = contentNum;
 	}
 	public int getRef() {
 		return ref;
@@ -37,17 +37,17 @@ public class RecipeContentCommentDTO {
 	public void setRef(int ref) {
 		this.ref = ref;
 	}
-	public int getRe_level() {
-		return re_level;
+	public int getReLevel() {
+		return reLevel;
 	}
-	public void setRe_level(int re_level) {
-		this.re_level = re_level;
+	public void setReLevel(int reLevel) {
+		this.reLevel = reLevel;
 	}
-	public int getRe_step() {
-		return re_step;
+	public int getReStep() {
+		return reStep;
 	}
-	public void setRe_step(int re_step) {
-		this.re_step = re_step;
+	public void setReStep(int reStep) {
+		this.reStep = reStep;
 	}
 	public String getContent() {
 		return content;
@@ -67,4 +67,8 @@ public class RecipeContentCommentDTO {
 	public void setReg(Timestamp reg) {
 		this.reg = reg;
 	}
+	
+	
+	
+	
 }
