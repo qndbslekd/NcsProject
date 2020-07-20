@@ -22,7 +22,6 @@
 	ProductDAO dao = ProductDAO.getInstance();
 	ProductDTO dto = dao.selectProduct(num);
 	List<ProductDTO> comment =  dao.selectComment(num);
-	
 %>
 	<body>
 		<form action="recommendPro.jsp" method="post" name="recommend" >
@@ -77,14 +76,14 @@
 				</td> 
 			<tr>
 			<%for(int i=0;i<comment.size();i++){ %>
-				<tr> 
+				<tr>  
 					<td colspan="2" style="text-align: left;">
 						<%=comment.get(i).getName()%> : <%=comment.get(i).getDetail()%> 작성시간 : <%=comment.get(i).getReg()%>
+						<button type="button" onclick="recommentFn('<%=comment.get(i).getName()%>','<%=comment.get(i).getNum()%>')">답글</button>
 						<button type="button" onclick="report('<%=comment.get(i).getNum()%>','<%=comment.get(i).getName()%>')">신고</button>
-						<br/>
-						<input type="text" name="recomment"/>
-						<input type="button" onclick="recommentFn()" value="답글">
-					
+						<%if(session.getAttribute("memId").equals("admin")||session.getAttribute("memId").equals(comment.get(i).getName())){ %>
+								<button type="button" onclick="deleteFn('<%=comment.get(i).getNum()%>','<%=comment.get(i).getName()%>','<%=dto.getNum()%>')">삭제</button>	
+						<%} %>
 						<%
 							System.out.println("======"+comment.get(i).getNum());
 							List<ProductDTO> recoment =  dao.selectRecomment(comment.get(i).getNum()+"");
@@ -97,14 +96,13 @@
 								<%=recoment.get(j).getIngredients()%>
 								<img src="../resource/replyImg.png" width="8px"/>
 								<%=recoment.get(j).getName()%> : <%=recoment.get(j).getDetail()%> 작성시간 : <%=recoment.get(j).getReg()%>
+								<button type="button" onclick="recommentFn('<%=recoment.get(j).getName()%>','<%=recoment.get(j).getNum()%>')">답글</button>
 								<button type="button" onclick="report('<%=recoment.get(j).getNum()%>','<%=recoment.get(j).getName()%>')">신고</button>
 								<%if(session.getAttribute("memId").equals("admin")||session.getAttribute("memId").equals(recoment.get(j).getName())){ %>
 								<button type="button" onclick="deleteFn('<%=recoment.get(j).getNum()%>','<%=recoment.get(j).getName()%>','<%=dto.getNum()%>')">삭제</button>	
 								<%} %>
 						<%}%>
-						<input type="hidden" name="beforeName" value="<%=comment.get(i).getName()%>"/>
-						<!-- 답글의 답글 진행중  -->
-<!-- 						<button type="button" onclick="recomment()">답글</button> -->
+						<input type="hidden" name="beforeName" value="default"/>
 					</td>
 				</tr>  
 			<%} %>
@@ -120,15 +118,16 @@
 		document.recommend.submit();
 	}
 	
-	function recommentFn(){
+	function recommentFn(beforeName,num){ 
 		//유효성검사
-		//test
-		var actionForm = document.recommend;
-		actionForm.action = 'recomment.jsp';
-		var back = window.location.href; 
+		
+		console.log(beforeName);
+		var url = "recomment.jsp?beforeName="+beforeName+"&num="+num;
+		open(url,"답글달기","toolbar=no,location=no,status = no, menubar = no, scrollbars = no,resizable = no, width = 300,height = 200");
+		
+		var back = window.location.href;
 		var form = document.getElementsByName("history");
 		form[0].value = back;
-		document.recommend.submit(); 
 	}
 	
 	function commentFn(){
