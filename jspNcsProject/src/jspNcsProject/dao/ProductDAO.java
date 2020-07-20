@@ -310,7 +310,7 @@ public class ProductDAO {
 		int result = 0;
 		try {
 			conn = getConnection();
-			String getRestepSql = "SELECT NUM From PRODUCT WHERE REF = ? AND RE_STEP = 0";
+			String getRestepSql = "SELECT NUM From PRODUCT WHERE REF = ? AND re_level=1 and RE_STEP = 0";
 			pstmt = conn.prepareStatement(getRestepSql);
 			pstmt.setInt(1, Integer.parseInt(num));
 			rs = pstmt.executeQuery();
