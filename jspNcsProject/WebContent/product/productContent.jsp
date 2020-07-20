@@ -30,8 +30,8 @@
 		<%if(name.equals("관리자")){ %>
 			<tr>
 				<td colspan="2">
-					<button onclick="window.location = 'productModifyForm.jsp?num=<%=dto.getNum() %>'" >글 수정</button>
-					<button onclick="window.location = 'productDeletePro.jsp?num=<%=dto.getNum() %>'" >삭제하기</button>
+					<button type="button" onclick="window.location = 'productModifyForm.jsp?num=<%=dto.getNum() %>'" >글 수정</button>
+					<button type="button" onclick="window.location = 'productDeletePro.jsp?num=<%=dto.getNum() %>'" >삭제하기</button>
 				</td>
 			</tr>
 		<% }%>
@@ -80,10 +80,11 @@
 				<tr>
 					<td colspan="2">
 						<%=comment.get(i).getName()%> : <%=comment.get(i).getDetail()%> 작성시간 : <%=comment.get(i).getReg()%>
+						<input type="hidden" name="beforeName" value="<%=comment.get(i).getName()%>"/>
 						<input type="text" name="recomment"/>
 						<!-- 답글의 답글 진행중  -->
-						<button type="button" onclick="recomment()">답글</button>
-						<button onclick="myFunction()">Click me</button>
+<!-- 						<button type="button" onclick="recomment()">답글</button> -->
+						<input type="button" onclick="recommentFn()" value="답글">
 						
 						<button type="button" onclick="alert('답글')">신고</button>
 					</td>
@@ -100,17 +101,15 @@
 		document.recommend.submit();
 	}
 	
-	function recomment(){
-		
+	function recommentFn(){
 		//유효성검사
 		//test
-		alert("recommnet");
-		
-	/* 	var back = window.location.href ; 
+		var actionForm = document.recommend;
+		actionForm.action = 'recomment.jsp';
+		var back = window.location.href; 
 		var form = document.getElementsByName("history");
 		form[0].value = back;
-		document.recommend.submit(); */
-		
+		document.recommend.submit(); 
 	}
 	</script>
 	

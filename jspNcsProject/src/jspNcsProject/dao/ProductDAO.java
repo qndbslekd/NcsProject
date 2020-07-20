@@ -332,7 +332,7 @@ public class ProductDAO {
 	public List<ProductDTO> selectComment(String num){
 		List<ProductDTO> comment = new ArrayList<ProductDTO>();
 		try {
-			String sql = "select * from product where ref = ? ORDER BY num";
+			String sql = "select * from product where ref = ? AND re_level>0 ORDER BY num";
 			conn = getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1,Integer.parseInt(num));

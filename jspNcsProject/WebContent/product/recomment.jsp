@@ -10,7 +10,7 @@
 
 
 request.setCharacterEncoding("utf-8");
-String beforeName = request.getParameter("name");
+String beforeName = request.getParameter("beforeName");
 String name = session.getAttribute("memName").toString();
 String recomment = request.getParameter("recomment");
 String num = request.getParameter("num");
