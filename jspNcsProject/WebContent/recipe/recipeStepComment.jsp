@@ -92,12 +92,13 @@
 			<td><%= recipeContentdto.getContent() %> </td> 
 			<td>	 		
 				<%
-					if(session.getAttribute("memId") == null ){// 로그아웃 상태면 댓글쓰기 안보임
+					if(session.getAttribute("memId") == null ){// 로그아웃 상태면 댓글쓰기 안보임		
 					}else if(recipeBoard.getWriter().equals(session.getAttribute("memId"))){// 레시피글작성자가 로그인한거면 댓글쓰기 안보임
 					}else{ // 레시피 글 작성자가 아니면 댓글쓰기 보임%>
 						<input type="button" value="댓글쓰기" onclick="openReplyForm(<%= nowContentNum %>, <%= recipeNum %>, <%= reLevel %>, <%= reStep %>, <%= 0 %>);" />
 						<%-- function 호출할 때 해당 조리단계 관한 변수 보내줌  --%>
 				<% 	}
+				
 				%>
 				
 				
@@ -119,7 +120,6 @@
 						RecipeContentCommentDTO dto = (RecipeContentCommentDTO)recipeContentCommentlist.get(k-1);
 						reStep = dto.getReStep();
 						reLevel = dto.getReLevel();
-						System.out.println("relevel1 : " + reLevel);
 				%>
 			<tr id="comment">
 				<td align="left"  id="comment">
@@ -152,17 +152,12 @@
 					<% 	}else{ // 댓글쓴이 != 로그인 아이디 
 							if(recipeBoard.getWriter().equals(session.getAttribute("memId"))){ // 레시피글쓴이 == 로그인아이디 
 								int maxReLevel = dao.selectMaxRelevel(dto.getRef());
-					%>
-								
+					%>				
 								<input type="button" value="답글쓰기" onclick="openReplyForm(<%= nowContentNum %>, <%= recipeNum %>, <%= maxReLevel %>, <%= reStep %>, <%= dto.getRef() %>);" />
-								<input type="button" value="신고" onclick="window.location='#'"/>
-					<%			
-							}else{
-					%>			
-								<input type="button" value="신고" onclick="window.location='#'"/>
-					<%
-							}
-						
+								<input type="button" value="신고" onclick="report('RCC','<%=dto.getNum()%>','<%=dto.getName()%>')"/>
+					<%		}else{	%>			
+								<input type="button" value="신고" onclick="report('RCC','<%=dto.getNum()%>','<%=dto.getName()%>')"/>
+					<%		}
 						}	
 					}//if3의 else끝	
 					%>				

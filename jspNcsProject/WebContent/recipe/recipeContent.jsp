@@ -171,7 +171,7 @@
 				<button onclick="window.location='recipeDeleteForm.jsp?num=<%=num %>'">삭제</button>
 		<%	
 			}else{%>
-				<button onclick="report('<%=num%>','<%=recipeBoard.getWriter()%>')">신고</button>
+				<button onclick="report('R','<%=num%>','<%=recipeBoard.getWriter()%>')">신고</button>
 		<% 	}	
 		}
 	%>	
@@ -180,9 +180,9 @@
 </body>
 <script>
 	//신고 기능
-	function report(commentNum,member) {
+	function report(code,commentNum,member) {
 		if(confirm("이 글을 신고하시겠습니까?")==true) {
-			var offenceCode = "R"+commentNum;
+			var offenceCode = code+commentNum;
 			location.href= "offenceMember.jsp?offenceUrl="+offenceCode+"&member="+member;
 		}		
 	}
