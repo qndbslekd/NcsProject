@@ -149,7 +149,7 @@
 	</div>
 	<div id="recipe-wrapper">
 	<%if(productList==null){ %>
-		<h1 style="color:black;">등록된 레시피가 없습니다.</h1>
+		<h1 style="color:black;">등록된 제품이 없습니다.</h1>
 	<%}else{
 		for(int i = 0 ; i< productList.size() ; i++){
 			ProductDTO product = (ProductDTO)(productList.get(i));
