@@ -12,9 +12,17 @@
 	request.setCharacterEncoding("utf-8");
 	String offenceUrl = request.getParameter("offenceUrl");
 	String member = request.getParameter("member");
+	//offenceUrl
+	//recipe : R
+	//recipe comment : RC
+	//recipe content comment : RCC
+	//product comment : PC
+	//freeboard : F
+	
 	
 	MemberDAO dao = MemberDAO.getInstance();
 	dao.updateOffenceColumn(offenceUrl, member);
+	
 	
 	%>
 	<script>
