@@ -4,9 +4,12 @@
 <html>
 <head>
 <meta charset="utf-8">
+
 <link href="../resource/team05_style.css" type="text/css" rel="stylesheet"/>
+
 <title>header</title>
 <style>
+
 #header {
 	width: 1000px;
 	border-collapse: collapse;
@@ -23,7 +26,6 @@
 
 a:link {
 	text-decoration: none;
-	color: #ffff;
 }
 
 a:visited {
@@ -106,7 +108,10 @@ a:hover {
 	<table id="header">
 		<tr>
 			
-			<td class="title" colspan="4"><a href="/jnp/member/main.jsp">BEGIN VEGAN</a></td>
+			<td class="title" colspan="4">
+			<img src="/jnp/leaf.png" width="100px"/>
+			<a href="/jnp/member/main.jsp">BEGIN VEGAN</a>
+			</td>
 		<tr>
 		<tr>
 			<td>
@@ -119,7 +124,9 @@ a:hover {
 				<button onclick="window.location='/jnp/member/signupForm.jsp'">회원가입</button>
 			</td>
 			<%}else{%>
+			
 			<td>
+				<p><%=session.getAttribute("memId")%>님</p>		
 				<button onclick="window.location='/jnp/member/logoutPro.jsp'">로그아웃</button>
 				<button onclick="window.location='/jnp/member/myPage.jsp'">마이페이지</button>
 			</td>
