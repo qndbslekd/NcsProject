@@ -113,18 +113,18 @@
 		</tr>
 		<tr>
 			<td colspan="4">
-				키워드 : 
+				태그 : 
 				<% if(recipeBoard.getTag()!=null) { %>
 				<% 
 					String[] tags = recipeDAO.selectTagSplit(num);
 					for (int i = 0; i< tags.length; i++) { 
 						if(!tags[i].equals("")){	
 					%>
-						<button><%= tags[i]%></button>
+						<button onclick="window.location='recipeSearchList.jsp?tag=<%=tags[i]%>'"><%= tags[i]%></button>
 					<%}
 					} 
 				} else {%>
-				키워드 없음
+				태그 없음
 				<%} %>
 			
 			</td>			
