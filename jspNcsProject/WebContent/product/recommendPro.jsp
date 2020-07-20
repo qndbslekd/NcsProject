@@ -9,6 +9,7 @@
 </head>
 <body>
 <%
+	request.setCharacterEncoding("UTF-8");
 	System.out.println("PRO페이지 호출");
 
 	ProductDAO dao = ProductDAO.getInstance();
