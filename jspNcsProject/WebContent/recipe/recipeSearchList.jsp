@@ -97,17 +97,13 @@
 		width : 800px;
 		margin: 0 auto;	
 	}
-	
 	.tag{		
 		padding: 5px;
 		display: inline-block;
 		background-color: gray;
 		border-radius: 10px;
 		margin: 5px 0;
-	
 	}
-	
-
 </style>
 <script>
 	function question(){
@@ -131,7 +127,6 @@
 	String writer = request.getParameter("writer");//작성자
 	System.out.println("name : "+ name +" writer:"+writer);
 	String tag = request.getParameter("tag");
-		
 	//where절 쿼리 처리
 	String whereQuery="where 1=1";	
 	//요리명 검색
@@ -319,8 +314,8 @@
 					<input type="text" name="calMore" <%if(calMore !=null && !calMore.equals(""))%> value="<%=calMore%>" />~
 					<input type="text" name="calUnder" <%if(calUnder !=null && !calUnder.equals(""))%> value="<%=calUnder%>"/>
 					</td>
-				</tr>
-				<tr>
+				</tr> 
+				<tr> 
 					<td>작성자</td>
 					<td colspan='7'><input type="text" style="width:700px;" name="writer" <%if(writer!= null && !writer.equals(""))%> value="<%=writer%>"/></td>
 				</tr>
@@ -428,8 +423,6 @@
 				<div class="page" onclick="window.location='recipeSearchList.jsp?pageNum=<%=startPage+pageBlock%>&name=<%=name%>&ingredients=<%=ingredients%>&vegiType=<%=vegiType%>&difficulty=<%=difficulty%>&calMore=<%=calMore%>&calUnder=<%=calUnder%>&writer=<%=writer%>&mode=<%=mode%>&tag=<%=tag%>'">&gt;</div>		
 			<%}		
 			}
-	
-	
 	%>
 	</div>
 </body>
