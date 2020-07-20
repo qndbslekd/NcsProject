@@ -10,7 +10,6 @@
 	<link href="../resource/team05_style.css" rel="stylesheet" type="text/css">
 </head>
 <%
-
 	InfomationDAO dao = InfomationDAO.getInstance();
 	List<InfomationDTO> information = dao.getInfomation();
 %>
@@ -32,7 +31,10 @@
 			</tr>
 			<tbody>
 				<tr>
+<<<<<<< HEAD
 					
+=======
+>>>>>>> branch 'develop' of https://github.com/ysk0951/codinnnnng.git
 					<td style="text-align: left;">
 						<textarea rows="20" cols="100" name="content">
 							<%=information.get(i).getContent()%>

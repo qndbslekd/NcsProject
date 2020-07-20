@@ -105,6 +105,13 @@
 		margin: 5px 0;
 	}
 </style>
+<script>
+	function question(){
+		var win = window.open("recipeListVegiTypeInfo.jsp","채식유형 정보","width=900,height=850,left=500,top=500,scrollbars=yes,")
+		
+	}
+</script>
+
 <%
 	request.setCharacterEncoding("utf-8");
 	//검색 값 파라미터들 받아오기 :검색값, 검색결과리스트	
@@ -374,7 +381,7 @@
 			for(int i = 0 ; i < searchRecipeList.size() ; i++){	
 					RecipeDTO recipe  = (RecipeDTO)searchRecipeList.get(i);
 		%>
-		<div class="recipe">
+		<div class="recipe" onclick="window.location='recipeContent.jsp?num=<%=recipe.getNum()%>'">
 			<div class="thumbnail">
 				<img width="150px" height="146px" src="/jnp/recipe/imgs/<%=recipe.getThumbnail()%>"/>
 			</div>
