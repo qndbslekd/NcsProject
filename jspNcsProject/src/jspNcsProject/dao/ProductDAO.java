@@ -266,4 +266,20 @@ public class ProductDAO {
 		}
 		return result;
 	}
+	
+	public void updateRecommend(String num) {
+		try {
+			String sql = "update PRODUCT set recommend = recommend+1 WHERE num = ?";
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, Integer.parseInt(num));
+			pstmt.executeUpdate();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(rs!=null)try {rs.close();} catch (Exception e) {e.printStackTrace();}
+			if(pstmt!=null)try {pstmt.close();} catch (Exception e) {e.printStackTrace();}
+			if(conn!=null)try {conn.close();} catch (Exception e) {e.printStackTrace();}
+		}
+	}
 }
