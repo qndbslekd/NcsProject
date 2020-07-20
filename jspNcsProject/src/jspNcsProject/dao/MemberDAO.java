@@ -403,6 +403,7 @@ public class MemberDAO {
 		return memberList;
 	}
 	
+	//회원 강퇴
 	public int kickOffMember(String id) {
 		int result=0;
 		try {
@@ -421,5 +422,24 @@ public class MemberDAO {
 			if(conn!=null)try {conn.close();} catch (SQLException e) {e.printStackTrace();}
 		}
 		return result;
+	}
+	
+	//회원 신고
+	public void updateOffenceColumn(String offenceUrl, String member) {
+		try {
+			conn = getConnection();
+			String sql ="update Member set offence_url = concat(concat(offence_url,','),?), offence_count = offence_count+1 where id=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,offenceUrl);
+			pstmt.setString(2,member);
+			pstmt.executeQuery();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(rs!=null)try {rs.close();} catch (SQLException e) {e.printStackTrace();}
+			if(pstmt!=null)try {pstmt.close();} catch (SQLException e) {e.printStackTrace();}
+			if(conn!=null)try {conn.close();} catch (SQLException e) {e.printStackTrace();}
+		}
 	}
 }

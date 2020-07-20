@@ -63,7 +63,7 @@
 			</tr>
 			<tr>
 				<td>재료</td>
-				<td><textarea cols="40" rows="5" placeholder="예) 감자 1개, 양파 2개, 고추장 두스푼, ..." style="resize:none" name="ingredients"></textarea></td>
+				<td><textarea cols="40" rows="5" placeholder="예) 감자:1개, 양파:2개, 고추장:두스푼, ..." style="resize:none" name="ingredients"></textarea><br/> '재료명:분량,재료명:분량'의 형식으로 적어주세요</td>
 			</tr>
 			<tr>
 				<td>요리 단계</td>
@@ -71,7 +71,7 @@
 			</tr>
 			<tr>
 				<td>키워드</td>
-				<td><input type="text" placeholder="예) 태그,태그,태그 ..." style="resize:none" name="tag" /></td>
+				<td><input type="text" placeholder="예) 태그,태그,태그 ..." name="tag" /></td>
 			</tr>
 			<tr>
 				<td colspan="2"><input type="submit" value="레시피 작성단계로" />
