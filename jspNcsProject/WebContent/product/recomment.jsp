@@ -10,7 +10,7 @@
 
 
 request.setCharacterEncoding("utf-8");
-String beforeName = request.getParameter("name");
+String beforeName = request.getParameter("beforeName");
 String name = session.getAttribute("memName").toString();
 String recomment = request.getParameter("recomment");
 String num = request.getParameter("num");
@@ -20,6 +20,9 @@ if(!recomment.equals("")){
 int result  = dao.insertComment(num,name,recomment,beforeName);
 System.out.println(result+"개의 답글이 입력되었습니다");
 }
+
+System.out.println(recomment);
+response.sendRedirect("productContent.jsp?num="+num);
 
 %>
 
