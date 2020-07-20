@@ -140,10 +140,10 @@
 		<div class="sort_button">
 				<%if(search==null||search.equals("")){%>
 				<button onclick="window.location='productList.jsp?mode=num'">최신순</button>
-				<button onclick="window.location='productList.jsp?mode=rating'">평점순</button>
+				<button onclick="window.location='productList.jsp?mode=rating'">추천순</button>
 				<%}else{ %>
 				<button onclick="window.location='productList.jsp?mode=num&option=<%=option%>&search=<%=search%>'">최신순</button>
-				<button onclick="window.location='productList.jsp?mode=rating&option=<%=option%>&search=<%=search%>'">평점순</button>
+				<button onclick="window.location='productList.jsp?mode=rating&option=<%=option%>&search=<%=search%>'">추천순</button>
 				<%} %>
 		</div>
 	</div>
@@ -179,7 +179,7 @@
 							out.print(product.getIngredients());
 						}
 					%></div>
-					<div class="row">평점 :<%=product.getRecommend()%></div>
+					<div class="row">추천 :<%=product.getRecommend()%></div>
 				</div>			
 			</div>
 	<%	}
