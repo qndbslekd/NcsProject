@@ -46,7 +46,7 @@
 	<table style="width:500px; " border=0>
 		<tr>
 			<%if (dto.getReLevel()>0) {%><td rowspan="2" width="20px;" style="vertical-align:top;"><img src="/jnp/recipe/imgs/replyImg.png" width="10px"/></td><%} %>
-			<td rowspan="2" style="width:60px; height:60px; padding:0px"><img src="/jnp/save/<%=rDAO.selectImgById(dto.getName())%>" style="width:60px; height:60px; border-radius:30px"/></td>
+			<td rowspan="2" style="width:60px; height:60px; padding:0px"><img src="/jnp/save/<%=rDAO.selectImgById(dto.getName())%>" style="width:60px; height:60px; border-radius:30px; border:solid 1px #black"/></td>
 			<td style="text-align:left; border-right:none;">
 			<Strong> <%= rDAO.selectNameById(dto.getName()) %> </Strong>
 			<%if (memId != null) { %>
