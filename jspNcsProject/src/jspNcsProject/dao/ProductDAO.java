@@ -82,10 +82,10 @@ public class ProductDAO {
 				String sql = "";
 				if(mode.equals("num")) {
 					sql = "select b.* from(select rownum r, a.* "
-						+ "from(select * from product where "+option+" like '%"+search+"%' order by num desc)a order by num desc)b where r >= ? and r<=?";
+						+ "from(select * from product where "+option+" like '%"+search+"%' and re_level = 0 order by num desc)a order by num desc)b where r >= ? and r<=?";
 				}else if(mode.equals("rating")) {//mode가 rating
 					sql="select b.* from(select rownum r, a.* "
-							+ "from(select * from product where "+option+" like '%"+search+"%' order by recommend desc, num desc)a order by recommend desc,num desc)b where r>=? and r<=?";			
+							+ "from(select * from product where "+option+" like '%"+search+"%' and re_level = 0 order by recommend desc, num desc)a order by recommend desc,num desc)b where r>=? and r<=?";			
 				}
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setInt(1, startrow);
@@ -158,10 +158,10 @@ public class ProductDAO {
 			String sql = "";
 			if(mode.equals("num")) {
 				sql = "select b.* from(select rownum r, a.* "
-					+ "from(select * from product order by num desc)a order by num desc)b where r >= ? and r<=?";
+					+ "from(select * from product where re_level = 0 order by num desc)a order by num desc)b where r >= ? and r<=?";
 			}else if(mode.equals("rating")) {//mode가 rating
 				sql="select b.* from(select rownum r, a.* "
-						+ "from(select * from product order by recommend desc, num desc)a order by recommend desc,num desc)b where r>=? and r<=?";			
+						+ "from(select * from product where re_level = 0 order by recommend desc, num desc)a order by recommend desc,num desc)b where r>=? and r<=?";			
 			}
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, startrow);
@@ -288,7 +288,7 @@ public class ProductDAO {
 		int result = 0;
 		try {
 			String sql = "INSERT INTO PRODUCT(num,name,INGREDIENTS,DETAIL,REG,ref,re_level,re_step) "
-					+ "VALUES (seq_product.nextval,?,'comment',?,sysdate,?,0,0)";
+					+ "VALUES (seq_product.nextval,?,'comment',?,sysdate,?,1,0)";
 			conn = getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, name);
@@ -306,40 +306,83 @@ public class ProductDAO {
 	}
 	
 	//제품 답글 달기
-		public int insertComment(String num,String name,String recomment,String beforeName) {
-			int result = 0;
-			try {
-				String sql = "INSERT INTO PRODUCT(num,name,INGREDIENTS,DETAIL,REG,ref,re_level,re_step) "
-						+ "VALUES (seq_product.nextval,?,?,?,sysdate,?,1,0)";
-				conn = getConnection();
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, name);
-				pstmt.setString(2, beforeName);
-				pstmt.setString(3,recomment);
-				pstmt.setInt(4, Integer.parseInt(num));
-				result = pstmt.executeUpdate();
-			}catch (Exception e) {
-				e.printStackTrace();
-			}finally {
-				if(rs!=null)try {rs.close();} catch (Exception e) {e.printStackTrace();}
-				if(pstmt!=null)try {pstmt.close();} catch (Exception e) {e.printStackTrace();}
-				if(conn!=null)try {conn.close();} catch (Exception e) {e.printStackTrace();}
+	public int insertComment(String num,String name,String recomment,String beforeName) {
+		int result = 0;
+		try {
+			conn = getConnection();
+			String getRestepSql = "SELECT NUM From PRODUCT WHERE REF = ? AND RE_STEP = 0";
+			pstmt = conn.prepareStatement(getRestepSql);
+			pstmt.setInt(1, Integer.parseInt(num));
+			rs = pstmt.executeQuery();
+			int re_step = 0;
+			if(rs.next()) {
+				re_step = rs.getInt(1);
 			}
-			return result;
+			
+			String sql = "INSERT INTO PRODUCT(num,name,INGREDIENTS,DETAIL,REG,ref,re_level,re_step) "
+					+ "VALUES (seq_product.nextval,?,?,?,sysdate,?,1,?)";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, name);
+			pstmt.setString(2, beforeName);
+			pstmt.setString(3,recomment);
+			pstmt.setInt(4, Integer.parseInt(num));
+			pstmt.setInt(5, re_step);
+			result = pstmt.executeUpdate();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(rs!=null)try {rs.close();} catch (Exception e) {e.printStackTrace();}
+			if(pstmt!=null)try {pstmt.close();} catch (Exception e) {e.printStackTrace();}
+			if(conn!=null)try {conn.close();} catch (Exception e) {e.printStackTrace();}
 		}
+		return result;
+	}
 	
-	//
+	//댓글을 가져오기
 	public List<ProductDTO> selectComment(String num){
 		List<ProductDTO> comment = new ArrayList<ProductDTO>();
 		try {
-			String sql = "select * from product where ref = ? AND re_level>0 ORDER BY num";
+			String sql = "select * from product where ref = ? AND re_level>0 AND RE_STEP = 0 ORDER BY num";
 			conn = getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1,Integer.parseInt(num));
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				ProductDTO dto = new ProductDTO();
+				dto.setNum(rs.getInt("num"));
 				dto.setName(rs.getString("name"));
+				dto.setIngredients(rs.getString("ingredients"));
+				dto.setDetail(rs.getString("detail"));
+				dto.setRe_level(rs.getInt("re_level"));
+				dto.setRe_step( rs.getInt("re_step"));
+				dto.setReg(rs.getTimestamp("reg"));
+				comment.add(dto);
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(rs!=null)try {rs.close();} catch (Exception e) {e.printStackTrace();}
+			if(pstmt!=null)try {pstmt.close();} catch (Exception e) {e.printStackTrace();}
+			if(conn!=null)try {conn.close();} catch (Exception e) {e.printStackTrace();}
+		}
+		return comment;
+	}
+	
+	//답글을 가져오기
+	public List<ProductDTO> selectRecomment(String num){
+		List<ProductDTO> comment = new ArrayList<ProductDTO>();
+		try {
+			String sql = "select * from product where re_step = ? AND re_level>0 ORDER BY num";
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1,Integer.parseInt(num));
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				ProductDTO dto = new ProductDTO();
+				dto.setNum(rs.getInt("num"));
+				dto.setName(rs.getString("name"));
+				dto.setIngredients(rs.getString("ingredients"));
 				dto.setDetail(rs.getString("detail"));
 				dto.setRe_level(rs.getInt("re_level"));
 				dto.setRe_step( rs.getInt("re_step"));
