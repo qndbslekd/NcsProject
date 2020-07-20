@@ -1,3 +1,4 @@
+<%@page import="jspNcsProject.dao.RatingDAO"%>
 <%@page import="jspNcsProject.dto.RecipeDTO"%>
 <%@page import="java.util.List"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -197,8 +198,12 @@
 	<%if(recipeList==null){ %>
 		<h1 style="color:black;">등록된 레시피가 없습니다.</h1>
 	<%}else{
+		RatingDAO dao = RatingDAO.getInstance();
+		
 		for(int i = 0 ; i< recipeList.size() ; i++){
-			RecipeDTO recipe = (RecipeDTO)(recipeList.get(i));
+			RecipeDTO recipe = (RecipeDTO)(recipeList.get(i));		
+			int rateCount = dao.getCountRating(recipe.getNum());
+			
 		%>
 			<div class="recipe" onclick="window.location='recipeContent.jsp?num=<%=recipe.getNum()%>'">
 				<div class="thumbnail">
@@ -207,7 +212,7 @@
 				<div class="info">
 					<div class="row"><%=recipe.getRecipeName()%></div>
 					<div class="row">posted by <%=recipe.getWriter() %></div>
-					<div class="row"><%=recipe.getRating()%>(2)</div>			
+					<div class="row"><%=recipe.getRating()%>(<%=rateCount%>개의 평가)</div>			
 				</div>			
 			</div>
 	<%	}
