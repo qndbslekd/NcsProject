@@ -113,7 +113,6 @@ a:hover {
 			<a href="/jnp/member/main.jsp">BEGIN VEGAN</a>
 			</td>
 		<tr>
-		<tr>
 			<td>
 			<td>
 			<td>

@@ -80,11 +80,13 @@
 				<tr> 
 					<td colspan="2" style="text-align: left;">
 						<%=comment.get(i).getName()%> : <%=comment.get(i).getDetail()%> 작성시간 : <%=comment.get(i).getReg()%>
+						<button type="button" onclick="report('<%=comment.get(i).getNum()%>','<%=comment.get(i).getName()%>')">신고</button>
 						<br/>
 						<input type="text" name="recomment"/>
 						<input type="button" onclick="recommentFn()" value="답글">
 					
 						<%
+							System.out.println("======"+comment.get(i).getNum());
 							List<ProductDTO> recoment =  dao.selectRecomment(comment.get(i).getNum()+"");
 							System.out.println("답글의 갯수 : " +recoment.size());
 							System.out.println(recoment);
@@ -95,9 +97,9 @@
 								<%=recoment.get(j).getIngredients()%>
 								<img src="../resource/replyImg.png" width="8px"/>
 								<%=recoment.get(j).getName()%> : <%=recoment.get(j).getDetail()%> 작성시간 : <%=recoment.get(j).getReg()%>
-								<button type="button" onclick="alert('신고')">신고</button>
+								<button type="button" onclick="report('<%=recoment.get(j).getNum()%>','<%=recoment.get(j).getName()%>')">신고</button>
 								<%if(session.getAttribute("memId").equals("admin")||session.getAttribute("memId").equals(recoment.get(j).getName())){ %>
-								<button type="button" onclick="alert('삭제')">삭제</button>	
+								<button type="button" onclick="deleteFn('<%=recoment.get(j).getNum()%>','<%=recoment.get(j).getName()%>','<%=dto.getNum()%>')">삭제</button>	
 								<%} %>
 						<%}%>
 						<input type="hidden" name="beforeName" value="<%=comment.get(i).getName()%>"/>
@@ -109,6 +111,7 @@
 		</table>
 		</form> 
 	</body>
+	
 	<script type="text/javascript">
 	function recommand(){
 		var back = window.location.href ; 
@@ -133,7 +136,19 @@
 		var form = document.getElementsByName("history");
 		form[0].value = back;
 		document.recommend.submit(); 
-		document.recommend.submit(); 
+	}
+	
+	function report(commentNum,member) {
+		if(confirm("이 댓글을 신고하시겠습니까?")==true) {
+			var offenceCode = "PC"+commentNum;
+			location.href= "../recipe/offenceMember.jsp?offenceUrl="+offenceCode+"&member="+member;
+		}		
+	}
+
+	function deleteFn(num, name,backNum){
+		if(confirm("이 댓글을 삭제하시겠습니까?")==true) {
+			location.href= "deleteComment.jsp?num="+num+"&name="+name+"&backNum="+backNum;
+		}
 	}
 	</script>
 	

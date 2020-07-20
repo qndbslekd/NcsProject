@@ -156,7 +156,9 @@
 				<jsp:include page="recipeStepComment.jsp" flush="false"/>
 		<tr>
 			<td colspan="4">
-				댓글 탭
+				<jsp:include page="recipeComment.jsp">
+					<jsp:param value="<%=num %>" name="num"/>
+				</jsp:include>
 			</td>			
 		</tr>
 	</table>
