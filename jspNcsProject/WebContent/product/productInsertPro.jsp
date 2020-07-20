@@ -34,6 +34,7 @@
 	dto.setProduct_img(mr.getFilesystemName("product_img"));
 	int result =  dao.insertProduct(dto);
 	System.out.println(result+"행의 데이터가 입력되었습니다");
+	response.sendRedirect("productList.jsp");
 	
 %>
 <body>
