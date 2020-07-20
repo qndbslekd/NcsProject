@@ -94,7 +94,7 @@
 	search = request.getParameter("search");
 	System.out.println("option : "+option);
 	System.out.println("search : "+search);
-	
+	 
 	if(search==null||search.equals("")){
 		//비 검색시
 		count = dao.getProductCount();
@@ -140,16 +140,16 @@
 		<div class="sort_button">
 				<%if(search==null||search.equals("")){%>
 				<button onclick="window.location='productList.jsp?mode=num'">최신순</button>
-				<button onclick="window.location='productList.jsp?mode=rating'">평점순</button>
+				<button onclick="window.location='productList.jsp?mode=rating'">추천순</button>
 				<%}else{ %>
 				<button onclick="window.location='productList.jsp?mode=num&option=<%=option%>&search=<%=search%>'">최신순</button>
-				<button onclick="window.location='productList.jsp?mode=rating&option=<%=option%>&search=<%=search%>'">평점순</button>
+				<button onclick="window.location='productList.jsp?mode=rating&option=<%=option%>&search=<%=search%>'">추천순</button>
 				<%} %>
 		</div>
 	</div>
 	<div id="recipe-wrapper">
 	<%if(productList==null){ %>
-		<h1 style="color:black;">등록된 레시피가 없습니다.</h1>
+		<h1 style="color:black;">등록된 제품이 없습니다.</h1>
 	<%}else{
 		for(int i = 0 ; i< productList.size() ; i++){
 			ProductDTO product = (ProductDTO)(productList.get(i));
@@ -179,7 +179,7 @@
 							out.print(product.getIngredients());
 						}
 					%></div>
-					<div class="row">평점 :<%=product.getRecommend()%></div>
+					<div class="row">추천 :<%=product.getRecommend()%></div>
 				</div>			
 			</div>
 	<%	}
