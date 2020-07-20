@@ -168,14 +168,15 @@ if(memId != null) {	//로그인 한 상태면 로그인 정보 가져오기
 <br/>
 <table>
 	<tr>
+	<td colspan="4"> 평점 높은 레시피들 </td>
 	<td> <a href="/jnp/recipe/recipeList.jsp?mode=num">+more</a></td>
 		</tr>
 		<tr>
-			<td colspan="5"> 최신순 </td>
+			<td colspan="5"> 평점순 </td>
 		</tr>
 		<tr>
 			<% 
-			List list = Rdao.seletAllReceipe(1, 5, "num"); 
+			List list = Rdao.seletAllReceipe(1, 5, "rating"); 
 			for( int i = 0; i < 5; i++) {
 				RecipeDTO dto = (RecipeDTO) list.get(i);
 				if (dto != null) { %>
