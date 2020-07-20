@@ -31,7 +31,6 @@
 			</tr>
 			<tbody>
 				<tr>
-					
 					<td style="text-align: left;">
 						<textarea rows="20" cols="100" name="content">
 							<%=information.get(i).getContent()%>
