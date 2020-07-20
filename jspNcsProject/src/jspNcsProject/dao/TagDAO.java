@@ -48,13 +48,41 @@ public class TagDAO {
 				}while(rs.next());	
 			}		
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		} finally {
 			if(rs!=null) try{rs.close();}catch(Exception e) {e.printStackTrace();}
 			if(pstmt!=null) try{pstmt.close();}catch(Exception e) {e.printStackTrace();}
 			if(conn!=null) try{conn.close();}catch(Exception e) {e.printStackTrace();}
 		}
 		return searchTagList;
+	}
+	
+	public void updateTag(String tag) {
+		try {
+			conn = getConnection();
+			String sql = "select * from tag where tag=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, tag);
+			rs= pstmt.executeQuery();	
+			if(!rs.next()) {//해당 태그명에 대한 검색결과가 없는경우
+				sql = "insert into tag values(?,1)";
+				pstmt =  conn.prepareStatement(sql);
+				pstmt.setString(1, tag);
+				pstmt.executeQuery();	
+			}else {//검색결과가 있는 경우; taggedTimes증가
+				sql ="update tag set taggedTimes = taggedTimes+1 where tag=?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, tag);
+				pstmt.executeQuery();			
+			}
+				
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(rs!=null) try{rs.close();}catch(Exception e) {e.printStackTrace();}
+			if(pstmt!=null) try{pstmt.close();}catch(Exception e) {e.printStackTrace();}
+			if(conn!=null) try{conn.close();}catch(Exception e) {e.printStackTrace();}
+		}
 	}
 	
 }
