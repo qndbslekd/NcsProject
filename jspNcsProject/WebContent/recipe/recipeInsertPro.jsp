@@ -1,3 +1,4 @@
+<%@page import="jspNcsProject.dao.TagDAO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@page import="jspNcsProject.dto.RecipeDTO"%>
@@ -24,7 +25,7 @@
 	DefaultFileRenamePolicy dp = new DefaultFileRenamePolicy();
 	MultipartRequest mr = new MultipartRequest(request,path,max,enc,dp);
 	
-	int recipeStep = Integer.parseInt(mr.getParameter("recipeStep"));
+	int recipeStep = Integer.parseInt(mr.getParameter("recipeStep")); 
 	String recipeName = mr.getParameter("recipeName");
 	String thumbnail = mr.getFilesystemName("thumbnail");
 	String writer = mr.getParameter("writer");
@@ -34,6 +35,29 @@
 	String quantity = mr.getParameter("quantity");
 	String ingredients = mr.getParameter("ingredients");
 	String tag = mr.getParameter("tag");
+	
+	
+	//태그 다듬어서 저장하기
+	if(tag != null && !tag.equals("")) {
+		String tags = ",";
+		//콤마 기준으로 나누기
+		String[] tagSplit = tag.split(",");
+		
+		for(int i = 0; i<tagSplit.length; i++) {
+			tagSplit[i] = tagSplit[i].trim(); //양쪽 공백 없애고 
+			//tag table에 태그 insert
+			TagDAO daoo = TagDAO.getInstance();
+			daoo.updateTag(tagSplit[i]);
+			
+			tags += tagSplit[i] + ",";	//문자열에 더하기
+		}
+		
+	}
+	
+	
+	
+	
+	
 	String cookingTime = mr.getParameter("cookingTime");
 	
 	RecipeDTO recipe = new RecipeDTO();
