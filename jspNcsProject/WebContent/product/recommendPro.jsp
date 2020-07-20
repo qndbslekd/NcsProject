@@ -9,6 +9,7 @@
 </head>
 <body>
 <%
+	request.setCharacterEncoding("UTF-8");
 	System.out.println("PRO페이지 호출");
 
 	ProductDAO dao = ProductDAO.getInstance();
@@ -28,6 +29,7 @@
 		
 		int result  = dao.insertComment(num,name,comment);
 		System.out.println(result+"개의 댓글이작성되었습니다");
+		response.sendRedirect(request.getParameter("history"));
 	}
 %>
 </body>

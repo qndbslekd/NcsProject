@@ -59,7 +59,6 @@
 		<tr >
 			<td colspan="4">
 				<img src="imgs/<%= recipeBoard.getThumbnail() %>" style="max-width:800px" />
-
 			</td>
 		</tr>
 		<tr>
@@ -119,6 +118,7 @@
 						<td><button onclick="window.location='recipeSearchList.jsp?writer=<%=recipeBoard.getWriter()%>'">레시피 더 보기</button></td>
 					</tr>
 				</table>
+				작성자 : <%= recipeDAO.selectNameById(recipeBoard.getWriter()) %>
 			</td>
 		</tr>
 		<tr>
@@ -142,10 +142,8 @@
 		</tr>
 		<tr>
 			<td colspan="4">
-				<h4>재료</h4> 
-			
-			<table>
-			
+				<h4>재료</h4> 			
+			<table>			
 				<% 
 				HashMap<String,String> ingre = recipeDAO.selectIngredients(num); 
 				
@@ -157,9 +155,7 @@
 				<tr>
 					<td> <%= key%> </td>
 					<td> <%= value%></td>
-				</tr>
-					
-					
+				</tr>				
 				<%}%>
 			</table>
 			</td>			
@@ -186,7 +182,7 @@
 	<br /><br />
 	<div align="center">
 	<%
-		if(session.getAttribute("memId")!=null) {
+		if(session.getAttribute("memId")!= null){
 			if(recipeBoard.getWriter().equals(session.getAttribute("memId")) || session.getAttribute("memId").equals("admin")){
 				// 관리자거나 레시피 글쓴이면 레시피 자체에 대한 수정 삭제 뜨게 
 		%>
@@ -194,7 +190,9 @@
 				<button onclick="window.location='recipeDeleteForm.jsp?num=<%=num %>'">삭제</button>
 		<%	
 			} else {
-				%> <button onclick="scrap(<%=num%>,<%=memId%>)">찜하기</button> <%
+				%> <button onclick="scrap(<%=num%>,<%=memId%>)">찜하기</button> 
+					<button onclick="report('R','<%=num%>','<%=recipeBoard.getWriter()%>')">신고</button>
+				<%
 			}
 		}
 	%>	
@@ -216,6 +214,14 @@
 			
 		}
 	}
+	//신고 기능
+	function report(code,commentNum,member) {
+		if(confirm("이 글을 신고하시겠습니까?")==true) {
+			var offenceCode = code+commentNum;
+			location.href= "../member/offenceMember.jsp?offenceUrl="+offenceCode+"&member="+member;
+		}		
+	}
+
 
 </script>
 </html>

@@ -30,12 +30,12 @@
 		<%if(name.equals("관리자")){ %>
 			<tr>
 				<td colspan="2">
-					<button onclick="window.location = 'productModifyForm.jsp?num=<%=dto.getNum() %>'" >글 수정</button>
-					<button onclick="window.location = 'productDeletePro.jsp?num=<%=dto.getNum() %>'" >삭제하기</button>
+					<button type="button" onclick="window.location = 'productModifyForm.jsp?num=<%=dto.getNum() %>'" >글 수정</button>
+					<button type="button" onclick="window.location = 'productDeletePro.jsp?num=<%=dto.getNum() %>'" >삭제하기</button>
 				</td>
 			</tr>
 		<% }%>
-			<tr> 
+			<tr>  
 				<td colspan="2">
 					<%=dto.getRecommend()%>
 					<button onclick = "recommand()">추천</button>
@@ -73,25 +73,45 @@
 			<tr>
 				<td colspan="2">
 					<%=name%><input type="text" name="comment"/>
-					<input type="submit" value="댓글달기" />
-				</td>
+					<input type="button" onclick="commentFn()" value="댓글달기">
+				</td> 
 			<tr>
 			<%for(int i=0;i<comment.size();i++){ %>
-				<tr>
-					<td colspan="2">
+				<tr> 
+					<td colspan="2" style="text-align: left;">
 						<%=comment.get(i).getName()%> : <%=comment.get(i).getDetail()%> 작성시간 : <%=comment.get(i).getReg()%>
+						<button type="button" onclick="report('<%=comment.get(i).getNum()%>','<%=comment.get(i).getName()%>')">신고</button>
+						<br/>
 						<input type="text" name="recomment"/>
+						<input type="button" onclick="recommentFn()" value="답글">
+					
+						<%
+							System.out.println("======"+comment.get(i).getNum());
+							List<ProductDTO> recoment =  dao.selectRecomment(comment.get(i).getNum()+"");
+							System.out.println("답글의 갯수 : " +recoment.size());
+							System.out.println(recoment);
+							for(int j=0;j<recoment.size();j++){
+							%>
+								<!--before Name-->
+								<br/>
+								<%=recoment.get(j).getIngredients()%>
+								<img src="../resource/replyImg.png" width="8px"/>
+								<%=recoment.get(j).getName()%> : <%=recoment.get(j).getDetail()%> 작성시간 : <%=recoment.get(j).getReg()%>
+								<button type="button" onclick="report('<%=recoment.get(j).getNum()%>','<%=recoment.get(j).getName()%>')">신고</button>
+								<%if(session.getAttribute("memId").equals("admin")||session.getAttribute("memId").equals(recoment.get(j).getName())){ %>
+								<button type="button" onclick="deleteFn('<%=recoment.get(j).getNum()%>','<%=recoment.get(j).getName()%>','<%=dto.getNum()%>')">삭제</button>	
+								<%} %>
+						<%}%>
+						<input type="hidden" name="beforeName" value="<%=comment.get(i).getName()%>"/>
 						<!-- 답글의 답글 진행중  -->
-						<button type="button" onclick="recomment()">답글</button>
-						<button onclick="myFunction()">Click me</button>
-						
-						<button type="button" onclick="alert('답글')">신고</button>
+<!-- 						<button type="button" onclick="recomment()">답글</button> -->
 					</td>
-				</tr> 
+				</tr>  
 			<%} %>
 		</table>
 		</form> 
 	</body>
+	
 	<script type="text/javascript">
 	function recommand(){
 		var back = window.location.href ; 
@@ -100,17 +120,35 @@
 		document.recommend.submit();
 	}
 	
-	function recomment(){
-		
+	function recommentFn(){
 		//유효성검사
 		//test
-		alert("recommnet");
-		
-	/* 	var back = window.location.href ; 
+		var actionForm = document.recommend;
+		actionForm.action = 'recomment.jsp';
+		var back = window.location.href; 
 		var form = document.getElementsByName("history");
 		form[0].value = back;
-		document.recommend.submit(); */
-		
+		document.recommend.submit(); 
+	}
+	
+	function commentFn(){
+		var back = window.location.href; 
+		var form = document.getElementsByName("history");
+		form[0].value = back;
+		document.recommend.submit(); 
+	}
+	
+	function report(commentNum,member) {
+		if(confirm("이 댓글을 신고하시겠습니까?")==true) {
+			var offenceCode = "PC"+commentNum;
+			location.href= "../recipe/offenceMember.jsp?offenceUrl="+offenceCode+"&member="+member;
+		}		
+	}
+
+	function deleteFn(num, name,backNum){
+		if(confirm("이 댓글을 삭제하시겠습니까?")==true) {
+			location.href= "deleteComment.jsp?num="+num+"&name="+name+"&backNum="+backNum;
+		}
 	}
 	</script>
 	
