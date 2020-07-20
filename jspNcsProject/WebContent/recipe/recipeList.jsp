@@ -10,7 +10,9 @@
 <head>
 <meta charset="UTF-8">
 <title>레시피 게시판</title>
+ 
 <link href="../resource/team05_style.css" type="text/css" rel="stylesheet"/>
+
 <style>
 
 	#search{
