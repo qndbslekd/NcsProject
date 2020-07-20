@@ -381,7 +381,7 @@
 			for(int i = 0 ; i < searchRecipeList.size() ; i++){	
 					RecipeDTO recipe  = (RecipeDTO)searchRecipeList.get(i);
 		%>
-		<div class="recipe">
+		<div class="recipe" onclick="window.location='recipeContent.jsp?num=<%=recipe.getNum()%>'">
 			<div class="thumbnail">
 				<img width="150px" height="146px" src="/jnp/recipe/imgs/<%=recipe.getThumbnail()%>"/>
 			</div>
