@@ -106,7 +106,7 @@ a:hover {
 	<table id="header">
 		<tr>
 			
-			<td class="title" colspan="4"><a href="/jnp/member/main.jsp">BEGIN VEGAN</a></td>
+			<td class="title" colspan="4"><a href="/jnp/main.jsp">BEGIN VEGAN</a></td>
 		<tr>
 		<tr>
 			<td>
