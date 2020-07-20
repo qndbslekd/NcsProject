@@ -85,4 +85,36 @@ public class TagDAO {
 		}
 	}
 	
+	//태그 많이 된 순으로 10개 불러오기
+	public List selectTagsOrderByTaggedTimes() {
+		List tags = null;
+		
+		try {
+			conn = getConnection();
+			
+			String sql = "select * from tag order by taggedtimes desc";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				tags = new ArrayList();
+				do {
+					tags.add(rs.getString("tag"));
+				} while(rs.next());
+			}
+					
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(rs!=null) try{rs.close();}catch(Exception e) {e.printStackTrace();}
+			if(pstmt!=null) try{pstmt.close();}catch(Exception e) {e.printStackTrace();}
+			if(conn!=null) try{conn.close();}catch(Exception e) {e.printStackTrace();}
+		}
+		
+		return tags;
+	}
+	
 }
