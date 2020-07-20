@@ -34,6 +34,21 @@
 	String quantity = mr.getParameter("quantity");
 	String ingredients = mr.getParameter("ingredients");
 	String tag = mr.getParameter("tag");
+	
+	//태그 다듬어서 저장하기
+	if(tag != null) {
+		String tags = ",";
+		//콤마 기준으로 나누기
+		String[] tagSplit = tag.split(",");
+		
+		for(int i = 0; i<tagSplit.length; i++) {
+			tagSplit[i] = tagSplit[i].trim(); //양쪽 공백 없애고 
+			tags += tagSplit[i] + ",";	//문자열에 더하기
+		}
+		
+		tag = tags;
+	}
+	
 	String cookingTime = mr.getParameter("cookingTime");
 	
 	RecipeDTO recipe = new RecipeDTO();

@@ -25,7 +25,7 @@
 		<%if(id.equals("admin")){ %>
 			<tr>
 				<td colspan="2">
-					<button onclick="window.location = 'productModifyForm.jsp?num=<%=dto.getNum() %>'" >수정페이지로 이동</button>
+					<button onclick="window.location = 'productModifyForm.jsp?num=<%=dto.getNum() %>'" >글 수정</button>
 					<button onclick="window.location = 'productDeletePro.jsp?num=<%=dto.getNum() %>'" >삭제하기</button>
 				</td>
 			</tr>
@@ -65,6 +65,13 @@
 			<tr>
 				<td colspan="2">
 					<%=dto.getDetail()%>
+				</td>
+			<tr>
+			<tr>
+				<td colspan="2">
+					<%=dto.getName() %> :
+					<input type="text" name="comment"/>
+					<input type="button" value="댓글달기" onclick="recommand()"/>
 				</td>
 			<tr>
 		</table>
