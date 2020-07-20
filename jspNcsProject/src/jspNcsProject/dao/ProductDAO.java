@@ -399,4 +399,22 @@ public class ProductDAO {
 		return comment;
 	}
 	
+	public int deleteComment(String num, String name) {
+		int result = 0;
+		try {
+			String sql = "DELETE FROM PRODUCT p2 WHERE num = ? and name=?";
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, Integer.parseInt(num));
+			pstmt.setString(2, name);
+			result = pstmt.executeUpdate();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(rs!=null)try {rs.close();} catch (Exception e) {e.printStackTrace();}
+			if(pstmt!=null)try {pstmt.close();} catch (Exception e) {e.printStackTrace();}
+			if(conn!=null)try {conn.close();} catch (Exception e) {e.printStackTrace();}
+		}
+		return result;
+	}
 }
