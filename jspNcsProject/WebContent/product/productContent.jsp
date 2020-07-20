@@ -35,7 +35,7 @@
 				</td>
 			</tr>
 		<% }%>
-			<tr> 
+			<tr>  
 				<td colspan="2">
 					<%=dto.getRecommend()%>
 					<button onclick = "recommand()">추천</button>
@@ -73,22 +73,38 @@
 			<tr>
 				<td colspan="2">
 					<%=name%><input type="text" name="comment"/>
-					<input type="submit" value="댓글달기" />
-				</td>
+					<input type="button" onclick="commentFn()" value="댓글달기">
+				</td> 
 			<tr>
 			<%for(int i=0;i<comment.size();i++){ %>
-				<tr>
-					<td colspan="2">
+				<tr> 
+					<td colspan="2" style="text-align: left;">
 						<%=comment.get(i).getName()%> : <%=comment.get(i).getDetail()%> 작성시간 : <%=comment.get(i).getReg()%>
-						<input type="hidden" name="beforeName" value="<%=comment.get(i).getName()%>"/>
+						<br/>
 						<input type="text" name="recomment"/>
+						<input type="button" onclick="recommentFn()" value="답글">
+					
+						<%
+							List<ProductDTO> recoment =  dao.selectRecomment(comment.get(i).getNum()+"");
+							System.out.println("답글의 갯수 : " +recoment.size());
+							System.out.println(recoment);
+							for(int j=0;j<recoment.size();j++){
+							%>
+								<!--before Name-->
+								<br/>
+								<%=recoment.get(j).getIngredients()%>
+								<img src="../resource/replyImg.png" width="8px"/>
+								<%=recoment.get(j).getName()%> : <%=recoment.get(j).getDetail()%> 작성시간 : <%=recoment.get(j).getReg()%>
+								<button type="button" onclick="alert('신고')">신고</button>
+								<%if(session.getAttribute("memId").equals("admin")||session.getAttribute("memId").equals(recoment.get(j).getName())){ %>
+								<button type="button" onclick="alert('삭제')">삭제</button>	
+								<%} %>
+						<%}%>
+						<input type="hidden" name="beforeName" value="<%=comment.get(i).getName()%>"/>
 						<!-- 답글의 답글 진행중  -->
 <!-- 						<button type="button" onclick="recomment()">답글</button> -->
-						<input type="button" onclick="recommentFn()" value="답글">
-						
-						<button type="button" onclick="alert('답글')">신고</button>
 					</td>
-				</tr> 
+				</tr>  
 			<%} %>
 		</table>
 		</form> 
@@ -109,6 +125,14 @@
 		var back = window.location.href; 
 		var form = document.getElementsByName("history");
 		form[0].value = back;
+		document.recommend.submit(); 
+	}
+	
+	function commentFn(){
+		var back = window.location.href; 
+		var form = document.getElementsByName("history");
+		form[0].value = back;
+		document.recommend.submit(); 
 		document.recommend.submit(); 
 	}
 	</script>
