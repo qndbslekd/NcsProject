@@ -58,13 +58,7 @@
 	<table border="1">
 		<tr >
 			<td colspan="4">
-<<<<<<< HEAD
 				<img src="imgs/<%= recipeBoard.getThumbnail() %>" style="max-width:800px" />
-=======
-
-				<img width="800" src="imgs/<%= recipeBoard.getThumbnail() %>" />
-
->>>>>>> branch 'develop' of https://github.com/ysk0951/codinnnnng.git
 			</td>
 		</tr>
 		<tr>
@@ -97,7 +91,6 @@
 			</td>
 			<%-- 작성자는 닉네임으로 --%>
 			<td colspan="2">
-<<<<<<< HEAD
 				<table>
 					<tr>
 						<td rowspan="2"> <img src="/jnp/save/<%=recipeDAO.selectImgById(recipeBoard.getWriter())%>" style="width:60px; height:60px; border-radius:30px; border:1px solid #000000"/> </td>
@@ -108,9 +101,7 @@
 						<td><button onclick="window.location='recipeSearchList.jsp?writer=<%=recipeBoard.getWriter()%>'">레시피 더 보기</button></td>
 					</tr>
 				</table>
-=======
 				작성자 : <%= recipeDAO.selectNameById(recipeBoard.getWriter()) %>
->>>>>>> branch 'develop' of https://github.com/ysk0951/codinnnnng.git
 			</td>
 		</tr>
 		<tr>
@@ -134,10 +125,8 @@
 		</tr>
 		<tr>
 			<td colspan="4">
-				<h4>재료</h4> 
-			
-			<table>
-			
+				<h4>재료</h4> 			
+			<table>			
 				<% 
 				HashMap<String,String> ingre = recipeDAO.selectIngredients(num); 
 				
@@ -149,9 +138,7 @@
 				<tr>
 					<td> <%= key%> </td>
 					<td> <%= value%></td>
-				</tr>
-					
-					
+				</tr>				
 				<%}%>
 			</table>
 			</td>			
@@ -176,15 +163,30 @@
 	<br /><br />
 	<div align="center">
 	<%
-		if(recipeBoard.getWriter().equals(session.getAttribute("memId")) || session.getAttribute("memId").equals("admin")){
-			// 관리자거나 레시피 글쓴이면 레시피 자체에 대한 수정 삭제 뜨게 
-	%>
-			<button onclick="window.location='recipeModifyForm.jsp?num=<%=num %>'">수정</button>
-			<button onclick="window.location='recipeDeleteForm.jsp?num=<%=num %>'">삭제</button>
-	<%	
-		}	
+		if(session.getAttribute("memId")!= null){
+			if(recipeBoard.getWriter().equals(session.getAttribute("memId")) || session.getAttribute("memId").equals("admin")){
+				// 관리자거나 레시피 글쓴이면 레시피 자체에 대한 수정 삭제 뜨게 
+		%>
+				<button onclick="window.location='recipeModifyForm.jsp?num=<%=num %>'">수정</button>
+				<button onclick="window.location='recipeDeleteForm.jsp?num=<%=num %>'">삭제</button>
+		<%	
+			}else{%>
+				<button onclick="report('<%=num%>','<%=recipeBoard.getWriter()%>')">신고</button>
+		<% 	}	
+		}
 	%>	
 		<button onclick="window.location='recipeList.jsp'">목록</button>
 	</div>
 </body>
+<script>
+	//신고 기능
+	function report(commentNum,member) {
+		if(confirm("이 글을 신고하시겠습니까?")==true) {
+			var offenceCode = "R"+commentNum;
+			location.href= "offenceMember.jsp?offenceUrl="+offenceCode+"&member="+member;
+		}		
+	}
+
+
+</script>
 </html>
