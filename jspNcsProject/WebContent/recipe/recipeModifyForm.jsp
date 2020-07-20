@@ -86,7 +86,7 @@
 			<tr>
 				<td>키워드</td>
 				<td><input type="text" placeholder="예) 태그,태그,태그 ..." style="resize:none" name="tag" 
-					<%if(recipe.getTag() != null) {  %>value="<%=recipe.getTag()%>"<%}%>>
+					<%if(recipe.getTag() != null) {  %>value="<%=recipe.getTag().substring(1, recipe.getTag().length()-1)%>"<%}%>>
 				</td>
 			</tr>
 			<tr>
