@@ -183,7 +183,7 @@
 	function report(code,commentNum,member) {
 		if(confirm("이 글을 신고하시겠습니까?")==true) {
 			var offenceCode = code+commentNum;
-			location.href= "offenceMember.jsp?offenceUrl="+offenceCode+"&member="+member;
+			location.href= "../member/offenceMember.jsp?offenceUrl="+offenceCode+"&member="+member;
 		}		
 	}
 
