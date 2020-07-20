@@ -71,7 +71,7 @@
 			</tr>
 			<tr>
 				<td>키워드</td>
-				<td><input type="text" placeholder="예) 태그,태그,태그 ..." style="resize:none" name="tag" /></td>
+				<td><input type="text" placeholder="예) 태그,태그,태그 ..." name="tag" /></td>
 			</tr>
 			<tr>
 				<td colspan="2"><input type="submit" value="레시피 작성단계로" />
