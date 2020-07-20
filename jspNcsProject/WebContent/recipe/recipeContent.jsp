@@ -53,7 +53,7 @@
 	<table border="1" width=700>
 		<tr >
 			<td colspan="4">
-				<img src="imgs/<%= recipeBoard.getThumbnail() %>" />
+				<img width="800" src="imgs/<%= recipeBoard.getThumbnail() %>" />
 			</td>
 		</tr>
 		<tr>
