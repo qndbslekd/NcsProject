@@ -73,22 +73,39 @@
 			</td>
 		</tr>
 		<tr>
+			<td style="background-color:white;width:25%;" >
+				<img src="/jnp/recipe/imgs/quantity.png" width="40"/>
+			</td>
+			<td style="background-color:white;width:25%;">
+				<img src="/jnp/recipe/imgs/cookingTime.png" width="40"/>
+			</td>
+			<td style="background-color:white;width:25%;">
+				<img src="/jnp/recipe/imgs/difficulty.png" width="40"/>
+			</td>
+			<td style="background-color:white;width:25%;">
+				<img src="/jnp/recipe/imgs/cal.png" width="40"/>kcal
+			</td>
+		</tr>
+		<tr>
 			<td>
-				인분 : <%= recipeBoard.getQuantity() %>
+				<%= recipeBoard.getQuantity() %>인분
 			</td>
 			<td>
-				소요시간 : <%= recipeBoard.getCookingTime() %>
+				<%= recipeBoard.getCookingTime() %>분
 			</td>
 			<td>
-				난이도 : <%= recipeBoard.getDifficulty() %>
+				<%= recipeBoard.getDifficulty() %>
 			</td>
 			<td>
-				칼로리 : <%= recipeBoard.getCal() %>
+				<%= recipeBoard.getCal() %>kcal
 			</td>
 		</tr>
 		<tr>
 			<td colspan="2">
-				평점 관련 
+				평점 : <%=recipeBoard.getRating() %>
+				<% if(memId != null) { %>
+				<button onclick="rating(<%=num%>)">평점 남기기</button>
+				<%} %>
 			</td>
 			<%-- 작성자는 닉네임으로 --%>
 			<td colspan="2">
@@ -176,10 +193,29 @@
 				<button onclick="window.location='recipeModifyForm.jsp?num=<%=num %>'">수정</button>
 				<button onclick="window.location='recipeDeleteForm.jsp?num=<%=num %>'">삭제</button>
 		<%	
-			}	
+			} else {
+				%> <button onclick="scrap(<%=num%>,<%=memId%>)">찜하기</button> <%
+			}
 		}
 	%>	
 		<button onclick="window.location='recipeList.jsp'">목록</button>
 	</div>
 </body>
+<script>
+	//댓글에 답댓글 달기
+	function rating(num) {
+		var url = "recipeRatingForm.jsp?num=" + num;
+		var name = "평점 남기기";
+		var option = "width=400,height=400,left=600,toolbar=no,menubar=no,location=no,scrollbar=no,status=no,resizable=no";
+		
+		window.open(url,name,option);
+	}
+	
+	function scrap(num, scraper) {
+		if(confirm("레시피를 찜하시겠습니까?")) {
+			
+		}
+	}
+
+</script>
 </html>
