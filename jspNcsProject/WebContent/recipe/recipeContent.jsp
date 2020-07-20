@@ -113,7 +113,7 @@
 		</tr>
 		<tr>
 			<td colspan="4">
-				키워드 : 
+				태그 : 
 				<% if(recipeBoard.getTag()!=null) { %>
 				<% 
 					String[] tags = recipeDAO.selectTagSplit(num);
@@ -124,7 +124,7 @@
 					<%}
 					} 
 				} else {%>
-				키워드 없음
+				태그 없음
 				<%} %>
 			
 			</td>			
