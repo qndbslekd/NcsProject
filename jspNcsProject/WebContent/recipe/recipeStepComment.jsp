@@ -102,6 +102,7 @@
 						RecipeContentCommentDTO dto = (RecipeContentCommentDTO)recipeContentCommentlist.get(k-1);
 						reStep = dto.getReStep();
 						reLevel = dto.getReLevel();
+						System.out.println("relevel1 : " + reLevel);
 				%>
 			<tr id="comment">
 				<td align="left"  id="comment">
@@ -129,6 +130,7 @@
 							<input type="button" value="삭제" onclick="window.location='#'"/>
 					<% 	}else{
 							if(recipeBoard.getWriter().equals(memName)){ // if1 레시피 글쓴아이디와 로그인 아이디 같으면 		
+								System.out.println("relevel2 : " + reLevel);
 					%>
 								<input type="button" value="답글쓰기" onclick="openReplyForm(<%= nowContentNum %>, <%= recipeNum %>, <%= reLevel %>, <%= reStep %>, <%= dto.getRef() %>);" />
 								<input type="button" value="신고" onclick="window.location='#'"/>
