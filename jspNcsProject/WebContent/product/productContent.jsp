@@ -99,11 +99,7 @@
 								<%=recoment.get(j).getName()%> : <%=recoment.get(j).getDetail()%> 작성시간 : <%=recoment.get(j).getReg()%>
 								<button type="button" onclick="report('<%=recoment.get(j).getNum()%>','<%=recoment.get(j).getName()%>')">신고</button>
 								<%if(session.getAttribute("memId").equals("admin")||session.getAttribute("memId").equals(recoment.get(j).getName())){ %>
-<<<<<<< HEAD
-								<button type="button" onclick="alert('삭제')">삭제</button>		
-=======
 								<button type="button" onclick="deleteFn('<%=recoment.get(j).getNum()%>','<%=recoment.get(j).getName()%>','<%=dto.getNum()%>')">삭제</button>	
->>>>>>> branch 'develop' of https://github.com/ysk0951/codinnnnng.git
 								<%} %>
 						<%}%>
 						<input type="hidden" name="beforeName" value="<%=comment.get(i).getName()%>"/>
@@ -155,5 +151,4 @@
 		}
 	}
 	</script>
-	
 </html>
