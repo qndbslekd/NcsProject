@@ -22,17 +22,27 @@
 					<input type="submit" value="수정">
 				</td>
 			</tr>			
-		<%for(int i=0;i<information.size();i++){%> 
+		<%for(int i=0;i<information.size();i++){%>
+			<!--이미지 있으면 수정 불가 -->
+			<%if(!information.get(i).getContent().contains("<img")){%> 
 			<tr>
-					<th style=" font-size: 100%;"><input type="text" value="<%=information.get(i).getSubject()%>" name="subject"/></th>
+				<th style=" font-size: 100%;">
+					<input type="text" value="<%=information.get(i).getSubject()%>" name="subject"/>
+				</th>
 			</tr>
 			<tbody>
 				<tr>
-					<td style="text-align: left;"><textarea rows="20" cols="100" name="content"> <%=information.get(i).getContent()%></textarea></td>
+					
+					<td style="text-align: left;">
+						<textarea rows="20" cols="100" name="content">
+							<%=information.get(i).getContent()%>
+						</textarea>
+					</td>
 				</tr>
-			</tbody> 
+			</tbody>
 			<input type="hidden" value= "<%=information.get(i).getNum()%>" name="num"/>
-		<%} %>
+			<%}
+		}%>
 		</table>
 	</form>
 	</body>
