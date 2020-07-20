@@ -94,7 +94,7 @@
 	search = request.getParameter("search");
 	System.out.println("option : "+option);
 	System.out.println("search : "+search);
-	
+	 
 	if(search==null||search.equals("")){
 		//비 검색시
 		count = dao.getProductCount();
@@ -140,32 +140,46 @@
 		<div class="sort_button">
 				<%if(search==null||search.equals("")){%>
 				<button onclick="window.location='productList.jsp?mode=num'">최신순</button>
-				<button onclick="window.location='productList.jsp?mode=rating'">평점순</button>
+				<button onclick="window.location='productList.jsp?mode=rating'">추천순</button>
 				<%}else{ %>
 				<button onclick="window.location='productList.jsp?mode=num&option=<%=option%>&search=<%=search%>'">최신순</button>
-				<button onclick="window.location='productList.jsp?mode=rating&option=<%=option%>&search=<%=search%>'">평점순</button>
+				<button onclick="window.location='productList.jsp?mode=rating&option=<%=option%>&search=<%=search%>'">추천순</button>
 				<%} %>
 		</div>
 	</div>
 	<div id="recipe-wrapper">
 	<%if(productList==null){ %>
-		<h1 style="color:black;">등록된 레시피가 없습니다.</h1>
+		<h1 style="color:black;">등록된 제품이 없습니다.</h1>
 	<%}else{
 		for(int i = 0 ; i< productList.size() ; i++){
 			ProductDTO product = (ProductDTO)(productList.get(i));
 		%>
 			<div class="recipe" onclick="window.location='productContent.jsp?num=<%=product.getNum()%>'">
 				<div class="thumbnail"> 
-					<%if(product.getProduct_img()==null||product.getProduct_img().equals("null")){ %>
-						<img width="198px" height="198px" src="/jnp/product/imgs/unnamed.gif">
-					<%}else{ %> 
-						<img width="198px" height="198px" src="/jnp/product/imgs/<%=product.getProduct_img()%>">
-					<%} %>
+					<%if(product.getProduct_img()!=null){%>
+					<img width="198px" height="198px" src="/jnp/product/imgs/<%=product.getProduct_img()%>"/>
+					<%}else{%>
+					<img width="198px" height="198px" src="/jnp/product/imgs/unnamed.gif"/>
+					<%}%>
 				</div>
 				<div class="info">
 					<div class="row"><%=product.getName()%></div>
-					<div class="row">대표성분 :<%=product.getIngredients()%></div>
-					<div class="row">평점 :<%=product.getRecommend()%></div>
+					<div class="row">대표성분 :<%
+						if(product.getIngredients().contains(",")){
+							String[] ingredients = product.getIngredients().split(",");
+							int length = ingredients.length;
+							System.out.println(length);
+							if(length>3){
+								length = 3;
+							}
+							for(int j=0;j<length;j++){
+								out.print(ingredients[j]+" ");
+							}			
+						}else{
+							out.print(product.getIngredients());
+						}
+					%></div>
+					<div class="row">추천 :<%=product.getRecommend()%></div>
 				</div>			
 			</div>
 	<%	}
