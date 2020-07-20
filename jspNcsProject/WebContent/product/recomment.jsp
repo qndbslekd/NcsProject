@@ -21,6 +21,9 @@ int result  = dao.insertComment(num,name,recomment,beforeName);
 System.out.println(result+"개의 답글이 입력되었습니다");
 }
 
+System.out.println(recomment);
+response.sendRedirect("productContent.jsp?num="+num);
+
 %>
 
 <body>
