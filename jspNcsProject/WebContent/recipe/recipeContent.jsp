@@ -1,3 +1,6 @@
+<%@page import="java.util.Iterator"%>
+<%@page import="java.util.Set"%>
+<%@page import="java.util.HashMap"%>
 <%@page import="jspNcsProject.dto.RecipeContentCommentDTO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="jspNcsProject.dao.RecipeContentCommentDAO"%>
@@ -20,7 +23,7 @@
 </head>
 <%
 	request.setCharacterEncoding("UTF-8");
-	String memName = (String)session.getAttribute("memName");
+	String memId = (String)session.getAttribute("memId");
 	int num = Integer.parseInt(request.getParameter("num"));
 
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
@@ -53,7 +56,7 @@
 	<table border="1" width=700>
 		<tr >
 			<td colspan="4">
-				<img src="imgs/<%= recipeBoard.getThumbnail() %>" />
+				<img src="imgs/<%= recipeBoard.getThumbnail() %>" style="max-width:800px" />
 			</td>
 		</tr>
 		<tr>
@@ -101,7 +104,7 @@
 			<td colspan="2">
 				<table>
 					<tr>
-						<td rowspan="2"> <img src="/jnp/save/<%=recipeDAO.selectImgById(recipeBoard.getWriter())%>" style="width:60px; height:60px; border-radius:30px"/> </td>
+						<td rowspan="2"> <img src="/jnp/save/<%=recipeDAO.selectImgById(recipeBoard.getWriter())%>" style="width:60px; height:60px; border-radius:30px; border:1px solid #000000"/> </td>
 						<td colspan="2">작성자</td>
 					</tr>
 					<tr>
@@ -131,17 +134,34 @@
 		</tr>
 		<tr>
 			<td colspan="4">
-				재료 탭
+				<h4>재료</h4> 
+			
+			<table>
+			
+				<% 
+				HashMap<String,String> ingre = recipeDAO.selectIngredients(num); 
+				
+				Set keySet = ingre.keySet();
+				Iterator ir = keySet.iterator();
+				while(ir.hasNext()) {	
+					String key = (String) ir.next(); 
+					String value = ingre.get(key);%>
+				<tr>
+					<td> <%= key%> </td>
+					<td> <%= value%></td>
+				</tr>
+					
+					
+				<%}%>
+			</table>
 			</td>			
 		</tr>
 		<tr>
-			<td colspan="4">
-				<%= recipeBoard.getIngredients() %>
-			</td>			
-		</tr>
-		<tr>
-			<td colspan="4">
-				추천 제품 탭
+			<td colspan="4" style="align:left;">
+				<%--추천 제품 --%>
+				<jsp:include page="recipeShowProduct.jsp">
+					<jsp:param value="<%=num %>" name="num"/>
+				</jsp:include>
 			</td>			
 		</tr>
 		<tr>
@@ -157,10 +177,15 @@
 		</tr>
 	</table>
 	<br /><br />
-	<div align="center">
-	<button onclick="window.location='recipeModifyForm.jsp?num=<%=num %>'">수정</button>
-	<button onclick="window.location='recipeDeleteForm.jsp?num=<%=num %>'">삭제</button>
-	</div>
+	
+	<%if(memId!=null){
+		if (memId.equals(recipeBoard.getWriter()) || memId.equals("admin")){ %>
+		<div align="center">
+		<button onclick="window.location='recipeModifyForm.jsp?num=<%=num %>'">수정</button>
+		<button onclick="window.location='recipeDeleteForm.jsp?num=<%=num %>'">삭제</button>
+		</div>
+	<%	}
+	}%>
 </body>
 <script>
 	//댓글에 답댓글 달기
