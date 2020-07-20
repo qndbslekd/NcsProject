@@ -4,12 +4,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import jspNcsProject.dto.ProductDTO;
 import jspNcsProject.dto.RecipeDTO;
 
 public class RecipeDAO {
@@ -325,6 +327,86 @@ public class RecipeDAO {
 		return tags;
 	}
 	
+	
+	
+	//재료 가져오기
+	public HashMap<String, String> selectIngredients(int num) {
+		HashMap<String, String> ingre = null;
+		String ingredients = null;
+		
+		try {
+			
+			conn = getConnection();
+			
+			String sql = "select ingredients from recipe_board where num=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				ingredients = rs.getString(1);
+			}
+			
+			ingre = new HashMap<String, String>();
+			
+			//콤마로 먼저 나누기
+			String[] ingre1 = ingredients.split(",");
+			//콜론으로 나누기
+			for(int i = 1; i < ingre1.length; i++) {
+				String[] ingre2 = ingre1[i].split(":");
+				ingre.put(ingre2[0], ingre2[1]);
+			}
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(rs != null)try {rs.close();}catch(Exception e) {e.printStackTrace();}
+			if(pstmt != null)try {pstmt.close();}catch(Exception e) {e.printStackTrace();}
+			if(conn != null)try {conn.close();}catch(Exception e) {e.printStackTrace();}
+		}
+		
+		
+		return ingre;
+	}
+	
+	//재료 이름으로 가장 추천수 높은 제품 가져오기
+	public ProductDTO selectProductByIngredient(String ingre) {
+		ProductDTO dto = null;
+		
+		System.out.println(ingre);
+		
+		String search = "%" + ingre + "%";
+		
+		try {
+			
+			conn = getConnection();
+			
+			String sql = "select * from product where name like ? order by recommend desc";
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, search);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				dto = new ProductDTO();
+				
+				dto.setNum(rs.getInt("num"));
+				dto.setName(rs.getString("name"));
+				dto.setProduct_img(rs.getString("product_img"));
+				dto.setRecommend(rs.getInt("recommend"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(rs != null)try {rs.close();}catch(Exception e) {e.printStackTrace();}
+			if(pstmt != null)try {pstmt.close();}catch(Exception e) {e.printStackTrace();}
+			if(conn != null)try {conn.close();}catch(Exception e) {e.printStackTrace();}
+		}
+		
+		return dto;
+	}
 	
 	
 	

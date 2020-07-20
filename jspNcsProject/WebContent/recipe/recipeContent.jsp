@@ -1,3 +1,6 @@
+<%@page import="java.util.Iterator"%>
+<%@page import="java.util.Set"%>
+<%@page import="java.util.HashMap"%>
 <%@page import="jspNcsProject.dto.RecipeContentCommentDTO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="jspNcsProject.dao.RecipeContentCommentDAO"%>
@@ -20,14 +23,15 @@
 </head>
 <%
 	request.setCharacterEncoding("UTF-8");
-	String memName = (String)session.getAttribute("memName");
+	String memId = (String)session.getAttribute("memId");
 	int num = Integer.parseInt(request.getParameter("num"));
-
+	
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
 	
 	RecipeDAO recipeDAO = RecipeDAO.getInstance();
 	RecipeDTO recipeBoard = new RecipeDTO();
-
+	
+	
 	recipeBoard = recipeDAO.selectRecipeBoard(num);
 	int contentNum = recipeBoard.getRecipeStep();
 	
@@ -39,6 +43,7 @@
 	
 	for(int i = 0; i < recipeContentList.size(); i++){
 		recipeContentdto = (RecipeContentDTO)recipeContentList.get(i);
+		System.out.println(recipeContentdto.getContent());		
 	}
 	
 	// 조리단계 댓글 dao
@@ -50,10 +55,16 @@
 	<br />
 	<h1 align="center">   content </h1>
 	
-	<table border="1" width=700>
+	<table border="1">
 		<tr >
 			<td colspan="4">
+<<<<<<< HEAD
+				<img src="imgs/<%= recipeBoard.getThumbnail() %>" style="max-width:800px" />
+=======
+
 				<img width="800" src="imgs/<%= recipeBoard.getThumbnail() %>" />
+
+>>>>>>> branch 'develop' of https://github.com/ysk0951/codinnnnng.git
 			</td>
 		</tr>
 		<tr>
@@ -67,41 +78,29 @@
 			</td>
 		</tr>
 		<tr>
-			<td style="background-color:#ffffff; width:25%;">
-				<img src="/jnp/recipe/imgs/quantity.png" style="width:40px;"/>
-			</td>
-			<td style="background-color:#ffffff; width:25%;">
-				<img src="/jnp/recipe/imgs/cookingTime.png" style="width:40px;"/>
-			</td>
-			<td style="background-color:#ffffff; width:25%;">
-				<img src="/jnp/recipe/imgs/difficulty.png" style="width:40px;"/>
-			</td>
-			<td style="background-color:#ffffff; width:25%;">
-				<img src="/jnp/recipe/imgs/cal.png" style="width:40px;"/>
-			</td>
-		</tr>
-		<tr>
 			<td>
-				<%= recipeBoard.getQuantity() %>인분
+				인분 : <%= recipeBoard.getQuantity() %>
 			</td>
 			<td>
-				<%= recipeBoard.getCookingTime() %>분
+				소요시간 : <%= recipeBoard.getCookingTime() %>
 			</td>
 			<td>
-				<%= recipeBoard.getDifficulty() %>
+				난이도 : <%= recipeBoard.getDifficulty() %>
 			</td>
 			<td>
-				<%= recipeBoard.getCal() %>kcal
+				칼로리 : <%= recipeBoard.getCal() %>
 			</td>
 		</tr>
 		<tr>
 			<td colspan="2">
-				평점 : <%= recipeBoard.getRating() %> <button onclick="rating(<%=num%>)">평점 남기기</button>
+				평점 관련 
 			</td>
+			<%-- 작성자는 닉네임으로 --%>
 			<td colspan="2">
+<<<<<<< HEAD
 				<table>
 					<tr>
-						<td rowspan="2"> <img src="/jnp/save/<%=recipeDAO.selectImgById(recipeBoard.getWriter())%>" style="width:60px; height:60px; border-radius:30px"/> </td>
+						<td rowspan="2"> <img src="/jnp/save/<%=recipeDAO.selectImgById(recipeBoard.getWriter())%>" style="width:60px; height:60px; border-radius:30px; border:1px solid #000000"/> </td>
 						<td colspan="2">작성자</td>
 					</tr>
 					<tr>
@@ -109,10 +108,14 @@
 						<td><button onclick="window.location='recipeSearchList.jsp?writer=<%=recipeBoard.getWriter()%>'">레시피 더 보기</button></td>
 					</tr>
 				</table>
+=======
+				작성자 : <%= recipeDAO.selectNameById(recipeBoard.getWriter()) %>
+>>>>>>> branch 'develop' of https://github.com/ysk0951/codinnnnng.git
 			</td>
 		</tr>
 		<tr>
 			<td colspan="4">
+
 				태그 : 
 				<% if(recipeBoard.getTag()!=null) { %>
 				<% 
@@ -126,22 +129,39 @@
 				} else {%>
 				태그 없음
 				<%} %>
+
+			</td>			
+		</tr>
+		<tr>
+			<td colspan="4">
+				<h4>재료</h4> 
 			
+			<table>
+			
+				<% 
+				HashMap<String,String> ingre = recipeDAO.selectIngredients(num); 
+				
+				Set keySet = ingre.keySet();
+				Iterator ir = keySet.iterator();
+				while(ir.hasNext()) {	
+					String key = (String) ir.next(); 
+					String value = ingre.get(key);%>
+				<tr>
+					<td> <%= key%> </td>
+					<td> <%= value%></td>
+				</tr>
+					
+					
+				<%}%>
+			</table>
 			</td>			
 		</tr>
 		<tr>
-			<td colspan="4">
-				재료 탭
-			</td>			
-		</tr>
-		<tr>
-			<td colspan="4">
-				<%= recipeBoard.getIngredients() %>
-			</td>			
-		</tr>
-		<tr>
-			<td colspan="4">
-				추천 제품 탭
+			<td colspan="4" style="align:left;">
+				<%--추천 제품 --%>
+				<jsp:include page="recipeShowProduct.jsp">
+					<jsp:param value="<%=num %>" name="num"/>
+				</jsp:include>
 			</td>			
 		</tr>
 		<tr>
@@ -149,28 +169,22 @@
 				<jsp:include page="recipeStepComment.jsp" flush="false"/>
 		<tr>
 			<td colspan="4">
-			<h2 style="text-align:left">댓글</h2>
-				<jsp:include page="recipeComment.jsp">
-					<jsp:param value="<%=num %>" name="num"/>				
-				</jsp:include>
+				댓글 탭
 			</td>			
 		</tr>
 	</table>
 	<br /><br />
 	<div align="center">
-	<button onclick="window.location='recipeModifyForm.jsp?num=<%=num %>'">수정</button>
-	<button onclick="window.location='recipeDeleteForm.jsp?num=<%=num %>'">삭제</button>
+	<%
+		if(recipeBoard.getWriter().equals(session.getAttribute("memId")) || session.getAttribute("memId").equals("admin")){
+			// 관리자거나 레시피 글쓴이면 레시피 자체에 대한 수정 삭제 뜨게 
+	%>
+			<button onclick="window.location='recipeModifyForm.jsp?num=<%=num %>'">수정</button>
+			<button onclick="window.location='recipeDeleteForm.jsp?num=<%=num %>'">삭제</button>
+	<%	
+		}	
+	%>	
+		<button onclick="window.location='recipeList.jsp'">목록</button>
 	</div>
 </body>
-<script>
-	//댓글에 답댓글 달기
-	function rating(num) {
-		var url = "recipeRatingForm.jsp?num=" + num;
-		var name = "평점 남기기";
-		var option = "width=400,height=400,left=600,toolbar=no,menubar=no,location=no,scrollbar=no,status=no,resizable=no";
-		
-		window.open(url,name,option);
-	}
-
-</script>
 </html>
