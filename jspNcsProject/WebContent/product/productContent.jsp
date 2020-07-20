@@ -1,3 +1,5 @@
+<%@page import="java.util.List"%>
+<%@page import="jspNcsProject.dao.MemberDAO"%>
 <%@page import="jspNcsProject.dao.ProductDAO"%>
 <%@page import="jspNcsProject.dto.ProductDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
@@ -10,19 +12,22 @@
 </head>
 <jsp:include page="../header.jsp"></jsp:include>
 <%
-	String id = (String)session.getAttribute("memId");
-	if(id == null){
-		id = "";	
+	String name = (String)session.getAttribute("memName");
+	if(name == null){
+		name = "";	
 	}
 	String num = request.getParameter("num");
 	
 	//if num DB 에 존재하지 않으면 Back
 	ProductDAO dao = ProductDAO.getInstance();
-	ProductDTO dto = dao.selectProduct(num); 
+	ProductDTO dto = dao.selectProduct(num);
+	List<ProductDTO> comment =  dao.selectComment(num);
+	
 %>
-<body>
+	<body>
+		<form action="recommendPro.jsp" method="post" name="recommend" >
 		<table>
-		<%if(id.equals("admin")){ %>
+		<%if(name.equals("관리자")){ %>
 			<tr>
 				<td colspan="2">
 					<button onclick="window.location = 'productModifyForm.jsp?num=<%=dto.getNum() %>'" >글 수정</button>
@@ -30,15 +35,13 @@
 				</td>
 			</tr>
 		<% }%>
-			<tr>
-				<form action="recommendPro.jsp" method="post" name="recommend">
-					<td colspan="2">
-						<%=dto.getRecommend()%>
-						<button onclick = "recommand()">추천</button>
-						<input type="hidden" name="history" value="default" />
-						<input type="hidden" name="num" value="<%=dto.getNum()%>" />
-					</td>
-				</form>
+			<tr> 
+				<td colspan="2">
+					<%=dto.getRecommend()%>
+					<button onclick = "recommand()">추천</button>
+					<input type="hidden" name="history" value="default" />	
+					<input type="hidden" name="num" value="<%=dto.getNum()%>" />
+				</td>
 			</tr>
 			<tr> 
 				<td rowspan="2">
@@ -69,12 +72,25 @@
 			<tr>
 			<tr>
 				<td colspan="2">
-					<%=dto.getName() %> :
-					<input type="text" name="comment"/>
-					<input type="button" value="댓글달기" onclick="recommand()"/>
+					<%=name%><input type="text" name="comment"/>
+					<input type="submit" value="댓글달기" />
 				</td>
 			<tr>
+			<%for(int i=0;i<comment.size();i++){ %>
+				<tr>
+					<td colspan="2">
+						<%=comment.get(i).getName()%> : <%=comment.get(i).getDetail()%> 작성시간 : <%=comment.get(i).getReg()%>
+						<input type="text" name="recomment"/>
+						<!-- 답글의 답글 진행중  -->
+						<button type="button" onclick="recomment()">답글</button>
+						<button onclick="myFunction()">Click me</button>
+						
+						<button type="button" onclick="alert('답글')">신고</button>
+					</td>
+				</tr> 
+			<%} %>
 		</table>
+		</form> 
 	</body>
 	<script type="text/javascript">
 	function recommand(){
@@ -83,5 +99,19 @@
 		form[0].value = back;
 		document.recommend.submit();
 	}
+	
+	function recomment(){
+		
+		//유효성검사
+		//test
+		alert("recommnet");
+		
+	/* 	var back = window.location.href ; 
+		var form = document.getElementsByName("history");
+		form[0].value = back;
+		document.recommend.submit(); */
+		
+	}
 	</script>
+	
 </html>

@@ -204,7 +204,7 @@ public class ProductDAO {
 			int num_ = Integer.parseInt(num);
 			pstmt.setInt(1, num_);
 			rs = pstmt.executeQuery();
-			if(rs.next()) {
+			while(rs.next()) {
 				product.setNum(rs.getInt("num"));
 				product.setName(rs.getString("name"));
 				product.setIngredients(rs.getString("ingredients"));
@@ -282,4 +282,78 @@ public class ProductDAO {
 			if(conn!=null)try {conn.close();} catch (Exception e) {e.printStackTrace();}
 		}
 	}
+	
+	//제품 댓글 달기
+	public int insertComment(String num,String name,String comment) {
+		int result = 0;
+		try {
+			String sql = "INSERT INTO PRODUCT(num,name,INGREDIENTS,DETAIL,REG,ref,re_level,re_step) "
+					+ "VALUES (seq_product.nextval,?,'comment',?,sysdate,?,0,0)";
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, name);
+			pstmt.setString(2,comment);
+			pstmt.setInt(3, Integer.parseInt(num));
+			result = pstmt.executeUpdate();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(rs!=null)try {rs.close();} catch (Exception e) {e.printStackTrace();}
+			if(pstmt!=null)try {pstmt.close();} catch (Exception e) {e.printStackTrace();}
+			if(conn!=null)try {conn.close();} catch (Exception e) {e.printStackTrace();}
+		}
+		return result;
+	}
+	
+	//제품 답글 달기
+		public int insertComment(String num,String name,String recomment,String beforeName) {
+			int result = 0;
+			try {
+				String sql = "INSERT INTO PRODUCT(num,name,INGREDIENTS,DETAIL,REG,ref,re_level,re_step) "
+						+ "VALUES (seq_product.nextval,?,?,?,sysdate,?,1,0)";
+				conn = getConnection();
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, name);
+				pstmt.setString(2, beforeName);
+				pstmt.setString(3,recomment);
+				pstmt.setInt(4, Integer.parseInt(num));
+				result = pstmt.executeUpdate();
+			}catch (Exception e) {
+				e.printStackTrace();
+			}finally {
+				if(rs!=null)try {rs.close();} catch (Exception e) {e.printStackTrace();}
+				if(pstmt!=null)try {pstmt.close();} catch (Exception e) {e.printStackTrace();}
+				if(conn!=null)try {conn.close();} catch (Exception e) {e.printStackTrace();}
+			}
+			return result;
+		}
+	
+	//
+	public List<ProductDTO> selectComment(String num){
+		List<ProductDTO> comment = new ArrayList<ProductDTO>();
+		try {
+			String sql = "select * from product where ref = ? ORDER BY num";
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1,Integer.parseInt(num));
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				ProductDTO dto = new ProductDTO();
+				dto.setName(rs.getString("name"));
+				dto.setDetail(rs.getString("detail"));
+				dto.setRe_level(rs.getInt("re_level"));
+				dto.setRe_step( rs.getInt("re_step"));
+				dto.setReg(rs.getTimestamp("reg"));
+				comment.add(dto);
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(rs!=null)try {rs.close();} catch (Exception e) {e.printStackTrace();}
+			if(pstmt!=null)try {pstmt.close();} catch (Exception e) {e.printStackTrace();}
+			if(conn!=null)try {conn.close();} catch (Exception e) {e.printStackTrace();}
+		}
+		return comment;
+	}
+	
 }

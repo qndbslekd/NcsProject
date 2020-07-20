@@ -26,7 +26,6 @@
 			f.delete();
 		}
 	}
-
 	ProductDAO dao = ProductDAO.getInstance();
 	ProductDTO dto = new ProductDTO();
 	dto.setName(mr.getParameter("name"));
