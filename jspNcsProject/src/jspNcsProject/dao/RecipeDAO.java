@@ -374,8 +374,6 @@ public class RecipeDAO {
 	public ProductDTO selectProductByIngredient(String ingre) {
 		ProductDTO dto = null;
 		
-		System.out.println(ingre);
-		
 		String search = "%" + ingre + "%";
 		
 		try {
