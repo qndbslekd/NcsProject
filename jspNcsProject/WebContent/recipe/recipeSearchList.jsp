@@ -109,6 +109,13 @@
 	
 
 </style>
+<script>
+	function question(){
+		var win = window.open("recipeListVegiTypeInfo.jsp","채식유형 정보","width=900,height=850,left=500,top=500,scrollbars=yes,")
+		
+	}
+</script>
+
 <%
 	request.setCharacterEncoding("utf-8");
 	//검색 값 파라미터들 받아오기 :검색값, 검색결과리스트	

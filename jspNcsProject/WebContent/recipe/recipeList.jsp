@@ -86,9 +86,6 @@
 		var win = window.open("recipeListVegiTypeInfo.jsp","채식유형 정보","width=900,height=850,left=500,top=500,scrollbars=yes,")
 		
 	}
-
-
-
 </script>
 </head>
 <%
