@@ -286,14 +286,23 @@ public class ProductDAO {
 	//제품 댓글 달기
 	public int insertComment(String num,String name,String comment) {
 		int result = 0;
+		int ref = 0;
 		try {
+			conn = getConnection();
+			String sqlForRef = "select max(num) from product";
+			pstmt = conn.prepareStatement(sqlForRef);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				ref = rs.getInt(1);
+			}
+			
 			String sql = "INSERT INTO PRODUCT(num,name,INGREDIENTS,DETAIL,REG,ref,re_level,re_step) "
 					+ "VALUES (seq_product.nextval,?,'comment',?,sysdate,?,1,0)";
-			conn = getConnection();
+			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, name);
 			pstmt.setString(2,comment);
-			pstmt.setInt(3, Integer.parseInt(num));
+			pstmt.setInt(3, ref+1);
 			result = pstmt.executeUpdate();
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -310,24 +319,12 @@ public class ProductDAO {
 		int result = 0;
 		try {
 			conn = getConnection();
-			String getRestepSql = "SELECT NUM From PRODUCT WHERE REF = ? AND re_level=1 and RE_STEP = 0";
-			pstmt = conn.prepareStatement(getRestepSql);
-			pstmt.setInt(1, Integer.parseInt(num));
-			rs = pstmt.executeQuery();
-			int re_step = 0;
-			if(rs.next()) {
-				re_step = rs.getInt(1);
-			}
-			
 			String sql = "INSERT INTO PRODUCT(num,name,INGREDIENTS,DETAIL,REG,ref,re_level,re_step) "
-					+ "VALUES (seq_product.nextval,?,?,?,sysdate,?,1,?)";
-			
+					+ "VALUES (seq_product.nextval,?,?,?,sysdate,?,1,0)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, name);
 			pstmt.setString(2, beforeName);
 			pstmt.setString(3,recomment);
-			pstmt.setInt(4, Integer.parseInt(num));
-			pstmt.setInt(5, re_step);
 			result = pstmt.executeUpdate();
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -373,7 +370,7 @@ public class ProductDAO {
 	public List<ProductDTO> selectRecomment(String num){
 		List<ProductDTO> comment = new ArrayList<ProductDTO>();
 		try {
-			String sql = "select * from product where re_step = ? AND re_level>0 ORDER BY num";
+			String sql = "select * from product where ref = ? AND re_level>0 ORDER BY num";
 			conn = getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1,Integer.parseInt(num));
