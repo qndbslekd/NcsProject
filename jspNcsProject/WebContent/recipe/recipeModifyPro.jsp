@@ -47,6 +47,37 @@
 	String tag = mr.getParameter("tag");
 	String cookingTime = mr.getParameter("cookingTime");
 	
+	
+	//재료 다듬어서 저장하기
+		String ingre = ",";
+		//콤마 기준으로 나누기
+		String[] ingreSplit = ingredients.split(",");
+		
+		for(int i = 0; i<ingreSplit.length; i++) {
+			ingreSplit[i] = ingreSplit[i].trim(); //양쪽 공백 없애고 
+			String[] tmp = ingreSplit[i].split(":");
+			tmp[0] = tmp[0].trim();
+			tmp[1] = tmp[1].trim();
+			ingre += tmp[0] + ":" + tmp[1] + ","; //문자열에 더하기
+		}
+		
+		ingredients = ingre;
+		
+		
+	//태그 다듬어서 저장하기
+		if(tag != null) {
+			String tags = ",";
+			//콤마 기준으로 나누기
+			String[] tagSplit = tag.split(",");
+			
+			for(int i = 0; i<tagSplit.length; i++) {
+				tagSplit[i] = tagSplit[i].trim(); //양쪽 공백 없애고 
+				tags += tagSplit[i] + ",";	//문자열에 더하기
+			}
+			
+			tag = tags;
+		}
+	
 	RecipeDTO recipe = new RecipeDTO();
 	recipe.setRecipeStep(recipeStep);
 	recipe.setRecipeName(recipeName);

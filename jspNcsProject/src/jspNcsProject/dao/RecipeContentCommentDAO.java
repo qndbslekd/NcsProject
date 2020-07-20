@@ -55,7 +55,7 @@ public class RecipeContentCommentDAO {
 		try {
 		
 			conn = getConnection();	
-			String sql = "SELECT * FROM RECIPE_CONTENT_COMMENT where content_num=? and recipe_num=? ORDER BY CONTENT_NUM ASC, REF ASC, RE_STEP ASC";
+			String sql = "SELECT * FROM RECIPE_CONTENT_COMMENT where content_num=? and recipe_num=? ORDER BY CONTENT_NUM ASC, RE_STEP ASC, REF ASC";
 			pstmt = conn.prepareStatement(sql);	
 			pstmt.setInt(1, contentNum);
 			pstmt.setInt(2, recipeNum);
@@ -101,15 +101,15 @@ public class RecipeContentCommentDAO {
 		try{
 			conn = getConnection();
 			
-			sql = "select max(num) from recipe_content_comment";
+			sql = "SELECT LAST_NUMBER FROM USER_SEQUENCES WHERE SEQUENCE_NAME=('RECIPE_CONTENT_COMMENT_SEQ')";
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				
-				num = rs.getInt(1);
+				num = rs.getInt(1)-1;
 
 			}
-			
+			System.out.println("ref = " + num);
 			if(reLevel == 1) {
 				System.out.println("답글 한개 이미 달음");
 				return;
@@ -172,4 +172,58 @@ public class RecipeContentCommentDAO {
 		}
 	}
 	
+	// 레시피 답글 체크하는 메서드(relevel 최대값 리턴해줌) 
+	public int selectMaxRelevel(int ref) {
+		int maxReLevel = 0;
+		// 최대값이 1 미만이면 false, 1이상이면 true
+		try {
+			conn = getConnection();
+			String sql = "select max(re_level) from RECIPE_CONTENT_COMMENT where ref=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, ref);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				maxReLevel = rs.getInt(1);
+			}			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(rs!=null) try {rs.close();}catch(Exception e) { e.printStackTrace();}
+			if(pstmt!=null) try {pstmt.close();}catch(Exception e) { e.printStackTrace();}
+			if(conn!=null) try {conn.close();}catch(Exception e) { e.printStackTrace();}
+		}
+		return maxReLevel;
+	}
+	
+	// 댓글 정보 가져오는 메서드 dto에 담아서 리턴.
+	public RecipeContentCommentDTO selectRecipeStepComment(int num) {
+		RecipeContentCommentDTO dto = new RecipeContentCommentDTO();
+		
+		try {
+			conn = getConnection();
+			String sql = "select * from RECIPE_CONTENT_COMMENT where num=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				dto.setContent(rs.getString("content"));
+				dto.setContentNum(rs.getInt("content_num"));
+				dto.setName(rs.getString("name"));
+				dto.setNum(num);
+				dto.setRecipeNum(rs.getInt("recipe_num"));
+				dto.setRef(rs.getInt("ref"));
+				dto.setReg(rs.getTimestamp("ref"));
+				dto.setReLevel(rs.getInt("re_level"));
+				dto.setReStep(rs.getInt("re_step"));
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(rs!=null) try {rs.close();}catch(Exception e) { e.printStackTrace();}
+			if(pstmt!=null) try {pstmt.close();}catch(Exception e) { e.printStackTrace();}
+			if(conn!=null) try {conn.close();}catch(Exception e) { e.printStackTrace();}
+		}
+		
+		return dto; 
+	} 
 }

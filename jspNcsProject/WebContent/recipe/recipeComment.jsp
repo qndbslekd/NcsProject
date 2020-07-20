@@ -1,3 +1,4 @@
+<%@page import="jspNcsProject.dao.MemberDAO"%>
 <%@page import="jspNcsProject.dao.RecipeDAO"%>
 <%@page import="jspNcsProject.dto.RecipeCommentDTO"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -30,18 +31,15 @@
 	if(RecipeCommentList==null) { //댓글이 하나도 없으면%>
 		<h2>댓글이 없습니다</h2>
 	<%} else { //댓글이 있으면
-	int pageSize = 4;
-	int count = RecipeCommentList.size();
-	String pageNum = request.getParameter("pageNum");
-	if(pageNum==null) pageNum="1";
-	int currPage = Integer.parseInt(pageNum);
-	
-	int startRow = pageSize*(currPage-1) ;
-	int endRow =currPage*pageSize;
 	
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-
-	for(int i = 0; i < RecipeCommentList.size(); i++) {
+	int x = 4;
+//	if(RecipeCommentList.size() < x) {
+		x = RecipeCommentList.size();
+				
+//	}
+	for(int i = 0; i < x; i++) {
+		//RecipeCommentDTO dto = (RecipeCommentDTO) RecipeCommentList.get(i);
 		RecipeCommentDTO dto = (RecipeCommentDTO) RecipeCommentList.get(i);
 		
 %>
@@ -49,14 +47,15 @@
 	<table style="width:500px; " border=0>
 		<tr>
 			<%if (dto.getReLevel()>0) {%><td rowspan="2" width="20px;" style="vertical-align:top;"><img src="/jnp/recipe/imgs/replyImg.png" width="10px"/></td><%} %>
+			<td rowspan="2" style="width:60px; height:60px; padding:0px"><img src="/jnp/save/<%=rDAO.selectImgById(dto.getName())%>" style="width:60px; height:60px; border-radius:30px; border:solid 1px #000000"/></td>
 			<td style="text-align:left; border-right:none;">
 			<Strong> <%= rDAO.selectNameById(dto.getName()) %> </Strong>
 			<%if (memId != null) { %>
-					<%if (dto.getName().equals(memId)) {//내가 쓴 댓글이면 수정버튼%><button onclick="recipeCommentModifyForm.jsp">수정</button><%} %>
-					<%if (dto.getName().equals(memId) || memId.equals("admin")) {//내가 쓴 댓글(혹은 관리자)이면 삭제버튼%><button onclick="recipeCommentDeleteForm.jsp">삭제</button>
+					<%if (dto.getName().equals(memId)) {//내가 쓴 댓글이면 수정버튼%><button onclick="modifyComment(<%=dto.getNum()%>)">수정</button><%} %>
+					<%if (dto.getName().equals(memId) || memId.equals("admin")) {//내가 쓴 댓글(혹은 관리자)이면 삭제버튼%><button onclick="deleteComment(<%=dto.getNum()%>)">삭제</button>
 					<%} else { //아니면 답글, 신고버튼%> 
-						<button onclick="reply(<%=dto.getNum() %>)" >답글</button> 
-						<button onclick="report(<%=dto.getNum() %>)" >신고</button> 
+						<button onclick="reply(<%=dto.getNum()%>)" >답글</button> 
+						<button onclick="report('<%=dto.getNum()%>','<%=dto.getName()%>')" >신고</button> 
 					<%} %>
 			<%} %>
 			</td>
@@ -74,6 +73,11 @@
 	
 <%}%>
 <hr>
+<%--
+<div align=right >
+	<button onclick="commentList()">댓글 더보기</button>
+</div>
+ --%>
 <%}%>
 		
 		<%--댓글 작성 폼--%>
@@ -83,7 +87,6 @@
 		<form method="post" action="recipeCommentInsertPro.jsp">													
 		<input type="hidden" name="recipeNum" value="<%=num%>"/>
 		<input type="hidden" name="reLevel" value="0"/>
-		<input type="hidden" name="reStep" value="0"/>
 		<input type="hidden" name="name" value="<%=session.getAttribute("memId")%>"/>
 		
 			<table>
@@ -97,12 +100,14 @@
 </body>
 <script>
 	//신고 기능
-	function report(commentNum) {
+	function report(commentNum,member) {
 		if(confirm("이 댓글을 신고하시겠습니까?")==true) {
-			
-		}
-		
+			var offenceCode = "RC"+commentNum;
+			location.href= "offenceMember.jsp?offenceUrl="+offenceCode+"&member="+member;
+		}		
 	}
+	
+	
 	//댓글에 답댓글 달기
 	function reply(num) {
 		var url = "recipeCommentReplyInsertForm.jsp?num=" + num;
@@ -111,6 +116,30 @@
 		
 		window.open(url,name,option);
 		
+	}
+	//댓글 모두 보기
+	function commentList() {
+		var url = "recipeCommentList.jsp?num=<%=num%>";
+		var name = "댓글 모두 보기";
+		var option = "width=550,height=400,left=600,toolbar=no,menubar=no,location=no,status=no,resizable=no";
+		
+		window.open(url,name,option);
+	}
+	
+	//수정 창 띄우기
+	function modifyComment(num) {
+		var url = "recipeCommentModifyForm.jsp?num=" +num;
+		var name = "댓글 수정하기";
+		var option = "width=550,height=400,left=600,toolbar=no,menubar=no,location=no,scrollbar=no,status=no,resizable=no";
+		
+		window.open(url,name,option);
+	}
+	//댓글 삭제
+	function deleteComment(num) {
+		if(confirm("정말 삭제하시겠습니까?")){
+			window.location="recipeCommentDeletePro.jsp?num=" + num;
+		}
+			
 	}
 </script>
 </html>

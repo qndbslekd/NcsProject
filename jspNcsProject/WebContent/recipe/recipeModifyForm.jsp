@@ -77,7 +77,7 @@
 			</tr>
 			<tr>
 				<td>재료</td>
-				<td><input type="text" placeholder="예) 감자 1개, 양파 2개, 고추장 두스푼, ..." name="ingredients" value="<%=recipe.getIngredients()%>"/></td>
+				<td><input type="text" placeholder="예) 감자 1개, 양파 2개, 고추장 두스푼, ..." name="ingredients" value="<%=recipe.getIngredients().substring(1,recipe.getIngredients().length()-1)%>"/></td>
 			</tr>
 			<tr>
 				<td>요리 단계</td>
@@ -86,7 +86,7 @@
 			<tr>
 				<td>키워드</td>
 				<td><input type="text" placeholder="예) 태그,태그,태그 ..." style="resize:none" name="tag" 
-					<%if(recipe.getTag() != null) {  %>value="<%=recipe.getTag()%>"<%}%>>
+					<%if(recipe.getTag() != null) {  %>value="<%=recipe.getTag().substring(1, recipe.getTag().length()-1)%>"<%}%>>
 				</td>
 			</tr>
 			<tr>
