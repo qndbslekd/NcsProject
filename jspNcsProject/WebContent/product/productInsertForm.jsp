@@ -29,7 +29,7 @@
 		</tr>
 		<tr>
 			<td> 내용 </td>
-			<td><textarea cols="100" rows="20" name="datail"></textarea></td>
+			<td><textarea cols="100" rows="20" name="detail"></textarea></td>
 		</tr>
 		<tr>
 			<td>성분</td>
