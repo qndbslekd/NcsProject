@@ -212,7 +212,7 @@ public class RecipeContentCommentDAO {
 				dto.setNum(num);
 				dto.setRecipeNum(rs.getInt("recipe_num"));
 				dto.setRef(rs.getInt("ref"));
-				dto.setReg(rs.getTimestamp("ref"));
+				dto.setReg(rs.getTimestamp("reg"));
 				dto.setReLevel(rs.getInt("re_level"));
 				dto.setReStep(rs.getInt("re_step"));
 			}
@@ -226,4 +226,60 @@ public class RecipeContentCommentDAO {
 		
 		return dto; 
 	} 
+	
+	// 조리단계별 댓글 수정해주는 메서드 
+	public void updateRecipeStepComment(int num, String content) {
+		try {
+			conn = getConnection();
+			String sql = "update RECIPE_CONTENT_COMMENT set content=? where num=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, content);
+			pstmt.setInt(2, num);
+			pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(pstmt!=null) try {pstmt.close();}catch(Exception e) { e.printStackTrace();}
+			if(conn!=null) try {conn.close();}catch(Exception e) { e.printStackTrace();}
+		}
+	}
+	
+	// 댓글 삭제 위한 ref 개수 체크 메서드 
+	public int countRecipeStepCommentRef(int ref) {
+		int count=0;
+		try {
+			conn = getConnection();
+			String sql = "select count(ref) from RECIPE_CONTENT_COMMENT where ref=?";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(rs!=null) try {rs.close();}catch(Exception e) { e.printStackTrace();}
+			if(pstmt!=null) try {pstmt.close();}catch(Exception e) { e.printStackTrace();}
+			if(conn!=null) try {conn.close();}catch(Exception e) { e.printStackTrace();}
+		}
+		return count;
+	}
+	
+	
+	// 댓글 하나 삭제(답글이 있을 경우 답글도 삭제)
+	public void deleteRecipeStepComment(int ref) {
+		try {
+			conn = getConnection();
+			String sql ="delete from RECIPE_CONTENT_COMMENT where ref=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, ref);
+			pstmt.executeUpdate();			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(pstmt!=null) try {pstmt.close();}catch(Exception e) { e.printStackTrace();}
+			if(conn!=null) try {conn.close();}catch(Exception e) { e.printStackTrace();}
+		}	
+	}
 }

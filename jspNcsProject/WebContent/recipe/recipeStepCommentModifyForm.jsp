@@ -7,6 +7,8 @@
 <head>
 <meta charset="UTF-8">
 <title>recipeStepCommentModifyForm</title>
+<link href="../resource/team05_style.css" type="text/css" rel="stylesheet"/>
+
 </head>
 <%
 	request.setCharacterEncoding("UTF-8");
@@ -30,9 +32,21 @@
 		
 %>
 <body>
-	<form action="">
-	
-	
+	<form action="recipeStepCommentModifyPro.jsp" method="post">
+	<input type="hidden" name="num" value="<%= num %>"/>
+		<table>
+			<tr>
+				<td>
+				 	댓글 수정
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<textarea name="content" style="resize:none;"><%= dto.getContent() %></textarea>
+					<input type="submit" value="수정"/>
+				</td>
+			</tr>
+		</table>
 	</form>
 
 
