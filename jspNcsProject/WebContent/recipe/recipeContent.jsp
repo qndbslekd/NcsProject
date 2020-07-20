@@ -174,17 +174,6 @@
 		</tr>
 	</table>
 	<br /><br />
-<<<<<<< HEAD
-	
-	<%if(memId!=null){
-		if (memId.equals(recipeBoard.getWriter()) || memId.equals("admin")){ %>
-		<div align="center">
-		<button onclick="window.location='recipeModifyForm.jsp?num=<%=num %>'">수정</button>
-		<button onclick="window.location='recipeDeleteForm.jsp?num=<%=num %>'">삭제</button>
-		</div>
-	<%	}
-	}%>
-=======
 	<div align="center">
 	<%
 		if(recipeBoard.getWriter().equals(session.getAttribute("memId")) || session.getAttribute("memId").equals("admin")){
@@ -197,6 +186,5 @@
 	%>	
 		<button onclick="window.location='recipeList.jsp'">목록</button>
 	</div>
->>>>>>> branch 'develop' of https://github.com/ysk0951/codinnnnng.git
 </body>
 </html>
