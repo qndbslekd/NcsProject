@@ -65,7 +65,9 @@ if(memId != null) {	//로그인 한 상태면 로그인 정보 가져오기
 			<% 
 			int z = 5;
 			List list = Rdao.seletAllReceipe(1, 5, "num"); 
-			if (list.size() < z) z = list.size();
+			if(list == null) {
+				z = 0;
+			} else if (list.size() < z) z = list.size();
 			
 			for( int i = 0; i < z; i++) {
 				RecipeDTO dto = (RecipeDTO) list.get(i);
@@ -84,7 +86,7 @@ if(memId != null) {	//로그인 한 상태면 로그인 정보 가져오기
 					</td>
 				<%} 
 				for(int i = 0; i < 5-z; i++) {%>
-				<td width="200"></td>
+				<td width="200" height="250"></td>
 		<%}
 			
 		} else {	//채식주의자 %>
@@ -98,12 +100,12 @@ if(memId != null) {	//로그인 한 상태면 로그인 정보 가져오기
 			<tr>
 				<% 
 				String whereQuery = "where vegi_Type = '" + loginMember.getVegi_type() + "'";
-				List list = Rdao.searchRecipeList(1, 5, whereQuery, "num");
-				
 				int y = 5;
-				if(list.size() < y) y = list.size();
+				List list = Rdao.searchRecipeList(1, 5, whereQuery, "num");
+				if(list == null) {
+					y = 0;
+				} else if (list.size() < y) y = list.size();
 				
-				if(list != null) {
 				for( int i = 0; i < y; i++) {
 					RecipeDTO dto = (RecipeDTO) list.get(i); %>
 						<td> 
@@ -119,10 +121,9 @@ if(memId != null) {	//로그인 한 상태면 로그인 정보 가져오기
 							</div>
 						</td>
 				<%}
-				for(int i = 0; i < 5-list.size(); i++) {%>
-						<td width="200"></td>
+				for(int i = 0; i < 5-y; i++) {%>
+						<td width="200" height="250"></td>
 				<%}
-				}
 		}
 		%>
 	</tr>
@@ -147,7 +148,7 @@ if(memId != null) {	//로그인 한 상태면 로그인 정보 가져오기
 			%> <td>제품이 없습니다</td> <%
 		} else {
 			int y = 5;
-			if(productList.size() < y) {
+			if(productList.size() <y) {
 				y = productList.size();
 			}
 			for( int i = 0; i < y; i++) {
@@ -165,7 +166,7 @@ if(memId != null) {	//로그인 한 상태면 로그인 정보 가져오기
 					</td>
 			<%}
 			for(int i = 0; i < 5-y; i++) {%>
-			<td width="200"></td>
+			<td width="200" height="250"></td>
 	<%}
 			
 		}
@@ -189,24 +190,26 @@ if(memId != null) {	//로그인 한 상태면 로그인 정보 가져오기
 			<% 
 			List list = Rdao.seletAllReceipe(1, 5, "rating"); 
 			int yy = 5;
-			if(list.size() < yy) yy = list.size();
-			for( int i = 0; i < yy; i++) {
-				RecipeDTO dto = (RecipeDTO) list.get(i); %>
-					<td> 
-						<div class="recipe" onclick="window.location='recipe/recipeContent.jsp?num=<%=dto.getNum()%>'">
-							<div class="thumbnail">
-								<img width="198px" height="198px" src="/jnp/recipe/imgs/<%=dto.getThumbnail()%>"/>
+			if(list != null) {
+				if(list.size() < yy) yy = list.size();
+				for( int i = 0; i < yy; i++) {
+					RecipeDTO dto = (RecipeDTO) list.get(i); %>
+						<td> 
+							<div class="recipe" onclick="window.location='recipe/recipeContent.jsp?num=<%=dto.getNum()%>'">
+								<div class="thumbnail">
+									<img width="198px" height="198px" src="/jnp/recipe/imgs/<%=dto.getThumbnail()%>"/>
+								</div>
+								<div class="info">
+									<div class="row"><%=dto.getRecipeName()%></div>
+									<div class="row">posted by <%=dto.getWriter() %></div>
+									<div class="row"><%=dto.getRating()%>(<%=RatingDAO.getInstance().getCountRating(dto.getNum())%>개의 평가)</div>			
+								</div>			
 							</div>
-							<div class="info">
-								<div class="row"><%=dto.getRecipeName()%></div>
-								<div class="row">posted by <%=dto.getWriter() %></div>
-								<div class="row"><%=dto.getRating()%>(<%=RatingDAO.getInstance().getCountRating(dto.getNum())%>개의 평가)</div>			
-							</div>			
-						</div>
-					</td>
-			<%} 
-			for(int i = 0; i < 5-yy; i++) {%>
-			<td width="200"></td> <%} %>
+						</td>
+				<%} 
+				for(int i = 0; i < 5-yy; i++) {%>
+				<td width="200" height="250"></td> <%} %>
+			<%} %>
 			</tr>
 </table>
 </body>
