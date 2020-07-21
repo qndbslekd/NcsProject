@@ -1,3 +1,4 @@
+<%@page import="jspNcsProject.dao.MemberDAO"%>
 <%@page import="jspNcsProject.dao.RecipeDAO"%>
 <%@page import="jspNcsProject.dto.RecipeCommentDTO"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -43,25 +44,25 @@
 		//test
 %>
 	<hr>
-	<table style="width:500px; " border=0>
-		<tr>
-			<%if (dto.getReLevel()>0) {%><td rowspan="2" width="20px;" style="vertical-align:top;"><img src="/jnp/recipe/imgs/replyImg.png" width="10px"/></td><%} %>
-			<td rowspan="2" style="width:60px; height:60px; padding:0px"><img src="/jnp/save/<%=rDAO.selectImgById(dto.getName())%>" style="width:60px; height:60px; border-radius:30px"/></td>
-			<td style="text-align:left; border-right:none;">
+	<table style="width:700px; border:0px;">
+		<tr style="border:0px;">
+			<%if (dto.getReLevel()>0) {%><td rowspan="2" width="20px;" style="vertical-align:top;border:0px;"><img src="/jnp/recipe/imgs/replyImg.png" width="10px"/></td><%} %>
+			<td rowspan="2" style="width:60px; height:60px; padding:0px; vertical-align:top;border:0px;"><img src="/jnp/save/<%=rDAO.selectImgById(dto.getName())%>" style="width:60px; height:60px; border-radius:30px;"/></td>
+			<td style="text-align:left; border:0px;">
 			<Strong> <%= rDAO.selectNameById(dto.getName()) %> </Strong>
 			<%if (memId != null) { %>
 					<%if (dto.getName().equals(memId)) {//내가 쓴 댓글이면 수정버튼%><button onclick="modifyComment(<%=dto.getNum()%>)">수정</button><%} %>
 					<%if (dto.getName().equals(memId) || memId.equals("admin")) {//내가 쓴 댓글(혹은 관리자)이면 삭제버튼%><button onclick="deleteComment(<%=dto.getNum()%>)">삭제</button>
 					<%} else { //아니면 답글, 신고버튼%> 
-						<button onclick="reply(<%=dto.getNum() %>)" >답글</button> 
-						<button onclick="report(<%=dto.getNum() %>)" >신고</button> 
+						<button onclick="reply(<%=dto.getNum()%>)" >답글</button> 
+						<button onclick="report('<%=dto.getNum()%>','<%=dto.getName()%>')" >신고</button> 
 					<%} %>
 			<%} %>
 			</td>
-			<td style="text-align:right; border-left:none;"><%=sdf.format(dto.getReg()) %></td>
+			<td style="text-align:right; border:0px;"><%=sdf.format(dto.getReg()) %></td>
 		</tr>
-		<tr>
-			<td colspan="2" style="text-align:left;">
+		<tr style="border:0px;">
+			<td colspan="2" style="text-align:left;border:0px;">
 				<%if (dto.getReceiver() !=null) { //만약 대댓글이라면 원본댓글 작성자 이름 넣어주기%>
 					<Strong><%= rDAO.selectNameById(dto.getReceiver()) %></Strong>
 				<%}%>
@@ -99,12 +100,14 @@
 </body>
 <script>
 	//신고 기능
-	function report(commentNum) {
+	function report(commentNum,member) {
 		if(confirm("이 댓글을 신고하시겠습니까?")==true) {
-			
-		}
-		
+			var offenceCode = "RC"+commentNum;
+			location.href= "offenceMember.jsp?offenceUrl="+offenceCode+"&member="+member;
+		}		
 	}
+	
+	
 	//댓글에 답댓글 달기
 	function reply(num) {
 		var url = "recipeCommentReplyInsertForm.jsp?num=" + num;
