@@ -68,14 +68,14 @@ if(memId != null) {	//로그인 한 상태면 로그인 정보 가져오기
 				RecipeDTO dto = (RecipeDTO) list.get(i);
 				if (dto != null) { %>
 					<td> 
-						<div class="recipe" onclick="window.location='recipe/recipeContent.jsp?num=<%=dto.getNum()%>'">
-							<div class="thumbnail">
+						<div onclick="window.location='recipe/recipeContent.jsp?num=<%=dto.getNum()%>'">
+							<div>
 								<img width="198px" height="198px" src="/jnp/recipe/imgs/<%=dto.getThumbnail()%>"/>
 							</div>
-							<div class="info">
-								<div class="row"><%=dto.getRecipeName()%></div>
-								<div class="row">posted by <%=dto.getWriter() %></div>
-								<div class="row"><%=dto.getRating()%>(<%=RatingDAO.getInstance().getCountRating(dto.getNum())%>개의 평가)</div>			
+							<div>
+								<div><%=dto.getRecipeName()%></div>
+								<div>posted by <%=dto.getWriter() %></div>
+								<div><%=dto.getRating()%>(<%=RatingDAO.getInstance().getCountRating(dto.getNum())%>개의 평가)</div>			
 							</div>			
 						</div>
 					</td>
@@ -107,7 +107,7 @@ if(memId != null) {	//로그인 한 상태면 로그인 정보 가져오기
 								<div>
 									<img width="198px" height="198px" src="/jnp/recipe/imgs/<%=dto.getThumbnail()%>"/>
 								</div>
-								<div class="info">
+								<div>
 									<div><%=dto.getRecipeName()%></div>
 									<div>posted by <%=dto.getWriter() %></div>
 									<div><%=dto.getRating()%>(<%=RatingDAO.getInstance().getCountRating(dto.getNum())%>개의 평가)</div>			
@@ -116,7 +116,7 @@ if(memId != null) {	//로그인 한 상태면 로그인 정보 가져오기
 						</td>
 				<%}
 				for(int i = 0; i < 5-list.size(); i++) {%>
-						<td width="200"></div></td>
+						<td width="200"></td>
 				<%}
 				}
 		}
@@ -142,7 +142,11 @@ if(memId != null) {	//로그인 한 상태면 로그인 정보 가져오기
 		if(productList == null) {
 			%> <td>제품이 없습니다</td> <%
 		} else {
-			for( int i = 0; i < productList.size(); i++) {
+			int y = 5;
+			if(productList.size() < y) {
+				y = productList.size();
+			}
+			for( int i = 0; i < y; i++) {
 				ProductDTO dto = (ProductDTO) productList.get(i); %>
 					<td> 
 						<div onclick="window.location='product/productContent.jsp?num=<%=dto.getNum()%>'">
@@ -156,6 +160,9 @@ if(memId != null) {	//로그인 한 상태면 로그인 정보 가져오기
 						</div>
 					</td>
 			<%}
+			for(int i = 0; i < 5-productList.size(); i++) {%>
+			<td width="200"></td>
+	<%}
 			
 		}
 		%>
@@ -169,7 +176,7 @@ if(memId != null) {	//로그인 한 상태면 로그인 정보 가져오기
 <table>
 	<tr>
 	<td colspan="4"> 평점 높은 레시피들 </td>
-	<td> <a href="/jnp/recipe/recipeList.jsp?mode=num">+more</a></td>
+	<td> <a href="/jnp/recipe/recipeList.jsp?mode=rating">+more</a></td>
 		</tr>
 		<tr>
 			<td colspan="5"> 평점순 </td>
