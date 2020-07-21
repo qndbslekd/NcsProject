@@ -11,8 +11,6 @@
 	<link href="../resource/team05_style.css" rel="stylesheet" type="text/css">
 </head>
 <jsp:include page="../header.jsp"></jsp:include>
-<h1 align="center">채식정보 페이지</h1>
-<hr/>
 <%
 
 	InfomationDAO dao = InfomationDAO.getInstance();
@@ -22,8 +20,13 @@
 	if(id == null){
 		id = "";	
 	}
+	
+	Cookie[] cookies = request.getCookies();
+	System.out.println("cookies"+cookies.length);
 %>
-	<body>
+<body>
+<h1 align="center">채식정보 페이지</h1>
+		<hr/>
 		<table>
 		<%if(id.equals("admin")){ %>
 			<tr>

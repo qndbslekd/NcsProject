@@ -123,10 +123,9 @@ a:hover {
 				<button onclick="window.location='/jnp/member/signupForm.jsp'">회원가입</button>
 			</td>
 			<%}else{%>
-			
 			<td>
 				<p><%=session.getAttribute("memId")%>님</p>		
-				<button onclick="window.location='/jnp/member/logoutPro.jsp'">로그아웃</button>
+				<button onclick="window.location='/jnp/logoutPro.jsp'">로그아웃</button>
 				<button onclick="window.location='/jnp/member/myPage.jsp'">마이페이지</button>
 			</td>
 			<%} %>

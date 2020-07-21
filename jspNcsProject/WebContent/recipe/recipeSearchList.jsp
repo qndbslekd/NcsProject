@@ -235,7 +235,6 @@
 			}		
 		}
 		
-		
 		//tag테이블에서 검색한 tag와 관련된 태그20개  리스트로 가져오기	
 		TagDAO dao = TagDAO.getInstance();
 		tagList = dao.searchTagList(tagWhereQuery);
@@ -260,8 +259,7 @@
 	}
 		
 	List searchRecipeList = dao.searchRecipeList(startRow, endRow, whereQuery, mode);
-	System.out.println(whereQuery);
-	
+
 	//리스트 글수
 	int count = 0;
 	if(searchRecipeList !=null) count = dao.getCountSearchRecipeList(whereQuery);
