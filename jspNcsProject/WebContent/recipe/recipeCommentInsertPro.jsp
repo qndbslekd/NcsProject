@@ -16,6 +16,8 @@ String num = request.getParameter("recipeNum");
 <jsp:useBean id="comment" class="jspNcsProject.dto.RecipeCommentDTO"/>
 <jsp:setProperty property="*" name="comment"/>
 <%
+
+comment.setContent(comment.getContent().replaceAll("\n", "<br>"));
 RecipeCommentDAO dao = RecipeCommentDAO.getInstance();
 dao.insertRecipeComment(comment);
 

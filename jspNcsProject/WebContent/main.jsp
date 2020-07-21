@@ -63,10 +63,13 @@ if(memId != null) {	//로그인 한 상태면 로그인 정보 가져오기
 		</tr>
 		<tr>
 			<% 
+			int z = 5;
 			List list = Rdao.seletAllReceipe(1, 5, "num"); 
-			for( int i = 0; i < 5; i++) {
+			if (list.size() < z) z = list.size();
+			
+			for( int i = 0; i < z; i++) {
 				RecipeDTO dto = (RecipeDTO) list.get(i);
-				if (dto != null) { %>
+				 %>
 					<td> 
 						<div onclick="window.location='recipe/recipeContent.jsp?num=<%=dto.getNum()%>'">
 							<div>
@@ -79,15 +82,13 @@ if(memId != null) {	//로그인 한 상태면 로그인 정보 가져오기
 							</div>			
 						</div>
 					</td>
-				<%} else { //빈칸넣기 %>
-					<td></td>
-				<%}
-			}
+				<%} 
+				for(int i = 0; i < 5-z; i++) {%>
+				<td width="200"></td>
+		<%}
 			
 		} else {	//채식주의자 %>
 			
-			
-
 			
 			<td> <a href="/jnp/recipe/recipeSearchList.jsp?vegiType=<%=loginMember.getVegi_type()%>">+more</a></td>
 			</tr>
@@ -99,8 +100,11 @@ if(memId != null) {	//로그인 한 상태면 로그인 정보 가져오기
 				String whereQuery = "where vegi_Type = '" + loginMember.getVegi_type() + "'";
 				List list = Rdao.searchRecipeList(1, 5, whereQuery, "num");
 				
+				int y = 5;
+				if(list.size() < y) y = list.size();
+				
 				if(list != null) {
-				for( int i = 0; i < list.size(); i++) {
+				for( int i = 0; i < y; i++) {
 					RecipeDTO dto = (RecipeDTO) list.get(i); %>
 						<td> 
 							<div onclick="window.location='recipe/recipeContent.jsp?num=<%=dto.getNum()%>'">
@@ -160,7 +164,7 @@ if(memId != null) {	//로그인 한 상태면 로그인 정보 가져오기
 						</div>
 					</td>
 			<%}
-			for(int i = 0; i < 5-productList.size(); i++) {%>
+			for(int i = 0; i < 5-y; i++) {%>
 			<td width="200"></td>
 	<%}
 			
@@ -184,9 +188,10 @@ if(memId != null) {	//로그인 한 상태면 로그인 정보 가져오기
 		<tr>
 			<% 
 			List list = Rdao.seletAllReceipe(1, 5, "rating"); 
-			for( int i = 0; i < 5; i++) {
-				RecipeDTO dto = (RecipeDTO) list.get(i);
-				if (dto != null) { %>
+			int yy = 5;
+			if(list.size() < yy) yy = list.size();
+			for( int i = 0; i < yy; i++) {
+				RecipeDTO dto = (RecipeDTO) list.get(i); %>
 					<td> 
 						<div class="recipe" onclick="window.location='recipe/recipeContent.jsp?num=<%=dto.getNum()%>'">
 							<div class="thumbnail">
@@ -199,10 +204,9 @@ if(memId != null) {	//로그인 한 상태면 로그인 정보 가져오기
 							</div>			
 						</div>
 					</td>
-				<%} else { //빈칸넣기 %>
-					<td></td>
-				<%}
-			} %>
+			<%} 
+			for(int i = 0; i < 5-yy; i++) {%>
+			<td width="200"></td> <%} %>
 			</tr>
 </table>
 </body>
