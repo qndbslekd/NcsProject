@@ -117,4 +117,43 @@ public class TagDAO {
 		return tags;
 	}
 	
+	//레시피 삭제되면 해당 레시피의 태그 카운트 -1, 카운트가 1이면 태그정보 삭제
+	public void deleteTag(String tag) {
+		
+		int count = 0;
+		
+		try {
+			
+			conn = getConnection();
+			
+			//먼저 카운트가 1인지 확인
+			String sql = "select taggedtimes from tag where tag=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, tag);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) count = rs.getInt(1);
+			
+			if(count == 1) {	//카운트가 1이면 태그 삭제
+				sql = "delete from tag where tag=?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, tag);
+				pstmt.executeUpdate();
+			} else { //카운트가 1보다 크면 taggedtimes만 1 감소
+				sql = "update tag set taggedtimes=taggedtimes-1 where tag=?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, tag);
+				pstmt.executeUpdate();
+			}
+					
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(rs!=null) try{rs.close();}catch(Exception e) {e.printStackTrace();}
+			if(pstmt!=null) try{pstmt.close();}catch(Exception e) {e.printStackTrace();}
+			if(conn!=null) try{conn.close();}catch(Exception e) {e.printStackTrace();}
+		}
+	}
+	
 }
