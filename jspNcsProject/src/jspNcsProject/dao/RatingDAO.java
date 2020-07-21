@@ -63,7 +63,7 @@ public class RatingDAO {
 		return dto;
 	}
 	
-	//평점 삭제
+	//평점 삭제 (하나)
 	public void deleteRating(int num, String id) {
 		try {
 			
@@ -149,5 +149,23 @@ public class RatingDAO {
 		}
 		
 		return count;
+	}
+	
+	//글 번호에 해당하는 평점들 일괄 삭제
+	public void deleteRatingAll(int num) {
+		try {
+			conn= getConnection();
+			
+			String sql = "delete from rating where recipe_num=?";
+			pstmt= conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			pstmt.executeUpdate();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(pstmt != null) try { pstmt.close();} catch(Exception e) {e.printStackTrace();}
+			if(conn != null) try { conn.close();} catch(Exception e) {e.printStackTrace();}
+		}
 	}
 }

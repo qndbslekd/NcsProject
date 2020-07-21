@@ -213,7 +213,7 @@
 				</div>
 				<div class="info">
 					<div class="row"><%=recipe.getRecipeName()%></div>
-					<div class="row">posted by <%=recipe.getWriter() %></div>
+					<div class="row">posted by <%=RecipeDao.selectNameById(recipe.getWriter()) %></div>
 					<div class="row"><%=recipe.getRating()%>(<%=rateCount%>개의 평가)</div>			
 				</div>			
 			</div>

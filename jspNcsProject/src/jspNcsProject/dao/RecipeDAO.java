@@ -209,16 +209,43 @@ public class RecipeDAO {
 	public void deleteRecipeBoard(int num) {
 		try {
 			conn = getConnection();
+			
 			//레시피 세부내용 댓글 삭제
 			RecipeContentCommentDAO rccDAO = RecipeContentCommentDAO.getInstance();
 			rccDAO.deleteRecipeContentCommentAll(num);
+			
 			//레시피 세부내용 삭제
 			RecipeContentDAO rcDAO = RecipeContentDAO.getInstance();
 			rcDAO.deleteRecipeContent(num);
+			
 			//레시피 댓글 내용 삭제
 			RecipeCommentDAO rcmDAO = RecipeCommentDAO.getInstance();
 			rcmDAO.deleteRecipeCommentAll(num);
-					
+			
+			//레시피 평점 삭제
+			RatingDAO rtDAO = RatingDAO.getInstance();
+			rtDAO.deleteRatingAll(num);
+			
+			//레시피 스크랩 정보 삭제
+			ScrapDAO sDAO = ScrapDAO.getInstance();
+			sDAO.deleteScrapAllByNum(num);
+			
+			//레시피 태그 삭제
+			String tag = instance.selectRecipeBoard(num).getTag();
+			
+			if(tag != null && !tag.equals("")) {
+				//콤마 기준으로 나누기
+				String[] tagSplit = tag.split(",");
+				
+				for(int i = 0; i<tagSplit.length; i++) {
+					tagSplit[i] = tagSplit[i].trim(); //양쪽 공백 없애고 
+					//tag table 태그 삭제
+					TagDAO daoo = TagDAO.getInstance();
+					daoo.deleteTag(tagSplit[i]);
+				}
+			}
+			
+			
 			//레시피 정보 삭제
 			String sql = "delete from recipe_board where num=?";
 			pstmt = conn.prepareStatement(sql);
