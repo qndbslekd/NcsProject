@@ -110,7 +110,7 @@ a:hover {
 			
 			<td class="title" colspan="4">
 			<img src="/jnp/leaf.png" width="100px"/>
-			<a href="/jnp/member/main.jsp">BEGIN VEGAN</a>
+			<a href="/jnp/main.jsp">BEGIN VEGAN</a>
 			</td>
 		<tr>
 			<td>
