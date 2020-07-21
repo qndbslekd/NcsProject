@@ -31,7 +31,9 @@
 		<%if(id.equals("admin")){ %>
 			<tr>
 				<td>
+				
 					<button onclick="window.location = 'InformationModifyForm.jsp'" >수정페이지로 이동</button>
+					<button onclick="window.open('http://localhost:8080/jnp/member/confirmId.jsp', '_blank');" >수정페이지로 이동</button>
 				</td>
 			</tr>
 		<% }%>

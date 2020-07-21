@@ -67,7 +67,13 @@ a:hover {
 	color: #559AFC;
 }
 </style>
-</head> 
+</head>
+<script type="text/javascript">
+	var nowUrl = window.location;
+	if(nowUrl == 'http://localhost:8080/jnp/header.jsp'){
+		window.location = 'information/information.jsp';
+	}
+</script> 
 <%
 	System.out.println("===HEADER START===");
 	System.out.println("Header Session값 : "+session.getAttribute("memId"));

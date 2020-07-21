@@ -7,6 +7,13 @@
 	<title>Insert title here</title>
 </head>
 <%
+	if(session.getAttribute("memId") == null||!session.getAttribute("memId").equals("admin")){%>
+	<script>
+		alert("관리자만 이용할수 있습니다");
+		window.location="information.jsp";
+	</script>
+	<%}%>
+
 	request.setCharacterEncoding("UTF-8");
 	String[] subject = request.getParameterValues("subject");
 	String[] content = request.getParameterValues("content");

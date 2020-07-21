@@ -14,9 +14,9 @@
 	RecipeContentCommentDTO dto = new RecipeContentCommentDTO();
 	dto = dao.selectRecipeStepComment(num);
 	int ref = dto.getRef();
-	String memName = (String )session.getAttribute("memName");
+	String memId = (String )session.getAttribute("memId");
 	
-	if(memName.equals(dto.getName())){
+	if(memId.equals(dto.getName())){
 		dao.deleteRecipeStepComment(ref); %>
 		<script> alert("삭제되었습니다."); location.href=document.referrer; </script>		
 	<%	
