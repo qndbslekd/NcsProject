@@ -42,6 +42,6 @@
 	form.history.value = back;
 </script>
 <%}else{ 
-	response.sendRedirect("main.jsp");	
-} %>
+	response.sendRedirect("../main.jsp");	
+}%>
 </html>

@@ -111,6 +111,15 @@ public class FreeBoardDTO {
 	public void setImg(String img) {
 		this.img = img;
 	}
+
+	@Override
+	public String toString() {
+		return "FreeBoardDTO [num=" + num + ", title=" + title + ", writer=" + writer + ", category=" + category
+				+ ", content=" + content + ", reg=" + reg + ", read_count=" + read_count + ", recommend=" + recommend
+				+ ", ref=" + ref + ", re_step=" + re_step + ", re_level=" + re_level + ", img=" + img + "]";
+	}
+	
+	
 	
 	
 	
