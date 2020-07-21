@@ -1,3 +1,5 @@
+<%@page import="javax.swing.JOptionPane"%>
+<%@page import="java.io.IOException"%>
 <%@page import="java.io.File"%>
 <%@page import="com.oreilly.servlet.MultipartRequest"%>
 <%@page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
@@ -12,44 +14,26 @@
 	<title>Insert title here</title>
 </head>
 <%
-	//
-	System.out.println("REQUEST"+request);
-	if(request.getContentType()==null){
-		response.sendRedirect("../information/information.jsp");
-	}else if(!request.getContentType().contains("multipart/form-data")){
-		System.out.println("정상적인 수정 경로");
-	}
 	request.setCharacterEncoding("UTF-8");
 	//img file update
 	String path = request.getRealPath("save");
-	int max = 1024*1024*5; //5MB byte 단위
+	int max = 1024*1024*5; //5MB byte 단위 
 	String enc = "UTF-8";
 	DefaultFileRenamePolicy dp = new DefaultFileRenamePolicy(); //중복파일금지
-	MultipartRequest mr = new MultipartRequest(request,path,max,enc,dp);
-%>
-<%if(session.getAttribute("memId")==null){%>
+	if(session.getAttribute("memId")==null){%>
 	<script type="text/javascript">
 		alert("로그인후 이용해주세요.");
-		window.location = "main.jsp";
+		window.location = "../main.jsp";
 	</script>
-<%}else if(mr.getParameter("pw")==null||mr.getParameter("name")==null||mr.getParameter("vegi_type")==null){%>
-	<script type="text/javascript">
-		alert("올바른 수정 양식을 작성해 주세요");
-		window.location = "memberModifyForm.jsp";
-	</script>	
 <%}else{
-		//file paramTest
-		System.out.println("[NEW mr profileIMG :"+mr.getFilesystemName("profile_img")+"]");
-		System.out.println("[NEW mr profileIMG_before :"+mr.getParameter("profile_img_before")+"]");
-		//img null point 방지
-		//기존 이미지를 등록해놓지 않았을 경우
+	if (request.getContentType()!=null) {
+		MultipartRequest mr = new MultipartRequest(request,path,max,enc,dp);
 		String profile_img="";
 		if(mr.getFilesystemName("profile_img")==null){
 			profile_img= mr.getParameter("profile_img_before");
 		}else{
 			profile_img= mr.getFilesystemName("profile_img");
 		}
-		
 		System.out.println("[DTO profileIMG:"+profile_img+"]");
 		String pw = mr.getParameter("pw");
 		String name = mr.getParameter("name");
@@ -80,8 +64,16 @@
 				f.delete();
 			}
 		}
-		response.sendRedirect("../logoutPro.jsp");
+	}else{
+		System.out.println("비정상적인 접근");
+		response.sendRedirect("../main.jsp");
+		return;
 	}
+	//img null point 방지
+	//기존 이미지를 등록해놓지 않았을 경우
+	response.sendRedirect("../logoutPro.jsp");
+	return;
+}
 %> 
 <body>
 </body>
