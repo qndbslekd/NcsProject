@@ -8,7 +8,7 @@
 </head>
 <%
 	request.setCharacterEncoding("UTF-8");
-
+	
 	//TEST AUTOLOGIN
 	System.out.println("===LOGIN PRO===");
 	System.out.println("AUTO VAL :"+request.getParameter("auto"));
@@ -40,17 +40,6 @@
 		session.setAttribute("memPw", pw);
 		session.setAttribute("memName", name);
 		System.out.println("LOGIN PRO AUTO"+auto);
-		
-		//로그인시 기존 쿠키 연장
-		/* Cookie [] coo = request.getCookies();
-		if(coo != null){
-			for(Cookie c : coo){
-				if(c.getName().equals("autoId")) id = c.getValue();
-				if(c.getName().equals("autoPw")) pw = c.getValue();
-				if(c.getName().equals("autoCh")) auto = c.getValue();
-				if(c.getName().equals("autoName")) name = c.getValue();
-			}
-		} */
 		
 		if(auto.equals("y")){
 			System.out.println("LOGIN PRO AUTO LOGIN COOKIE SETTING");

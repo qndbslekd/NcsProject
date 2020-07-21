@@ -31,13 +31,13 @@
 				<a onclick="window.location='myRecipeList.jsp'"><img src="../resource/recipe.png"><br/>내가 본 레시피</a>
 			</td>
 			<td>
-				<a onclick="window.location='myComment.jsp'"><img src="../resource/comment.png"><br/>내가 쓴 댓글</a>
+				<a onclick="window.location='myScrapRecipe.jsp'"><img src="../resource/comment.png"><br/>내가 찜한 레시피</a>
 			</td>
 		</tr>
 		<tr>
 			<td colspan="2">
 				<button onclick="window.location='main.jsp'">메인으로</button>
-				<button onclick="window.location='logoutPro.jsp'">로그아웃</button>
+				<button onclick="window.location='../logoutPro.jsp'">로그아웃</button>
 			</td>
 		</tr>
 		<%if(session.getAttribute("memId").equals("admin")){ %>

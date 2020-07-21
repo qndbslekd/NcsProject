@@ -12,22 +12,24 @@
 		if (!inputForm.id.value) {
 			return;
 		}
-		var url = "cofirmId.jsp?id=" + inputForm.id.value;
+		var url = "confirmId.jsp?id=" + inputForm.id.value;
 		open(
 				url,
 				"아이디 중복 체크",
 				"toolbar=no,location=no,status = no, menubar = no, scrollbars = no,resizable = no, width = 300,height = 200");
 	}
+	
 	function confirmName(inputForm) {
 		if (!inputForm.name.value) {
 			return;
 		}
-		var url = "cofirmId.jsp?name=" + inputForm.name.value;
+		var url = "confirmId.jsp?name=" + inputForm.name.value;
 		open(
 				url,
 				"아이디 중복 체크",
 				"toolbar=no,location=no,status = no, menubar = no, scrollbars = no,resizable = no, width = 300,height = 200");
 	}
+	
 	// 유효성 검사 수정전
 	/* function check() {
 		var inputs = document.inputForm;
@@ -61,8 +63,10 @@
 			return false;
 		}
 	} */
+	
 </script>
 <%
+System.out.println(session.getAttribute("memId"));
 if(session.getAttribute("memId")==null){
 %>
 <body> 
@@ -76,7 +80,7 @@ if(session.getAttribute("memId")==null){
 		<!--중복 id 체크버튼-->
 		<tr>
 			<td>아이디 중복체크</td>
-			<td><input type="button" value="중복확인" onclick="confirmId(this.form)"></td>
+			<td><button type="button" onclick="confirmId(this.form)">중복확인</button></td>
 		</tr>
 		<tr>
 			<td>비밀번호*</td>
@@ -92,7 +96,7 @@ if(session.getAttribute("memId")==null){
 		</tr>
 		<tr>
 			<td>활동명 중복체크</td>
-			<td><input type="button" value="중복확인" onclick="confirmName(this.form)"></td>
+			<td><button type="button" onclick="confirmName(this.form)">중복확인</button></td>
 		</tr>
 		<tr>
 			<td>주민번호*</td> 
@@ -105,14 +109,14 @@ if(session.getAttribute("memId")==null){
 			<td>채식주의 타입</td>
 			<td> 
 				<select name="vegi_type">
-						<option value="비채식주의자">비채식주의자</option>
-						<option value="비건">비건</option>
-						<option value="락토 베지터리언">락토 베지터리언</option>
-						<option value="오보 베지터리언">오보 베지터리언</option>
-						<option value="락토 오보 베지터리언">락토 오보 베지터리언</option>
-						<option value="페스코 베지터리언">페스코 베지터리언</option>
-						<option value="폴로 베지터리언">폴로 베지터리언</option>
-						<option value="플렉시터리언">플렉시터리언</option>
+						<option value="none">Non-vegetarian</option>
+						<option value="vegan">vegan</option>
+						<option value="lacto">Lacto vegetarian</option>
+						<option value="ovo">Ovo vegetarian</option>
+						<option value="lacto ovo">Lacto-ovo vegetarian</option>
+						<option value="pesco">Pesco-vegetarian</option>
+						<option value="pollo">Pollo-vegetarian</option>
+						<option value="flexitarian">Flexitarian</option>
 				</select>
 			</td>
 		</tr>

@@ -3,6 +3,8 @@ package jspNcsProject.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -61,7 +63,7 @@ public class RatingDAO {
 		return dto;
 	}
 	
-	//평점 삭제
+	//평점 삭제 (하나)
 	public void deleteRating(int num, String id) {
 		try {
 			
@@ -118,6 +120,48 @@ public class RatingDAO {
 			pstmt.executeUpdate();
 			
 		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(pstmt != null) try { pstmt.close();} catch(Exception e) {e.printStackTrace();}
+			if(conn != null) try { conn.close();} catch(Exception e) {e.printStackTrace();}
+		}
+	}
+	
+	//글번호에 해당하는 평점들 list로 가져오기
+	public int getCountRating(int num) {
+		int count = 0; 
+		try {
+			conn= getConnection();
+			String sql = "select count(rate) from rating where recipe_num=?";
+			pstmt= conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(rs != null) try { rs.close();} catch(Exception e) {e.printStackTrace();}
+			if(pstmt != null) try { pstmt.close();} catch(Exception e) {e.printStackTrace();}
+			if(conn != null) try { conn.close();} catch(Exception e) {e.printStackTrace();}
+		}
+		
+		return count;
+	}
+	
+	//글 번호에 해당하는 평점들 일괄 삭제
+	public void deleteRatingAll(int num) {
+		try {
+			conn= getConnection();
+			
+			String sql = "delete from rating where recipe_num=?";
+			pstmt= conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			pstmt.executeUpdate();
+			
+		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
 			if(pstmt != null) try { pstmt.close();} catch(Exception e) {e.printStackTrace();}

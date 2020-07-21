@@ -4,9 +4,12 @@
 <html>
 <head>
 <meta charset="utf-8">
+
 <link href="../resource/team05_style.css" type="text/css" rel="stylesheet"/>
+
 <title>header</title>
 <style>
+
 #header {
 	width: 1000px;
 	border-collapse: collapse;
@@ -23,7 +26,6 @@
 
 a:link {
 	text-decoration: none;
-	color: #ffff;
 }
 
 a:visited {
@@ -65,7 +67,13 @@ a:hover {
 	color: #559AFC;
 }
 </style>
-</head> 
+</head>
+<script type="text/javascript">
+	var nowUrl = window.location;
+	if(nowUrl == 'http://localhost:8080/jnp/header.jsp'){
+		window.location = 'information/information.jsp';
+	}
+</script> 
 <%
 	System.out.println("===HEADER START===");
 	System.out.println("Header Session값 : "+session.getAttribute("memId"));
@@ -106,8 +114,10 @@ a:hover {
 	<table id="header">
 		<tr>
 			
-			<td class="title" colspan="4"><a href="/jnp/member/main.jsp">BEGIN VEGAN</a></td>
-		<tr>
+			<td class="title" colspan="4">
+			<img src="/jnp/leaf.png" width="100px"/>
+			<a href="/jnp/main.jsp">BEGIN VEGAN</a>
+			</td>
 		<tr>
 			<td>
 			<td>
@@ -120,7 +130,8 @@ a:hover {
 			</td>
 			<%}else{%>
 			<td>
-				<button onclick="window.location='/jnp/member/logoutPro.jsp'">로그아웃</button>
+				<p><%=session.getAttribute("memId")%>님</p>		
+				<button onclick="window.location='/jnp/logoutPro.jsp'">로그아웃</button>
 				<button onclick="window.location='/jnp/member/myPage.jsp'">마이페이지</button>
 			</td>
 			<%} %>
