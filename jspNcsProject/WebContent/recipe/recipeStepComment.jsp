@@ -16,12 +16,14 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="../resource/team05_style.css">
 <style>
-	/* 이거 적용 안됨 */
-	#comment{
-		border-left:none !important;      
-		border- right:none !important;		
-		border- top:none !important;		 
-		border- bottom:none !important;
+	#nonBorder {
+		border:0px;
+	}
+	#nonBorder tr {
+		border:0px;
+	}
+	#nonBorder td {
+		border:0px;
 	}
 
 </style>
@@ -42,6 +44,12 @@
 		function openModifyForm(num){
 			var url = 'recipeStepCommentModifyForm.jsp?num='+num;
 			window.open(url, "댓글수정", "width=400, height=250, resizeable=no, scrollbars=no");
+		}
+		//댓글 삭제하기
+		function openDeleteForm(num){
+			if(confirm("댓글을 삭제하시겠습니까?")==true) {
+				window.location="recipeStepCommentDeletePro.jsp?num=" + num;
+			}
 		}
 		
 		
@@ -75,7 +83,7 @@
 	RecipeContentCommentDAO dao = null;
 %>
 <body>
-	<table>
+	<table id="nonBorder">
 	<h3> 조리과정</h3>
 	<%
 	for(int i = 0; i < recipeContentList.size(); i++){
@@ -88,28 +96,10 @@
 		int recipeNum = recipeContentdto.getRecipeNum();		
 		%>				
 		<tr>
-			<td>단계<%= nowContentNum%>.</td>
-			<td><%= recipeContentdto.getContent() %> </td> 
-			<td>	 		
-				<%
-					if(session.getAttribute("memId") == null ){// 로그아웃 상태면 댓글쓰기 안보임		
-					}else if(recipeBoard.getWriter().equals(session.getAttribute("memId"))){// 레시피글작성자가 로그인한거면 댓글쓰기 안보임
-					}else{ // 레시피 글 작성자가 아니면 댓글쓰기 보임%>
-						<input type="button" value="댓글쓰기" onclick="openReplyForm(<%= nowContentNum %>, <%= recipeNum %>, <%= reLevel %>, <%= reStep %>, <%= 0 %>);" />
-						<%-- function 호출할 때 해당 조리단계 관한 변수 보내줌  --%>
-				<% 	}
-				
-				%>
-				
-				
-			</td>
-			<td rowspan="2">
-				<img src="./imgs/<%= recipeContentdto.getImg() %>" width="70px" height="50px" />
-			</td>
-		</tr>
-		<tr>
-		<td colspan="3">
-		<table>
+			<td style="width:70px; vertical-align:top;">Step <%= nowContentNum%>.</td>
+			<td style="width:400px; vertical-align:top; text-align:left;max-height:0">
+				<%= recipeContentdto.getContent() %>
+				 <table id="nonBorder" style="margin:10px; left:0px;">
 				<%
 				List recipeContentCommentlist = null;
 				dao = RecipeContentCommentDAO.getInstance();
@@ -126,15 +116,15 @@
 					<% // 댓글 들여쓰기 처리
 						int wid = 0;
 						if(dto.getReLevel() > 0){ //if4
-							wid = 8*(dto.getReLevel());
+							wid = 20*(dto.getReLevel());
 						
 					%>
 						<img src="imgs/tabImg.PNG" width="<%= wid %>" />
-						<img src="imgs/replyImg.png" width="11" />
 						<%} // if4 끝%>
-					<%= dto.getContent()  %>
-				</td>
-				<td id="comment" > <%= dto.getName() %>  </td>
+						<img src="imgs/replyImg.png" width="11" />
+					"<%= dto.getContent()  %>"
+					</td>
+				<td id="comment">|  <%= recipeDAO.selectNameById(dto.getName()) %>  </td>
 				<td id="comment"> 
 					<% 
 					if(session.getAttribute("memId") == null){//if3 로그아웃 상태%>
@@ -144,11 +134,11 @@
 						// 댓글의 name과 memName이 동일하면 수정삭제 뜨게					
 					%>
 							<input type="button" value="수정" onclick="openModifyForm(<%=dto.getNum()%>);"/>
-							<input type="button" value="삭제" onclick="window.location='#'"/>
+							<input type="button" value="삭제" onclick="openDeleteForm(<%=dto.getNum()%>)"/>
 							
 					<%	}else if(session.getAttribute("memId").equals("admin")){ // 관리자면 수정 삭제 다 뜨게 %>	
-							<input type="button" value="수정" onclick="window.location='#'"/>
-							<input type="button" value="삭제" onclick="window.location='#'"/>					
+							<input type="button" value="수정" onclick="openModifyForm(<%=dto.getNum()%>)"/>
+							<input type="button" value="삭제" onclick="openDeleteForm(<%=dto.getNum()%>)"/>					
 					<% 	}else{ // 댓글쓴이 != 로그인 아이디 
 							if(recipeBoard.getWriter().equals(session.getAttribute("memId"))){ // 레시피글쓴이 == 로그인아이디 
 								int maxReLevel = dao.selectMaxRelevel(dto.getRef());
@@ -166,7 +156,24 @@
 				} // if5끝 %>						
 			</tr>					
 		</table>
-		</td>
+			
+			</td> 
+			<td style="width:80px; vertical-align:top;">	 		
+				<%
+					if(session.getAttribute("memId") == null ){// 로그아웃 상태면 댓글쓰기 안보임		
+					}else if(recipeBoard.getWriter().equals(session.getAttribute("memId"))){// 레시피글작성자가 로그인한거면 댓글쓰기 안보임
+					}else{ // 레시피 글 작성자가 아니면 댓글쓰기 보임%>
+						<input type="button" value="댓글쓰기" onclick="openReplyForm(<%= nowContentNum %>, <%= recipeNum %>, <%= reLevel %>, <%= reStep %>, <%= 0 %>);" />
+						<%-- function 호출할 때 해당 조리단계 관한 변수 보내줌  --%>
+				<% 	}
+				
+				%>
+				
+				
+			</td>
+			<td>
+				<img src="./imgs/<%= recipeContentdto.getImg() %>" width="200px" height="200px" />
+			</td>
 		</tr>
 	<% // 이거 아니라고ㅠ
 	} // 조리과정 제일 큰 for문
