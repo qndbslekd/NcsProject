@@ -8,7 +8,7 @@
 </head>
 <%
 	request.setCharacterEncoding("UTF-8");
-
+	
 	//TEST AUTOLOGIN
 	System.out.println("===LOGIN PRO===");
 	System.out.println("AUTO VAL :"+request.getParameter("auto"));
