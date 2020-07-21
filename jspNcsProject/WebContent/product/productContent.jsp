@@ -85,18 +85,18 @@
 								<button type="button" onclick="deleteFn('<%=comment.get(i).getNum()%>','<%=comment.get(i).getName()%>','<%=dto.getNum()%>')">삭제</button>	
 						<%} %>
 						<%
-							System.out.println("======"+comment.get(i).getNum());
 							List<ProductDTO> recoment =  dao.selectRecomment(comment.get(i).getNum()+"");
 							System.out.println("답글의 갯수 : " +recoment.size());
 							System.out.println(recoment);
 							for(int j=0;j<recoment.size();j++){
-							%>
+								System.out.println("======"+comment.get(i).getNum());
+							%> 
 								<!--before Name-->
 								<br/>
 								<%=recoment.get(j).getIngredients()%>
 								<img src="../resource/replyImg.png" width="8px"/>
 								<%=recoment.get(j).getName()%> : <%=recoment.get(j).getDetail()%> 작성시간 : <%=recoment.get(j).getReg()%>
-								<button type="button" onclick="recommentFn('<%=recoment.get(j).getName()%>','<%=recoment.get(i).getNum()%>')">답글</button>
+								<button type="button" onclick="recommentFn('<%=recoment.get(j).getName()%>','<%=comment.get(i).getNum()%>')">답글</button>
 								<button type="button" onclick="report('<%=recoment.get(j).getNum()%>','<%=recoment.get(j).getName()%>')">신고</button>
 								<%if(session.getAttribute("memId").equals("admin")||session.getAttribute("memId").equals(recoment.get(j).getName())){ %>
 								<button type="button" onclick="deleteFn('<%=recoment.get(j).getNum()%>','<%=recoment.get(j).getName()%>','<%=dto.getNum()%>')">삭제</button>	

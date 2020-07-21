@@ -375,7 +375,7 @@ public class ProductDAO {
 	public List<ProductDTO> selectRecomment(String num){
 		List<ProductDTO> comment = new ArrayList<ProductDTO>();
 		try {
-			String sql = "select * from product where re_step = ? AND re_level>0 ORDER BY reg";
+			String sql = "SELECT DISTINCT p.* FROM PRODUCT p,PRODUCT p2 WHERE p.NAME = p2.INGREDIENTS AND p.RE_STEP =? ORDER BY p.reg";
 			conn = getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1,Integer.parseInt(num));
@@ -386,7 +386,7 @@ public class ProductDAO {
 				dto.setName(rs.getString("name"));
 				dto.setIngredients(rs.getString("ingredients"));
 				dto.setDetail(rs.getString("detail"));
-				dto.setRe_level(rs.getInt("re_level"));
+				dto.setRe_level(rs.getInt("re_level")); 
 				dto.setRe_step( rs.getInt("re_step"));
 				dto.setReg(rs.getTimestamp("reg"));
 				comment.add(dto);
