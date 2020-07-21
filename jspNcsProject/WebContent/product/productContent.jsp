@@ -96,7 +96,7 @@
 								<%=recoment.get(j).getIngredients()%>
 								<img src="../resource/replyImg.png" width="8px"/>
 								<%=recoment.get(j).getName()%> : <%=recoment.get(j).getDetail()%> 작성시간 : <%=recoment.get(j).getReg()%>
-								<button type="button" onclick="recommentFn('<%=recoment.get(j).getName()%>','<%=recoment.get(j).getNum()%>')">답글</button>
+								<button type="button" onclick="recommentFn('<%=recoment.get(j).getName()%>','<%=recoment.get(i).getNum()%>')">답글</button>
 								<button type="button" onclick="report('<%=recoment.get(j).getNum()%>','<%=recoment.get(j).getName()%>')">신고</button>
 								<%if(session.getAttribute("memId").equals("admin")||session.getAttribute("memId").equals(recoment.get(j).getName())){ %>
 								<button type="button" onclick="deleteFn('<%=recoment.get(j).getNum()%>','<%=recoment.get(j).getName()%>','<%=dto.getNum()%>')">삭제</button>	
