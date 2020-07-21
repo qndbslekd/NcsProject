@@ -97,6 +97,7 @@ public class FreeBoardDAO {
 					article.setContent(rs.getString("content"));
 					article.setReg(rs.getTimestamp("reg"));
 					article.setRecommend(rs.getInt("recommend"));
+					article.setRead_count(rs.getInt("read_count"));
 					article.setRef(rs.getInt("ref"));
 					article.setRe_level(rs.getInt("re_level"));
 					article.setRe_step(rs.getInt("re_step"));
@@ -121,7 +122,7 @@ public class FreeBoardDAO {
 			conn = getConnection();
 			
 			//조회수 올리기
-			String sql ="update freeboard set readcount=readcount+1 where num =?";
+			String sql ="update freeboard set read_count=read_count+1 where num =?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			pstmt.executeUpdate();
@@ -138,10 +139,12 @@ public class FreeBoardDAO {
 				article.setCategory(rs.getString("category"));
 				article.setContent(rs.getString("content"));
 				article.setReg(rs.getTimestamp("reg"));
+				article.setRead_count(rs.getInt("read_count"));
 				article.setRecommend(rs.getInt("recommend"));
 				article.setRef(rs.getInt("ref"));
 				article.setRe_level(rs.getInt("re_level"));
 				article.setRe_step(rs.getInt("re_step"));
+				article.setImg(rs.getString("img"));
 			}		
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -210,12 +213,13 @@ public class FreeBoardDAO {
 
 		try {
 			conn = getConnection();
-			String sql = "update freeboard set title=?, img=? where num=?";
+			String sql = "update freeboard set title=?, category=?, content=?, img=? where num=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, article.getTitle());
-			pstmt.setString(2, article.getWriter());
-			pstmt.setString(3, article.getImg());
-			pstmt.setInt(4, article.getNum());
+			pstmt.setString(2, article.getCategory());
+			pstmt.setString(3, article.getContent());
+			pstmt.setString(4, article.getImg());
+			pstmt.setInt(5, article.getNum());
 			pstmt.executeUpdate();	
 			x= 1;
 		} catch (Exception e) {
@@ -243,7 +247,44 @@ public class FreeBoardDAO {
 		}
 	}
 	
+	public void updateRecommend(int num) {
+		try {
+			conn = getConnection();
+			String sql="update freeboard set recommend = recommend+1 where num=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1,num);
+			pstmt.executeQuery();		
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (pstmt != null)	try {pstmt.close();	} catch (Exception e) {	e.printStackTrace();}
+			if (conn != null)	try {conn.close();} catch (Exception e) {e.printStackTrace();}
+		}
 	
 	
+	}
 	
+	//id 받고 활동명 반환
+	public String selectNameById(String id) {
+		String name = null;	
+		try {		
+			conn = getConnection();		
+			String sql = "select name from member where id=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();			
+			if(rs.next()) {
+				name = rs.getString(1);
+			}			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(rs != null)try {rs.close();}catch(Exception e) {e.printStackTrace();}
+			if(pstmt != null)try {pstmt.close();}catch(Exception e) {e.printStackTrace();}
+			if(conn != null)try {conn.close();}catch(Exception e) {e.printStackTrace();}
+		}	
+		return name;
+	}
+	
+
 }

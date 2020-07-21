@@ -27,6 +27,7 @@
 		<input type="hidden" name="ref" value="<%=ref%>"/>
 		<input type="hidden" name="re_step" value="<%=re_step %>"/>
 		<input type="hidden" name="re_level" value="<%=re_level%>"/>
+		<input type="hidden" name="writer" value="<%=session.getAttribute("memId")%>"/>
 	<table>
 		<tr>
 			<td>제목</td>
@@ -35,7 +36,7 @@
 		</tr>
 		<tr>
 			<td>작성자</td>
-			<td><input type="text" name="writer" value="<%=session.getAttribute("memId") %>" readonly/></td>		
+			<td><%=session.getAttribute("memName")%></td>		
 		</tr>
 		<tr>
 			<td>카테고리</td>
