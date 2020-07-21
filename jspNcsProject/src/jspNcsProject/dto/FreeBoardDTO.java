@@ -14,6 +14,27 @@ public class FreeBoardDTO {
 	private int re_step;
 	private int re_level;
 	private String img;
+		
+	public FreeBoardDTO() {}
+	
+	public FreeBoardDTO(int num, String title, String writer, String category, Timestamp reg, int read_count,
+			int recommend, int ref, int re_step, int re_level, String img) {
+		super();
+		this.num = num;
+		this.title = title;
+		this.writer = writer;
+		this.category = category;
+		this.reg = reg;
+		this.read_count = read_count;
+		this.recommend = recommend;
+		this.ref = ref;
+		this.re_step = re_step;
+		this.re_level = re_level;
+		this.img = img;
+	}
+
+
+
 	public int getNum() {
 		return num;
 	}
@@ -38,6 +59,7 @@ public class FreeBoardDTO {
 	public void setCategory(String category) {
 		this.category = category;
 	}
+	
 	public Timestamp getReg() {
 		return reg;
 	}
@@ -80,6 +102,9 @@ public class FreeBoardDTO {
 	public void setImg(String img) {
 		this.img = img;
 	}
+	
+	
+	
 	
 	
 	
