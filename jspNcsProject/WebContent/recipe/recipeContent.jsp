@@ -1,3 +1,4 @@
+<%@page import="jspNcsProject.dao.ScrapDAO"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.Set"%>
 <%@page import="java.util.HashMap"%>
@@ -23,6 +24,9 @@
 </head>
 <%
 	request.setCharacterEncoding("UTF-8");
+
+	String pageNum = request.getParameter("pageNum");
+	if(pageNum==null) pageNum="1";
 	String memId = (String)session.getAttribute("memId");
 	int num = Integer.parseInt(request.getParameter("num"));
 	
@@ -31,6 +35,7 @@
 	RecipeDAO recipeDAO = RecipeDAO.getInstance();
 	RecipeDTO recipeBoard = new RecipeDTO();
 	
+	ScrapDAO scrapDAO = ScrapDAO.getInstance();
 	
 	recipeBoard = recipeDAO.selectRecipeBoard(num);
 	int contentNum = recipeBoard.getRecipeStep();
@@ -118,7 +123,6 @@
 						<td><button onclick="window.location='recipeSearchList.jsp?writer=<%=recipeBoard.getWriter()%>'">레시피 더 보기</button></td>
 					</tr>
 				</table>
-				작성자 : <%= recipeDAO.selectNameById(recipeBoard.getWriter()) %>
 			</td>
 		</tr>
 		<tr>
@@ -186,17 +190,17 @@
 			if(recipeBoard.getWriter().equals(session.getAttribute("memId")) || session.getAttribute("memId").equals("admin")){
 				// 관리자거나 레시피 글쓴이면 레시피 자체에 대한 수정 삭제 뜨게 
 		%>
-				<button onclick="window.location='recipeModifyForm.jsp?num=<%=num %>'">수정</button>
-				<button onclick="window.location='recipeDeleteForm.jsp?num=<%=num %>'">삭제</button>
+				<button onclick="window.location='recipeModifyForm.jsp?num=<%=num %>&pageNum=<%=pageNum%>'">수정</button>
+				<button onclick="window.location='recipeDeleteForm.jsp?num=<%=num %>&pageNum=<%=pageNum%>'">삭제</button>
 		<%	
 			} else {
-				%> <button onclick="scrap(<%=num%>,<%=memId%>)">찜하기</button> 
+				%> <button onclick="scrap(<%=num%>,'<%=memId%>',<%=scrapDAO.confirmScrap(num, memId)%>)">레시피 찜</button> 
 					<button onclick="report('R','<%=num%>','<%=recipeBoard.getWriter()%>')">신고</button>
 				<%
 			}
 		}
 	%>	
-		<button onclick="window.location='recipeList.jsp'">목록</button>
+		<button onclick="window.location='recipeList.jsp?pageNum=<%=pageNum%>'">목록</button>
 	</div>
 </body>
 <script>
@@ -208,10 +212,16 @@
 		
 		window.open(url,name,option);
 	}
-	
-	function scrap(num, scraper) {
-		if(confirm("레시피를 찜하시겠습니까?")) {
-			
+	//레시피 찜하기
+	function scrap(num, scraper,x) {
+		if(x==false) {
+			if(confirm("레시피를 찜하시겠습니까?")==true) {
+				location.href="recipeScrap.jsp?num="+num+"&scraper="+scraper + "&pageNum=<%=pageNum%>&prePage=recipeContent";
+			}
+		} else {
+			if(confirm("이미 찜한 레시피입니다. \n취소하시겠습니까?")==true) {
+				location.href="recipeScrap.jsp?num="+num+"&scraper="+scraper+"&did=true&pageNum=<%=pageNum%>&prePage=recipeContent";
+			}
 		}
 	}
 	//신고 기능
