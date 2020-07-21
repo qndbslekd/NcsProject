@@ -79,6 +79,15 @@
 	
 	<%if(count == 0){ %>
 		<table>
+		<%if(session.getAttribute("memId")!= null){ %>
+			<tr>
+				<td>
+					<button onclick="window.location='boardInsertForm.jsp'">글쓰기</button>			
+				</td>
+				<td colspan='5'>
+				</td>
+			</tr>
+		<%}%>
 			<tr>
 				<td>게시글이 없습니다.</td>
 			</tr>		
@@ -126,12 +135,14 @@
 			<%
 				for(int i = 0; i< articleList.size();i++){
 					FreeBoardDTO dto = (FreeBoardDTO)(articleList.get(i));
+					//활동명 받아오기
+					String name = dao.selectNameById(dto.getWriter());
 			%>
 			<tr>
 				<td><%=number--%></td>
 				<td><%=dto.getCategory()%></td>
-				<td><%=dto.getTitle()%></td>
-				<td><%=dto.getWriter()%></td>
+				<td onclick="window.location='boardContent.jsp?num=<%=dto.getNum()%>'"><%=dto.getTitle()%></td>
+				<td><%=name%></td>
 				<td><%=dto.getRead_count()%></td>
 				<td><%=dto.getRecommend()%></td>
 			</tr>
