@@ -163,7 +163,7 @@ public class FreeBoardDAO {
 			conn=  getConnection();
 			String sql = "select max(num) from freeboard";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.executeQuery();
+			rs = pstmt.executeQuery();
 			if(rs.next()) { 
 				number = rs.getInt(1)+1;
 			}else {
@@ -183,19 +183,18 @@ public class FreeBoardDAO {
 				re_step = 0;
 				re_level = 0;
 			}		
-			sql = "insert into freeboard values(freeboard_seq.nextVal,?,?,?,?,?,?,?,?,?,?,?)";
+			sql = "insert into freeboard values(freeboard_seq.nextVal,?,?,?,?,sysdate,?,?,?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, article.getTitle());
 			pstmt.setString(2, article.getWriter());
 			pstmt.setString(3, article.getCategory());
-			pstmt.setString(3, article.getContent());
-			pstmt.setTimestamp(5, article.getReg());
-			pstmt.setInt(6, article.getRead_count());
-			pstmt.setInt(7, article.getRecommend());
-			pstmt.setInt(8, ref);
-			pstmt.setInt(9, re_step);
-			pstmt.setInt(10, re_level);
-			pstmt.setString(11, article.getImg());
+			pstmt.setString(4, article.getContent());
+			pstmt.setInt(5, article.getRead_count());
+			pstmt.setInt(6, article.getRecommend());
+			pstmt.setInt(7, ref);
+			pstmt.setInt(8, re_step);
+			pstmt.setInt(9, re_level);
+			pstmt.setString(10, article.getImg());
 			pstmt.executeQuery();		
 		} catch (Exception e) {
 			e.printStackTrace();
