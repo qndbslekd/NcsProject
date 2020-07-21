@@ -7,17 +7,20 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<body>
 <%
+	request.setCharacterEncoding("utf-8"); 
+
 	int num = Integer.parseInt(request.getParameter("num"));
-
-	FreeBoardDAO dao = FreeBoardDAO.getInstance();
-	dao.deleteArticle(num);
 	
-	response.sendRedirect("board.jsp");
+	FreeBoardDAO dao = FreeBoardDAO.getInstance();	
+	
+	
+	dao.updateRecommend(num);
 
-
+	String url = "boardContent.jsp?num="+num;
+	response.sendRedirect(url);
 %>
 
+<body>
 </body>
 </html>
