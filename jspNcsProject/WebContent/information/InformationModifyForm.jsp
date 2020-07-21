@@ -12,13 +12,19 @@
 <%
 	InfomationDAO dao = InfomationDAO.getInstance();
 	List<InfomationDTO> information = dao.getInfomation();
-%>
+	if(session.getAttribute("memId") == null||!session.getAttribute("memId").equals("admin")){%>
+	<script>
+		alert("관리자만 이용할수 있습니다");
+		window.location="information.jsp";
+	</script>
+<%}%>
 <body>
 	<form action="informationModifyPro.jsp" method="post">
-		<table>
+		<table> 
 			<tr>
 				<td>
 					<input type="submit" value="수정">
+					<input type="button" value="수정취소" onclick="window.location='information.jsp'"/>
 				</td>
 			</tr>			
 		<%for(int i=0;i<information.size();i++){%>
@@ -31,14 +37,8 @@
 			</tr>
 			<tbody>
 				<tr>
-<<<<<<< HEAD
-					
-=======
->>>>>>> branch 'develop' of https://github.com/ysk0951/codinnnnng.git
 					<td style="text-align: left;">
-						<textarea rows="20" cols="100" name="content">
-							<%=information.get(i).getContent()%>
-						</textarea>
+						<textarea rows="20" cols="100" name="content"><%=information.get(i).getContent()%></textarea>
 					</td>
 				</tr>
 			</tbody>
