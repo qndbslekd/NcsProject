@@ -138,4 +138,22 @@ public class ScrapDAO {
 		
 		return list;
 	}
+	
+	//글번호에 해당하는 스크랩 정보 모두 삭제
+	public void deleteScrapAllByNum(int num) {
+		try {
+			conn = getConnection();
+			
+			String sql = "delete from scrap where recipe_num=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			pstmt.executeUpdate();
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(pstmt != null) try { pstmt.close(); } catch(Exception e) { e.printStackTrace(); }
+			if(conn != null) try { conn.close(); } catch(Exception e) { e.printStackTrace(); }
+		}
+	}
 }

@@ -20,7 +20,18 @@
 <title>Recipe Content</title>
 <link rel="stylesheet" href="../resource/team05_style.css">
  
+<style>
+#nonBorder {
+	border:0px;
+}
+#nonBorder tr {
+	border:0px;
+}
+#nonBorder td {
+	border:0px;
+}
 
+</style>
 </head>
 <%
 	request.setCharacterEncoding("UTF-8");
@@ -60,7 +71,7 @@
 	<br />
 	<h1 align="center">   content </h1>
 	
-	<table border="1">
+	<table id="nonBorder">
 		<tr >
 			<td colspan="4">
 				<img src="imgs/<%= recipeBoard.getThumbnail() %>" style="max-width:800px" />
@@ -115,11 +126,11 @@
 			<td colspan="2">
 				<table>
 					<tr>
-						<td rowspan="2"> <img src="/jnp/save/<%=recipeDAO.selectImgById(recipeBoard.getWriter())%>" style="width:60px; height:60px; border-radius:30px; border:1px solid #000000"/> </td>
+						<td rowspan="2"> <img src="/jnp/save/<%=recipeDAO.selectImgById(recipeBoard.getWriter())%>" style="width:60px; height:60px; border-radius:30px; "/> </td>
 						<td colspan="2">작성자</td>
 					</tr>
 					<tr>
-						<td><%= recipeBoard.getWriter() %></td>
+						<td><%= recipeDAO.selectNameById(recipeBoard.getWriter())%></td>
 						<td><button onclick="window.location='recipeSearchList.jsp?writer=<%=recipeBoard.getWriter()%>'">레시피 더 보기</button></td>
 					</tr>
 				</table>
@@ -156,9 +167,9 @@
 				while(ir.hasNext()) {	
 					String key = (String) ir.next(); 
 					String value = ingre.get(key);%>
-				<tr>
-					<td> <%= key%> </td>
-					<td> <%= value%></td>
+				<tr style="border-bottom:1px #77878F solid">
+					<td style="width:200px;border-right:1px #77878F solid"> <%= key%> </td>
+					<td style="width:100px"> <%= value%></td>
 				</tr>				
 				<%}%>
 			</table>
@@ -177,6 +188,7 @@
 				<jsp:include page="recipeStepComment.jsp" flush="false"/>
 		<tr>
 			<td colspan="4">
+			<span style="text-align:left; margin:0px;" ><h1>댓글</h1></span>
 				<jsp:include page="recipeComment.jsp">
 					<jsp:param value="<%=num %>" name="num"/>
 				</jsp:include>

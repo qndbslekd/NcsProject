@@ -66,8 +66,9 @@
 			
 			tags += tagSplit[i] + ",";	//문자열에 더하기
 		}
-		
+		tag = tags;
 	}
+	
 	
 	
 	

@@ -21,8 +21,8 @@
 	dto = dao.selectRecipeStepComment(num);
 	
 	// 본인 글이 맞는지 확인 
-	String memName = (String)session.getAttribute("memName");	
-	if(!memName.equals(dto.getName()) && !memName.equals("관리자")){
+	String memId = (String)session.getAttribute("memId");	
+	if(!memId.equals(dto.getName()) && !memId.equals("관리자")){
 		// 관리자도 아니고 글쓴이도 아니면 수정 못하게 막기  %>
 		<script>
 			alert("본인글만 수정할 수 있습니다.");
