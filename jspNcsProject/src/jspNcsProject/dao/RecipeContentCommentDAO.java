@@ -251,6 +251,7 @@ public class RecipeContentCommentDAO {
 			conn = getConnection();
 			String sql = "select count(ref) from RECIPE_CONTENT_COMMENT where ref=?";
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, ref);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				count = rs.getInt(1);
@@ -266,9 +267,25 @@ public class RecipeContentCommentDAO {
 		return count;
 	}
 	
+	// 댓글 1개만 있는 경우 삭제
+	public void deleteRecipeStetpcomment(int num) {
+		try {
+			conn = getConnection();
+			String sql = "delete from RECIPE_CONTENT_COMMENT where num=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			pstmt.executeUpdate();			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(pstmt!=null) try {pstmt.close();}catch(Exception e) { e.printStackTrace();}
+			if(conn!=null) try {conn.close();}catch(Exception e) { e.printStackTrace();}
+		}
 	
-	// 댓글 하나 삭제(답글이 있을 경우 답글도 삭제)
-	public void deleteRecipeStepComment(int ref) {
+	}
+	
+	// 댓글 + 답글 한꺼번에삭제
+	public void deleteRecipeStepAllComment(int ref) {
 		try {
 			conn = getConnection();
 			String sql ="delete from RECIPE_CONTENT_COMMENT where ref=?";
@@ -282,4 +299,29 @@ public class RecipeContentCommentDAO {
 			if(conn!=null) try {conn.close();}catch(Exception e) { e.printStackTrace();}
 		}	
 	}
+	
+
+	
+	// 작성자 아이디로 레시피 조리단계별 총 댓글 수 가져오기(name이 id값임)
+	public int getMyRecipeStepCommentCount(String writer) {
+		int count = 0;
+		try {
+			conn= getConnection();
+			String sql = "SELECT count(*) FROM recipe_content_comment where name=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, writer);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				count = rs.getInt(1);
+			} 	
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(rs!=null)try { rs.close();}catch(Exception e) {e.printStackTrace();}
+			if(pstmt!=null)try { pstmt.close();}catch(Exception e) {e.printStackTrace();}
+			if(conn!=null)try { conn.close();}catch(Exception e) {e.printStackTrace();}		
+		}
+		return count;
+	}
+	
 }
