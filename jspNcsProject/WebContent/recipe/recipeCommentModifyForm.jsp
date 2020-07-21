@@ -18,7 +18,7 @@
 	//원문 댓글 가져오기
 	RecipeCommentDTO oriComment = dao.selectRecipeComment(num);
 
-	System.out.println(oriComment.getName());
+	oriComment.setContent(oriComment.getContent().replaceAll("<br>", "\n"));
 
 	//본인 글이 맞는지 확인
 	String memId = (String) session.getAttribute("memId");

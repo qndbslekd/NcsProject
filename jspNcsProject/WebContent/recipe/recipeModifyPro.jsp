@@ -1,3 +1,4 @@
+<%@page import="jspNcsProject.dao.TagDAO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="jspNcsProject.dao.RecipeDAO"%>
 <%@page import="jspNcsProject.dto.RecipeContentDTO"%>
@@ -63,8 +64,23 @@
 		
 		ingredients = ingre;
 		
+	
+		//기존 저장되어 있던 태그 정보 삭제
+		String oriTag = dao2.selectRecipeBoard(num).getTag();
+		if(oriTag != null && !oriTag.equals("")) {
+			//콤마 기준으로 나누기
+			String[] oritagSplit = oriTag.split(",");
+			
+			for(int i = 0; i<oritagSplit.length; i++) {
+				oritagSplit[i] = oritagSplit[i].trim(); //양쪽 공백 없애고 
+				//tag table 태그 삭제
+				TagDAO daoo = TagDAO.getInstance();
+				daoo.deleteTag(oritagSplit[i]);
+			}
+		}
 		
-	//태그 다듬어서 저장하기
+		
+	//받아온 태그 다듬어서 저장하기
 		if(tag != null) {
 			String tags = ",";
 			//콤마 기준으로 나누기
@@ -72,6 +88,11 @@
 			
 			for(int i = 0; i<tagSplit.length; i++) {
 				tagSplit[i] = tagSplit[i].trim(); //양쪽 공백 없애고 
+				
+				//tag table에 태그 insert
+				TagDAO daoo = TagDAO.getInstance();
+				daoo.updateTag(tagSplit[i]);
+				
 				tags += tagSplit[i] + ",";	//문자열에 더하기
 			}
 			
