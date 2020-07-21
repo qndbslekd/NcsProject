@@ -88,17 +88,17 @@
 			</td>
 		</tr>
 		<tr>
-			<td style="background-color:white;width:25%;" >
+			<td style="width:25%;" >
 				<img src="/jnp/recipe/imgs/quantity.png" width="40"/>
 			</td>
-			<td style="background-color:white;width:25%;">
+			<td style="width:25%;">
 				<img src="/jnp/recipe/imgs/cookingTime.png" width="40"/>
 			</td>
-			<td style="background-color:white;width:25%;">
+			<td style="width:25%;">
 				<img src="/jnp/recipe/imgs/difficulty.png" width="40"/>
 			</td>
-			<td style="background-color:white;width:25%;">
-				<img src="/jnp/recipe/imgs/cal.png" width="40"/>kcal
+			<td style="width:25%;">
+				<img src="/jnp/recipe/imgs/cal.png" width="40"/>
 			</td>
 		</tr>
 		<tr>
