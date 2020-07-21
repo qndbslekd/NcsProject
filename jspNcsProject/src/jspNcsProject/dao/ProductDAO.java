@@ -371,11 +371,11 @@ public class ProductDAO {
 		return comment;
 	}
 	
-	//답글을 가져오기V
+	//답글을 가져오기
 	public List<ProductDTO> selectRecomment(String num){
 		List<ProductDTO> comment = new ArrayList<ProductDTO>();
 		try {
-			String sql = "select * from product where re_step = ? AND re_level>0 ORDER BY num";
+			String sql = "select * from product where re_step = ? AND re_level>0 ORDER BY reg";
 			conn = getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1,Integer.parseInt(num));
