@@ -15,7 +15,6 @@
 		</script>
 	<%}else{
 		request.setCharacterEncoding("UTF-8");
-		
 		String id = (String)session.getAttribute("memId");
 		System.out.println(id);
 		String pw = request.getParameter("pw");
