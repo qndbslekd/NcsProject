@@ -6,7 +6,7 @@
 	<title>Insert title here</title>
 </head>
 <%
-request.setCharacterEncoding("UTF-8");
+	request.setCharacterEncoding("UTF-8");
 	Cookie[] coo = request.getCookies();
 	if(coo != null){
 		for(Cookie c : coo){
@@ -16,8 +16,6 @@ request.setCharacterEncoding("UTF-8");
 			}
 		}
 	}
-	
-
 	session.invalidate();	// 세션삭제
 	response.sendRedirect("main.jsp");	//로그아웃 처리후 메인으로 이동
 %>

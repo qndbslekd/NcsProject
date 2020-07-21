@@ -1,3 +1,4 @@
+<%@page import="jspNcsProject.dao.TagDAO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="jspNcsProject.dao.RecipeDAO"%>
 <%@page import="jspNcsProject.dto.RecipeContentDTO"%>
@@ -46,6 +47,57 @@
 	String ingredients = mr.getParameter("ingredients");
 	String tag = mr.getParameter("tag");
 	String cookingTime = mr.getParameter("cookingTime");
+	
+	
+	//재료 다듬어서 저장하기
+		String ingre = ",";
+		//콤마 기준으로 나누기
+		String[] ingreSplit = ingredients.split(",");
+		
+		for(int i = 0; i<ingreSplit.length; i++) {
+			ingreSplit[i] = ingreSplit[i].trim(); //양쪽 공백 없애고 
+			String[] tmp = ingreSplit[i].split(":");
+			tmp[0] = tmp[0].trim();
+			tmp[1] = tmp[1].trim();
+			ingre += tmp[0] + ":" + tmp[1] + ","; //문자열에 더하기
+		}
+		
+		ingredients = ingre;
+		
+	
+		//기존 저장되어 있던 태그 정보 삭제
+		String oriTag = dao2.selectRecipeBoard(num).getTag();
+		if(oriTag != null && !oriTag.equals("")) {
+			//콤마 기준으로 나누기
+			String[] oritagSplit = oriTag.split(",");
+			
+			for(int i = 0; i<oritagSplit.length; i++) {
+				oritagSplit[i] = oritagSplit[i].trim(); //양쪽 공백 없애고 
+				//tag table 태그 삭제
+				TagDAO daoo = TagDAO.getInstance();
+				daoo.deleteTag(oritagSplit[i]);
+			}
+		}
+		
+		
+	//받아온 태그 다듬어서 저장하기
+		if(tag != null) {
+			String tags = ",";
+			//콤마 기준으로 나누기
+			String[] tagSplit = tag.split(",");
+			
+			for(int i = 0; i<tagSplit.length; i++) {
+				tagSplit[i] = tagSplit[i].trim(); //양쪽 공백 없애고 
+				
+				//tag table에 태그 insert
+				TagDAO daoo = TagDAO.getInstance();
+				daoo.updateTag(tagSplit[i]);
+				
+				tags += tagSplit[i] + ",";	//문자열에 더하기
+			}
+			
+			tag = tags;
+		}
 	
 	RecipeDTO recipe = new RecipeDTO();
 	recipe.setRecipeStep(recipeStep);

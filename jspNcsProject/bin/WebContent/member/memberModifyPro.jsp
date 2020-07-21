@@ -63,7 +63,7 @@
 			f.delete();
 		}
 	}
-	response.sendRedirect("logoutPro.jsp");
+	response.sendRedirect("../logoutPro.jsp");
 %> 
 <body>
 </body>

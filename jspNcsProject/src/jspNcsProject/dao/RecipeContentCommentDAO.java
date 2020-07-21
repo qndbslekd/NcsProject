@@ -55,7 +55,7 @@ public class RecipeContentCommentDAO {
 		try {
 		
 			conn = getConnection();	
-			String sql = "SELECT * FROM RECIPE_CONTENT_COMMENT where content_num=? and recipe_num=? ORDER BY CONTENT_NUM ASC, REF ASC, RE_STEP ASC";
+			String sql = "SELECT * FROM RECIPE_CONTENT_COMMENT where content_num=? and recipe_num=? ORDER BY CONTENT_NUM ASC, RE_STEP ASC, REF ASC";
 			pstmt = conn.prepareStatement(sql);	
 			pstmt.setInt(1, contentNum);
 			pstmt.setInt(2, recipeNum);
@@ -95,7 +95,6 @@ public class RecipeContentCommentDAO {
 		int reLevel = dto.getReLevel();
 		int contentNum = dto.getContentNum();
 		int num = 0;
-		System.out.println("ref :" + ref);
 		String sql = "";
 		
 
@@ -105,11 +104,16 @@ public class RecipeContentCommentDAO {
 			sql = "SELECT LAST_NUMBER FROM USER_SEQUENCES WHERE SEQUENCE_NAME=('RECIPE_CONTENT_COMMENT_SEQ')";
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
-			if(rs.next()) {			
-				num = rs.getInt(1);
+			if(rs.next()) {
+				
+				num = rs.getInt(1)-1;
 
 			}
-			
+			System.out.println("ref = " + num);
+			if(reLevel == 1) {
+				System.out.println("답글 한개 이미 달음");
+				return;
+			}
 			
 			if(ref == 0) { // 댓글인 경우 
 				sql = "update recipe_content_comment set re_step=re_step+1 where content_Num=? and re_step > ?";
@@ -126,7 +130,7 @@ public class RecipeContentCommentDAO {
 				
 				pstmt.setInt(1, dto.getRecipeNum());
 				pstmt.setInt(2, dto.getContentNum());
-				pstmt.setInt(3, num);
+				pstmt.setInt(3, num+1);
 				pstmt.setInt(4, reLevel);
 				pstmt.setInt(5, reStep);
 				pstmt.setString(6, dto.getContent());
@@ -144,7 +148,7 @@ public class RecipeContentCommentDAO {
 				
 				reStep = reStep + 1;
 				reLevel = reLevel + 1;								
-				System.out.println("메서드에서 ref : " + ref );
+				System.out.println(ref);
 				sql = "insert into recipe_content_comment(num, recipe_num, content_num, ref, re_level, re_step, content, name, reg) values(recipe_content_comment_seq.nextVal,?,?,?,?,?,?,?,?)";
 				pstmt = conn.prepareStatement(sql);
 				
@@ -168,4 +172,114 @@ public class RecipeContentCommentDAO {
 		}
 	}
 	
+	// 레시피 답글 체크하는 메서드(relevel 최대값 리턴해줌) 
+	public int selectMaxRelevel(int ref) {
+		int maxReLevel = 0;
+		// 최대값이 1 미만이면 false, 1이상이면 true
+		try {
+			conn = getConnection();
+			String sql = "select max(re_level) from RECIPE_CONTENT_COMMENT where ref=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, ref);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				maxReLevel = rs.getInt(1);
+			}			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(rs!=null) try {rs.close();}catch(Exception e) { e.printStackTrace();}
+			if(pstmt!=null) try {pstmt.close();}catch(Exception e) { e.printStackTrace();}
+			if(conn!=null) try {conn.close();}catch(Exception e) { e.printStackTrace();}
+		}
+		return maxReLevel;
+	}
+	
+	// 댓글 정보 가져오는 메서드 dto에 담아서 리턴.
+	public RecipeContentCommentDTO selectRecipeStepComment(int num) {
+		RecipeContentCommentDTO dto = new RecipeContentCommentDTO();
+		
+		try {
+			conn = getConnection();
+			String sql = "select * from RECIPE_CONTENT_COMMENT where num=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				dto.setContent(rs.getString("content"));
+				dto.setContentNum(rs.getInt("content_num"));
+				dto.setName(rs.getString("name"));
+				dto.setNum(num);
+				dto.setRecipeNum(rs.getInt("recipe_num"));
+				dto.setRef(rs.getInt("ref"));
+				dto.setReg(rs.getTimestamp("reg"));
+				dto.setReLevel(rs.getInt("re_level"));
+				dto.setReStep(rs.getInt("re_step"));
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(rs!=null) try {rs.close();}catch(Exception e) { e.printStackTrace();}
+			if(pstmt!=null) try {pstmt.close();}catch(Exception e) { e.printStackTrace();}
+			if(conn!=null) try {conn.close();}catch(Exception e) { e.printStackTrace();}
+		}
+		
+		return dto; 
+	} 
+	
+	// 조리단계별 댓글 수정해주는 메서드 
+	public void updateRecipeStepComment(int num, String content) {
+		try {
+			conn = getConnection();
+			String sql = "update RECIPE_CONTENT_COMMENT set content=? where num=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, content);
+			pstmt.setInt(2, num);
+			pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(pstmt!=null) try {pstmt.close();}catch(Exception e) { e.printStackTrace();}
+			if(conn!=null) try {conn.close();}catch(Exception e) { e.printStackTrace();}
+		}
+	}
+	
+	// 댓글 삭제 위한 ref 개수 체크 메서드 
+	public int countRecipeStepCommentRef(int ref) {
+		int count=0;
+		try {
+			conn = getConnection();
+			String sql = "select count(ref) from RECIPE_CONTENT_COMMENT where ref=?";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(rs!=null) try {rs.close();}catch(Exception e) { e.printStackTrace();}
+			if(pstmt!=null) try {pstmt.close();}catch(Exception e) { e.printStackTrace();}
+			if(conn!=null) try {conn.close();}catch(Exception e) { e.printStackTrace();}
+		}
+		return count;
+	}
+	
+	
+	// 댓글 하나 삭제(답글이 있을 경우 답글도 삭제)
+	public void deleteRecipeStepComment(int ref) {
+		try {
+			conn = getConnection();
+			String sql ="delete from RECIPE_CONTENT_COMMENT where ref=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, ref);
+			pstmt.executeUpdate();			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(pstmt!=null) try {pstmt.close();}catch(Exception e) { e.printStackTrace();}
+			if(conn!=null) try {conn.close();}catch(Exception e) { e.printStackTrace();}
+		}	
+	}
 }
