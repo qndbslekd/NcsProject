@@ -118,7 +118,51 @@ public class ProductDAO {
 			}
 			return productList;
 		} 
-		
+	
+		//Product 최신순으로 가져오기
+		public List seletAllProduct(int startrow, int endrow, String mode) {
+			ArrayList productList = null;
+			try {
+				conn= getConnection();
+				String sql = "";
+				if(mode.equals("num")) {
+					sql = "select b.* from(select rownum r, a.* "
+						+ "from(select * from product where re_level = 0 order by num desc)a order by num desc)b where r >= ? and r<=?";
+				}else if(mode.equals("rating")) {//mode가 rating
+					sql="select b.* from(select rownum r, a.* "
+							+ "from(select * from product where re_level = 0 order by recommend desc, num desc)a order by recommend desc,num desc)b where r>=? and r<=?";			
+				}
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, startrow);
+				pstmt.setInt(2, endrow);
+				rs = pstmt.executeQuery();
+				if(rs.next()) {
+					productList = new ArrayList();
+					do{
+						ProductDTO product = new ProductDTO();
+						product.setNum(rs.getInt("num"));
+						product.setName(rs.getString("name"));
+						product.setIngredients(rs.getString("ingredients"));
+						product.setDetail(rs.getString("detail"));
+						product.setProduct_img(rs.getString("product_img"));
+						product.setReg(rs.getTimestamp("reg"));
+						product.setRecommend(rs.getInt("recommend"));
+						product.setRef(rs.getInt("ref"));
+						product.setRe_level(rs.getInt("re_level"));
+						product.setRe_step(rs.getInt("re_step"));
+						productList.add(product);
+					}while(rs.next());			
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				if(rs!=null)try { rs.close();}catch(Exception e) {e.printStackTrace();}
+				if(pstmt!=null)try { pstmt.close();}catch(Exception e) {e.printStackTrace();}
+				if(conn!=null)try { conn.close();}catch(Exception e) {e.printStackTrace();}
+				
+			}
+			return productList;
+		} 
 	//제품 등록 
 	public int insertProduct(ProductDTO dto) {
 		int result=0;
@@ -150,51 +194,6 @@ public class ProductDAO {
 		return result;
 	}
 	
-	//Product 최신순으로 가져오기
-	public List seletAllProduct(int startrow, int endrow, String mode) {
-		ArrayList productList = null;
-		try {
-			conn= getConnection();
-			String sql = "";
-			if(mode.equals("num")) {
-				sql = "select b.* from(select rownum r, a.* "
-					+ "from(select * from product where re_level = 0 order by num desc)a order by num desc)b where r >= ? and r<=?";
-			}else if(mode.equals("rating")) {//mode가 rating
-				sql="select b.* from(select rownum r, a.* "
-						+ "from(select * from product where re_level = 0 order by recommend desc, num desc)a order by recommend desc,num desc)b where r>=? and r<=?";			
-			}
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, startrow);
-			pstmt.setInt(2, endrow);
-			rs = pstmt.executeQuery();
-			if(rs.next()) {
-				productList = new ArrayList();
-				do{
-					ProductDTO product = new ProductDTO();
-					product.setNum(rs.getInt("num"));
-					product.setName(rs.getString("name"));
-					product.setIngredients(rs.getString("ingredients"));
-					product.setDetail(rs.getString("detail"));
-					product.setProduct_img(rs.getString("product_img"));
-					product.setReg(rs.getTimestamp("reg"));
-					product.setRecommend(rs.getInt("recommend"));
-					product.setRef(rs.getInt("ref"));
-					product.setRe_level(rs.getInt("re_level"));
-					product.setRe_step(rs.getInt("re_step"));
-					productList.add(product);
-				}while(rs.next());			
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			if(rs!=null)try { rs.close();}catch(Exception e) {e.printStackTrace();}
-			if(pstmt!=null)try { pstmt.close();}catch(Exception e) {e.printStackTrace();}
-			if(conn!=null)try { conn.close();}catch(Exception e) {e.printStackTrace();}
-			
-		}
-		return productList;
-	} 
-	
 	public ProductDTO selectProduct(String num) {
 		ProductDTO product = new ProductDTO();
 		try {
@@ -225,7 +224,6 @@ public class ProductDAO {
 		}
 		return product;
 	}
-	
 	//수정
 	public int updateProduct(ProductDTO dto){
 		int result = 0;
@@ -249,6 +247,7 @@ public class ProductDAO {
 		return result;
 	}
 	
+	//제품삭제
 	public int deleteProduct(String num) {
 		int result = 0;
 		try {
@@ -267,6 +266,7 @@ public class ProductDAO {
 		return result;
 	}
 	
+	//추천기능
 	public void updateRecommend(String num) {
 		try {
 			String sql = "update PRODUCT set recommend = recommend+1 WHERE num = ?";
@@ -283,7 +283,8 @@ public class ProductDAO {
 		}
 	}
 	
-	//제품 댓글 달기
+	
+	//제품 댓글 달기V
 	public int insertComment(String num,String name,String comment) {
 		int result = 0;
 		int ref = 0;
@@ -314,7 +315,7 @@ public class ProductDAO {
 		return result;
 	}
 	
-	//제품 답글 달기
+	//제품 답글 달기V
 	public int insertComment(String num,String name,String recomment,String beforeName) {
 		int result = 0;
 		try {
@@ -336,7 +337,7 @@ public class ProductDAO {
 		return result;
 	}
 	
-	//댓글을 가져오기
+	//댓글을 가져오기V
 	public List<ProductDTO> selectComment(String num){
 		List<ProductDTO> comment = new ArrayList<ProductDTO>();
 		try {
@@ -366,7 +367,7 @@ public class ProductDAO {
 		return comment;
 	}
 	
-	//답글을 가져오기
+	//답글을 가져오기V
 	public List<ProductDTO> selectRecomment(String num){
 		List<ProductDTO> comment = new ArrayList<ProductDTO>();
 		try {
@@ -396,6 +397,7 @@ public class ProductDAO {
 		return comment;
 	}
 	
+	//댓글삭제
 	public int deleteComment(String num, String name) {
 		int result = 0;
 		try {
