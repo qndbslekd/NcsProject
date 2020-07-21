@@ -11,7 +11,7 @@
 	if(!window.opener){ 
 		window.location = '../information/information.jsp';
 	}else{
-		var nowUrl = opener.location.href;
+		var nowUrl = opener.location.href; 
 		console.log(nowUrl);
 		console.log(!nowUrl == 'http://localhost:8080/jnp/member/memberModifyForm.jsp');
 		if(!(nowUrl == 'http://localhost:8080/jnp/member/memberModifyForm.jsp')
