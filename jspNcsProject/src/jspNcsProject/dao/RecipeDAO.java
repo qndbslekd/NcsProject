@@ -65,7 +65,6 @@ public class RecipeDAO {
 				sql="select b.* from(select rownum r, a.* "
 						+ "from(select * from recipe_board order by rating desc, num desc)a order by rating desc,num desc)b where r>=? and r<=?";			
 			}
-					
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, startrow);
 			pstmt.setInt(2, endrow);
