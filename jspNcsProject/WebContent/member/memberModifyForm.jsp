@@ -11,7 +11,7 @@
 <%if(session.getAttribute("memId")==null){%>
 	<script type="text/javascript">
 		alert("로그인후 이용해주세요.");
-		window.location = "main.jsp";
+		window.location = "../main.jsp";
 	</script>
 <%}else{%>
 <jsp:include page="../header.jsp"></jsp:include>
