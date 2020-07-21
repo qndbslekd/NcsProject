@@ -5,8 +5,21 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
-	<link href="style.css" rel="stylesheet" type="text/css">
+	<link href="../resource/team05_style.css" rel="stylesheet" type="text/css">
 </head>
+<script type="text/javascript">
+	if(!window.opener){ 
+		window.location = '../information/information.jsp';
+	}else{
+		var nowUrl = opener.location.href;
+		console.log(nowUrl);
+		console.log(!nowUrl == 'http://localhost:8080/jnp/member/memberModifyForm.jsp');
+		if(!(nowUrl == 'http://localhost:8080/jnp/member/memberModifyForm.jsp')
+			||!(nowUrl =='http://localhost:8080/jnp/member/signupForm.jsp')){	
+			window.location = '../information/information.jsp';
+		}
+	}
+</script> 
 <% 
 	request.setCharacterEncoding("UTF-8");
 	String id = request.getParameter("id");
@@ -39,7 +52,7 @@
 					<td><%=id %>이미 사용중인 아이디입니다.</td>
 				</tr>
 			</table>
-			<form action="cofirmId.jsp">
+			<form action="confirmId.jsp">
 				<table>
 				<tr>
 					<td>
@@ -67,7 +80,7 @@
 					<td><%=name %>이미 사용중인 활동명입니다.</td>
 				</tr>
 			</table>
-			<form action="cofirmId.jsp">
+			<form action="confirmId.jsp">
 				<table>
 				<tr>
 					<td>
