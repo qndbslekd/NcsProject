@@ -109,14 +109,14 @@ if(session.getAttribute("memId")==null){
 			<td>채식주의 타입</td>
 			<td> 
 				<select name="vegi_type">
-						<option value="Non-vegetarian">Non-vegetarian</option>
-						<option value="Vegan">Vegan</option>
-						<option value="Lacto vegetarian">Lacto vegetarian</option>
-						<option value="Ovo vegetarian">Ovo vegetarian</option>
-						<option value="Lacto-ovo vegetarian">Lacto-ovo vegetarian</option>
-						<option value="Pesco-vegetarian">Pesco-vegetarian</option>
-						<option value="Pollo-vegetarian">Pollo-vegetarian</option>
-						<option value="Flexitarian">Flexitarian</option>
+						<option value="none">Non-vegetarian</option>
+						<option value="vegan">vegan</option>
+						<option value="lacto">Lacto vegetarian</option>
+						<option value="ovo">Ovo vegetarian</option>
+						<option value="lacto ovo">Lacto-ovo vegetarian</option>
+						<option value="pesco">Pesco-vegetarian</option>
+						<option value="pollo">Pollo-vegetarian</option>
+						<option value="flexitarian">Flexitarian</option>
 				</select>
 			</td>
 		</tr>
