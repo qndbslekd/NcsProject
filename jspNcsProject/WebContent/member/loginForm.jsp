@@ -13,7 +13,7 @@
 <body>
 	<br/>
 	<h1 align="center"> 로그인 </h1>
-	<form action="loginPro.jsp" method="post" name="login">
+	<form action="../loginPro.jsp" method="post" name="login">
 		<table>
 			<input type="hidden" value="default" name="history" />
 			<tr>
