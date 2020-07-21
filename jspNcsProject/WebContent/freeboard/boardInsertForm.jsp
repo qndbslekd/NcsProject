@@ -4,9 +4,34 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>자유게시판 글 작성하기</title>
 </head>
 <body>
+	<table>
+		<tr>
+			<td></td>
+			<td></td>		
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>		
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>		
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>		
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>		
+		</tr>
+	
+	
+	
+	</table>
 
 </body>
 </html>
