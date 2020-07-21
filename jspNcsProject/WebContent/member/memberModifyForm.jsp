@@ -26,13 +26,14 @@ System.out.println(dto);
 		if (!inputForm.name.value) {
 			return;
 		}
-		var url = "cofirmId.jsp?name=" + inputForm.name.value;
+		var url = "confirmId.jsp?name=" + inputForm.name.value;
 		open(
 				url,
 				"아이디 중복 체크",
 				"toolbar=no,location=no,status = no, menubar = no, scrollbars = no,resizable = no, width = 300,height = 200");
 	}
 </script>
+
 <body>
 	<h1 align="center">회원정보수정</h1>
 	<form method="post" action="memberModifyPro.jsp" enctype="multipart/form-data" name ="inputForm">
@@ -76,14 +77,14 @@ System.out.println(dto);
 			<td>채식주의 타입 수정</td>
 			<td>
 				<select name="vegi_type">
-						<option value="Non-vegetarian">Non-vegetarian</option>
-						<option value="Vegan">Vegan</option>
-						<option value="Lacto vegetarian">Lacto vegetarian</option>
-						<option value="Ovo vegetarian">Ovo vegetarian</option>
-						<option value="Lacto-ovo vegetarian">Lacto-ovo vegetarian</option>
-						<option value="Pesco-vegetarian">Pesco-vegetarian</option>
-						<option value="Pollo-vegetarian">Pollo-vegetarian</option>
-						<option value="Flexitarian">Flexitarian</option>
+						<option value="Non-vegetarian" <%if(dto.getVegi_type().equals("Non-vegetarian")){%> selected="selected" <%}%>>Non-vegetarian</option>
+						<option value="Vegan" <%if(dto.getVegi_type().equals("Vegan")){%> selected="selected" <%}%>>Vegan</option>
+						<option value="Lacto vegetarian" <%if(dto.getVegi_type().equals("Lacto vegetarian")){%> selected="selected" <%}%>>Lacto vegetarian</option>
+						<option value="Ovo vegetarian" <%if(dto.getVegi_type().equals("Ovo vegetarian")){%> selected="selected" <%}%>>Ovo vegetarian</option>
+						<option value="Lacto-ovo vegetarian" <%if(dto.getVegi_type().equals("Lacto-ovo vegetarian")){%> selected="selected" <%}%>>Lacto-ovo vegetarian</option>
+						<option value="Pesco-vegetarian" <%if(dto.getVegi_type().equals("Pesco-vegetarian")){%> selected="selected" <%}%>>Pesco-vegetarian</option>
+						<option value="Pollo-vegetarian" <%if(dto.getVegi_type().equals("Pollo-vegetarian")){%> selected="selected" <%}%>>Pollo-vegetarian</option>
+						<option value="Flexitarian" <%if(dto.getVegi_type().equals("Flexitarian")){%> selected="selected" <%}%>>Flexitarian</option>
 				</select>
 			</td>
 		</tr>
