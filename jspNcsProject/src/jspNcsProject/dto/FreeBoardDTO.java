@@ -7,6 +7,7 @@ public class FreeBoardDTO {
 	private String title;
 	private String writer;
 	private String category;
+	private String content;
 	private Timestamp reg;
 	private int read_count;
 	private int recommend;
@@ -17,13 +18,14 @@ public class FreeBoardDTO {
 		
 	public FreeBoardDTO() {}
 	
-	public FreeBoardDTO(int num, String title, String writer, String category, Timestamp reg, int read_count,
-			int recommend, int ref, int re_step, int re_level, String img) {
+	public FreeBoardDTO(int num, String title, String writer, String category, String content, Timestamp reg,
+			int read_count, int recommend, int ref, int re_step, int re_level, String img) {
 		super();
 		this.num = num;
 		this.title = title;
 		this.writer = writer;
 		this.category = category;
+		this.content = content;
 		this.reg = reg;
 		this.read_count = read_count;
 		this.recommend = recommend;
@@ -32,8 +34,6 @@ public class FreeBoardDTO {
 		this.re_level = re_level;
 		this.img = img;
 	}
-
-
 
 	public int getNum() {
 		return num;
@@ -60,6 +60,15 @@ public class FreeBoardDTO {
 		this.category = category;
 	}
 	
+	
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
 	public Timestamp getReg() {
 		return reg;
 	}
