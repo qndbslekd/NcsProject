@@ -16,15 +16,6 @@ String num = request.getParameter("num");
 
 System.out.println("beforeName"+beforeName);
 System.out.println("num"+num);
-
-
-
-/* if(!recomment.equals("")){
-int result  = dao.insertComment(num,name,recomment,beforeName);
-System.out.println(result+"개의 답글이 입력되었습니다");
-} */
-
-//response.sendRedirect("productContent.jsp?num="+num);
 %>
 
 <body>

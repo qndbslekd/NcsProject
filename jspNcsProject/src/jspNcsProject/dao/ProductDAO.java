@@ -37,7 +37,7 @@ public class ProductDAO {
 		int count = 0;
 		try {
 			conn= getConnection();
-			String sql = "SELECT count(*) FROM product";
+			String sql = "SELECT count(*) FROM product where re_level = 0 and re_step = 0";
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
@@ -58,7 +58,7 @@ public class ProductDAO {
 		int countForSearch = 0;
 		try {
 			conn= getConnection();
-			String sql =  "SELECT COUNT(*) FROM PRODUCT WHERE "+option+" LIKE '%"+search+"%'";
+			String sql =  "SELECT COUNT(*) FROM PRODUCT WHERE "+option+" LIKE '%"+search+"%' + and re_level = 0 and re_step = 0 ";
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
@@ -82,10 +82,10 @@ public class ProductDAO {
 				String sql = "";
 				if(mode.equals("num")) {
 					sql = "select b.* from(select rownum r, a.* "
-						+ "from(select * from product where "+option+" like '%"+search+"%' and re_level = 0 order by num desc)a order by num desc)b where r >= ? and r<=?";
+						+ "from(select * from product where "+option+" like '%"+search+"%' and re_level = 0  and re_step = 0 order by num desc)a order by num desc)b where r >= ? and r<=?";
 				}else if(mode.equals("rating")) {//mode가 rating
 					sql="select b.* from(select rownum r, a.* "
-							+ "from(select * from product where "+option+" like '%"+search+"%' and re_level = 0 order by recommend desc, num desc)a order by recommend desc,num desc)b where r>=? and r<=?";			
+							+ "from(select * from product where "+option+" like '%"+search+"%' and re_level = 0  and re_step = 0 order by recommend desc, num desc)a order by recommend desc,num desc)b where r>=? and r<=?";			
 				}
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setInt(1, startrow);
@@ -127,10 +127,10 @@ public class ProductDAO {
 				String sql = "";
 				if(mode.equals("num")) {
 					sql = "select b.* from(select rownum r, a.* "
-						+ "from(select * from product where re_level = 0 order by num desc)a order by num desc)b where r >= ? and r<=?";
+						+ "from(select * from product where re_level = 0 and re_step = 0 order by num desc)a order by num desc)b where r >= ? and r<=?";
 				}else if(mode.equals("rating")) {//mode가 rating
 					sql="select b.* from(select rownum r, a.* "
-							+ "from(select * from product where re_level = 0 order by recommend desc, num desc)a order by recommend desc,num desc)b where r>=? and r<=?";			
+							+ "from(select * from product where re_level = 0 and re_step = 0 order by recommend desc, num desc)a order by recommend desc,num desc)b where r>=? and r<=?";			
 				}
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setInt(1, startrow);
@@ -283,27 +283,20 @@ public class ProductDAO {
 		}
 	}
 	
-	
-	//제품 댓글 달기V
+	//제품 댓글 달기
 	public int insertComment(String num,String name,String comment) {
 		int result = 0;
 		int ref = 0;
 		try {
-			conn = getConnection();
-			String sqlForRef = "select max(num) from product";
-			pstmt = conn.prepareStatement(sqlForRef);
-			rs = pstmt.executeQuery();
-			if(rs.next()) {
-				ref = rs.getInt(1);
-			}
+			conn= getConnection();
 			
-			String sql = "INSERT INTO PRODUCT(num,name,INGREDIENTS,DETAIL,REG,ref,re_level,re_step) "
-					+ "VALUES (seq_product.nextval,?,'comment',?,sysdate,?,1,0)";
+			String sql = "INSERT INTO PRODUCT(num,name,DETAIL,ingredients,REG,ref,re_level,re_step) "
+					+ "VALUES (seq_product.nextval,?,?,'comment',sysdate,?,1,0)";
 			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, name);
 			pstmt.setString(2,comment);
-			pstmt.setInt(3, ref+1);
+			pstmt.setInt(3, Integer.parseInt(num));
 			result = pstmt.executeUpdate();
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -315,17 +308,28 @@ public class ProductDAO {
 		return result;
 	}
 	
-	//제품 답글 달기V
+	//제품 답글 달기
 	public int insertComment(String num,String name,String recomment,String beforeName) {
 		int result = 0;
 		try {
 			conn = getConnection();
+			String sql_selectRef = "select ref from product where num = ?";
+			pstmt = conn.prepareStatement(sql_selectRef);
+			pstmt.setInt(1, Integer.parseInt(num));
+			rs = pstmt.executeQuery();
+			int ref = 0;
+			while(rs.next()) {
+				ref = rs.getInt(1);
+			}
+						
 			String sql = "INSERT INTO PRODUCT(num,name,INGREDIENTS,DETAIL,REG,ref,re_level,re_step) "
-					+ "VALUES (seq_product.nextval,?,?,?,sysdate,?,1,0)";
+					+ "VALUES (seq_product.nextval,?,?,?,sysdate,?,1,?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, name);
 			pstmt.setString(2, beforeName);
 			pstmt.setString(3,recomment);
+			pstmt.setInt(4, ref);
+			pstmt.setInt(5,Integer.parseInt(num));
 			result = pstmt.executeUpdate();
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -337,11 +341,11 @@ public class ProductDAO {
 		return result;
 	}
 	
-	//댓글을 가져오기V
+	//댓글을 가져오기
 	public List<ProductDTO> selectComment(String num){
 		List<ProductDTO> comment = new ArrayList<ProductDTO>();
 		try {
-			String sql = "select * from product where ref = ? AND re_level>0 AND RE_STEP = 0 ORDER BY num";
+			String sql = "select * from product where ref = ? AND re_level>0 and re_step = 0 ORDER BY num";
 			conn = getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1,Integer.parseInt(num));
@@ -371,7 +375,7 @@ public class ProductDAO {
 	public List<ProductDTO> selectRecomment(String num){
 		List<ProductDTO> comment = new ArrayList<ProductDTO>();
 		try {
-			String sql = "select * from product where ref = ? AND re_level>0 ORDER BY num";
+			String sql = "select * from product where re_step = ? AND re_level>0 ORDER BY num";
 			conn = getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1,Integer.parseInt(num));
