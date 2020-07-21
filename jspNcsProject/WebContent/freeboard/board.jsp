@@ -88,7 +88,7 @@
 		<%if(session.getAttribute("memId")!= null){ %>
 			<tr>
 				<td>
-					<button>글쓰기</button>			
+					<button onclick="window.location='boardInsertForm.jsp'">글쓰기</button>			
 				</td>
 				<td colspan='5'>
 				</td>
