@@ -7,67 +7,6 @@
 </head>
 <link href="../resource/team05_style.css" rel="stylesheet" type="text/css">
 <jsp:include page="../header.jsp"></jsp:include>
-	
-<script type="text/javascript">
-	function question(){
-		var win = window.open("../recipe/recipeListVegiTypeInfo.jsp","채식유형 정보","width=900,height=850,left=500,top=500,scrollbars=yes,")
-	}
-	function confirmId(inputForm) {
-		if (!inputForm.id.value) {
-			return;
-		}
-		var url = "confirmId.jsp?id=" + inputForm.id.value;
-		open(
-				url,
-				"아이디 중복 체크",
-				"toolbar=no,location=no,status = no, menubar = no, scrollbars = no,resizable = no, width = 300,height = 200");
-	}
-	function confirmName(inputForm) {
-		if (!inputForm.name.value) {
-			return;
-		}
-		var url = "confirmId.jsp?name=" + inputForm.name.value;
-		open(
-				url,
-				"아이디 중복 체크",
-				"toolbar=no,location=no,status = no, menubar = no, scrollbars = no,resizable = no, width = 300,height = 200");
-	}
-	
-	// 유효성 검사 수정전
-	/* function check() {
-		var inputs = document.inputForm;
-		console.log(inputs);
-		if (!inputs.id.value) {
-			alert("아이디를 입력하세요");
-			return false;
-		}
-		if (!inputs.pw.value) {
-			alert("비밀번호를 입력하세요");
-			return false;
-		}
-		if (!inputs.name.value) {
-			alert("이름을 입력하세요");
-			return false;
-		}
-		if (!inputs.birth.value) {
-			alert("생년월일을 입력하세요");
-			return false;
-		}
-		if (!inputs.email.value) {
-			alert("이메일을 입력하세요");
-			return false;
-		}
-		if (!inputs.pwCh.value) {
-			alert("비밀번호 확인란를 입력하세요");
-			return false;
-		}
-		if (inputs.pw.value != inputs.pwCh.value) {
-			alert("비밀번호를 동일하게 입력하세요");
-			return false;
-		}
-	} */
-	
-</script>
 <%
 System.out.println(session.getAttribute("memId"));
 if(session.getAttribute("memId")==null){
@@ -132,15 +71,74 @@ if(session.getAttribute("memId")==null){
 			<td colspan="2" align="center">
 				<input type="submit" value="가입"/>
 				<input type="reset" name="reset" value="재입력" />
-				<input type="button" value="취소" onclick="window.location='main.jsp'"/>
+				<input type="button" value="취소" onclick="window.location='../main.jsp'"/>
 			</td> 
 		</tr>
 	</table> 
-	</form>
+	</form> 
 </body>
 <%}else{
 	System.out.println("Session=!null redirect > main");
 	response.sendRedirect("main.jsp");
 }
 %>
+<script type="text/javascript">
+	function question(){
+		var win = window.open("../recipe/recipeListVegiTypeInfo.jsp","채식유형 정보","width=900,height=850,left=500,top=500,scrollbars=yes,")
+	}
+	
+	function confirmId(inputForm) {
+		if (!inputForm.id.value) {
+			return;
+		}
+		var url = "confirmId.jsp?id=" + inputForm.id.value;
+		open(
+				url,
+				"아이디 중복 체크",
+				"toolbar=no,location=no,status = no, menubar = no, scrollbars = no,resizable = no, width = 300,height = 200");
+	}
+	function confirmName(inputForm) {
+		if (!inputForm.name.value) {
+			return;
+		}
+		var url = "confirmId.jsp?name=" + inputForm.name.value;
+		open(
+				url,
+				"아이디 중복 체크",
+				"toolbar=no,location=no,status = no, menubar = no, scrollbars = no,resizable = no, width = 300,height = 200");
+	}
+	// 유효성 검사 수정전
+	/* function check() {
+		var inputs = document.inputForm;
+		console.log(inputs);
+		if (!inputs.id.value) {
+			alert("아이디를 입력하세요");
+			return false;
+		}
+		if (!inputs.pw.value) {
+			alert("비밀번호를 입력하세요");
+			return false;
+		}
+		if (!inputs.name.value) {
+			alert("이름을 입력하세요");
+			return false;
+		}
+		if (!inputs.birth.value) {
+			alert("생년월일을 입력하세요");
+			return false;
+		}
+		if (!inputs.email.value) {
+			alert("이메일을 입력하세요");
+			return false;
+		}
+		if (!inputs.pwCh.value) {
+			alert("비밀번호 확인란를 입력하세요");
+			return false;
+		}
+		if (inputs.pw.value != inputs.pwCh.value) {
+			alert("비밀번호를 동일하게 입력하세요");
+			return false;
+		}
+	} */
+</script>
 </html>
