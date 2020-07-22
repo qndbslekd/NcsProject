@@ -37,7 +37,10 @@
 			</tr>
 		<% }%>
 			<tr>
-					<th style=" font-size: 100%;"><%=information.getSubject() %></th>
+				<td><img src="img/<%=information.getImg()%>"/></td>
+			</tr>
+			<tr>
+				<th style=" font-size: 100%;"><%=information.getSubject() %></th>
 			</tr>
 			<tbody>
 				<tr>
