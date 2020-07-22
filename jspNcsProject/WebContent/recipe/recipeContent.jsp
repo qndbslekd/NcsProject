@@ -23,12 +23,18 @@
 <style>
 #nonBorder {
 	border:0px;
+	background-color:white; 
+	color:black;
 }
 #nonBorder tr {
 	border:0px;
+	background-color:white; 
+	color:black;
 }
 #nonBorder td {
 	border:0px;
+	background-color:white; 
+	color:black;
 }
 
 </style>
@@ -79,12 +85,12 @@
 		</tr>
 		<tr>
 			<td colspan="4">
-				 레시피 제목 : <%= recipeBoard.getRecipeName() %>
+				 <h1><%= recipeBoard.getRecipeName() %></h1>
 			</td>
 		</tr>
 		<tr>
 			<td colspan="4">
-				채식주의 타입 : <%= recipeBoard.getVegiType() %>
+				<img src = "/jnp/recipe/imgs/<%=recipeBoard.getVegiType()%>.jpg" style="margin:30px"/>
 			</td>
 		</tr>
 		<tr>
