@@ -432,6 +432,68 @@ public class RecipeDAO {
 		return dto;
 	}
 	
-	
+	// 작성자 아이디로 레시피 가져오기 (범위만큼)
+		public List selectMyRecipe(int start, int end, String writer) {
+			ArrayList myRecipeList = null;
+			try {
+				conn = getConnection();
+				String sql = "SELECT rb.* FROM(SELECT rownum AS r, rb.* FROM (SELECT rb.* FROM RECIPE_BOARD rb WHERE writer = ? ORDER BY rb.reg asc) rb)rb WHERE r >= ? AND r <= ?";
+				
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, writer);
+				pstmt.setInt(2, start);
+				pstmt.setInt(3, end);
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					myRecipeList = new ArrayList();
+					do {
+						RecipeDTO recipe = new RecipeDTO();
+						recipe.setNum(rs.getInt("num"));
+						recipe.setRecipeName(rs.getString("recipe_name"));
+						recipe.setWriter(rs.getString("writer"));
+						recipe.setRating(rs.getInt("rating"));
+						recipe.setVegiType(rs.getString("vegi_type"));
+						recipe.setDifficulty(rs.getString("difficulty"));
+						recipe.setCookingTime(rs.getInt("cooking_time"));
+						recipe.setQuantity(rs.getInt("quantity"));
+						recipe.setCal(rs.getInt("cal"));
+						recipe.setIngredients(rs.getString("ingredients"));
+						recipe.setThumbnail(rs.getString("thumbNail"));					
+						myRecipeList.add(recipe);					
+					}while(rs.next());
+				}
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally {
+				if(rs != null)try {rs.close();}catch(Exception e) {e.printStackTrace();}
+				if(pstmt != null)try {pstmt.close();}catch(Exception e) {e.printStackTrace();}
+				if(conn != null)try {conn.close();}catch(Exception e) {e.printStackTrace();}
+			}
+			return myRecipeList;
+		}
+		
+		// 작성자 아이디로 레시피 글 수 가져오기
+		
+		public int getMyRecipeCount(String writer) {
+			int count = 0;
+			try {
+				conn= getConnection();
+				String sql = "SELECT count(*) FROM recipe_board where writer=?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, writer);
+				rs = pstmt.executeQuery();
+				if(rs.next()) {
+					count = rs.getInt(1);
+				} 	
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				if(rs!=null)try { rs.close();}catch(Exception e) {e.printStackTrace();}
+				if(pstmt!=null)try { pstmt.close();}catch(Exception e) {e.printStackTrace();}
+				if(conn!=null)try { conn.close();}catch(Exception e) {e.printStackTrace();}		
+			}
+			return count;
+		}
 	
 }

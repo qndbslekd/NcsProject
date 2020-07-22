@@ -11,40 +11,46 @@
 </head>
 <%
 	InfomationDAO dao = InfomationDAO.getInstance();
-	List<InfomationDTO> information = dao.getInfomation();
+	InfomationDTO information = dao.getInfomation(request.getParameter("num"));
 	if(session.getAttribute("memId") == null||!session.getAttribute("memId").equals("admin")){%>
 	<script>
 		alert("관리자만 이용할수 있습니다");
-		window.location="information.jsp";
+		window.location="informationList.jsp";
 	</script>
 <%}%>
 <body>
-	<form action="informationModifyPro.jsp" method="post">
+	<form action="informationModifyPro.jsp" method="post" enctype="multipart/form-data" name ="inputForm">
 		<table> 
 			<tr>
 				<td>
 					<input type="submit" value="수정">
-					<input type="button" value="수정취소" onclick="window.location='information.jsp'"/>
+					<input type="button" value="수정취소" onclick="window.location='informationList.jsp'"/>
 				</td>
 			</tr>			
-		<%for(int i=0;i<information.size();i++){%>
 			<!--이미지 있으면 수정 불가 -->
-			<%if(!information.get(i).getContent().contains("<img")){%> 
 			<tr>
 				<th style=" font-size: 100%;">
-					<input type="text" value="<%=information.get(i).getSubject()%>" name="subject"/>
-				</th>
+					<input type="text" value="<%=information.getSubject()%>" name="subject"/>
+				</th> 
 			</tr>
 			<tbody>
 				<tr>
+					<td><img src="img/<%=information.getImg()%>" /></td>
+				</tr>
+				<tr>
+					<td>
+						수정할 이미지
+						<input type = "file" name ="info_img">
+						<input type = "hidden" name = "info_img_before" value="<%=information.getImg()%>"/>
+					</td>
+				</tr>
+				<tr>
 					<td style="text-align: left;">
-						<textarea rows="20" cols="100" name="content"><%=information.get(i).getContent()%></textarea>
+						<textarea rows="20" cols="100" name="content"><%=information.getContent()%></textarea>
 					</td>
 				</tr>
 			</tbody>
-			<input type="hidden" value= "<%=information.get(i).getNum()%>" name="num"/>
-			<%}
-		}%>
+			<input type="hidden" value= "<%=information.getNum()%>" name="num"/>
 		</table>
 	</form>
 	</body>

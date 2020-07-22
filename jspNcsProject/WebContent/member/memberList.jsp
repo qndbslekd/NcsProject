@@ -181,9 +181,13 @@
 					</td>
 					<td style="background-color: red;"><%=memberList.get(i).getState()%></td>
 					<td style="background-color: red;">
-					<%if(!memberList.get(i).getId().equals("admin")){%>
-					<button onclick="window.location='memberKickOutPro.jsp?id=<%=memberList.get(i).getId() %>'" >강퇴</button>
-					<%} %>
+					<%if(!memberList.get(i).getId().equals("admin")){
+						if(memberList.get(i).getState().equals("활동")){%>
+							<button onclick="window.location='memberKickOutPro.jsp?id=<%=memberList.get(i).getId() %>'" >강퇴</button>					
+					<%}else if(memberList.get(i).getState().equals("강퇴")){%>
+							<button onclick="window.location='memberKickOutPro.jsp?id=<%=memberList.get(i).getId() %>'" >강퇴취소</button>										
+					<%}
+					}%>
 					</td>
 				</tr>	
 				<%}else{%>
@@ -252,15 +256,18 @@
 					</td>
 					<td><%=memberList.get(i).getState()%></td>
 					<td>
-					<%if(!memberList.get(i).getId().equals("admin")){%>
-					<button onclick="window.location='memberKickOutPro.jsp?id=<%=memberList.get(i).getId() %>'" >강퇴</button>
-					<%} %>
+					<%if(!memberList.get(i).getId().equals("admin")){
+						if(memberList.get(i).getState().equals("활동")){%>
+							<button onclick="window.location='memberKickOutPro.jsp?id=<%=memberList.get(i).getId()%>&option=kickOff'" >강퇴</button>					
+					<%}else if(memberList.get(i).getState().equals("강퇴")){%>
+							<button onclick="window.location='memberKickOutPro.jsp?id=<%=memberList.get(i).getId()%>&option=kickOffCancle'" >강퇴취소</button>										
+					<%}
+					}%>
 					</td>
-					
 				</tr>
 			<%		}
 				}%>
-			<tr>
+			<tr> 
 				<td colspan="10">
 					<button onclick="window.location='../	main.jsp'">메인으로</button>
 					<button onclick="window.location='memberList.jsp?offence=1'">신고받은 회원 조회</button>
