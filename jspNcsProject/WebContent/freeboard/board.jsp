@@ -50,28 +50,40 @@
 	
 	FreeBoardDAO dao = FreeBoardDAO.getInstance();
 	
+	//검색처리
+	String category = request.getParameter("category");
 	String sel = request.getParameter("sel");//검색조건
 	String search = request.getParameter("search"); //검색결과
 	
 	List articleList = null;
-	count = dao.getArticlesCount();
+	
 
-	if(sel != null && search != null){
+	if(category!=null && !category.equals("") && sel != null && !sel.equals("")){
 		//검색 요청 찾기
-		//count = dao.getSearchArticleCount(sel,search);
-		//if(count > 0 ){
+		String whereQuery = "where 1=1 ";
+		if(!category.equals("total") && !sel.equals("total")){
+			whereQuery += "and category='"+category+"' and "+sel+" like '%"+search+"%'";
+		}else if(!category.equals("total") && sel.equals("total")){
+			whereQuery += "and category='"+category;
+		}else if(!sel.equals("total")){
+			whereQuery += "and "+sel+" like '%"+search+"%'";
+		}
+		
+		count = dao.getArticlesCount(whereQuery);
+		if(count > 0 ){
 			//검색 요청한 글 리스트 가져오기
-			//articles = dao.getSearchArticles(startRow, endRow, sel, search);
-		//}		
+			newCount = dao.getArticlesCount(new Timestamp(today_todate.getTime()),whereQuery);
+			articleList = dao.selectAllArticle(startRow, endRow, whereQuery);
+		}		
 	}else{
+		count = dao.getArticlesCount();
 		if( count > 0 ){
 			newCount = dao.getArticlesCount(new Timestamp(today_todate.getTime()));
-			articleList = dao.selectArticles(startRow, endRow);
+			articleList = dao.selectAllArticle(startRow, endRow);
 		}
 	}
 	number = count -(currPage-1)*pageSize;
-	
-
+		
 %>
 <body>
 	<jsp:include page="../header.jsp" flush="false"/>
@@ -93,6 +105,7 @@
 			</tr>		
 		</table>	
 	<%}else{ %>
+	<form action="board.jsp" method="post">
 		<table>
 		<%if(session.getAttribute("memId")!= null){ %>
 			<tr>
@@ -107,7 +120,8 @@
 				<td colspan='2'>
 					<p>새글 <%=newCount%>/<%=count%><p>
 				</td>
-				<td colspan='4'>
+	
+			<td colspan='4'>
 					<select name="category">
 						<option value="total">카테고리</option>
 						<option value="notice">공지사항</option>
@@ -122,7 +136,9 @@
 						<option value="writer">작성자</option>
 					</select>
 					<input type="text" name="search"/>
-				</td>				
+				</td>	
+				<td><input type="submit" value="검색"/></td>	
+			
 			</tr>
 			<tr>
 				<td>글번호</td>
@@ -148,6 +164,7 @@
 			</tr>
 			<%} %>
 		</table>
+	</form>
 	<%} %>
 	
 	<div class="paging">
@@ -166,8 +183,7 @@
 			<%}
 			for(int i = startPage ; i<= endPage; i++){%>
 				<div class="page" onclick="window.location='board.jsp?pageNum=<%=i%>'">&nbsp;<%=i %></div>	
-			<%
-			}			
+			<%}			
 			if(endPage > pageCount){%>
 				<div class="page" onclick="window.location='board.jsp?pageNum=<%=startPage+pageBlock%>'">&gt;</div>		
 			<%}	
