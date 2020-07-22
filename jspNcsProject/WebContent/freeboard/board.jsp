@@ -28,7 +28,8 @@
 </head>
 <%
 	request.setCharacterEncoding("utf-8");	
-
+	
+	String mode= request.getParameter("mode");// reg, recommend, read_count
 	String pageNum = request.getParameter("pageNum");
 	if(pageNum == null){
 		pageNum  = "1";
@@ -136,7 +137,15 @@
 			</tr>
 		</table>
 	</form>
-	<table class="list">
+	<table>
+		<tr>
+			<td><button onclick="window.location=''">최신순</button></td>
+			<td><button onclick="window.location=''">조회순</button></td>
+			<td><button onclick="window.location=''">추천순</button></td>
+		</tr>
+	</table>	
+
+	<table class="list">	
 		<tr>
 			<td>글번호</td>
 			<td>[말머리]</td>
