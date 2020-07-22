@@ -64,7 +64,7 @@ public class InfomationDAO {
 			conn = getConnection();
 			String sql = "select num,subject,content,reg,img,r from "
 					+ "(select num,subject,content,reg,img,rownum r from "
-					+ "(select * from information ORDER BY num desc)) where r>=? and r<=?";
+					+ "(select * from information ORDER BY REG desc )) where r>=? and r<=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, start);
 			pstmt.setInt(2, end);
