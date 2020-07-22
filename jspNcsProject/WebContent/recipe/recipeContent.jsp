@@ -23,12 +23,18 @@
 <style>
 #nonBorder {
 	border:0px;
+	background-color:white; 
+	color:black;
 }
 #nonBorder tr {
 	border:0px;
+	background-color:white; 
+	color:black;
 }
 #nonBorder td {
 	border:0px;
+	background-color:white; 
+	color:black;
 }
 
 </style>
@@ -79,12 +85,12 @@
 		</tr>
 		<tr>
 			<td colspan="4">
-				 레시피 제목 : <%= recipeBoard.getRecipeName() %>
+				 <h1><%= recipeBoard.getRecipeName() %></h1>
 			</td>
 		</tr>
 		<tr>
 			<td colspan="4">
-				채식주의 타입 : <%= recipeBoard.getVegiType() %>
+				<img src = "/jnp/recipe/imgs/<%=recipeBoard.getVegiType()%>.jpg" style="margin:30px"/>
 			</td>
 		</tr>
 		<tr>
@@ -205,7 +211,7 @@
 				<button onclick="window.location='recipeModifyForm.jsp?num=<%=num %>&pageNum=<%=pageNum%>'">수정</button>
 				<button onclick="window.location='recipeDeleteForm.jsp?num=<%=num %>&pageNum=<%=pageNum%>'">삭제</button>
 		<%	
-			} else {
+			} else if(!recipeBoard.getWriter().equals(session.getAttribute("memId"))){
 				%> <button onclick="scrap(<%=num%>,'<%=memId%>',<%=scrapDAO.confirmScrap(num, memId)%>)">레시피 찜</button> 
 					<button onclick="report('R','<%=num%>','<%=recipeBoard.getWriter()%>')">신고</button>
 				<%
