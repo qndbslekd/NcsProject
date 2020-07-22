@@ -9,13 +9,12 @@
 	<title>Insert title here</title>
 </head>
 <%
-if(session.getAttribute("memId")==null || !session.getAttribute("memid").equals("admin")){%>
+if(session.getAttribute("memId")==null || !session.getAttribute("memId").equals("admin")){%>
 	<script type="text/javascript">
 		alert("관리자만 이용가능합니다.");
 		window.location = "../main.jsp";
 	</script>
 <%}else{
-	
 	request.setCharacterEncoding("UTF-8");
 	String path = request.getRealPath("/information/img");
 	System.out.println(path);
@@ -30,8 +29,7 @@ if(session.getAttribute("memId")==null || !session.getAttribute("memid").equals(
 	
 	InfomationDAO dao = InfomationDAO.getInstance();
 	dao.insertInfo(subject,content,info_img);
-	
-	
+	response.sendRedirect("informationList.jsp");
 	}%>
 <body>
 
