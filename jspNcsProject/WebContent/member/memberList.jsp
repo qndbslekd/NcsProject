@@ -1,3 +1,4 @@
+<%@page import="jspNcsProject.dao.ProductDAO"%>
 <%@page import="jspNcsProject.dao.RecipeContentCommentDAO"%>
 <%@page import="jspNcsProject.dao.RecipeCommentDAO"%>
 <%@page import="jspNcsProject.dto.MemberDTO"%>
@@ -86,6 +87,7 @@
 		//seq로 각테이블 접근
 		RecipeCommentDAO rcDao = RecipeCommentDAO.getInstance();
 		RecipeContentCommentDAO rccDao = RecipeContentCommentDAO.getInstance(); 
+		ProductDAO pDao = ProductDAO.getInstance();
 	%>
 
 <body>
@@ -173,11 +175,8 @@
 								for(int splitUrls = 0;splitUrls<urls.length;splitUrls++){
 									//테이블 고유번호
 									String seq = "";
-									%>
-									<%=urls[splitUrls]%>
-									<%
 									if(urls[splitUrls].contains("RCC")){
-										seq = urls[splitUrls].substring(3);
+										seq = rccDao.selectSeqForMemberList(urls[splitUrls].substring(3));
 										%> <a href="http://localhost:8080/jnp/recipe/recipeContent.jsp?num=<%=seq%>">조리단계댓글</a><%
 									}else if(urls[splitUrls].contains("RC")){
 										seq = rcDao.selectSeqForMemberList(urls[splitUrls].substring(2));
@@ -188,13 +187,20 @@
 											<button type="button">v</button>
 										<%
 									}else if(urls[splitUrls].contains("PC")){
-										seq = urls[splitUrls].substring(2);
-										%> <a href="http://localhost:8080/jnp/recipe/recipeContent.jsp?num=<%=seq%>">제품</a><%
+										//댓글구분
+										String booleanCheckNum = urls[splitUrls].substring(2);
+										boolean isComment = pDao.isComment(booleanCheckNum);
+										if(isComment){
+											seq = pDao.getSeq(booleanCheckNum);
+										}else{
+											seq = urls[splitUrls].substring(2);
+										}
+										%> <a href="http://localhost:8080/jnp/product/productContent.jsp?num=<%=seq%>">제품</a><%
 									}else if(urls[splitUrls].contains("F")){
 										seq = urls[splitUrls].substring(1);
 										%> <a href="http://localhost:8080/jnp/recipe/recipeContent.jsp?num=<%=seq%>">자유게시판</a><%
 									}
-								}
+								} 
 							}
 						%>
 					</td>

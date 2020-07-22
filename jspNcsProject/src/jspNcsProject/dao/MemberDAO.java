@@ -436,7 +436,6 @@ public class MemberDAO {
 			pstmt.setString(1,offenceUrl);
 			pstmt.setString(2,member);
 			pstmt.executeQuery();
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -444,6 +443,28 @@ public class MemberDAO {
 			if(pstmt!=null)try {pstmt.close();} catch (SQLException e) {e.printStackTrace();}
 			if(conn!=null)try {conn.close();} catch (SQLException e) {e.printStackTrace();}
 		}
+	}
+	
+	//회원신고를 위한 활동명으로 아이디 가져오기
+	public String selectMemberIdForOffenceByName(String name) {
+		String id = "";
+		try {
+			conn = getConnection();
+			String sql ="select id from member where name =?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,name);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				id = rs.getString(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(rs!=null)try {rs.close();} catch (SQLException e) {e.printStackTrace();}
+			if(pstmt!=null)try {pstmt.close();} catch (SQLException e) {e.printStackTrace();}
+			if(conn!=null)try {conn.close();} catch (SQLException e) {e.printStackTrace();}
+		}
+		return id;
 	}
 	
 	//스크랩한 레시피 중 가장 많은 태그
