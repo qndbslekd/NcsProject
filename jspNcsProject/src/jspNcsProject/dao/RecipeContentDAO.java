@@ -136,9 +136,6 @@ public class RecipeContentDAO {
 				pstmt.setString(4, dto.getContent());
 				pstmt.executeUpdate();
 			}
-			
-			
-			
 		} catch(Exception e) {
 			e.printStackTrace();
 		} finally {

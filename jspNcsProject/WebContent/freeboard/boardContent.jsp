@@ -11,6 +11,13 @@
 </head>
 <%
 	int num = Integer.parseInt(request.getParameter("num"));
+
+	String pageNum = request.getParameter("pageNum");
+	String mode= request.getParameter("mode");
+	String category = request.getParameter("category");
+	String sel = request.getParameter("sel");
+	String search = request.getParameter("search");
+	
 	
 	FreeBoardDAO dao = FreeBoardDAO.getInstance();
 	FreeBoardDTO article = dao.selectArticle(num);
@@ -62,11 +69,15 @@
 				<%if(session.getAttribute("memId")!=null && !(article.getWriter().equals((String)session.getAttribute("memId")))){%>
 					<input type="button" value="답글" onclick=""/>
 				<%}%>
-					<input type="button" value="뒤로" onclick="window.location='board.jsp'"/>
+					<input type="button" value="뒤로" onclick="window.location='board.jsp?mode=<%=mode%>&category=<%=category%>&sel=<%=sel%>&search=<%=search%>&pageNum=<%=pageNum%>'"/>
 				</td>		
 			</tr>
 		</table>
 	</form>
+	
+	<jsp:include page="boardComment.jsp">
+		<jsp:param value="<%=num %>" name="num"/>
+	</jsp:include>
 </body>
 <script>
 	//글 삭제확인
