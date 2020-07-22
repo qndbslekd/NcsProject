@@ -57,16 +57,25 @@
 				<td colspan='2'>
 				<%if(article.getWriter().equals((String)session.getAttribute("memId"))){%>
 					<input type="button" value="수정" onclick="window.location='boardModifyForm.jsp?num=<%=article.getNum()%>'"/>
-					<input type="button" value="삭제" onclick="#'"/>
+					<input type="button" value="삭제" onclick="deleteArticle('<%=num%>')"/>
 				<%}%>
 				<%if(session.getAttribute("memId")!=null && !(article.getWriter().equals((String)session.getAttribute("memId")))){%>
-					<input type="button" value="답글" onclick="#'"/>
+					<input type="button" value="답글" onclick=""/>
 				<%}%>
 					<input type="button" value="뒤로" onclick="window.location='board.jsp'"/>
 				</td>		
 			</tr>
 		</table>
 	</form>
-
 </body>
+<script>
+	//글 삭제확인
+	function deleteArticle(num) {
+		if(confirm("정말 삭제하시겠습니까?")){
+			window.location="boardDeletePro.jsp?num="+num;
+		}		
+	}
+
+</script>
+
 </html>

@@ -11,7 +11,7 @@
 <%if(session.getAttribute("memId")==null){%>
 	<script type="text/javascript">
 		alert("로그인후 이용해주세요.");
-		window.location = "main.jsp";
+		window.location = "../main.jsp";
 	</script>
 <%}else{%>
 <jsp:include page="../header.jsp"></jsp:include>
@@ -77,14 +77,14 @@ System.out.println(dto);
 			<td>채식주의 타입 수정</td>
 			<td>
 				<select name="vegi_type">
-						<option value="Non-vegetarian" <%if(dto.getVegi_type().equals("Non-vegetarian")){%> selected="selected" <%}%>>Non-vegetarian</option>
-						<option value="Vegan" <%if(dto.getVegi_type().equals("Vegan")){%> selected="selected" <%}%>>Vegan</option>
-						<option value="Lacto vegetarian" <%if(dto.getVegi_type().equals("Lacto vegetarian")){%> selected="selected" <%}%>>Lacto vegetarian</option>
-						<option value="Ovo vegetarian" <%if(dto.getVegi_type().equals("Ovo vegetarian")){%> selected="selected" <%}%>>Ovo vegetarian</option>
-						<option value="Lacto-ovo vegetarian" <%if(dto.getVegi_type().equals("Lacto-ovo vegetarian")){%> selected="selected" <%}%>>Lacto-ovo vegetarian</option>
-						<option value="Pesco-vegetarian" <%if(dto.getVegi_type().equals("Pesco-vegetarian")){%> selected="selected" <%}%>>Pesco-vegetarian</option>
-						<option value="Pollo-vegetarian" <%if(dto.getVegi_type().equals("Pollo-vegetarian")){%> selected="selected" <%}%>>Pollo-vegetarian</option>
-						<option value="Flexitarian" <%if(dto.getVegi_type().equals("Flexitarian")){%> selected="selected" <%}%>>Flexitarian</option>
+						<option value="none" <%if(dto.getVegi_type().equals("none")){%> selected="selected" <%}%>>Non-vegetarian</option>
+						<option value="vegan" <%if(dto.getVegi_type().equals("vegan")){%> selected="selected" <%}%>>Vegan</option>
+						<option value="lacto" <%if(dto.getVegi_type().equals("lacto")){%> selected="selected" <%}%>>Lacto vegetarian</option>
+						<option value="ovo" <%if(dto.getVegi_type().equals("ovo")){%> selected="selected" <%}%>>Ovo vegetarian</option>
+						<option value="lacto ovo" <%if(dto.getVegi_type().equals("lacto ovo")){%> selected="selected" <%}%>>Lacto-ovo vegetarian</option>
+						<option value="pesco" <%if(dto.getVegi_type().equals("pesco")){%> selected="selected" <%}%>>Pesco-vegetarian</option>
+						<option value="pollo" <%if(dto.getVegi_type().equals("pollo")){%> selected="selected" <%}%>>Pollo-vegetarian</option>
+						<option value="flexitarian" <%if(dto.getVegi_type().equals("flexitarian")){%> selected="selected" <%}%>>Flexitarian</option>
 				</select>
 			</td>
 		</tr>
