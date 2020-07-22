@@ -577,17 +577,23 @@ public class MemberDAO {
 							System.out.print("V");
 							afterUrl += tmp[indexTmp]+",";
 						} 
+						System.out.println();
 					}
-					System.out.println("update Query"+afterUrl);
+					System.out.println("update Query : "+afterUrl);
 					if(!afterUrl.equals(",")) {
 						sql = "UPDATE MEMBER SET OFFENCE_URL = ? WHERE id = ?";
 						pstmt = conn.prepareStatement(sql);
 						pstmt.setString(1, afterUrl);
 						pstmt.setString(2, id);
+						pstmt.executeUpdate();
+					}else if(afterUrl.equals(",")) {
+						sql = "UPDATE MEMBER SET OFFENCE_URL = null WHERE id = ?";
+						pstmt = conn.prepareStatement(sql);
+						pstmt.setString(1, id);
+						pstmt.executeUpdate();
 					}
 				}
 			}else if(option.equals("commit")) {
-				
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
