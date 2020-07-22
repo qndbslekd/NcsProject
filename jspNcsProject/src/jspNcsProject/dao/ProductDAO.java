@@ -420,4 +420,54 @@ public class ProductDAO {
 		}
 		return result;
 	}
+	
+	//관리자 페이지에서 re_level Check
+	public boolean isComment(String booleanCheckNum) {
+		boolean result = false;
+		try {
+			String sql = "SELECT re_level FROM PRODUCT WHERE num = ?";
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, Integer.parseInt(booleanCheckNum));
+			rs = pstmt.executeQuery();
+			int re_level = -1;
+			if(rs.next()) {
+				re_level = rs.getInt(1);
+			}
+			if(re_level==1) {
+				result = true;
+			}else if(re_level==0) {
+				result = false;
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(rs!=null)try {rs.close();} catch (Exception e) {e.printStackTrace();}
+			if(pstmt!=null)try {pstmt.close();} catch (Exception e) {e.printStackTrace();}
+			if(conn!=null)try {conn.close();} catch (Exception e) {e.printStackTrace();}
+		}
+		return result;
+	}
+	
+	//관리자 페이지에서 seq가져오기
+	public String getSeq(String booleanCheckNum) {
+		String result = "";
+		try {
+			String sql = "SELECT ref FROM PRODUCT WHERE num = ?";
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, Integer.parseInt(booleanCheckNum));
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt(1)+"";
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(rs!=null)try {rs.close();} catch (Exception e) {e.printStackTrace();}
+			if(pstmt!=null)try {pstmt.close();} catch (Exception e) {e.printStackTrace();}
+			if(conn!=null)try {conn.close();} catch (Exception e) {e.printStackTrace();}
+		}
+		return result;
+	}
 }
