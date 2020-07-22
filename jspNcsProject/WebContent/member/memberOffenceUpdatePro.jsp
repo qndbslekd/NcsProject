@@ -16,6 +16,9 @@
 	dao.updateOffence(option,url,id);
 %>
 <body>
-
+<script type="text/javascript">
+	opener.location.reload();
+	window.close();
+</script>
 </body>
 </html>
