@@ -157,7 +157,7 @@ if(memId != null) {	//로그인 한 상태면 로그인 정보 가져오기
 					<td> 
 						<div onclick="window.location='product/productContent.jsp?num=<%=dto.getNum()%>'">
 							<div>
-								<img width="198px" height="198px" src="/jnp/recipe/imgs/<%=dto.getProduct_img()%>"/>
+								<img width="198px" height="198px" src="/jnp/product/imgs/<%=dto.getProduct_img()%>"/>
 							</div>
 							<div class="info">
 								<div><%=dto.getName()%></div>
