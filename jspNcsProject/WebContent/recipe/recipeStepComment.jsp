@@ -46,9 +46,9 @@
 			window.open(url, "댓글수정", "width=400, height=250, resizeable=no, scrollbars=no");
 		}
 		//댓글 삭제하기
-		function openDeleteForm(num){
+		function openDeleteForm(num, ref){
 			if(confirm("댓글을 삭제하시겠습니까?")==true) {
-				window.location="recipeStepCommentDeletePro.jsp?num=" + num;
+				window.location="recipeStepCommentDeletePro.jsp?num=" + num+"&ref="+ref;
 			}
 		}
 		
@@ -111,8 +111,8 @@
 						reStep = dto.getReStep();
 						reLevel = dto.getReLevel();
 				%>
-			<tr id="comment">
-				<td align="left"  id="comment">
+			<tr>
+				<td align="left">
 					<% // 댓글 들여쓰기 처리
 						int wid = 0;
 						if(dto.getReLevel() > 0){ //if4
@@ -124,8 +124,8 @@
 						<img src="imgs/replyImg.png" width="11" />
 					"<%= dto.getContent()  %>"
 					</td>
-				<td id="comment">|  <%= recipeDAO.selectNameById(dto.getName()) %>  </td>
-				<td id="comment"> 
+				<td>|  <%= recipeDAO.selectNameById(dto.getName()) %>  </td>
+				<td> 
 					<% 
 					if(session.getAttribute("memId") == null){//if3 로그아웃 상태%>
 					
@@ -134,11 +134,11 @@
 						// 댓글의 name과 memName이 동일하면 수정삭제 뜨게					
 					%>
 							<input type="button" value="수정" onclick="openModifyForm(<%=dto.getNum()%>);"/>
-							<input type="button" value="삭제" onclick="openDeleteForm(<%=dto.getNum()%>)"/>
+							<input type="button" value="삭제" onclick="openDeleteForm(<%=dto.getNum()%>, <%= dto.getRef() %>)"/>
 							
 					<%	}else if(session.getAttribute("memId").equals("admin")){ // 관리자면 수정 삭제 다 뜨게 %>	
 							<input type="button" value="수정" onclick="openModifyForm(<%=dto.getNum()%>)"/>
-							<input type="button" value="삭제" onclick="openDeleteForm(<%=dto.getNum()%>)"/>					
+							<input type="button" value="삭제" onclick="openDeleteForm(<%=dto.getNum()%>, <%= dto.getRef() %>)"/>					
 					<% 	}else{ // 댓글쓴이 != 로그인 아이디 
 							if(recipeBoard.getWriter().equals(session.getAttribute("memId"))){ // 레시피글쓴이 == 로그인아이디 
 								int maxReLevel = dao.selectMaxRelevel(dto.getRef());
