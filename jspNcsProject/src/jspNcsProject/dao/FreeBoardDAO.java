@@ -56,8 +56,7 @@ public class FreeBoardDAO {
 		int count = 0;
 		try {
 			conn =getConnection();
-			String sql = "select count(*) from freeboard "+whereQuery;
-			
+			String sql = "select count(*) from freeboard "+whereQuery;		
 			pstmt = conn.prepareStatement(sql);;
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
@@ -101,7 +100,7 @@ public class FreeBoardDAO {
 		int count = 0;
 		try {
 			conn =getConnection();
-			String sql = "select count(*) from freeboard "+whereQuery+" reg>=?";
+			String sql = "select count(*) from freeboard "+whereQuery+" and reg>=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setTimestamp(1, date);
 			rs = pstmt.executeQuery();
@@ -120,12 +119,12 @@ public class FreeBoardDAO {
 	}
 	
 	//전체리스트
-	public List selectAllArticle(int startRow, int endRow) {
+	public List selectAllArticle(int startRow, int endRow, String mode) {
 		ArrayList articles = null;
 		try {
 			conn = getConnection();
 			String sql = "SELECT a.*from(SELECT rownum r, b.* "
-					+ "from(SELECT * FROM freeboard ORDER BY REF DESC, re_level ASC)b ORDER BY REF DESC, re_level asc)a "
+					+ "from(SELECT * FROM freeboard ORDER BY "+mode+" DESC)b ORDER BY "+mode+" DESC)a "
 					+ "WHERE r>=? AND r<=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, startRow);
@@ -161,12 +160,13 @@ public class FreeBoardDAO {
 	}
 	
 	//검색결과 전체리스트
-	public List selectAllArticle(int startRow, int endRow, String whereQuery) {
+	public List selectAllArticle(int startRow, int endRow, String whereQuery,String mode) {
 		ArrayList articles = null;
 		try {
+			
 			conn = getConnection();
 			String sql = "SELECT a.*from(SELECT rownum r, b.* "
-					+ "from(SELECT * FROM freeboard "+whereQuery+" ORDER BY REF DESC, re_level ASC)b ORDER BY REF DESC, re_level asc)a "
+					+ "from(SELECT * FROM freeboard "+whereQuery+" ORDER BY "+mode+" DESC)b ORDER BY "+mode+" DESC)a "
 					+ "WHERE r>=? AND r<=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, startRow);
@@ -381,7 +381,7 @@ public class FreeBoardDAO {
 			pstmt.setString(1, name);
 			rs = pstmt.executeQuery();			
 			if(rs.next()) {
-				name = rs.getString(1);
+				id = rs.getString(1);
 			}			
 		} catch (Exception e) {
 			e.printStackTrace();
