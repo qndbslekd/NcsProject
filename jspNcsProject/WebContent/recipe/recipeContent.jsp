@@ -22,12 +22,22 @@
  
 <style>
 
-
+#greenButton {
+	border:0px;
+    color:white;
+    padding: 8px 15px;
+    cursor: pointer;
+    width: auto;
+    height: auto;
+    background: rgb(139, 195, 74);
+    border-radius: 10px;
+    outline: none;
+    margin: 5px auto;
+}
 </style>
 </head>
 <%
 	request.setCharacterEncoding("UTF-8");
-
 	String pageNum = request.getParameter("pageNum");
 	if(pageNum==null) pageNum="1";
 	String memId = (String)session.getAttribute("memId");
@@ -56,7 +66,6 @@
 	
 	// 조리단계 댓글 dao
 	RecipeContentCommentDAO dao = null;
-
 %>
 <body>
 	<jsp:include page="../header.jsp" flush="false" />
@@ -255,7 +264,5 @@
 			location.href= "../member/offenceMember.jsp?offenceUrl="+offenceCode+"&member="+member;
 		}		
 	}
-
-
 </script>
 </html>

@@ -20,27 +20,27 @@
 			history.go(-1);
 		</script>
 		<% 
-	}
-	
-	System.out.println("신고 url:"+offenceUrl + " 신고 대상id:"+member);
-	MemberDAO dao = MemberDAO.getInstance();
-	//신고대상이 존재하는 회원인지 확인
-	boolean idCh= dao.confirmId(member);
-	if(idCh==false){
-		%>
-		<script>
-			alert("존재하지 않는 회원입니다.");
-			history.go(-1);
-		</script>
-		<% 
-	}else{		
-		dao.updateOffenceColumn(offenceUrl, member);
-		%>
-		<script>
-			alert("신고 되었습니다.");
-			history.go(-1);
-		</script>
-		<% 	
+	}else{
+		System.out.println("신고 url:"+offenceUrl + " 신고 대상id:"+member);
+		MemberDAO dao = MemberDAO.getInstance();
+		//신고대상이 존재하는 회원인지 확인
+		boolean idCh= dao.confirmId(member);
+		if(idCh==false){
+			%>
+			<script>
+				alert("존재하지 않는 회원입니다.");
+				history.go(-1);
+			</script>
+			<% 
+		}else{		
+			dao.updateOffenceColumn(offenceUrl, member);
+			%>
+			<script>
+				alert("신고 되었습니다.");
+				history.go(-1);
+			</script>
+			<% 	
+		}
 	}
 %>
 </body>

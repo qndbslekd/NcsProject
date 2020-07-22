@@ -1,0 +1,111 @@
+<%@page import="jspNcsProject.dao.ProductDAO"%>
+<%@page import="jspNcsProject.dao.RecipeContentCommentDAO"%>
+<%@page import="jspNcsProject.dao.RecipeCommentDAO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>My Comment List</title>
+<link href="../resource/team05_style.css" type="text/css" rel="stylesheet"/>
+<style>
+	#nonBorder {
+		border:0px;
+	}
+</style>
+<%
+	request.setCharacterEncoding("UTF-8");
+	String memId = (String)session.getAttribute("memId");
+	String memName = (String)session.getAttribute("memName");
+	int count = 0;
+	String pageNum = request.getParameter("pageNum");
+	if(pageNum == null){
+		pageNum = "1";
+	}
+	// 옵션 값 가져오기
+	String option = request.getParameter("option");
+	
+	// 옵션 값이 null 이면 일단 myCommentList 게시글을 기본으로 보여주기
+	if(option == null){
+		option = "myRecipeCommentList";
+	}
+	
+	// select 옵션에 따라 총 댓글 개수 체크
+		if(option.equals("myRecipeCommentList")){
+			RecipeCommentDAO dao = RecipeCommentDAO.getInstance();	
+			count = dao.getMyRecipeCommentCount(memId);
+		}else if(option.equals("myRecipeStepCommentList")){
+			RecipeContentCommentDAO dao = RecipeContentCommentDAO.getInstance();
+			count = dao.getMyRecipeStepCommentCount(memId);	
+		}else if(option.equals("myFreeboardCommentList")){
+			// 자유게시판 댓글
+		}else if(option.equals("myProductCommentList")){
+			// 제품게시판 댓글 
+			ProductDAO dao = ProductDAO.getInstance();
+			count = dao.getMyProductCommnetCount(memName);
+		}
+	if(memId == null){ %>
+		<script>
+			alert("로그인 후 이용하세요");
+			window.location="loginForm.jsp";
+		</script>
+	<% }else{	
+%>
+</head>
+<body>
+<jsp:include page="../header.jsp" flush="false"/>
+<br /><br />
+<h1 align="center"> 내 댓글 목록 </h1> 
+<form>
+	<table id="nonBorder">
+		<tr>
+			<td>
+				총 댓글 수 : <%= count %>
+			</td>
+			
+			<td>
+				<select name="option">
+					<option value="myRecipeCommentList">레시피</option>
+					<option value="myRecipeStepCommentList" <%if(option.equals("myRecipeStepCommentList")){%>selected<%} %>>레시피[조리단계]</option>
+					<option value="myFreeboardCommentList" <%if(option.equals("myFreeboardCommentList")){%>selected<%} %>>자유게시판</option>
+					<option value="myProductCommentList" <%if(option.equals("myProductCommentList")){%>selected<%} %>>제품</option>
+			
+				</select>	
+				<input type="submit" value="이동" />
+			</td>
+			<td>
+				<input type="button" onclick="window.location='myList.jsp'" value="내 글 보기" />
+				<input type="button" onclick="window.location='myCommentList.jsp'" value="내 댓글 보기" />
+			</td>
+		</tr>
+		<tr>
+			<td colspan="5">
+				<% if(option.equals("myRecipeCommentList")){%>
+					<jsp:include page="myRecipeCommentList.jsp" flush="false" >
+						<jsp:param value="<%= pageNum %>" name="pageNum"/>
+						<jsp:param value="<%= option %>" name="option"/>
+		 			</jsp:include>	
+				<%}else if(option.equals("myRecipeStepCommentList")){ %>
+					<jsp:include page="myRecipeStepCommentList.jsp" flush="false" >
+						<jsp:param value="<%= pageNum %>" name="pageNum"/>
+						<jsp:param value="<%= option %>" name="option"/>
+		 			</jsp:include>	
+				<%}else if(option.equals("myFreeboardCommentList")){ %>
+					<jsp:include page="myFreeboardCommentList.jsp" flush="false" >
+						<jsp:param value="<%= pageNum %>" name="pageNum"/>
+						<jsp:param value="<%= option %>" name="option"/>
+	 				</jsp:include>	
+				<%}else if(option.equals("myProductCommentList")){ %>
+					<jsp:include page="myProductCommentList.jsp" flush="false" >
+						<jsp:param value="<%= pageNum %>" name="pageNum"/>
+						<jsp:param value="<%= option %>" name="option"/>
+	 				</jsp:include>	
+				<%} %>		 	
+			</td>	
+		</tr>
+	</table>
+</form>
+</body>
+	<%} %>
+</html>
