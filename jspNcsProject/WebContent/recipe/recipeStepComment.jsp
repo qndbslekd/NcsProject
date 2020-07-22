@@ -14,19 +14,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="../resource/team05_style.css">
-<style>
-	#nonBorder {
-		border:0px;
-	}
-	#nonBorder tr {
-		border:0px;
-	}
-	#nonBorder td {
-		border:0px;
-	}
-
-</style>
+<link rel="stylesheet" href="../resource/tmpCss.css">
 	<script>
 		// 조리단계별 댓글 or 답글 달기 
 		function openReplyForm(nowContentNum, recipeNum, reLevel, reStep, ref){			
@@ -83,8 +71,7 @@
 	RecipeContentCommentDAO dao = null;
 %>
 <body>
-	<table id="nonBorder">
-	<h3> 조리과정</h3>
+	<table class="nonBorder">
 	<%
 	for(int i = 0; i < recipeContentList.size(); i++){
 		recipeContentdto = (RecipeContentDTO)recipeContentList.get(i); 
@@ -96,10 +83,10 @@
 		int recipeNum = recipeContentdto.getRecipeNum();		
 		%>				
 		<tr>
-			<td style="width:70px; vertical-align:top;">Step <%= nowContentNum%>.</td>
-			<td style="width:400px; vertical-align:top; text-align:left;max-height:0">
+			<td style="width:70px; vertical-align:top;"><button style="width:40px; height:40px;border-radius:20px; border:0px; color:white; background-color: rgb(139, 195, 74); top:10px; text-align:center; vertical-align:middle; font-size:1.5em; font-weight:800; cursor:default;"><%= nowContentNum%></button></td>
+			<td style="width:600px; vertical-align:top; text-align:left; padding-top:25px; ">
 				<%= recipeContentdto.getContent() %>
-				 <table id="nonBorder" style="margin:10px; left:0px;">
+				 <table class="nonBorder" style="margin:10px; left:0px;">
 				<%
 				List recipeContentCommentlist = null;
 				dao = RecipeContentCommentDAO.getInstance();
@@ -111,20 +98,20 @@
 						reStep = dto.getReStep();
 						reLevel = dto.getReLevel();
 				%>
-			<tr>
-				<td align="left">
+			<tr >
+				<td align="left" style="padding:3px;">
 					<% // 댓글 들여쓰기 처리
 						int wid = 0;
 						if(dto.getReLevel() > 0){ //if4
 							wid = 20*(dto.getReLevel());
 						
 					%>
-						<img src="imgs/tabImg.PNG" width="<%= wid %>" />
+						<div style="width:<%= wid %>px; display:inline-block;" >&nbsp;</div>
 						<%} // if4 끝%>
 						<img src="imgs/replyImg.png" width="11" />
 					"<%= dto.getContent()  %>"
 					</td>
-				<td>|  <%= recipeDAO.selectNameById(dto.getName()) %>  </td>
+				<td style="padding:3px;">|  <%= recipeDAO.selectNameById(dto.getName()) %>  </td>
 				<td> 
 					<% 
 					if(session.getAttribute("memId") == null){//if3 로그아웃 상태%>
@@ -133,20 +120,20 @@
 						if(dto.getName().equals(session.getAttribute("memId"))){// if2 
 						// 댓글의 name과 memName이 동일하면 수정삭제 뜨게					
 					%>
-							<input type="button" value="수정" onclick="openModifyForm(<%=dto.getNum()%>);"/>
-							<input type="button" value="삭제" onclick="openDeleteForm(<%=dto.getNum()%>, <%= dto.getRef() %>)"/>
+							<input type="button" class="grayButton" value="수정" onclick="openModifyForm(<%=dto.getNum()%>);"/>
+							<input type="button" class="grayButton" value="삭제" onclick="openDeleteForm(<%=dto.getNum()%>)"/>
 							
 					<%	}else if(session.getAttribute("memId").equals("admin")){ // 관리자면 수정 삭제 다 뜨게 %>	
-							<input type="button" value="수정" onclick="openModifyForm(<%=dto.getNum()%>)"/>
-							<input type="button" value="삭제" onclick="openDeleteForm(<%=dto.getNum()%>, <%= dto.getRef() %>)"/>					
+							<input type="button" class="grayButton" value="수정" onclick="openModifyForm(<%=dto.getNum()%>)"/>
+							<input type="button" class="grayButton" value="삭제" onclick="openDeleteForm(<%=dto.getNum()%>)"/>					
 					<% 	}else{ // 댓글쓴이 != 로그인 아이디 
 							if(recipeBoard.getWriter().equals(session.getAttribute("memId"))){ // 레시피글쓴이 == 로그인아이디 
 								int maxReLevel = dao.selectMaxRelevel(dto.getRef());
 					%>				
-								<input type="button" value="답글쓰기" onclick="openReplyForm(<%= nowContentNum %>, <%= recipeNum %>, <%= maxReLevel %>, <%= reStep %>, <%= dto.getRef() %>);" />
-								<input type="button" value="신고" onclick="report('RCC','<%=dto.getNum()%>','<%=dto.getName()%>')"/>
+								<input type="button" value="&#x1F4AC;답글쓰기" class="greenButton" style="padding:5px;"onclick="openReplyForm(<%= nowContentNum %>, <%= recipeNum %>, <%= maxReLevel %>, <%= reStep %>, <%= dto.getRef() %>);" />
+								<input type="button" value="&#128680;신고"class="grayButton" onclick="report('RCC','<%=dto.getNum()%>','<%=dto.getName()%>')"/>
 					<%		}else{	%>			
-								<input type="button" value="신고" onclick="report('RCC','<%=dto.getNum()%>','<%=dto.getName()%>')"/>
+								<input type="button" value="&#128680;신고"class="grayButton" onclick="report('RCC','<%=dto.getNum()%>','<%=dto.getName()%>')"/>
 					<%		}
 						}	
 					}//if3의 else끝	
@@ -157,23 +144,25 @@
 			</tr>					
 		</table>
 			
-			</td> 
-			<td style="width:80px; vertical-align:top;">	 		
-				<%
-					if(session.getAttribute("memId") == null ){// 로그아웃 상태면 댓글쓰기 안보임		
-					}else if(recipeBoard.getWriter().equals(session.getAttribute("memId"))){// 레시피글작성자가 로그인한거면 댓글쓰기 안보임
-					}else{ // 레시피 글 작성자가 아니면 댓글쓰기 보임%>
-						<input type="button" value="댓글쓰기" onclick="openReplyForm(<%= nowContentNum %>, <%= recipeNum %>, <%= reLevel %>, <%= reStep %>, <%= 0 %>);" />
-						<%-- function 호출할 때 해당 조리단계 관한 변수 보내줌  --%>
-				<% 	}
-				
-				%>
-				
-				
 			</td>
+			 
+			<%
+				if(session.getAttribute("memId") == null ){// 로그아웃 상태면 댓글쓰기 안보임		
+				}else if(recipeBoard.getWriter().equals(session.getAttribute("memId"))){// 레시피글작성자가 로그인한거면 댓글쓰기 안보임
+				}else{ // 레시피 글 작성자가 아니면 댓글쓰기 보임%>
+				
+				<td style="width:80px; vertical-align:top;">	 		
+						<input type="button" value="댓글쓰기" class="greenButton" style="padding:5px;"onclick="openReplyForm(<%= nowContentNum %>, <%= recipeNum %>, <%= reLevel %>, <%= reStep %>, <%= 0 %>);" />
+						<%-- function 호출할 때 해당 조리단계 관한 변수 보내줌  --%>
+				
+				</td>
+			<%}%>
+			
+			<%if(!recipeContentdto.getImg().equals("default.png")) { %>
 			<td>
 				<img src="./imgs/<%= recipeContentdto.getImg() %>" width="200px" height="200px" />
 			</td>
+			<%} %>
 		</tr>
 	<% // 이거 아니라고ㅠ
 	} // 조리과정 제일 큰 for문
