@@ -13,8 +13,6 @@
 	String offenceUrl = request.getParameter("offenceUrl");
 	String member = request.getParameter("member");
 	
-	
-	
 	MemberDAO dao = MemberDAO.getInstance();
 	//신고대상이 존재하는 회원인지 확인
 	boolean idCh= dao.confirmId(member);
