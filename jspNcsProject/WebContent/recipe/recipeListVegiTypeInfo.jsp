@@ -8,6 +8,5 @@
 </head>
 <body>
 	<img src="./imgs/vegi.png" width="800" />
-
 </body>
 </html>
