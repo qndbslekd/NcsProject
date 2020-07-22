@@ -185,7 +185,7 @@
 					for (int i = 0; i< tags.length; i++) { 
 						if(!tags[i].equals("")){	
 					%>
-						<button onclick="window.location='recipeSearchList.jsp?tag=<%=tags[i]%>'"><%= tags[i]%></button>
+						<button id="greenButton" style="border:3px solid rgb(139, 195, 74);background:white; color:black; padding:3px 10px" onclick="window.location='recipeSearchList.jsp?tag=<%=tags[i]%>'"><%= tags[i]%></button>
 					<%}
 					} 
 				} else {%>
@@ -228,7 +228,7 @@
 				<jsp:include page="recipeStepComment.jsp" flush="false"/>
 		<tr>
 			<td colspan="6">
-			<span style="text-align:left; margin:0px;" ><h1>댓글</h1></span>
+			<span style="text-align:left; margin:0px;" ><h1>댓글</h1><hr></span>
 				<jsp:include page="recipeComment.jsp">
 					<jsp:param value="<%=num %>" name="num"/>
 				</jsp:include>
