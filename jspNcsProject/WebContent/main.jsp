@@ -100,12 +100,13 @@ if(memId != null) {	//로그인 한 상태면 로그인 정보 가져오기
 			<tr>
 				<% 
 				String whereQuery = "where vegi_Type = '" + loginMember.getVegi_type() + "'";
-				int y = 5;
 				List list = Rdao.searchRecipeList(1, 5, whereQuery, "num");
+				int y = 5;
 				if(list == null) {
 					y = 0;
-				} else if (list.size() < y) y = list.size();
-				
+				} else if (list.size() < y) {
+					y = list.size();
+				}
 				for( int i = 0; i < y; i++) {
 					RecipeDTO dto = (RecipeDTO) list.get(i); %>
 						<td> 
@@ -178,6 +179,15 @@ if(memId != null) {	//로그인 한 상태면 로그인 정보 가져오기
 
 <br/>
 <br/>
+
+<%
+//찜한 레시피가 있을 때 : 가장 많이 찜한 태그로 평점순으로 출력
+//찜한 레시피가 없을 때 : 전체 레시피 중 평점순으로 출력
+
+String mostTag = Mdao.selectMostTag(memId);
+
+if(mostTag == null) { //찜한 레시피가 없을 때 : 전체 레시피 중 평점순으로 출력
+%>
 <table>
 	<tr>
 	<td colspan="4"> 평점 높은 레시피들 </td>
@@ -212,5 +222,47 @@ if(memId != null) {	//로그인 한 상태면 로그인 정보 가져오기
 			<%} %>
 			</tr>
 </table>
+
+<%} else { //찜한 레시피가 있을 때 : 가장 많이 찜한 태그로 평점순으로 출력 %>
+<table>
+	<tr>
+		<td colspan="4"> 가장 많이 찜한 태그 : <%=mostTag %> </td>
+		<td> <a href="/jnp/recipe/recipeSearchList.jsp?tag=<%=mostTag %>&mode=rating">+more</a></td>
+	</tr>
+	<tr>
+		<td colspan="5"> 평점순 </td>
+	</tr>
+	<tr>
+			<% 
+			String whereQuery = "where tag like'%" + mostTag + "%'";
+			List list = Rdao.searchRecipeList(1, 5, whereQuery, "rating");
+			int y = 5;
+			if(list == null) {
+				y = 0;
+			} else if (list.size() < y) {
+				y = list.size();
+			}
+				for( int i = 0; i < y; i++) {
+					RecipeDTO dto = (RecipeDTO) list.get(i); %>
+						<td> 
+							<div class="recipe" onclick="window.location='recipe/recipeContent.jsp?num=<%=dto.getNum()%>'">
+								<div class="thumbnail">
+									<img width="198px" height="198px" src="/jnp/recipe/imgs/<%=dto.getThumbnail()%>"/>
+								</div>
+								<div class="info">
+									<div class="row"><%=dto.getRecipeName()%></div>
+									<div class="row">posted by <%=dto.getWriter() %></div>
+									<div class="row"><%=dto.getRating()%>(<%=RatingDAO.getInstance().getCountRating(dto.getNum())%>개의 평가)</div>			
+								</div>			
+							</div>
+						</td>
+				<%} 
+				for(int i = 0; i < 5-y; i++) {%>
+				<td width="200" height="250"></td> <%} %>
+			</tr>
+	</tr>
+
+</table>
+<%} %>
 </body>
 </html>  
