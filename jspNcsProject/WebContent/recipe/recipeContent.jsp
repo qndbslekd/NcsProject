@@ -17,28 +17,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Recipe Content</title>
-<link rel="stylesheet" href="../resource/team05_style.css">
+<title>레시피 보기</title>
+<link rel="stylesheet" href="../resource/tmpCss.css">	
  
 <style>
-#nonBorder {
-	border:0px;
-	background-color:white; 
-	color:black;
-	padding:10px;
-}
-#nonBorder tr {
-	border:0px;
-	background-color:white; 
-	color:black;
-	padding:10px;
-}
-#nonBorder td {
-	border:0px;
-	background-color:white; 
-	color:black;
-	padding:10px;
-}
 
 #greenButton {
 	border:0px;
@@ -88,9 +70,8 @@
 <body>
 	<jsp:include page="../header.jsp" flush="false" />
 	<br />
-	<h1 align="center">   content </h1>
 	
-	<table id="nonBorder">
+	<table class="nonBorder">
 		<tr >
 			<td colspan="6" >
 				<div style="min-width:40px; display:inline-block">&nbsp;</div>
@@ -98,8 +79,10 @@
 				<span style="vertical-align:top; top:0px; width:40px;">
 				<%if (memId != null) {  if(!memId.equals(recipeBoard.getWriter())) {%>
 					<%String empty = ""; if(!scrapDAO.confirmScrap(num, memId)) { empty = "empty"; }%>
-					<img src="/jnp/recipe/imgs/<%=empty %>heart.png" width="40px" onclick="scrap(<%=num%>,'<%=memId%>',<%=scrapDAO.confirmScrap(num, memId)%>)" />
-				<%} }%>
+					<img src="/jnp/recipe/imgs/<%=empty %>heart.png" width="40px" style="cursor:pointer;" onclick="scrap(<%=num%>,'<%=memId%>',<%=scrapDAO.confirmScrap(num, memId)%>)" />
+				<%}else{%>
+					<div style="min-width:40px; display:inline-block;">&nbsp;</div>
+				<%} } else {%><div style="min-width:40px; display:inline-block;">&nbsp;</div><%} %>
 				</span>
 			</td>
 		</tr>
@@ -110,7 +93,8 @@
 		</tr>
 		<tr>
 			<td colspan="6">
-				<img src = "/jnp/recipe/imgs/<%=recipeBoard.getVegiType()%>.jpg" style="margin:30px"/>
+				<%=recipeBoard.getVegiType()%><br/>
+				<img src = "/jnp/recipe/imgs/<%=recipeBoard.getVegiType()%>.jpg" style="margin:0 0 30px 0"/>
 			</td>
 		</tr>
 		<tr>
@@ -150,39 +134,39 @@
 			<td colspan="3" style="border-top:2px solid #ccc;border-right:2px solid #ccc;border-bottom:2px solid #ccc;">
 				<span> 평점 : </span> 
 				<%for(int i = 0; i < (int)recipeBoard.getRating() ; i++) {
-					%> <img src = "/jnp/recipe/imgs/star.png" width="15px" style="margin:0px auto; vertical-align:center"/> 
+					%> <img src = "/jnp/recipe/imgs/star.png" width="20px" style="margin:0px auto; vertical-align:center"/> 
 				<%}%>
 				<%for(int i = 0; i < 5-(int)recipeBoard.getRating() ; i++) {
-					%> <img src = "/jnp/recipe/imgs/emptyStar.png" width="15px"style="margin:0px auto; vertical-align:center"/> 
+					%> <img src = "/jnp/recipe/imgs/emptyStar.png" width="20px"style="margin:0px auto; vertical-align:center"/> 
 				<%}%>
 									
 				
 				<%=recipeBoard.getRating() %>
-				<% if(memId != null) { %>
-				<button id="greenButton" onclick="rating(<%=num%>)">평점 남기기</button>
-				<%} %>
+				<% if(memId != null) { 
+						if(!memId.equals(recipeBoard.getWriter())) {%>
+				<button class="greenButton" onclick="rating(<%=num%>)">평점 남기기</button>
+				<%} }%>
 			</td>
 			<td colspan="3" style="border-top:2px solid #ccc;">
-				<table id="nonBorder">
+				<table class="nonBorder">
 					<tr>
 						<td> <img src="/jnp/save/<%=recipeDAO.selectImgById(recipeBoard.getWriter())%>" style="width:60px; height:60px; border-radius:30px; "/> </td>
 						<td><h2><%= recipeDAO.selectNameById(recipeBoard.getWriter())%></h2></td>
-						<td><button id = "greenButton" onclick="window.location='recipeSearchList.jsp?writer=<%=recipeBoard.getWriter()%>'">레시피 더 보기</button></td>
+						<td><button class = "greenButton" onclick="window.location='recipeSearchList.jsp?writer=<%=recipeBoard.getWriter()%>'">레시피 더 보기</button></td>
 					</tr>
 				</table>
 			</td>
 		</tr>
 		<tr>
-			<td colspan="6" style="padding:30px; border-bottom:2px solid #ccc" >
-
-				태그 : 
+			<td colspan="6" style="padding-bottom:30px; border-bottom:2px solid #ccc" >
+				<span style="text-align:left; margin:0px;" ><h1>태그</h1></span>
 				<% if(recipeBoard.getTag()!=null) { %>
 				<% 
 					String[] tags = recipeDAO.selectTagSplit(num);
 					for (int i = 0; i< tags.length; i++) { 
 						if(!tags[i].equals("")){	
 					%>
-						<button id="greenButton" style="border:3px solid rgb(139, 195, 74);background:white; color:black; padding:3px 10px" onclick="window.location='recipeSearchList.jsp?tag=<%=tags[i]%>'"><%= tags[i]%></button>
+						<button class="lineButton"onclick="window.location='recipeSearchList.jsp?tag=<%=tags[i]%>'"><%= tags[i]%></button>
 					<%}
 					} 
 				} else {%>
@@ -193,22 +177,24 @@
 		</tr>
 		<tr>
 			<td colspan="6" style="border-bottom:2px solid #ccc">
-				<h4>재료</h4> 			
-			<table>			
-				<% 
-				HashMap<String,String> ingre = recipeDAO.selectIngredients(num); 
-				
-				Set keySet = ingre.keySet();
-				Iterator ir = keySet.iterator();
-				while(ir.hasNext()) {	
-					String key = (String) ir.next(); 
-					String value = ingre.get(key);%>
-				<tr style="border-bottom:1px #77878F solid">
-					<td style="width:200px;border-right:1px #77878F solid"> <%= key%> </td>
-					<td style="width:100px"> <%= value%></td>
-				</tr>				
-				<%}%>
-			</table>
+				<span style="text-align:left; margin:0px;" ><h1>재료</h1></span>			
+				<table class="lineTable">			
+					<% 
+					HashMap<String,String> ingre = recipeDAO.selectIngredients(num); 
+					
+					Set keySet = ingre.keySet();
+					Iterator ir = keySet.iterator();
+					int counts = 0;
+					while(ir.hasNext()) {	
+						String key = (String) ir.next(); 
+						String value = ingre.get(key);
+						counts++;%>
+					<tr <%if(counts % 2 == 0) { %> style="background-color:#cbeda4;"<%} %> >
+						<td class="lineTable" style="width:100px; text-align:left; padding:10px;"> <%= key%> </td>
+						<td class="lineTable" style="width:100px; text-align:right;padding:10px;"> <%= value%></td>
+					</tr>				
+					<%}%>
+				</table>
 			<br/><br/>
 			</td>			
 		</tr>
@@ -222,6 +208,7 @@
 		</tr>
 		<tr>
 			<td colspan="6">
+			<span style="text-align:left; margin:0px;" ><h1>조리과정</h1></span> <br/><br/>
 				<jsp:include page="recipeStepComment.jsp" flush="false"/>
 		<tr>
 			<td colspan="6">

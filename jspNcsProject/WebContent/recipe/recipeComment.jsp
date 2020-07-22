@@ -11,30 +11,9 @@
 <head>
 <meta charset="UTF-8">
 <title>댓글 보기</title>
-<link href="../resource/team05_style.css" type="text/css" rel="stylesheet"/>
+<link href="../resource/tmpsCss.css" type="text/css" rel="stylesheet"/>
 
 </head>
-<style>
-#nonBorder {
-	border:0px;
-	background-color:white; 
-	color:black;
-	padding:5px;
-}
-#nonBorder tr {
-	border:0px;
-	background-color:white; 
-	color:black;
-	padding:5px;
-}
-#nonBorder td {
-	border:0px;
-	background-color:white; 
-	color:black;
-	padding:5px;
-}
-
-</style>
 
 
 <body>
@@ -67,27 +46,27 @@
 		RecipeCommentDTO dto = (RecipeCommentDTO) RecipeCommentList.get(i);
 		//test
 %>
-	<table style="width:700px; border:0px;" id="nonBorder" >
+	<table style="width:700px; border:0px;" class="nonBorder" >
 		<tr style="border:0px; border-top:1px solid #ccc;">
 			<%if (dto.getReLevel()>0) {%><td rowspan="2" width="20px;" style="vertical-align:top;border:0px;"><img src="/jnp/recipe/imgs/replyImg.png" width="10px"/></td><%} %>
-			<td rowspan="2" style="width:60px; height:60px; vertical-align:top;border:0px; border-bottom:1px solid #ccc;"><img src="/jnp/save/<%=rDAO.selectImgById(dto.getName())%>" style="width:60px; height:60px; border-radius:30px;"/></td>
-			<td style="text-align:left; border:0px;">
+			<td rowspan="2" style="width:60px; height:60px; vertical-align:top;border:0px;"><img src="/jnp/save/<%=rDAO.selectImgById(dto.getName())%>" style="width:60px; height:60px; border-radius:30px;"/></td>
+			<td style="text-align:left; border:0px;padding-bottom:2px;">
 			<Strong> <%= rDAO.selectNameById(dto.getName()) %> </Strong>
 			<%if (memId != null) { %>
-					<%if (dto.getName().equals(memId)) {//내가 쓴 댓글이면 수정버튼%><button onclick="modifyComment(<%=dto.getNum()%>)">수정</button><%} %>
-					<%if (dto.getName().equals(memId) || memId.equals("admin")) {//내가 쓴 댓글(혹은 관리자)이면 삭제버튼%><button onclick="deleteComment(<%=dto.getNum()%>)">삭제</button>
-					<%} else { //아니면 답글, 신고버튼%> 
-						<button onclick="reply(<%=dto.getNum()%>)" >답글</button> 
-						<button onclick="report('RC','<%=dto.getNum()%>','<%=dto.getName()%>')" >신고</button> 
+					<%if (dto.getName().equals(memId)) {//내가 쓴 댓글이면 수정버튼%><button class="grayButton" onclick="modifyComment(<%=dto.getNum()%>)">수정</button><%} %>
+					<%if (dto.getName().equals(memId) || memId.equals("admin")) {//내가 쓴 댓글(혹은 관리자)이면 삭제버튼%><button class="grayButton" onclick="deleteComment(<%=dto.getNum()%>)">삭제</button>
+					<%} else { //아니면 답글, 신고버튼%> &nbsp;&nbsp;
+						<button class="grayButton" style="background-color:rgb(139, 195, 74); color:white" onclick="reply(<%=dto.getNum()%>)" >&#x1F4AC;답글</button> 
+						<button class="grayButton" onclick="report('RC','<%=dto.getNum()%>','<%=dto.getName()%>')" >&#128680;신고</button> 
 					<%} %>
 			<%} %>
 			</td>
 			<td style="text-align:right; border:0px;"><%=sdf.format(dto.getReg()) %></td>
 		</tr>
-		<tr style="border:0px; border-bottom:1px solid #ccc;">
-			<td colspan="2" style="text-align:left;border:0px;">
+		<tr style="border:0px; ">
+			<td colspan="2" style="text-align:left;border:0px;padding-top:0px;">
 				<%if (dto.getReceiver() !=null) { //만약 대댓글이라면 원본댓글 작성자 이름 넣어주기%>
-					<Strong><%= rDAO.selectNameById(dto.getReceiver()) %></Strong>
+					<Strong><%= rDAO.selectNameById(dto.getReceiver()) %></Strong>&nbsp;&nbsp;
 				<%}%>
 				<%=dto.getContent() %>
 			</td>
@@ -112,9 +91,9 @@
 		<input type="hidden" name="reLevel" value="0"/>
 		<input type="hidden" name="name" value="<%=session.getAttribute("memId")%>"/>
 		
-			<table id="nonBorder">
+			<table class="nonBorder">
 				<tr>
-					<td><textarea name="content" cols="70" rows="3" style="resize:none;"></textarea></td><td><input type="submit" value="댓글작성"/>
+					<td><textarea name="content" cols="70" rows="5" style="resize:none;" required></textarea></td><td><input type="submit" class="greenButton" value="댓글작성" style="height:100%"> </td>
 				</tr>
 			</table>
 		</form>
