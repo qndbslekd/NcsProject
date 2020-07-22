@@ -83,7 +83,8 @@
 						<%=comment.get(i).getName()%> : <%=comment.get(i).getDetail()%> 작성시간 : <%=comment.get(i).getReg()%>
 						<button type="button" onclick="recommentFn('<%=comment.get(i).getName()%>','<%=comment.get(i).getNum()%>')">답글</button>
 						<%if(!session.getAttribute("memId").equals("admin")){%>
-						<button type="button" onclick="report('<%=comment.get(i).getNum()%>','<%=comment.get(i).getName()%>')">신고</button>
+						<%offenceIdByName = MDao.selectMemberIdForOffenceByName(comment.get(i).getName());%>
+						<button type="button" onclick="report('<%=comment.get(i).getNum()%>','<%=offenceIdByName%>')">신고</button>
 						<%} %>
 						<%if(session.getAttribute("memId").equals("admin")||session.getAttribute("memId").equals(comment.get(i).getName())){ %>
 								<button type="button" onclick="deleteFn('<%=comment.get(i).getNum()%>','<%=comment.get(i).getName()%>','<%=dto.getNum()%>')">삭제</button>	
