@@ -7,7 +7,12 @@
 </head>
 <link href="../resource/team05_style.css" rel="stylesheet" type="text/css">
 <jsp:include page="../header.jsp"></jsp:include>
+	
 <script type="text/javascript">
+	function question(){
+		var win = window.open("../recipe/recipeListVegiTypeInfo.jsp","채식유형 정보","width=900,height=850,left=500,top=500,scrollbars=yes,")
+		
+	}
 	function confirmId(inputForm) {
 		if (!inputForm.id.value) {
 			return;
@@ -18,7 +23,6 @@
 				"아이디 중복 체크",
 				"toolbar=no,location=no,status = no, menubar = no, scrollbars = no,resizable = no, width = 300,height = 200");
 	}
-	
 	function confirmName(inputForm) {
 		if (!inputForm.name.value) {
 			return;
@@ -108,6 +112,7 @@ if(session.getAttribute("memId")==null){
 		<tr>
 			<td>채식주의 타입</td>
 			<td> 
+				<img src="../recipe/imgs/question.png" width="20px" height="20px" onclick="question()" />
 				<select name="vegi_type">
 						<option value="none">Non-vegetarian</option>
 						<option value="vegan">vegan</option>
