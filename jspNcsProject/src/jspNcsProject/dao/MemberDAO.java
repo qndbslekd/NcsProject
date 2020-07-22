@@ -285,7 +285,7 @@ public class MemberDAO {
 		int result=0;
 		try {
 			conn = getConnection();
-			String sql = "select count(*) from member WHERE OFFENCE_URL IS NOT NULL";
+			String sql = "select count(*) from member WHERE OFFENCE_URL IS NOT NULL OR OFFENCE_COUNT >0";
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
@@ -378,7 +378,7 @@ public class MemberDAO {
 			conn = getConnection();
 			String sql = "select id,pw,age,gender,name,regdate,offence_count,offence_url,state,r from "
 					+ "(select id,pw,age,gender,name,regdate,offence_count,offence_url,state, rownum r from "
-					+ "(select * from MEMBER WHERE OFFENCE_URL IS NOT NULL ORDER BY OFFENCE_COUNT desc)) where r>=? and r<=?";
+					+ "(select * from MEMBER WHERE OFFENCE_URL IS NOT NULL OR OFFENCE_COUNT >0 ORDER BY OFFENCE_COUNT desc)) where r>=? and r<=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, start);
 			pstmt.setInt(2, end);
@@ -473,7 +473,6 @@ public class MemberDAO {
 		}
 		return id;
 	}
-	
 	//스크랩한 레시피 중 가장 많은 태그
 	public String selectMostTag(String id) {
 		String mostTag = null;
@@ -562,10 +561,10 @@ public class MemberDAO {
 		
 		return mostTag;
 	}
-	
 	//신고확정, 신고취소
 	//확정했다가 취소하는경우 추가해야함
-	public void updateOffence(String option,String url,String id) {
+	public boolean updateOffence(String option,String url,String id) {
+		boolean isCommit = false;
 		try {
 			conn = getConnection();
 			String sql = "";
@@ -601,7 +600,41 @@ public class MemberDAO {
 					}
 				}
 			}else if(option.equals("commit")) {
-				
+				sql = "update member set OFFENCE_COUNT = OFFENCE_COUNT+1 where id = ?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, id);
+				pstmt.executeUpdate();
+				isCommit = true;
+				sql = "select OFFENCE_URL from member WHERE id = ?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, id);
+				rs = pstmt.executeQuery();
+				if(rs.next()) {
+					String urlBefore = rs.getString(1);
+					String[] tmp = urlBefore.split(",");
+					String afterUrl = ",";
+					for(int indexTmp=1;indexTmp<tmp.length;indexTmp++) {
+						System.out.print(tmp[indexTmp]);
+						if(!tmp[indexTmp].equals(url)) {
+							System.out.print("V");
+							afterUrl += tmp[indexTmp]+",";
+						} 
+						System.out.println();
+					}
+					System.out.println("update Query : "+afterUrl);
+					if(!afterUrl.equals(",")) {
+						sql = "UPDATE MEMBER SET OFFENCE_URL = ? WHERE id = ?";
+						pstmt = conn.prepareStatement(sql);
+						pstmt.setString(1, afterUrl);
+						pstmt.setString(2, id);
+						pstmt.executeUpdate();
+					}else if(afterUrl.equals(",")) {
+						sql = "UPDATE MEMBER SET OFFENCE_URL = null WHERE id = ?";
+						pstmt = conn.prepareStatement(sql);
+						pstmt.setString(1, id);
+						pstmt.executeUpdate();
+					}
+				}
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -610,5 +643,6 @@ public class MemberDAO {
 			if(pstmt!=null)try {pstmt.close();} catch (SQLException e) {e.printStackTrace();}
 			if(conn!=null)try {conn.close();} catch (SQLException e) {e.printStackTrace();}
 		}
+		return isCommit;
 	} 
 }
