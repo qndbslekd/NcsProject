@@ -52,7 +52,8 @@
 	List RecipeCommentList = rCDAO.selectRecipeCommentAll(num);
 	
 	if(RecipeCommentList==null) { //댓글이 하나도 없으면%>
-		<h2>댓글이 없습니다</h2>
+		<span style="margin:50px"><h2>댓글이 없습니다</h2></span>
+		<hr>
 	<%} else { //댓글이 있으면
 	
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -66,10 +67,10 @@
 		RecipeCommentDTO dto = (RecipeCommentDTO) RecipeCommentList.get(i);
 		
 %>
-	<table style="width:700px; border:0px;" id="nonBorder">
+	<table style="width:700px; border:0px;" id="nonBorder" >
 		<tr style="border:0px; border-top:1px solid #ccc;">
 			<%if (dto.getReLevel()>0) {%><td rowspan="2" width="20px;" style="vertical-align:top;border:0px;"><img src="/jnp/recipe/imgs/replyImg.png" width="10px"/></td><%} %>
-			<td rowspan="2" style="width:60px; height:60px; vertical-align:top;border:0px;"><img src="/jnp/save/<%=rDAO.selectImgById(dto.getName())%>" style="width:60px; height:60px; border-radius:30px;"/></td>
+			<td rowspan="2" style="width:60px; height:60px; vertical-align:top;border:0px; border-bottom:1px solid #ccc;"><img src="/jnp/save/<%=rDAO.selectImgById(dto.getName())%>" style="width:60px; height:60px; border-radius:30px;"/></td>
 			<td style="text-align:left; border:0px;">
 			<Strong> <%= rDAO.selectNameById(dto.getName()) %> </Strong>
 			<%if (memId != null) { %>
@@ -83,7 +84,7 @@
 			</td>
 			<td style="text-align:right; border:0px;"><%=sdf.format(dto.getReg()) %></td>
 		</tr>
-		<tr style="border:0px;">
+		<tr style="border:0px; border-bottom:1px solid #ccc;">
 			<td colspan="2" style="text-align:left;border:0px;">
 				<%if (dto.getReceiver() !=null) { //만약 대댓글이라면 원본댓글 작성자 이름 넣어주기%>
 					<Strong><%= rDAO.selectNameById(dto.getReceiver()) %></Strong>
