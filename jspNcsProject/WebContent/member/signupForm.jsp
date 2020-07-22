@@ -11,7 +11,6 @@
 <script type="text/javascript">
 	function question(){
 		var win = window.open("../recipe/recipeListVegiTypeInfo.jsp","채식유형 정보","width=900,height=850,left=500,top=500,scrollbars=yes,")
-		
 	}
 	function confirmId(inputForm) {
 		if (!inputForm.id.value) {
