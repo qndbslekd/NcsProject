@@ -371,6 +371,27 @@ public class FreeBoardDAO {
 		}	
 		return name;
 	}
+	//활동명받고 아이디반환
+	public String selectIdByName(String name) {
+		String id = null;	
+		try {		
+			conn = getConnection();		
+			String sql = "select id from member where name=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, name);
+			rs = pstmt.executeQuery();			
+			if(rs.next()) {
+				name = rs.getString(1);
+			}			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(rs != null)try {rs.close();}catch(Exception e) {e.printStackTrace();}
+			if(pstmt != null)try {pstmt.close();}catch(Exception e) {e.printStackTrace();}
+			if(conn != null)try {conn.close();}catch(Exception e) {e.printStackTrace();}
+		}	
+		return id;
+	}
 	
 
 }
