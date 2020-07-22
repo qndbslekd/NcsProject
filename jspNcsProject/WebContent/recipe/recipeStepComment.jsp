@@ -111,8 +111,8 @@
 						reStep = dto.getReStep();
 						reLevel = dto.getReLevel();
 				%>
-			<tr id="comment">
-				<td align="left"  id="comment">
+			<tr>
+				<td align="left">
 					<% // 댓글 들여쓰기 처리
 						int wid = 0;
 						if(dto.getReLevel() > 0){ //if4
@@ -124,8 +124,8 @@
 						<img src="imgs/replyImg.png" width="11" />
 					"<%= dto.getContent()  %>"
 					</td>
-				<td id="comment">|  <%= recipeDAO.selectNameById(dto.getName()) %>  </td>
-				<td id="comment"> 
+				<td>|  <%= recipeDAO.selectNameById(dto.getName()) %>  </td>
+				<td> 
 					<% 
 					if(session.getAttribute("memId") == null){//if3 로그아웃 상태%>
 					

@@ -13,6 +13,7 @@ import javax.sql.DataSource;
 
 import jspNcsProject.dto.MemberDTO;
 import jspNcsProject.dto.ProductDTO;
+import jspNcsProject.dto.RecipeCommentDTO;
 import jspNcsProject.dto.RecipeDTO;
 
 public class ProductDAO {
@@ -419,5 +420,97 @@ public class ProductDAO {
 			if(conn!=null)try {conn.close();} catch (Exception e) {e.printStackTrace();}
 		}
 		return result;
+	}
+	
+	// 작성자 닉네임으로 댓글+답글 총개수 가져오기
+	public int getMyProductCommnetCount(String name) {
+		int count = 0;
+		try {
+			conn = getConnection();
+			String sql ="select count(*) from product where name=? and re_level=1";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, name);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(rs!=null)try { rs.close();}catch(Exception e) {e.printStackTrace();}
+			if(pstmt!=null)try { pstmt.close();}catch(Exception e) {e.printStackTrace();}
+			if(conn!=null)try { conn.close();}catch(Exception e) {e.printStackTrace();}		
+		}
+		return count;
+	}
+	// 작성자 닉네임으로 댓글+답글 가져오기(범위만큼)
+	public List selectMyProductCommnet(int start, int end, String name) {
+		ArrayList myProductCommentList = null;
+		try {
+			conn = getConnection();
+			String sql = "SELECT p.* FROM(SELECT rownum AS r, p.* FROM (SELECT p.* FROM PRODUCT p WHERE name = ? AND re_level=1 ORDER BY p.reg ASC) p)p WHERE r >=? AND r <= ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, name);
+			pstmt.setInt(2, start);
+			pstmt.setInt(3, end);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				myProductCommentList = new ArrayList();
+				do {
+					ProductDTO comment = new ProductDTO();
+					comment.setDetail(rs.getString("detail"));
+					comment.setIngredients(rs.getString("ingredients"));
+					comment.setName(name);
+					comment.setNum(rs.getInt("num"));
+					comment.setProduct_img(rs.getString("product_img"));
+					comment.setRe_level(rs.getInt("re_level"));
+					comment.setRe_step(rs.getInt("re_step"));
+					comment.setRecommend(rs.getInt("recommend"));
+					comment.setRef(rs.getInt("ref"));
+					comment.setReg(rs.getTimestamp("reg"));
+					myProductCommentList.add(comment);
+				}while(rs.next());		
+			}	
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(rs != null)try {rs.close();}catch(Exception e) {e.printStackTrace();}
+			if(pstmt != null)try {pstmt.close();}catch(Exception e) {e.printStackTrace();}
+			if(conn != null)try {conn.close();}catch(Exception e) {e.printStackTrace();}
+		}
+		return myProductCommentList;
+	}
+	
+	// 제품 글 정보 가져오기(num으로 검색)
+	public ProductDTO selectProdcut(int num) {
+		ProductDTO product = null;
+		try {
+			conn = getConnection();
+			String sql = "select * from product where num=? and re_level=0";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				product = new ProductDTO();
+				product.setDetail(rs.getString("detail"));
+				product.setIngredients(rs.getString("ingredients"));
+				product.setName(rs.getString("name"));
+				product.setNum(rs.getInt("num"));
+				product.setProduct_img(rs.getString("product_img"));
+				product.setRe_level(rs.getInt("re_level"));
+				product.setRe_step(rs.getInt("re_step"));
+				product.setRecommend(rs.getInt("recommend"));
+				product.setRef(rs.getInt("ref"));
+				product.setReg(rs.getTimestamp("reg"));			
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(rs != null)try {rs.close();}catch(Exception e) {e.printStackTrace();}
+			if(pstmt != null)try {pstmt.close();}catch(Exception e) {e.printStackTrace();}
+			if(conn != null)try {conn.close();}catch(Exception e) {e.printStackTrace();}
+		}
+		
+		return product;
 	}
 }
