@@ -5,7 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -282,7 +285,7 @@ public class MemberDAO {
 		int result=0;
 		try {
 			conn = getConnection();
-			String sql = "select count(*) from member where OFFENCE_COUNT > 0";
+			String sql = "select count(*) from member WHERE OFFENCE_URL IS NOT NULL";
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
@@ -375,7 +378,7 @@ public class MemberDAO {
 			conn = getConnection();
 			String sql = "select id,pw,age,gender,name,regdate,offence_count,offence_url,state,r from "
 					+ "(select id,pw,age,gender,name,regdate,offence_count,offence_url,state, rownum r from "
-					+ "(select * from MEMBER where OFFENCE_COUNT>0 ORDER BY OFFENCE_COUNT desc)) where r>=? and r<=?";
+					+ "(select * from MEMBER WHERE OFFENCE_URL IS NOT NULL ORDER BY OFFENCE_COUNT desc)) where r>=? and r<=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, start);
 			pstmt.setInt(2, end);
@@ -404,15 +407,22 @@ public class MemberDAO {
 	}
 	
 	//회원 강퇴
-	public int kickOffMember(String id) {
+	public int kickOffMember(String id,String option) {
 		int result=0;
 		try {
 			conn = getConnection();
 			String sql ="UPDATE MEMBER SET state=? WHERE id=?";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, "강퇴");
-			pstmt.setString(2, id);
-			result = pstmt.executeUpdate();
+			if(option.equals("kickOff")) {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, "강퇴");
+				pstmt.setString(2, id);
+				result = pstmt.executeUpdate();
+			}else if(option.equals("kickOffCancle")) {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, "활동");
+				pstmt.setString(2, id);
+				result = pstmt.executeUpdate();
+			}
 			System.out.println("result"+result);
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -428,12 +438,11 @@ public class MemberDAO {
 	public void updateOffenceColumn(String offenceUrl, String member) {
 		try {
 			conn = getConnection();
-			String sql ="update Member set offence_url = concat(concat(offence_url,','),?), offence_count = offence_count+1 where id=?";
+			String sql ="update Member set offence_url = concat(concat(offence_url,','),?) where id=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1,offenceUrl);
 			pstmt.setString(2,member);
 			pstmt.executeQuery();
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -442,4 +451,164 @@ public class MemberDAO {
 			if(conn!=null)try {conn.close();} catch (SQLException e) {e.printStackTrace();}
 		}
 	}
+	
+	//회원신고를 위한 활동명으로 아이디 가져오기
+	public String selectMemberIdForOffenceByName(String name) {
+		String id = "";
+		try {
+			conn = getConnection();
+			String sql ="select id from member where name =?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,name);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				id = rs.getString(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(rs!=null)try {rs.close();} catch (SQLException e) {e.printStackTrace();}
+			if(pstmt!=null)try {pstmt.close();} catch (SQLException e) {e.printStackTrace();}
+			if(conn!=null)try {conn.close();} catch (SQLException e) {e.printStackTrace();}
+		}
+		return id;
+	}
+	
+	//스크랩한 레시피 중 가장 많은 태그
+	public String selectMostTag(String id) {
+		String mostTag = null;
+		List tags = null;
+		List recipeNumList = null;
+		
+		try {
+			conn = getConnection();
+			
+			//(내가 스크랩한 레시피의 번호들)
+			String sql = "select recipe_num from scrap where scraper=?"; 
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				recipeNumList = new ArrayList();
+				do {
+					recipeNumList.add(rs.getInt(1));
+				} while(rs.next());
+			}
+			
+			//번호가 있으면 각 레시피의 태그 가져오기
+			if(recipeNumList != null) {
+				tags = new ArrayList();
+				sql = "select tag from recipe_board where num=?";
+				pstmt = conn.prepareStatement(sql);
+				for(int i = 0; i < recipeNumList.size(); i++) {
+					pstmt.setInt(1, (int)recipeNumList.get(i));
+					
+					rs = pstmt.executeQuery();
+					
+					if(rs.next()) {
+						String [] tmp = rs.getString(1).split(",");
+						for(int k = 0; k < tmp.length; k++) {
+							tags.add(tmp[k]);
+						}
+					}
+				}
+				
+				//다 가져왔으면 중복 개수 세기
+				HashMap<String, Integer> counts = new HashMap<String, Integer>();
+				for(int k = 0; k < tags.size(); k++) {
+					String tag = (String) tags.get(k);
+					
+					if(counts.containsKey(tag)) { //해쉬맵에 이미 추가된 태그라면
+						counts.replace(tag, counts.get(tag)+1);	//카운트만 +1
+					} else {	//없으면
+						counts.put(tag,	1);	//추가
+					}
+				}
+				//해쉬맵에서 공백인 키 제거
+				counts.remove("");
+				
+				System.out.println(counts);
+				//value값이 가장 큰 값 가져오기
+				Set keySet = counts.keySet();
+				Iterator it = keySet.iterator();
+				List max = new ArrayList(); 
+				
+				if(it.hasNext()) {
+					String key = (String) it.next();
+					max.add(key);
+					max.add(counts.get(key));
+					
+					while(it.hasNext()) {
+						key = (String) it.next();
+						if((int)max.get(1) < counts.get(key)) {
+							max.set(0, key);
+							max.set(1, counts.get(key));
+						}
+					}
+				}
+				
+				mostTag = (String) max.get(0);
+				
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(rs!=null)try {rs.close();} catch (SQLException e) {e.printStackTrace();}
+			if(pstmt!=null)try {pstmt.close();} catch (SQLException e) {e.printStackTrace();}
+			if(conn!=null)try {conn.close();} catch (SQLException e) {e.printStackTrace();}
+		}
+		
+		return mostTag;
+	}
+	
+	//신고확정, 신고취소
+	//확정했다가 취소하는경우 추가해야함
+	public void updateOffence(String option,String url,String id) {
+		try {
+			conn = getConnection();
+			String sql = "";
+			if(option.equals("rollback")) {
+				sql = "select OFFENCE_URL from member WHERE id = ?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, id);
+				rs = pstmt.executeQuery();
+				if(rs.next()) {
+					String urlBefore = rs.getString(1);
+					String[] tmp = urlBefore.split(",");
+					String afterUrl = ",";
+					for(int indexTmp=1;indexTmp<tmp.length;indexTmp++) {
+						System.out.print(tmp[indexTmp]);
+						if(!tmp[indexTmp].equals(url)) {
+							System.out.print("V");
+							afterUrl += tmp[indexTmp]+",";
+						} 
+						System.out.println();
+					}
+					System.out.println("update Query : "+afterUrl);
+					if(!afterUrl.equals(",")) {
+						sql = "UPDATE MEMBER SET OFFENCE_URL = ? WHERE id = ?";
+						pstmt = conn.prepareStatement(sql);
+						pstmt.setString(1, afterUrl);
+						pstmt.setString(2, id);
+						pstmt.executeUpdate();
+					}else if(afterUrl.equals(",")) {
+						sql = "UPDATE MEMBER SET OFFENCE_URL = null WHERE id = ?";
+						pstmt = conn.prepareStatement(sql);
+						pstmt.setString(1, id);
+						pstmt.executeUpdate();
+					}
+				}
+			}else if(option.equals("commit")) {
+				
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(rs!=null)try {rs.close();} catch (SQLException e) {e.printStackTrace();}
+			if(pstmt!=null)try {pstmt.close();} catch (SQLException e) {e.printStackTrace();}
+			if(conn!=null)try {conn.close();} catch (SQLException e) {e.printStackTrace();}
+		}
+	} 
 }

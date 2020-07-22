@@ -54,16 +54,11 @@ public class RecipeCommentDAO {
 		List list = null;
 		
 		try {
-			
 			conn = getConnection();
-			
 			String sql = "select * from recipe_comment where recipe_num=? order by ref asc, num asc";
-			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, num);
-			
 			rs = pstmt.executeQuery();
-			
 			if(rs.next()) {
 				list = new ArrayList();
 				do {
@@ -231,6 +226,7 @@ public class RecipeCommentDAO {
 			if(conn != null) try { conn.close(); } catch(Exception e) {e.printStackTrace();}
 		}
 	}
+
 	// 작성자 아이디로 댓글 총 개수 가져오기(name이 id값임 )
 		public int getMyRecipeCommentCount(String writer) {
 			int count = 0;
@@ -287,4 +283,28 @@ public class RecipeCommentDAO {
 			}
 			return myCommentList;
 		}
+
+	
+	//관리자 게시판에서 seq조회
+	public String selectSeqForMemberList(String num) {
+		String result = "" ;
+		try {
+			conn = getConnection();
+			String sql = "select RECIPE_NUM from recipe_comment where num=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1,Integer.parseInt(num));
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt(1)+"";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(rs != null) try { rs.close(); } catch(Exception e) {e.printStackTrace();}
+			if(pstmt != null) try { pstmt.close(); } catch(Exception e) {e.printStackTrace();}
+			if(conn != null) try { conn.close(); } catch(Exception e) {e.printStackTrace();}
+		}
+		return result;
+	}
+
 }

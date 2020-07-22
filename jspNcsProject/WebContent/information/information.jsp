@@ -12,10 +12,10 @@
 </head>
 <jsp:include page="../header.jsp"></jsp:include>
 <%
-
-	InfomationDAO dao = InfomationDAO.getInstance();
-	List<InfomationDTO> information = dao.getInfomation();
 	
+	String num  = request.getParameter("num");
+	InfomationDAO dao = InfomationDAO.getInstance();
+	InfomationDTO information = dao.getInfomation(num);
 	String id = (String)session.getAttribute("memId");
 	if(id == null){
 		id = "";	
@@ -31,22 +31,22 @@
 		<%if(id.equals("admin")){ %>
 			<tr>
 				<td>
-				
-					<button onclick="window.location = 'InformationModifyForm.jsp'" >수정페이지로 이동</button>
-					<button onclick="window.open('http://localhost:8080/jnp/member/confirmId.jsp', '_blank');" >수정페이지로 이동</button>
+					<button onclick="window.location = 'InformationModifyForm.jsp?num=<%=num%>'" >수정페이지로 이동</button>
+					<button onclick="window.location = 'InformationDeletePro.jsp?num=<%=num%>'" >삭제</button>
 				</td>
 			</tr>
 		<% }%>
-		<%for(int i=0;i<information.size();i++){%> 
 			<tr>
-					<th style=" font-size: 100%;"><%=information.get(i).getSubject() %></th>
+				<td><img src="img/<%=information.getImg()%>"/></td>
+			</tr>
+			<tr>
+				<th style=" font-size: 100%;"><%=information.getSubject() %></th>
 			</tr>
 			<tbody>
 				<tr>
-					<td style="text-align: left;"><%=information.get(i).getContent()%></td>
+					<td style="text-align: left;"><%=information.getContent()%></td>
 				</tr>
 			</tbody> 
-		<%} %>
 		</table>
 	</body>
 </html>

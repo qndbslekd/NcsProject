@@ -300,7 +300,6 @@ public class RecipeContentCommentDAO {
 		}	
 	}
 	
-
 	
 	// 작성자 아이디로 레시피 조리단계별 총 댓글 수 가져오기(name이 id값임)
 	public int getMyRecipeStepCommentCount(String writer) {
@@ -361,4 +360,27 @@ public class RecipeContentCommentDAO {
 		return myStepCommentList;
 	}
 		
+
+	//관리자 게시판에서 seq조회
+		public String selectSeqForMemberList(String num) {
+			String result = "" ;
+			try {
+				conn = getConnection();
+				String sql = "select RECIPE_NUM from recipe_content_comment where num=?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1,Integer.parseInt(num));
+				rs = pstmt.executeQuery();
+				if(rs.next()) {
+					result = rs.getInt(1)+"";
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				if(rs != null) try { rs.close(); } catch(Exception e) {e.printStackTrace();}
+				if(pstmt != null) try { pstmt.close(); } catch(Exception e) {e.printStackTrace();}
+				if(conn != null) try { conn.close(); } catch(Exception e) {e.printStackTrace();}
+			}
+			return result;
+		}
+	
 }
