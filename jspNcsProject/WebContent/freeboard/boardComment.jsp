@@ -37,28 +37,46 @@
 			for(int i = 0 ; i<commentList.size();i++){
 				BoardCommentDTO comment = (BoardCommentDTO)commentList.get(i);
 				String name = dao.selectNameById(comment.getWriter());
+				String img = dao.selectImgById(comment.getWriter());
+				if(comment.getRe_level()==0){
 				%>
-			<tr>
-				<td rowspan='2'>이미지</td>
-				<td><%=name%></td>
-				<td>
-				<% if(loginId !=null && loginId.equals(comment.getWriter())){ %>
-					<button>수정</button>
-				<%}%>
-				<%if (loginId !=null && (loginId.equals(comment.getWriter())|| loginId.equals("admin"))){%>
-					<button>삭제</button>
-				<%}%>
-				<% if(loginId !=null && !loginId.equals(comment.getWriter()) &&!loginId.equals("admin") ){ %>
-					<button onclick="reply('<%=freeboard_num%>','<%=comment.getRef()%>','<%=comment.getRe_level()%>','<%=comment.getWriter()%>')">답글</button>
-					<button>신고</button>
-				<%} %>
-				</td>
-				<td><%=sdf.format(comment.getReg())%></td>
-			</tr>
-			<tr>
-				<td colspan='4'><%=comment.getContent()%></td>		
-			</tr>	
-		<% 	}
+				<tr>
+					<td rowspan='2'><img width="60px" height="60px" src="/jnp/save/<%=img%>"/></td>
+					<td><%=name%></td>
+					<td>
+					<% if(loginId !=null && loginId.equals(comment.getWriter())){ %>
+						<button>수정</button>
+					<%}%>
+					<%if (loginId !=null && (loginId.equals(comment.getWriter())|| loginId.equals("admin"))){%>
+						<button>삭제</button>
+					<%}%>
+					<% if(loginId !=null && !loginId.equals(comment.getWriter()) &&!loginId.equals("admin") ){ %>
+						<button onclick="reply('<%=freeboard_num%>','<%=comment.getRef()%>','<%=comment.getRe_level()%>','<%=comment.getWriter()%>')">답글</button>
+						<button>신고</button>
+					<%} %>
+					</td>
+					<td><%=sdf.format(comment.getReg())%></td>
+				</tr>
+				<tr>
+					<td colspan='4'><%=comment.getContent()%></td>		
+				</tr>	
+		<% 		}else{
+					String receiverName = dao.selectNameById(comment.getReceiver());
+					String receiverImg = dao.selectImgById(comment.getReceiver());
+		%>
+				<tr>
+					<td rowspan='2'><img width="20px" src="/jnp/freeboard/img/replyImg.png"/></td>
+					<td rowspan='2'><img width="60px" height="60px" src="/jnp/save/<%=receiverImg%>"/></td>
+					<td><%=name%></td>
+					<td>버튼</td>
+					<td><%=sdf.format(comment.getReg())%></td>
+				</tr>
+				<tr>
+					<td><%=receiverName%></td>
+					<td><%=comment.getContent()%></td>
+				</tr>
+		<% 		}
+			}
 		}%>
 	</table>
 	<%if(session.getAttribute("memId")!=null){%>

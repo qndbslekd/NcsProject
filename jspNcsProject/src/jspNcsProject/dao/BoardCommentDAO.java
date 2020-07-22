@@ -29,35 +29,12 @@ public class BoardCommentDAO {
 		DataSource ds = (DataSource)env.lookup("jdbc/orcl");
 		return ds.getConnection();
 	}
-	//id 받고 이미지 반환
-	public String selectImgById(String id) {
-		String img = null;		
-		try {			
-			conn = getConnection();				
-			String sql = "select profile_img from member where id=?";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, id);
-			
-			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
-				img = rs.getString(1);
-			}		
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			if(rs != null)try {rs.close();}catch(Exception e) {e.printStackTrace();}
-			if(pstmt != null)try {pstmt.close();}catch(Exception e) {e.printStackTrace();}
-			if(conn != null)try {conn.close();}catch(Exception e) {e.printStackTrace();}
-		}	
-		return img;
-	}
 	
 	public List selectAllBoardComment(int num) {
 		ArrayList commentList = null;
 		try {			
 			conn = getConnection();
-			String sql = "select * from freeboard_comment where freeboard_num =?";
+			String sql = "select * from freeboard_comment where freeboard_num =? order by ref asc, comment_num asc";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			rs = pstmt.executeQuery();
@@ -137,6 +114,35 @@ public class BoardCommentDAO {
 			if(conn != null)try {conn.close();}catch(Exception e) {e.printStackTrace();}
 		}	
 		return name;
+	}
+	
+	//id 받고 이미지 반환
+	public String selectImgById(String id) {
+		String img = null;
+		
+		try {
+			
+			conn = getConnection();
+			
+			String sql = "select profile_img from member where id=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				img = rs.getString(1);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(rs != null)try {rs.close();}catch(Exception e) {e.printStackTrace();}
+			if(pstmt != null)try {pstmt.close();}catch(Exception e) {e.printStackTrace();}
+			if(conn != null)try {conn.close();}catch(Exception e) {e.printStackTrace();}
+		}
+		
+		return img;
 	}
 	
 	

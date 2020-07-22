@@ -11,7 +11,6 @@
 	 int ref = Integer.parseInt(request.getParameter("ref"));
 	 int re_level = Integer.parseInt(request.getParameter("re_level"));
 	 String receiver = request.getParameter("receiver");
-	 System.out.println("리시버:"+ receiver);
 
 %>
 <body>
