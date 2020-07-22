@@ -407,15 +407,22 @@ public class MemberDAO {
 	}
 	
 	//회원 강퇴
-	public int kickOffMember(String id) {
+	public int kickOffMember(String id,String option) {
 		int result=0;
 		try {
 			conn = getConnection();
 			String sql ="UPDATE MEMBER SET state=? WHERE id=?";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, "강퇴");
-			pstmt.setString(2, id);
-			result = pstmt.executeUpdate();
+			if(option.equals("kickOff")) {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, "강퇴");
+				pstmt.setString(2, id);
+				result = pstmt.executeUpdate();
+			}else if(option.equals("kickOffCancle")) {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, "활동");
+				pstmt.setString(2, id);
+				result = pstmt.executeUpdate();
+			}
 			System.out.println("result"+result);
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -577,13 +584,20 @@ public class MemberDAO {
 							System.out.print("V");
 							afterUrl += tmp[indexTmp]+",";
 						} 
+						System.out.println();
 					}
-					System.out.println("update Query"+afterUrl);
+					System.out.println("update Query : "+afterUrl);
 					if(!afterUrl.equals(",")) {
 						sql = "UPDATE MEMBER SET OFFENCE_URL = ? WHERE id = ?";
 						pstmt = conn.prepareStatement(sql);
 						pstmt.setString(1, afterUrl);
 						pstmt.setString(2, id);
+						pstmt.executeUpdate();
+					}else if(afterUrl.equals(",")) {
+						sql = "UPDATE MEMBER SET OFFENCE_URL = null WHERE id = ?";
+						pstmt = conn.prepareStatement(sql);
+						pstmt.setString(1, id);
+						pstmt.executeUpdate();
 					}
 				}
 			}else if(option.equals("commit")) {

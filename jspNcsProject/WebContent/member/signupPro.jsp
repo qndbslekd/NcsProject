@@ -85,8 +85,8 @@ if(contentType!=null){
 	}
 }
 //sendRedirect
-response.sendRedirect("main.jsp");
-
+response.sendRedirect("../main.jsp");
+ 
 %>
 <body>
 </body>

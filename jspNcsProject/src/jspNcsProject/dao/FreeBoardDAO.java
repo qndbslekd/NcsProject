@@ -393,6 +393,92 @@ public class FreeBoardDAO {
 		return id;
 	}
 	
+	// id로 글 총 개수 가져오기
+	public int getMyFreeBoardCount(String writer) {
+		int count = 0;
+		try {
+			conn = getConnection();
+			String sql = "select count(*) from freeboard where writer=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, writer);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(rs!=null)try { rs.close();}catch(Exception e) {e.printStackTrace();}
+			if(pstmt!=null)try { pstmt.close();}catch(Exception e) {e.printStackTrace();}
+			if(conn!=null)try { conn.close();}catch(Exception e) {e.printStackTrace();}		
+		}
+		return count;
+	}
 	
+	// id로 글 가져오기()
+	public List selectMyFreeContent(int start, int end, String writer) {
+		ArrayList myFreeContentList = null;
+		try {
+			conn = getConnection();
+			String sql = "SELECT f.* FROM(SELECT rownum AS r, f.* FROM (SELECT f.* FROM FREEBOARD f WHERE writer = ? ORDER BY f.reg asc) f)f WHERE r >= ? AND r <= ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, writer);
+			pstmt.setInt(2, start);
+			pstmt.setInt(3, end);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				myFreeContentList = new ArrayList();
+				do {
+					FreeBoardDTO content = new FreeBoardDTO();
+					content.setCategory(rs.getString("category"));
+					content.setContent(rs.getString("content"));
+					content.setImg(rs.getString("img"));
+					content.setNum(rs.getInt("num"));
+					content.setRe_level(rs.getInt("re_level"));
+					content.setRe_step(rs.getInt("re_step"));
+					content.setRead_count(rs.getInt("read_count"));
+					content.setRecommend(rs.getInt("recommend"));
+					content.setRef(rs.getInt("ref"));
+					content.setReg(rs.getTimestamp("reg"));
+					content.setTitle(rs.getString("title"));
+					content.setWriter(writer);		
+					myFreeContentList.add(content);
+				}while(rs.next());
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(rs != null)try {rs.close();}catch(Exception e) {e.printStackTrace();}
+			if(pstmt != null)try {pstmt.close();}catch(Exception e) {e.printStackTrace();}
+			if(conn != null)try {conn.close();}catch(Exception e) {e.printStackTrace();}
+		}	
+		return myFreeContentList;
+	}
+	
+
+	//id 받고 이미지 반환
+		public String selectImgById(String id) {
+			String img = null;		
+			try {			
+				conn = getConnection();				
+				String sql = "select profile_img from member where id=?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, id);
+				
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					img = rs.getString(1);
+				}		
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				if(rs != null)try {rs.close();}catch(Exception e) {e.printStackTrace();}
+				if(pstmt != null)try {pstmt.close();}catch(Exception e) {e.printStackTrace();}
+				if(conn != null)try {conn.close();}catch(Exception e) {e.printStackTrace();}
+			}	
+			return img;
+		}
+
 
 }

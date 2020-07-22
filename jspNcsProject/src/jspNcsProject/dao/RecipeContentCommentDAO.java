@@ -251,6 +251,7 @@ public class RecipeContentCommentDAO {
 			conn = getConnection();
 			String sql = "select count(ref) from RECIPE_CONTENT_COMMENT where ref=?";
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, ref);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				count = rs.getInt(1);
@@ -266,9 +267,25 @@ public class RecipeContentCommentDAO {
 		return count;
 	}
 	
+	// 댓글 1개만 있는 경우 삭제
+	public void deleteRecipeStetpcomment(int num) {
+		try {
+			conn = getConnection();
+			String sql = "delete from RECIPE_CONTENT_COMMENT where num=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			pstmt.executeUpdate();			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(pstmt!=null) try {pstmt.close();}catch(Exception e) { e.printStackTrace();}
+			if(conn!=null) try {conn.close();}catch(Exception e) { e.printStackTrace();}
+		}
 	
-	// 댓글 하나 삭제(답글이 있을 경우 답글도 삭제)
-	public void deleteRecipeStepComment(int ref) {
+	}
+	
+	// 댓글 + 답글 한꺼번에삭제
+	public void deleteRecipeStepAllComment(int ref) {
 		try {
 			conn = getConnection();
 			String sql ="delete from RECIPE_CONTENT_COMMENT where ref=?";
@@ -283,6 +300,67 @@ public class RecipeContentCommentDAO {
 		}	
 	}
 	
+	
+	// 작성자 아이디로 레시피 조리단계별 총 댓글 수 가져오기(name이 id값임)
+	public int getMyRecipeStepCommentCount(String writer) {
+		int count = 0;
+		try {
+			conn= getConnection();
+			String sql = "SELECT count(*) FROM recipe_content_comment where name=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, writer);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				count = rs.getInt(1);
+			} 	
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(rs!=null)try { rs.close();}catch(Exception e) {e.printStackTrace();}
+			if(pstmt!=null)try { pstmt.close();}catch(Exception e) {e.printStackTrace();}
+			if(conn!=null)try { conn.close();}catch(Exception e) {e.printStackTrace();}		
+		}
+		return count;
+	}
+	
+	// 작성자 아이디로 댓글 가져오기(범위만큼)
+	public List selectMyRecipeStepComment(int start, int end, String writer) {
+		ArrayList myStepCommentList = null;
+		try {
+			conn = getConnection();
+			String sql = "SELECT rcc.* FROM(SELECT rownum AS r, rcc.* FROM (SELECT rcc.* FROM RECIPE_CONTENT_COMMENT rcc WHERE name = ? ORDER BY rcc.reg ASC) rcc)rcc WHERE r >= ? AND r <= ?"; 
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, writer);
+			pstmt.setInt(2, start);
+			pstmt.setInt(3, end);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				myStepCommentList = new ArrayList();
+				do {
+					RecipeContentCommentDTO stepComment = new RecipeContentCommentDTO();
+					stepComment.setContent(rs.getString("content"));
+					stepComment.setContentNum(rs.getInt("content_num"));
+					stepComment.setName(writer);
+					stepComment.setNum(rs.getInt("num"));
+					stepComment.setRecipeNum(rs.getInt("recipe_num"));
+					stepComment.setRef(rs.getInt("ref"));
+					stepComment.setReg(rs.getTimestamp("reg"));
+					stepComment.setReLevel(rs.getInt("re_level"));
+					stepComment.setReStep(rs.getInt("re_step"));
+					myStepCommentList.add(stepComment);
+				}while(rs.next());
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(rs != null)try {rs.close();}catch(Exception e) {e.printStackTrace();}
+			if(pstmt != null)try {pstmt.close();}catch(Exception e) {e.printStackTrace();}
+			if(conn != null)try {conn.close();}catch(Exception e) {e.printStackTrace();}
+		}	
+		return myStepCommentList;
+	}
+		
+
 	//관리자 게시판에서 seq조회
 		public String selectSeqForMemberList(String num) {
 			String result = "" ;
