@@ -12,7 +12,15 @@
 	request.setCharacterEncoding("utf-8");
 	String offenceUrl = request.getParameter("offenceUrl");
 	String member = request.getParameter("member");
-	
+	if(member.equals("admin")){
+		%>
+		<script>
+			alert("관리자는 신고가 불가능합니다.");
+			history.go(-1);
+		</script>
+		<% 
+	}	
+	System.out.println("신고 url:"+offenceUrl + " 신고 대상id:"+member);
 	MemberDAO dao = MemberDAO.getInstance();
 	//신고대상이 존재하는 회원인지 확인
 	boolean idCh= dao.confirmId(member);
@@ -33,7 +41,5 @@
 		<% 	
 	}
 %>
-	
-
 </body>
 </html>
