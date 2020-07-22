@@ -226,6 +226,64 @@ public class RecipeCommentDAO {
 			if(conn != null) try { conn.close(); } catch(Exception e) {e.printStackTrace();}
 		}
 	}
+
+	// 작성자 아이디로 댓글 총 개수 가져오기(name이 id값임 )
+		public int getMyRecipeCommentCount(String writer) {
+			int count = 0;
+			try {
+				conn = getConnection();
+				String sql ="select count(*) from recipe_comment where name=?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, writer);
+				rs = pstmt.executeQuery();
+				if(rs.next()) {
+					count = rs.getInt(1);
+				}
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally{
+				if(rs!=null)try { rs.close();}catch(Exception e) {e.printStackTrace();}
+				if(pstmt!=null)try { pstmt.close();}catch(Exception e) {e.printStackTrace();}
+				if(conn!=null)try { conn.close();}catch(Exception e) {e.printStackTrace();}		
+			}
+			return count;
+		}
+		// 작성자 아이디로 댓글 가져오기(범위만큼)
+		public List selectMyRecipeComment(int start, int end, String writer) {
+			ArrayList myCommentList = null;
+			try {
+				conn = getConnection();
+				String sql = "SELECT rc.* FROM(SELECT rownum AS r, rc.* FROM (SELECT rc.* FROM RECIPE_COMMENT rc WHERE name = ? ORDER BY rc.reg ASC) rc)rc WHERE r >=? AND r <= ?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, writer);
+				pstmt.setInt(2, start);
+				pstmt.setInt(3, end);
+				rs = pstmt.executeQuery();
+				if(rs.next()) {
+					myCommentList = new ArrayList();
+					do {
+						RecipeCommentDTO comment = new RecipeCommentDTO();
+						comment.setNum(rs.getInt("num"));
+						comment.setRecipeNum(rs.getInt("recipe_num"));
+						comment.setRef(rs.getInt("ref"));
+						comment.setReLevel(rs.getInt("re_level"));
+						comment.setContent(rs.getString("content"));
+						comment.setName(rs.getString("name"));
+						comment.setReceiver(rs.getString("receiver"));
+						comment.setReg(rs.getTimestamp("reg"));
+						myCommentList.add(comment);
+					}while(rs.next());		
+				}	
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally {
+				if(rs != null)try {rs.close();}catch(Exception e) {e.printStackTrace();}
+				if(pstmt != null)try {pstmt.close();}catch(Exception e) {e.printStackTrace();}
+				if(conn != null)try {conn.close();}catch(Exception e) {e.printStackTrace();}
+			}
+			return myCommentList;
+		}
+
 	
 	//관리자 게시판에서 seq조회
 	public String selectSeqForMemberList(String num) {
@@ -248,4 +306,5 @@ public class RecipeCommentDAO {
 		}
 		return result;
 	}
+
 }
