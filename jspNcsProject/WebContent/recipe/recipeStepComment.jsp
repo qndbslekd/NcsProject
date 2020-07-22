@@ -34,9 +34,9 @@
 			window.open(url, "댓글수정", "width=400, height=250, resizeable=no, scrollbars=no");
 		}
 		//댓글 삭제하기
-		function openDeleteForm(num){
+		function openDeleteForm(num, ref){
 			if(confirm("댓글을 삭제하시겠습니까?")==true) {
-				window.location="recipeStepCommentDeletePro.jsp?num=" + num;
+				window.location="recipeStepCommentDeletePro.jsp?num=" + num+"&ref="+ref;
 			}
 		}
 		

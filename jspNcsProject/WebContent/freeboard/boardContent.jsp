@@ -74,6 +74,10 @@
 			</tr>
 		</table>
 	</form>
+	
+	<jsp:include page="boardComment.jsp">
+		<jsp:param value="<%=num%>" name="num"/>
+	</jsp:include>
 </body>
 <script>
 	//글 삭제확인

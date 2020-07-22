@@ -28,7 +28,7 @@
 		</tr>
 		<tr>
 			<td>
-				<a onclick="window.location='myRecipeList.jsp'"><img src="../resource/recipe.png"><br/>내가 본 레시피</a>
+				<a onclick="window.location='myList.jsp'"><img src="../resource/recipe.png"><br/>내가 쓴 레시피/댓글</a>
 			</td>
 			<td>
 				<a onclick="window.location='myScrapRecipe.jsp'"><img src="../resource/comment.png"><br/>내가 찜한 레시피</a>

@@ -407,15 +407,22 @@ public class MemberDAO {
 	}
 	
 	//회원 강퇴
-	public int kickOffMember(String id) {
+	public int kickOffMember(String id,String option) {
 		int result=0;
 		try {
 			conn = getConnection();
 			String sql ="UPDATE MEMBER SET state=? WHERE id=?";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, "강퇴");
-			pstmt.setString(2, id);
-			result = pstmt.executeUpdate();
+			if(option.equals("kickOff")) {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, "강퇴");
+				pstmt.setString(2, id);
+				result = pstmt.executeUpdate();
+			}else if(option.equals("kickOffCancle")) {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, "활동");
+				pstmt.setString(2, id);
+				result = pstmt.executeUpdate();
+			}
 			System.out.println("result"+result);
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -543,8 +550,6 @@ public class MemberDAO {
 				
 				mostTag = (String) max.get(0);
 				
-				
-				
 			}
 			
 		} catch (Exception e) {
@@ -557,4 +562,53 @@ public class MemberDAO {
 		
 		return mostTag;
 	}
+	
+	//신고확정, 신고취소
+	//확정했다가 취소하는경우 추가해야함
+	public void updateOffence(String option,String url,String id) {
+		try {
+			conn = getConnection();
+			String sql = "";
+			if(option.equals("rollback")) {
+				sql = "select OFFENCE_URL from member WHERE id = ?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, id);
+				rs = pstmt.executeQuery();
+				if(rs.next()) {
+					String urlBefore = rs.getString(1);
+					String[] tmp = urlBefore.split(",");
+					String afterUrl = ",";
+					for(int indexTmp=1;indexTmp<tmp.length;indexTmp++) {
+						System.out.print(tmp[indexTmp]);
+						if(!tmp[indexTmp].equals(url)) {
+							System.out.print("V");
+							afterUrl += tmp[indexTmp]+",";
+						} 
+						System.out.println();
+					}
+					System.out.println("update Query : "+afterUrl);
+					if(!afterUrl.equals(",")) {
+						sql = "UPDATE MEMBER SET OFFENCE_URL = ? WHERE id = ?";
+						pstmt = conn.prepareStatement(sql);
+						pstmt.setString(1, afterUrl);
+						pstmt.setString(2, id);
+						pstmt.executeUpdate();
+					}else if(afterUrl.equals(",")) {
+						sql = "UPDATE MEMBER SET OFFENCE_URL = null WHERE id = ?";
+						pstmt = conn.prepareStatement(sql);
+						pstmt.setString(1, id);
+						pstmt.executeUpdate();
+					}
+				}
+			}else if(option.equals("commit")) {
+				
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(rs!=null)try {rs.close();} catch (SQLException e) {e.printStackTrace();}
+			if(pstmt!=null)try {pstmt.close();} catch (SQLException e) {e.printStackTrace();}
+			if(conn!=null)try {conn.close();} catch (SQLException e) {e.printStackTrace();}
+		}
+	} 
 }
