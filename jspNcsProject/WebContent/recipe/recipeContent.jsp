@@ -36,12 +36,10 @@
 	background-color:white; 
 	color:black;
 }
-
 </style>
 </head>
 <%
 	request.setCharacterEncoding("UTF-8");
-
 	String pageNum = request.getParameter("pageNum");
 	if(pageNum==null) pageNum="1";
 	String memId = (String)session.getAttribute("memId");
@@ -70,7 +68,6 @@
 	
 	// 조리단계 댓글 dao
 	RecipeContentCommentDAO dao = null;
-
 %>
 <body>
 	<jsp:include page="../header.jsp" flush="false" />
@@ -249,7 +246,5 @@
 			location.href= "../member/offenceMember.jsp?offenceUrl="+offenceCode+"&member="+member;
 		}		
 	}
-
-
 </script>
 </html>
