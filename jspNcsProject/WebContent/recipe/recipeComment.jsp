@@ -55,7 +55,7 @@
 					<%if (dto.getName().equals(memId) || memId.equals("admin")) {//내가 쓴 댓글(혹은 관리자)이면 삭제버튼%><button onclick="deleteComment(<%=dto.getNum()%>)">삭제</button>
 					<%} else { //아니면 답글, 신고버튼%> 
 						<button onclick="reply(<%=dto.getNum()%>)" >답글</button> 
-						<button onclick="report('<%=dto.getNum()%>','<%=dto.getName()%>')" >신고</button> 
+						<button onclick="report('RC','<%=dto.getNum()%>','<%=dto.getName()%>')" >신고</button> 
 					<%} %>
 			<%} %>
 			</td>
@@ -99,15 +99,7 @@
 
 </body>
 <script>
-	//신고 기능
-	function report(commentNum,member) {
-		if(confirm("이 댓글을 신고하시겠습니까?")==true) {
-			var offenceCode = "RC"+commentNum;
-			location.href= "offenceMember.jsp?offenceUrl="+offenceCode+"&member="+member;
-		}		
-	}
-	
-	
+
 	//댓글에 답댓글 달기
 	function reply(num) {
 		var url = "recipeCommentReplyInsertForm.jsp?num=" + num;
