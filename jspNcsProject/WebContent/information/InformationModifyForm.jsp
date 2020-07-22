@@ -19,7 +19,7 @@
 	</script>
 <%}%>
 <body>
-	<form action="informationModifyPro.jsp" method="post">
+	<form action="informationModifyPro.jsp" method="post" enctype="multipart/form-data" name ="inputForm">
 		<table> 
 			<tr>
 				<td>
@@ -31,9 +31,19 @@
 			<tr>
 				<th style=" font-size: 100%;">
 					<input type="text" value="<%=information.getSubject()%>" name="subject"/>
-				</th>
+				</th> 
 			</tr>
 			<tbody>
+				<tr>
+					<td><img src="img/<%=information.getImg()%>" /></td>
+				</tr>
+				<tr>
+					<td>
+						수정할 이미지
+						<input type = "file" name ="info_img">
+						<input type = "hidden" name = "info_img_before" value="<%=information.getImg()%>"/>
+					</td>
+				</tr>
 				<tr>
 					<td style="text-align: left;">
 						<textarea rows="20" cols="100" name="content"><%=information.getContent()%></textarea>

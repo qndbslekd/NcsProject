@@ -12,6 +12,18 @@
 	<link href="../team05_style.css" rel="stylesheet" type="text/css">
 </head>
 <jsp:include page="../header.jsp"></jsp:include>
+<style>
+	.paging{
+		width: 960px;
+		margin: 0 auto;
+		text-align: center;
+		
+	}
+	.page{
+		display: inline-block;
+		color : black;
+	}
+</style>
 <%
 	int pageSize=10;
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm");
@@ -96,7 +108,7 @@
 		</table>
 	<%} %>
 	</form>
-<div class="paging">
+	<div class="paging">
 		<%
 			if(count >0){
 				int pageCount = count / pageSize + (count % pageSize == 0 ? 0 : 1);

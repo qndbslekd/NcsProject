@@ -1,3 +1,5 @@
+<%@page import="com.oreilly.servlet.MultipartRequest"%>
+<%@page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
 <%@page import="jspNcsProject.dao.InfomationDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <!DOCTYPE html>
@@ -15,13 +17,24 @@
 	<%}
 
 	request.setCharacterEncoding("UTF-8");
-	String subject = request.getParameter("subject");
-	String content = request.getParameter("content");
-	String num = request.getParameter("num");
-	int result=0;
+	String info_img = "";
+	String path = request.getRealPath("/information/img");
+	int max = 1024*1024*5; //5MB byte 단위 
+	String enc = "UTF-8";
+	DefaultFileRenamePolicy dp = new DefaultFileRenamePolicy(); //중복파일금지
+	MultipartRequest mr = new MultipartRequest(request,path,max,enc,dp);
 	
+	String subject = mr.getParameter("subject");
+	String content = mr.getParameter("content");
+	String num = mr.getParameter("num");
+	if(mr.getFilesystemName("info_img")==null){
+		info_img= mr.getParameter("info_img_before");
+	}else{
+		info_img= mr.getFilesystemName("info_img");
+	}
+	int result=0;
 	InfomationDAO dao = InfomationDAO.getInstance();
-	result = dao.updateInfomation(num,subject,content);
+	result = dao.updateInfomation(num,subject,content,info_img);
 		if(result==1){
 			System.out.println(subject+"의 내용이 수정되었습니다");
 		}

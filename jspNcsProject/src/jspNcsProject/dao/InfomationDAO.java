@@ -88,15 +88,16 @@ public class InfomationDAO {
 		return informationDTOList;
 	}
 	
-	public int updateInfomation(String num,String subject,String content) {
+	public int updateInfomation(String num,String subject,String content,String info_img) {
 		int result=0; 
 		try {
 			conn = getConnection();
-			String sql = "UPDATE INFORMATION SET SUBJECT =?,CONTENT =? WHERE NUM = ?";
+			String sql = "UPDATE INFORMATION SET SUBJECT =?,CONTENT =?,img = ? WHERE NUM = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, subject);
 			pstmt.setString(2, content);
-			pstmt.setInt(3, Integer.parseInt(num));
+			pstmt.setString(3, info_img);
+			pstmt.setInt(4, Integer.parseInt(num));
 			result= pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
