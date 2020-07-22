@@ -140,9 +140,10 @@
 									
 				
 				<%=recipeBoard.getRating() %>
-				<% if(memId != null) { %>
+				<% if(memId != null) { 
+						if(!memId.equals(recipeBoard.getWriter())) {%>
 				<button class="greenButton" onclick="rating(<%=num%>)">평점 남기기</button>
-				<%} %>
+				<%} }%>
 			</td>
 			<td colspan="3" style="border-top:2px solid #ccc;">
 				<table class="nonBorder">
