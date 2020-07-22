@@ -1,3 +1,6 @@
+<%@page import="jspNcsProject.dao.ProductDAO"%>
+<%@page import="jspNcsProject.dao.RecipeContentCommentDAO"%>
+<%@page import="jspNcsProject.dao.RecipeCommentDAO"%>
 <%@page import="jspNcsProject.dto.MemberDTO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
@@ -12,6 +15,18 @@
 	<link href="../team05_style.css" rel="stylesheet" type="text/css">
 </head>
 <jsp:include page="../header.jsp"></jsp:include>
+<style>
+.paging{
+		width: 960px;
+		margin: 0 auto;
+		text-align: center;
+		
+	}
+.page{
+	display: inline-block;
+	color : black;
+}
+</style>
 <%
 	if(!session.getAttribute("memId").toString().equals("admin")||session.getAttribute("memId")==null){%>
 		<script>
@@ -68,6 +83,11 @@
 			}
 			System.out.println("LIST SIZE : "+memberList.size());
 		}
+		
+		//seq로 각테이블 접근
+		RecipeCommentDAO rcDao = RecipeCommentDAO.getInstance();
+		RecipeContentCommentDAO rccDao = RecipeContentCommentDAO.getInstance(); 
+		ProductDAO pDao = ProductDAO.getInstance();
 	%>
 
 <body>
@@ -106,7 +126,36 @@
 					<td style="background-color: red;"><%=memberList.get(i).getName()%></td>
 					<td style="background-color: red;"><%=memberList.get(i).getRegdate()%></td>
 					<td style="background-color: red;"><%=memberList.get(i).getOffence_count()%></td>
-					<td style="background-color: red;"><%=memberList.get(i).getOffence_url()%></td> 
+					<td style="background-color: red;">
+						<% 
+							if(memberList.get(i).getOffence_url()!=null){
+								String[] urls = memberList.get(i).getOffence_url().split(",");
+								for(int splitUrls = 0;splitUrls<urls.length;splitUrls++){
+									//테이블 고유번호
+									String seq = "";
+									%>
+									<%=urls[splitUrls]%>
+									<%
+									if(urls[splitUrls].contains("RCC")){
+										seq = urls[splitUrls].substring(3);
+										%> <a href="http://localhost:8080/jnp/recipe/recipeContent.jsp?num=<%=seq%>">조리단계댓글</a><%
+									}else if(urls[splitUrls].contains("RC")){
+										seq = urls[splitUrls].substring(2);
+										%> <a href="http://localhost:8080/jnp/recipe/recipeContent.jsp?num=<%=seq%>">레시피댓글</a><%
+									}else if(urls[splitUrls].contains("R")){
+										seq = urls[splitUrls].substring(1);
+										%> <a href="http://localhost:8080/jnp/recipe/recipeContent.jsp?num=<%=seq%>">레시피</a><%
+									}else if(urls[splitUrls].contains("PC")){
+										seq = urls[splitUrls].substring(2);
+										%> <a href="http://localhost:8080/jnp/recipe/recipeContent.jsp?num=<%=seq%>">제품</a><%
+									}else if(urls[splitUrls].contains("F")){
+										seq = urls[splitUrls].substring(1);
+										%> <a href="http://localhost:8080/jnp/recipe/recipeContent.jsp?num=<%=seq%>">자유게시판</a><%
+									}
+								}
+							} 
+						%>
+					</td>
 					<td style="background-color: red;"><%=memberList.get(i).getState()%></td>
 					<td style="background-color: red;"><button onclick="window.location='memberKickOutPro.jsp?id=<%=memberList.get(i).getId() %>'" >강퇴</button></td>
 				</tr>	
@@ -119,7 +168,42 @@
 					<td><%=memberList.get(i).getName()%></td>
 					<td><%=memberList.get(i).getRegdate()%></td>
 					<td><%=memberList.get(i).getOffence_count()%></td>
-					<td><%=memberList.get(i).getOffence_url()%></td> 
+					<td>
+						<%
+							if(memberList.get(i).getOffence_url()!=null){
+								String[] urls = memberList.get(i).getOffence_url().split(",");
+								for(int splitUrls = 0;splitUrls<urls.length;splitUrls++){
+									//테이블 고유번호
+									String seq = "";
+									if(urls[splitUrls].contains("RCC")){
+										seq = rccDao.selectSeqForMemberList(urls[splitUrls].substring(3));
+										%> <a href="http://localhost:8080/jnp/recipe/recipeContent.jsp?num=<%=seq%>">조리단계댓글</a><%
+									}else if(urls[splitUrls].contains("RC")){
+										seq = rcDao.selectSeqForMemberList(urls[splitUrls].substring(2));
+										%> <a href="http://localhost:8080/jnp/recipe/recipeContent.jsp?num=<%=seq%>">레시피댓글</a><%
+									}else if(urls[splitUrls].contains("R")){
+										seq = urls[splitUrls].substring(1);
+										%> <a href="http://localhost:8080/jnp/recipe/recipeContent.jsp?num=<%=seq%>">레시피</a>
+											<button type="button">v</button>
+										<%
+									}else if(urls[splitUrls].contains("PC")){
+										//댓글구분
+										String booleanCheckNum = urls[splitUrls].substring(2);
+										boolean isComment = pDao.isComment(booleanCheckNum);
+										if(isComment){
+											seq = pDao.getSeq(booleanCheckNum);
+										}else{
+											seq = urls[splitUrls].substring(2);
+										}
+										%> <a href="http://localhost:8080/jnp/product/productContent.jsp?num=<%=seq%>">제품</a><%
+									}else if(urls[splitUrls].contains("F")){
+										seq = urls[splitUrls].substring(1);
+										%> <a href="http://localhost:8080/jnp/recipe/recipeContent.jsp?num=<%=seq%>">자유게시판</a><%
+									}
+								} 
+							}
+						%>
+					</td>
 					<td><%=memberList.get(i).getState()%></td>
 					<td><button onclick="window.location='memberKickOutPro.jsp?id=<%=memberList.get(i).getId() %>'" >강퇴</button></td>
 				</tr>
@@ -129,7 +213,6 @@
 				<td colspan="10">
 					<button onclick="window.location='main.jsp'">메인으로</button>
 					<button onclick="window.location='memberList.jsp?offence=1'">신고받은 회원 조회</button>
-					
 					<form action="memberList.jsp" method="get">
 					<select name="option">
 							<option value="id">id</option>
@@ -141,7 +224,7 @@
 			</tr>				 
 		</table>	
 		<br/>
-		<div align="center">
+		<div class="paging">
 		<%
 			if(count >0){
 				int pageCount = count / pageSize + (count % pageSize == 0 ? 0 : 1);
@@ -150,14 +233,14 @@
 				int endPage = startPage + pageBlock -1;	// 10 20 30 ...
 				if(endPage > pageCount) endPage = pageCount;
 				if(startPage > pageBlock){%>
-						<a href="memberList.jsp?pageNum=<%=startPage-pageBlock%>"> &lt; </a>	
-					<%}
-					for(int i =startPage; i<= endPage; i++){%>
-						<a href="memberList.jsp?pageNum=<%=i%>" class="pageNums"> &nbsp; <%= i%> &nbsp; </a>
-					<%}
-					if(endPage < pageCount){%>
-						<a href="memberList.jsp?pageNum=<%=startPage+pageBlock%>"> &gt; </a>
-					<%}
+					<div class="page" onclick="window.location='memberList.jsp?pageNum=<%=startPage-pageBlock%>'">&lt;</div>
+				<%}
+				for(int i =startPage; i<= endPage; i++){%>
+					<div class="page" onclick="window.location='memberList.jsp?pageNum=<%=i%>'">&nbsp;<%=i %></div>
+				<%}
+				if(endPage < pageCount){%>
+					<div class="page" onclick="window.location='memberList.jsp?pageNum=<%=startPage+pageBlock%>'">&gt;</div>
+				<%}
 			}
 		%>
 		</div> 

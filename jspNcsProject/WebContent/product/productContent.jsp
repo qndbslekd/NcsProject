@@ -22,6 +22,8 @@
 	ProductDAO dao = ProductDAO.getInstance();
 	ProductDTO dto = dao.selectProduct(num);
 	List<ProductDTO> comment =  dao.selectComment(num);
+	MemberDAO MDao = MemberDAO.getInstance();
+	String offenceIdByName = "";
 %>
 	<body>
 		<form action="recommendPro.jsp" method="post" name="recommend" >
@@ -80,7 +82,9 @@
 					<td colspan="2" style="text-align: left;">
 						<%=comment.get(i).getName()%> : <%=comment.get(i).getDetail()%> 작성시간 : <%=comment.get(i).getReg()%>
 						<button type="button" onclick="recommentFn('<%=comment.get(i).getName()%>','<%=comment.get(i).getNum()%>')">답글</button>
+						<%if(!session.getAttribute("memId").equals("admin")){%>
 						<button type="button" onclick="report('<%=comment.get(i).getNum()%>','<%=comment.get(i).getName()%>')">신고</button>
+						<%} %>
 						<%if(session.getAttribute("memId").equals("admin")||session.getAttribute("memId").equals(comment.get(i).getName())){ %>
 								<button type="button" onclick="deleteFn('<%=comment.get(i).getNum()%>','<%=comment.get(i).getName()%>','<%=dto.getNum()%>')">삭제</button>	
 						<%} %>
@@ -97,7 +101,10 @@
 								<img src="../resource/replyImg.png" width="8px"/>
 								<%=recoment.get(j).getName()%> : <%=recoment.get(j).getDetail()%> 작성시간 : <%=recoment.get(j).getReg()%>
 								<button type="button" onclick="recommentFn('<%=recoment.get(j).getName()%>','<%=comment.get(i).getNum()%>')">답글</button>
-								<button type="button" onclick="report('<%=recoment.get(j).getNum()%>','<%=recoment.get(j).getName()%>')">신고</button>
+								<%offenceIdByName = MDao.selectMemberIdForOffenceByName(recoment.get(j).getName());%>
+								<%if(!session.getAttribute("memId").equals("admin")){%>
+								<button type="button" onclick="report('<%=recoment.get(j).getNum()%>','<%=offenceIdByName%>')">신고</button>
+								<%} %>
 								<%if(session.getAttribute("memId").equals("admin")||session.getAttribute("memId").equals(recoment.get(j).getName())){ %>
 								<button type="button" onclick="deleteFn('<%=recoment.get(j).getNum()%>','<%=recoment.get(j).getName()%>','<%=dto.getNum()%>')">삭제</button>	
 								<%} %>
@@ -140,7 +147,7 @@
 	function report(commentNum,member) {
 		if(confirm("이 댓글을 신고하시겠습니까?")==true) {
 			var offenceCode = "PC"+commentNum;
-			location.href= "../recipe/offenceMember.jsp?offenceUrl="+offenceCode+"&member="+member;
+			location.href= "../member/offenceMember.jsp?offenceUrl="+offenceCode+"&member="+member;
 		}		
 	}
 
