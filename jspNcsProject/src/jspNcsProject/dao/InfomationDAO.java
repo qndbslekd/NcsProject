@@ -197,4 +197,24 @@ public class InfomationDAO {
 		return result;
 	}
 	
+	public int insertInfo(String subject, String content, String info_img) {
+		int result = 0;
+		try {
+			String sql = "INSERT INTO INFORMATION VALUES (seq_information.nextval, ?, ?, sysdate,?)";
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, subject);
+			pstmt.setString(2, content);
+			pstmt.setString(3, info_img);
+			result = pstmt.executeUpdate();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(rs!=null)try {rs.close();} catch (SQLException e) {e.printStackTrace();}
+			if(pstmt!=null)try {pstmt.close();} catch (SQLException e) {e.printStackTrace();}
+			if(conn!=null)try {conn.close();} catch (SQLException e) {e.printStackTrace();}
+		}
+		return result;
+	}
+	
 }
