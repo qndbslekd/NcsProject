@@ -594,6 +594,7 @@ public class MemberDAO {
 					}
 				}
 			}else if(option.equals("commit")) {
+				
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
