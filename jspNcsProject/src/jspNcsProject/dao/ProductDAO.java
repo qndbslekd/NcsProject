@@ -381,7 +381,7 @@ public class ProductDAO {
 			pstmt.setInt(1,Integer.parseInt(num));
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
-				ProductDTO dto = new ProductDTO();
+				ProductDTO dto = new ProductDTO(); 
 				dto.setNum(rs.getInt("num"));
 				dto.setName(rs.getString("name"));
 				dto.setIngredients(rs.getString("ingredients"));
