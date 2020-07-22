@@ -205,7 +205,7 @@
 				<button onclick="window.location='recipeModifyForm.jsp?num=<%=num %>&pageNum=<%=pageNum%>'">수정</button>
 				<button onclick="window.location='recipeDeleteForm.jsp?num=<%=num %>&pageNum=<%=pageNum%>'">삭제</button>
 		<%	
-			} else {
+			} else if(!recipeBoard.getWriter().equals(session.getAttribute("memId"))){
 				%> <button onclick="scrap(<%=num%>,'<%=memId%>',<%=scrapDAO.confirmScrap(num, memId)%>)">레시피 찜</button> 
 					<button onclick="report('R','<%=num%>','<%=recipeBoard.getWriter()%>')">신고</button>
 				<%

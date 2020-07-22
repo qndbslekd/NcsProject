@@ -428,7 +428,7 @@ public class MemberDAO {
 	public void updateOffenceColumn(String offenceUrl, String member) {
 		try {
 			conn = getConnection();
-			String sql ="update Member set offence_url = concat(concat(offence_url,','),?), offence_count = offence_count+1 where id=?";
+			String sql ="update Member set offence_url = concat(concat(offence_url,','),?) where id=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1,offenceUrl);
 			pstmt.setString(2,member);
