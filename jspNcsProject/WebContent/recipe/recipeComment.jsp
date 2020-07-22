@@ -14,6 +14,29 @@
 <link href="../resource/team05_style.css" type="text/css" rel="stylesheet"/>
 
 </head>
+<style>
+#nonBorder {
+	border:0px;
+	background-color:white; 
+	color:black;
+	padding:5px;
+}
+#nonBorder tr {
+	border:0px;
+	background-color:white; 
+	color:black;
+	padding:5px;
+}
+#nonBorder td {
+	border:0px;
+	background-color:white; 
+	color:black;
+	padding:5px;
+}
+
+</style>
+
+
 <body>
 <%
 	request.setCharacterEncoding("utf-8");
@@ -43,11 +66,10 @@
 		RecipeCommentDTO dto = (RecipeCommentDTO) RecipeCommentList.get(i);
 		
 %>
-	<hr>
-	<table style="width:700px; border:0px;">
-		<tr style="border:0px;">
+	<table style="width:700px; border:0px;" id="nonBorder">
+		<tr style="border:0px; border-top:1px solid #ccc;">
 			<%if (dto.getReLevel()>0) {%><td rowspan="2" width="20px;" style="vertical-align:top;border:0px;"><img src="/jnp/recipe/imgs/replyImg.png" width="10px"/></td><%} %>
-			<td rowspan="2" style="width:60px; height:60px; padding:0px; vertical-align:top;border:0px;"><img src="/jnp/save/<%=rDAO.selectImgById(dto.getName())%>" style="width:60px; height:60px; border-radius:30px;"/></td>
+			<td rowspan="2" style="width:60px; height:60px; vertical-align:top;border:0px;"><img src="/jnp/save/<%=rDAO.selectImgById(dto.getName())%>" style="width:60px; height:60px; border-radius:30px;"/></td>
 			<td style="text-align:left; border:0px;">
 			<Strong> <%= rDAO.selectNameById(dto.getName()) %> </Strong>
 			<%if (memId != null) { %>
@@ -89,7 +111,7 @@
 		<input type="hidden" name="reLevel" value="0"/>
 		<input type="hidden" name="name" value="<%=session.getAttribute("memId")%>"/>
 		
-			<table>
+			<table id="nonBorder">
 				<tr>
 					<td><textarea name="content" cols="70" rows="3" style="resize:none;"></textarea></td><td><input type="submit" value="댓글작성"/>
 				</tr>
