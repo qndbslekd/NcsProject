@@ -375,7 +375,7 @@ public class ProductDAO {
 	public List<ProductDTO> selectRecomment(String num){
 		List<ProductDTO> comment = new ArrayList<ProductDTO>();
 		try {
-			String sql = "SELECT DISTINCT p.* FROM PRODUCT p,PRODUCT p2 WHERE p.NAME = p2.INGREDIENTS AND p.RE_STEP =? ORDER BY p.reg";
+			String sql = "SELECT DISTINCT p.* FROM PRODUCT p,PRODUCT p2 WHERE (p.NAME = p2.INGREDIENTS OR p2.NAME = p.name ) AND p.RE_STEP =? ORDER BY p.reg";
 			conn = getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1,Integer.parseInt(num));
