@@ -63,9 +63,13 @@
 			<tr>
 				<td > 정보글이 없습니다. </td>
 			</tr>
+		<%if(session.getAttribute("memId")!=null&&session.getAttribute("memId").equals("admin")){ %>
 			<tr>
-				<td><button onclick="window.location='main.jsp'">메인으로</button></td>
-			</tr>				
+				<td>
+					<button type="button" onclick="window.location='informationInsertForm.jsp'">글쓰기</button>
+				</td>
+			</tr>		
+		<%}%>		
 		</table>
 	<%}else{%>
 		<table>
@@ -80,6 +84,13 @@
 				<td><%=number--%></td>
 				<td><a href="information.jsp?num=<%=infoList.get(i).getNum()%>"><%=infoList.get(i).getSubject()%></a></td>
 				<td><a href="information.jsp?num=<%=infoList.get(i).getNum()%>"><%=infoList.get(i).getReg()%></a></td>
+			</tr>
+		<%} %>
+		<%if(session.getAttribute("memId")!=null&&session.getAttribute("memId").equals("admin")){ %>
+			<tr>
+				<td>
+					<button type="button" onclick="window.location='informationInsertForm.jsp'">글쓰기</button>
+				</td>
 			</tr>
 		<%} %>
 		</table>
