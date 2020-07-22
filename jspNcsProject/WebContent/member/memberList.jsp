@@ -1,3 +1,4 @@
+<%@page import="jspNcsProject.dao.ProductDAO"%>
 <%@page import="jspNcsProject.dao.RecipeContentCommentDAO"%>
 <%@page import="jspNcsProject.dao.RecipeCommentDAO"%>
 <%@page import="jspNcsProject.dto.MemberDTO"%>
@@ -86,6 +87,7 @@
 		//seq로 각테이블 접근
 		RecipeCommentDAO rcDao = RecipeCommentDAO.getInstance();
 		RecipeContentCommentDAO rccDao = RecipeContentCommentDAO.getInstance(); 
+		ProductDAO pDao = ProductDAO.getInstance();
 	%>
 
 <body>
@@ -125,37 +127,64 @@
 					<td style="background-color: red;"><%=memberList.get(i).getRegdate()%></td>
 					<td style="background-color: red;"><%=memberList.get(i).getOffence_count()%></td>
 					<td style="background-color: red;">
-						<% 
+						<%
 							if(memberList.get(i).getOffence_url()!=null){
 								String[] urls = memberList.get(i).getOffence_url().split(",");
 								for(int splitUrls = 0;splitUrls<urls.length;splitUrls++){
 									//테이블 고유번호
 									String seq = "";
-									%>
-									<%=urls[splitUrls]%>
-									<%
 									if(urls[splitUrls].contains("RCC")){
-										seq = urls[splitUrls].substring(3);
-										%> <a href="http://localhost:8080/jnp/recipe/recipeContent.jsp?num=<%=seq%>">조리단계댓글</a><%
+										seq = rccDao.selectSeqForMemberList(urls[splitUrls].substring(3));
+										%> <a href="http://localhost:8080/jnp/recipe/recipeContent.jsp?num=<%=seq%>">조리단계댓글</a>
+											<button type="button" onclick="window.open('memberOffenceUpdate.jsp?url=<%=urls[splitUrls] %>&id=<%=memberList.get(i).getId()%>','신고확정','toolbar=no,location=no,status = no, menubar = no, scrollbars = no,resizable = no, width = 500,height = 150');">
+											v</button>
+										<%
 									}else if(urls[splitUrls].contains("RC")){
-										seq = urls[splitUrls].substring(2);
-										%> <a href="http://localhost:8080/jnp/recipe/recipeContent.jsp?num=<%=seq%>">레시피댓글</a><%
+										seq = rcDao.selectSeqForMemberList(urls[splitUrls].substring(2));
+										%> <a href="http://localhost:8080/jnp/recipe/recipeContent.jsp?num=<%=seq%>">레시피댓글</a>
+											<button type="button" onclick="window.open('memberOffenceUpdate.jsp?url=<%=urls[splitUrls] %>&id=<%=memberList.get(i).getId()%>','신고확정','toolbar=no,location=no,status = no, menubar = no, scrollbars = no,resizable = no, width = 500,height = 150');">
+											v</button>
+										<%
 									}else if(urls[splitUrls].contains("R")){
 										seq = urls[splitUrls].substring(1);
-										%> <a href="http://localhost:8080/jnp/recipe/recipeContent.jsp?num=<%=seq%>">레시피</a><%
+										%> <a href="http://localhost:8080/jnp/recipe/recipeContent.jsp?num=<%=seq%>">레시피</a>
+											<button type="button" onclick="window.open('memberOffenceUpdate.jsp?url=<%=urls[splitUrls] %>&id=<%=memberList.get(i).getId()%>','신고확정','toolbar=no,location=no,status = no, menubar = no, scrollbars = no,resizable = no, width = 500,height = 150');">
+											v</button>
+										<%
 									}else if(urls[splitUrls].contains("PC")){
-										seq = urls[splitUrls].substring(2);
-										%> <a href="http://localhost:8080/jnp/recipe/recipeContent.jsp?num=<%=seq%>">제품</a><%
+										//댓글구분
+										String booleanCheckNum = urls[splitUrls].substring(2);
+										boolean isComment = pDao.isComment(booleanCheckNum);
+										if(isComment){
+											seq = pDao.getSeq(booleanCheckNum);
+										%> <a href="http://localhost:8080/jnp/product/productContent.jsp?num=<%=seq%>">제품댓글</a>
+											<button type="button" onclick="window.open('memberOffenceUpdate.jsp?url=<%=urls[splitUrls] %>&id=<%=memberList.get(i).getId()%>','신고확정','toolbar=no,location=no,status = no, menubar = no, scrollbars = no,resizable = no, width = 500,height = 150');">
+											v</button>
+										<%
+										}else{
+											seq = urls[splitUrls].substring(2);
+										%> <a href="http://localhost:8080/jnp/product/productContent.jsp?num=<%=seq%>">제품</a>
+											<button type="button" onclick="window.open('memberOffenceUpdate.jsp?url=<%=urls[splitUrls] %>&id=<%=memberList.get(i).getId()%>','신고확정','toolbar=no,location=no,status = no, menubar = no, scrollbars = no,resizable = no, width = 500,height = 150');">
+											v</button>
+										<%
+										}
 									}else if(urls[splitUrls].contains("F")){
 										seq = urls[splitUrls].substring(1);
-										%> <a href="http://localhost:8080/jnp/recipe/recipeContent.jsp?num=<%=seq%>">자유게시판</a><%
+										%> <a href="http://localhost:8080/jnp/recipe/recipeContent.jsp?num=<%=seq%>">자유게시판</a>
+											<button type="button" onclick="window.open('memberOffenceUpdate.jsp?url=<%=urls[splitUrls] %>&id=<%=memberList.get(i).getId()%>','신고확정','toolbar=no,location=no,status = no, menubar = no, scrollbars = no,resizable = no, width = 500,height = 150');">
+											v</button>
+										<%
 									}
-								}
-							} 
+								} 
+							}
 						%>
 					</td>
 					<td style="background-color: red;"><%=memberList.get(i).getState()%></td>
-					<td style="background-color: red;"><button onclick="window.location='memberKickOutPro.jsp?id=<%=memberList.get(i).getId() %>'" >강퇴</button></td>
+					<td style="background-color: red;">
+					<%if(!memberList.get(i).getId().equals("admin")){%>
+					<button onclick="window.location='memberKickOutPro.jsp?id=<%=memberList.get(i).getId() %>'" >강퇴</button>
+					<%} %>
+					</td>
 				</tr>	
 				<%}else{%>
 				<tr> 
@@ -165,47 +194,75 @@
 					<td><%=memberList.get(i).getGender()%></td>
 					<td><%=memberList.get(i).getName()%></td>
 					<td><%=memberList.get(i).getRegdate()%></td>
-					<td><%=memberList.get(i).getOffence_count()%></td>
+					<td><%=memberList.get(i).getOffence_count()%>
+					</td>
 					<td>
+					
 						<%
 							if(memberList.get(i).getOffence_url()!=null){
 								String[] urls = memberList.get(i).getOffence_url().split(",");
 								for(int splitUrls = 0;splitUrls<urls.length;splitUrls++){
 									//테이블 고유번호
 									String seq = "";
-									%>
-									<%=urls[splitUrls]%>
-									<%
 									if(urls[splitUrls].contains("RCC")){
-										seq = urls[splitUrls].substring(3);
-										%> <a href="http://localhost:8080/jnp/recipe/recipeContent.jsp?num=<%=seq%>">조리단계댓글</a><%
+										seq = rccDao.selectSeqForMemberList(urls[splitUrls].substring(3));
+										%> <a href="http://localhost:8080/jnp/recipe/recipeContent.jsp?num=<%=seq%>">조리단계댓글</a>
+											<button type="button" onclick="window.open('memberOffenceUpdate.jsp?url=<%=urls[splitUrls] %>&id=<%=memberList.get(i).getId()%>','신고확정','toolbar=no,location=no,status = no, menubar = no, scrollbars = no,resizable = no, width = 500,height = 150');">
+											v</button>
+										<%
 									}else if(urls[splitUrls].contains("RC")){
 										seq = rcDao.selectSeqForMemberList(urls[splitUrls].substring(2));
-										%> <a href="http://localhost:8080/jnp/recipe/recipeContent.jsp?num=<%=seq%>">레시피댓글</a><%
+										%> <a href="http://localhost:8080/jnp/recipe/recipeContent.jsp?num=<%=seq%>">레시피댓글</a>
+											<button type="button" onclick="window.open('memberOffenceUpdate.jsp?url=<%=urls[splitUrls] %>&id=<%=memberList.get(i).getId()%>','신고확정','toolbar=no,location=no,status = no, menubar = no, scrollbars = no,resizable = no, width = 500,height = 150');">
+											v</button>
+										<%
 									}else if(urls[splitUrls].contains("R")){
 										seq = urls[splitUrls].substring(1);
 										%> <a href="http://localhost:8080/jnp/recipe/recipeContent.jsp?num=<%=seq%>">레시피</a>
-											<button type="button">v</button>
+											<button type="button" onclick="window.open('memberOffenceUpdate.jsp?url=<%=urls[splitUrls] %>&id=<%=memberList.get(i).getId()%>','신고확정','toolbar=no,location=no,status = no, menubar = no, scrollbars = no,resizable = no, width = 500,height = 150');">
+											v</button>
 										<%
 									}else if(urls[splitUrls].contains("PC")){
-										seq = urls[splitUrls].substring(2);
-										%> <a href="http://localhost:8080/jnp/recipe/recipeContent.jsp?num=<%=seq%>">제품</a><%
+										//댓글구분
+										String booleanCheckNum = urls[splitUrls].substring(2);
+										boolean isComment = pDao.isComment(booleanCheckNum);
+										if(isComment){
+											seq = pDao.getSeq(booleanCheckNum);
+										%> <a href="http://localhost:8080/jnp/product/productContent.jsp?num=<%=seq%>">제품댓글</a>
+											<button type="button" onclick="window.open('memberOffenceUpdate.jsp?url=<%=urls[splitUrls] %>&id=<%=memberList.get(i).getId()%>','신고확정','toolbar=no,location=no,status = no, menubar = no, scrollbars = no,resizable = no, width = 500,height = 150');">
+											v</button>
+										<%
+										}else{
+											seq = urls[splitUrls].substring(2);
+										%> <a href="http://localhost:8080/jnp/product/productContent.jsp?num=<%=seq%>">제품</a>
+											<button type="button" onclick="window.open('memberOffenceUpdate.jsp?url=<%=urls[splitUrls] %>&id=<%=memberList.get(i).getId()%>','신고확정','toolbar=no,location=no,status = no, menubar = no, scrollbars = no,resizable = no, width = 500,height = 150');">
+											v</button>
+										<%
+										}
 									}else if(urls[splitUrls].contains("F")){
 										seq = urls[splitUrls].substring(1);
-										%> <a href="http://localhost:8080/jnp/recipe/recipeContent.jsp?num=<%=seq%>">자유게시판</a><%
+										%> <a href="http://localhost:8080/jnp/recipe/recipeContent.jsp?num=<%=seq%>">자유게시판</a>
+											<button type="button" onclick="window.open('memberOffenceUpdate.jsp?url=<%=urls[splitUrls] %>&id=<%=memberList.get(i).getId()%>','신고확정','toolbar=no,location=no,status = no, menubar = no, scrollbars = no,resizable = no, width = 500,height = 150');">
+											v</button>
+										<%
 									}
-								}
+								} 
 							}
 						%>
 					</td>
 					<td><%=memberList.get(i).getState()%></td>
-					<td><button onclick="window.location='memberKickOutPro.jsp?id=<%=memberList.get(i).getId() %>'" >강퇴</button></td>
+					<td>
+					<%if(!memberList.get(i).getId().equals("admin")){%>
+					<button onclick="window.location='memberKickOutPro.jsp?id=<%=memberList.get(i).getId() %>'" >강퇴</button>
+					<%} %>
+					</td>
+					
 				</tr>
 			<%		}
 				}%>
 			<tr>
 				<td colspan="10">
-					<button onclick="window.location='main.jsp'">메인으로</button>
+					<button onclick="window.location='../	main.jsp'">메인으로</button>
 					<button onclick="window.location='memberList.jsp?offence=1'">신고받은 회원 조회</button>
 					<form action="memberList.jsp" method="get">
 					<select name="option">
