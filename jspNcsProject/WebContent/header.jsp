@@ -114,11 +114,12 @@ a:hover {
 	<table id="header">
 		<tr>
 			
-			<td class="title" colspan="4">
+			<td class="title" colspan="5">
 			<img src="/jnp/leaf.png" width="100px"/>
 			<a href="/jnp/main.jsp">BEGIN VEGAN</a>
 			</td>
 		<tr>
+			<td>
 			<td>
 			<td>
 			<td>
@@ -137,10 +138,11 @@ a:hover {
 			<%} %>
 		</tr>
 		<tr>
-			<td class="tab" onclick="window.location='/jnp/information/information.jsp'">채식정보</td>
+			<td class="tab" onclick="window.location='/jnp/information/informationList.jsp'">채식정보</td>
 			<td class="tab" onclick="window.location='/jnp/recipe/recipeList.jsp?mode=num'">레시피</td>
 			<td class="tab" onclick="window.location='/jnp/product/productList.jsp'">제품</td>
 			<td class="tab" onclick="window.location='/jnp/freeboard/board.jsp'">자유게시판</td>
+			<td class="tab" onclick="window.location='mailto:admin@beginVegan.com'">문의하기</td>
 		</tr>
 	</table>
 </body>
