@@ -27,9 +27,6 @@
 	if(receiver != null && receiver.equals("")){
 		receiver = null;
 	}
-	
-	System.out.println("처리된 리시버:"+receiver);
-
 
 	String writer = request.getParameter("writer");
 	String content = request.getParameter("content");
@@ -39,10 +36,17 @@
 	BoardCommentDAO dao = BoardCommentDAO.getInstance();
 	dao.insertBoardComment(comment);
 	
-	String url ="boardContent.jsp?num="+freeboard_num;
-	response.sendRedirect(url);
-
-%>
+	if(ref!=0){%>
+		<script>
+			opener.parent.location.reload();
+			self.close();		
+		</script>
+		
+	<%}else{%>
+		<script>alert("댓글이 작성되었습니다.")</script>	
+	<%	String url ="boardContent.jsp?num="+freeboard_num;
+		response.sendRedirect(url);
+	}%>
 <body>
 
 </body>
