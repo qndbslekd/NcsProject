@@ -23,19 +23,39 @@
 <style>
 #nonBorder {
 	border:0px;
+	background-color:white; 
+	color:black;
+	padding:10px;
 }
 #nonBorder tr {
 	border:0px;
+	background-color:white; 
+	color:black;
+	padding:10px;
 }
 #nonBorder td {
 	border:0px;
+	background-color:white; 
+	color:black;
+	padding:10px;
 }
 
+#greenButton {
+	border:0px;
+    color:white;
+    padding: 8px 15px;
+    cursor: pointer;
+    width: auto;
+    height: auto;
+    background: rgb(139, 195, 74);
+    border-radius: 10px;
+    outline: none;
+    margin: 5px auto;
+}
 </style>
 </head>
 <%
 	request.setCharacterEncoding("UTF-8");
-
 	String pageNum = request.getParameter("pageNum");
 	if(pageNum==null) pageNum="1";
 	String memId = (String)session.getAttribute("memId");
@@ -64,7 +84,6 @@
 	
 	// 조리단계 댓글 dao
 	RecipeContentCommentDAO dao = null;
-
 %>
 <body>
 	<jsp:include page="../header.jsp" flush="false" />
@@ -73,35 +92,45 @@
 	
 	<table id="nonBorder">
 		<tr >
-			<td colspan="4">
-				<img src="imgs/<%= recipeBoard.getThumbnail() %>" style="max-width:800px" />
+			<td colspan="6" >
+				<div style="min-width:40px; display:inline-block">&nbsp;</div>
+				<img src="imgs/<%= recipeBoard.getThumbnail() %>" style="max-width:600px" />
+				<span style="vertical-align:top; top:0px; width:40px;">
+				<%if (memId != null) {  if(!memId.equals(recipeBoard.getWriter())) {%>
+					<%String empty = ""; if(!scrapDAO.confirmScrap(num, memId)) { empty = "empty"; }%>
+					<img src="/jnp/recipe/imgs/<%=empty %>heart.png" width="40px" onclick="scrap(<%=num%>,'<%=memId%>',<%=scrapDAO.confirmScrap(num, memId)%>)" />
+				<%} }%>
+				</span>
 			</td>
 		</tr>
 		<tr>
-			<td colspan="4">
-				 레시피 제목 : <%= recipeBoard.getRecipeName() %>
+			<td colspan="6">
+				 <h1><%= recipeBoard.getRecipeName() %></h1>
 			</td>
 		</tr>
 		<tr>
-			<td colspan="4">
-				채식주의 타입 : <%= recipeBoard.getVegiType() %>
+			<td colspan="6">
+				<img src = "/jnp/recipe/imgs/<%=recipeBoard.getVegiType()%>.jpg" style="margin:30px"/>
 			</td>
 		</tr>
 		<tr>
-			<td style="width:25%;" >
+			<td style="width:20%;"></td>
+			<td style="width:15%; margin:0px; padding:0px;" >
 				<img src="/jnp/recipe/imgs/quantity.png" width="40"/>
 			</td>
-			<td style="width:25%;">
+			<td style="width:15%; margin:0px; padding:0px;">
 				<img src="/jnp/recipe/imgs/cookingTime.png" width="40"/>
 			</td>
-			<td style="width:25%;">
+			<td style="width:15%; margin:0px; padding:0px;">
 				<img src="/jnp/recipe/imgs/difficulty.png" width="40"/>
 			</td>
-			<td style="width:25%;">
+			<td style="width:15%; margin:0px; padding:0px;">
 				<img src="/jnp/recipe/imgs/cal.png" width="40"/>
 			</td>
+			<td style="width:20%;"></td>
 		</tr>
 		<tr>
+			<td></td>
 			<td>
 				<%= recipeBoard.getQuantity() %>인분
 			</td>
@@ -114,30 +143,37 @@
 			<td>
 				<%= recipeBoard.getCal() %>kcal
 			</td>
+			<td></td>
 		</tr>
+		<tr><td>&nbsp;</td></tr>
 		<tr>
-			<td colspan="2">
-				평점 : <%=recipeBoard.getRating() %>
+			<td colspan="3" style="border-top:2px solid #ccc;border-right:2px solid #ccc;border-bottom:2px solid #ccc;">
+				<span> 평점 : </span> 
+				<%for(int i = 0; i < (int)recipeBoard.getRating() ; i++) {
+					%> <img src = "/jnp/recipe/imgs/star.png" width="15px" style="margin:0px auto; vertical-align:center"/> 
+				<%}%>
+				<%for(int i = 0; i < 5-(int)recipeBoard.getRating() ; i++) {
+					%> <img src = "/jnp/recipe/imgs/emptyStar.png" width="15px"style="margin:0px auto; vertical-align:center"/> 
+				<%}%>
+									
+				
+				<%=recipeBoard.getRating() %>
 				<% if(memId != null) { %>
-				<button onclick="rating(<%=num%>)">평점 남기기</button>
+				<button id="greenButton" onclick="rating(<%=num%>)">평점 남기기</button>
 				<%} %>
 			</td>
-			<%-- 작성자는 닉네임으로 --%>
-			<td colspan="2">
-				<table>
+			<td colspan="3" style="border-top:2px solid #ccc;">
+				<table id="nonBorder">
 					<tr>
-						<td rowspan="2"> <img src="/jnp/save/<%=recipeDAO.selectImgById(recipeBoard.getWriter())%>" style="width:60px; height:60px; border-radius:30px; "/> </td>
-						<td colspan="2">작성자</td>
-					</tr>
-					<tr>
-						<td><%= recipeDAO.selectNameById(recipeBoard.getWriter())%></td>
-						<td><button onclick="window.location='recipeSearchList.jsp?writer=<%=recipeBoard.getWriter()%>'">레시피 더 보기</button></td>
+						<td> <img src="/jnp/save/<%=recipeDAO.selectImgById(recipeBoard.getWriter())%>" style="width:60px; height:60px; border-radius:30px; "/> </td>
+						<td><h2><%= recipeDAO.selectNameById(recipeBoard.getWriter())%></h2></td>
+						<td><button id = "greenButton" onclick="window.location='recipeSearchList.jsp?writer=<%=recipeBoard.getWriter()%>'">레시피 더 보기</button></td>
 					</tr>
 				</table>
 			</td>
 		</tr>
 		<tr>
-			<td colspan="4">
+			<td colspan="6" style="padding:30px; border-bottom:2px solid #ccc" >
 
 				태그 : 
 				<% if(recipeBoard.getTag()!=null) { %>
@@ -146,7 +182,7 @@
 					for (int i = 0; i< tags.length; i++) { 
 						if(!tags[i].equals("")){	
 					%>
-						<button onclick="window.location='recipeSearchList.jsp?tag=<%=tags[i]%>'"><%= tags[i]%></button>
+						<button id="greenButton" style="border:3px solid rgb(139, 195, 74);background:white; color:black; padding:3px 10px" onclick="window.location='recipeSearchList.jsp?tag=<%=tags[i]%>'"><%= tags[i]%></button>
 					<%}
 					} 
 				} else {%>
@@ -156,7 +192,7 @@
 			</td>			
 		</tr>
 		<tr>
-			<td colspan="4">
+			<td colspan="6" style="border-bottom:2px solid #ccc">
 				<h4>재료</h4> 			
 			<table>			
 				<% 
@@ -173,10 +209,11 @@
 				</tr>				
 				<%}%>
 			</table>
+			<br/><br/>
 			</td>			
 		</tr>
 		<tr>
-			<td colspan="4" style="align:left;">
+			<td colspan="6" style="align:left;">
 				<%--추천 제품 --%>
 				<jsp:include page="recipeShowProduct.jsp">
 					<jsp:param value="<%=num %>" name="num"/>
@@ -184,11 +221,11 @@
 			</td>			
 		</tr>
 		<tr>
-			<td colspan="4">
+			<td colspan="6">
 				<jsp:include page="recipeStepComment.jsp" flush="false"/>
 		<tr>
-			<td colspan="4">
-			<span style="text-align:left; margin:0px;" ><h1>댓글</h1></span>
+			<td colspan="6">
+			<span style="text-align:left; margin:0px;" ><h1>댓글</h1><hr></span>
 				<jsp:include page="recipeComment.jsp">
 					<jsp:param value="<%=num %>" name="num"/>
 				</jsp:include>
@@ -205,7 +242,7 @@
 				<button onclick="window.location='recipeModifyForm.jsp?num=<%=num %>&pageNum=<%=pageNum%>'">수정</button>
 				<button onclick="window.location='recipeDeleteForm.jsp?num=<%=num %>&pageNum=<%=pageNum%>'">삭제</button>
 		<%	
-			} else {
+			} else if(!recipeBoard.getWriter().equals(session.getAttribute("memId"))){
 				%> <button onclick="scrap(<%=num%>,'<%=memId%>',<%=scrapDAO.confirmScrap(num, memId)%>)">레시피 찜</button> 
 					<button onclick="report('R','<%=num%>','<%=recipeBoard.getWriter()%>')">신고</button>
 				<%
@@ -243,7 +280,5 @@
 			location.href= "../member/offenceMember.jsp?offenceUrl="+offenceCode+"&member="+member;
 		}		
 	}
-
-
 </script>
 </html>

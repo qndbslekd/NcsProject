@@ -27,6 +27,15 @@
 </style>
 </head>
 <%
+	request.setCharacterEncoding("utf-8");	
+	
+	//정렬기준
+	String mode= request.getParameter("mode");// reg, recommend, read_count
+	
+	if(mode==null || mode.equals("")){
+		mode = "reg";
+	}
+		
 	String pageNum = request.getParameter("pageNum");
 	if(pageNum == null){
 		pageNum  = "1";
@@ -55,117 +64,151 @@
 	String sel = request.getParameter("sel");//검색조건
 	String search = request.getParameter("search"); //검색결과
 	
+	
+	if(category != null && category.equals("null")) {category=null;}
+	if(sel != null &&sel.equals("null")) {sel=null;}
+	if(search != null &&search.equals("null")) {search=null;}
+	
+	System.out.println("category:"+category+" sel:"+sel+" search:"+search);
+	
+	
+	
 	List articleList = null;
 	
 
-	if(category!=null && !category.equals("") && sel != null && !sel.equals("")){
+	if(category!= null && !category.equals("") && sel != null && !sel.equals("")){
 		//검색 요청 찾기
 		String whereQuery = "where 1=1 ";
-		if(!category.equals("total") && !sel.equals("total")){
-			whereQuery += "and category='"+category+"' and "+sel+" like '%"+search+"%'";
+		String name = "";
+		//작성자명은 활동명이므로 검색시 쿼리문 검색을 위해 id를 받아와야함
+			
+		if(!category.equals("total") && !sel.equals("total")){		
+			if(search!=null && !search.equals("")){
+				if(sel.equals("writer")){
+					//활동명->아이디
+					name = dao.selectIdByName(search);
+				}
+				whereQuery += "and category='"+category+"' and "+sel+" like '%"+name+"%'";
+			}
 		}else if(!category.equals("total") && sel.equals("total")){
-			whereQuery += "and category='"+category;
+			whereQuery += "and category='"+category+"'";
 		}else if(!sel.equals("total")){
-			whereQuery += "and "+sel+" like '%"+search+"%'";
-		}
-		
+			if(sel.equals("writer")){
+				//활동명->아이디
+				name = dao.selectIdByName(search);
+			}
+			if(search!=null && !search.equals("")){
+				whereQuery += "and "+sel+" like '%"+name+"%'";
+			}	
+		}		
 		count = dao.getArticlesCount(whereQuery);
+		System.out.println("검색리스트 요청 whereQuery:"+whereQuery +" count:"+count);
 		if(count > 0 ){
 			//검색 요청한 글 리스트 가져오기
 			newCount = dao.getArticlesCount(new Timestamp(today_todate.getTime()),whereQuery);
-			articleList = dao.selectAllArticle(startRow, endRow, whereQuery);
+			articleList = dao.selectAllArticle(startRow, endRow, whereQuery, mode);
 		}		
 	}else{
+		
 		count = dao.getArticlesCount();
+		
 		if( count > 0 ){
 			newCount = dao.getArticlesCount(new Timestamp(today_todate.getTime()));
-			articleList = dao.selectAllArticle(startRow, endRow);
+			articleList = dao.selectAllArticle(startRow, endRow, mode);
 		}
+		//System.out.println("전체리스트요청, mode:"+mode +" count:"+count+" newCount:"+ newCount);
 	}
+	
 	number = count -(currPage-1)*pageSize;
 		
 %>
 <body>
 	<jsp:include page="../header.jsp" flush="false"/>
 	<h1 align="center"></h1>
-	
-	<%if(count == 0){ %>
-		<table>
-		<%if(session.getAttribute("memId")!= null){ %>
-			<tr>
-				<td>
-					<button onclick="window.location='boardInsertForm.jsp'">글쓰기</button>			
-				</td>
-				<td colspan='5'>
-				</td>
-			</tr>
-		<%}%>
-			<tr>
-				<td>게시글이 없습니다.</td>
-			</tr>		
-		</table>	
-	<%}else{ %>
+	<table >
+	<%if(session.getAttribute("memId")!= null){ %>
+		<tr>
+			<td>
+				<button onclick="window.location='boardInsertForm.jsp'">글쓰기</button>			
+			</td>
+			<td colspan='5'>
+			</td>
+		</tr>
+	<%}%>
+	</table>
 	<form action="board.jsp" method="post">
 		<table>
-		<%if(session.getAttribute("memId")!= null){ %>
-			<tr>
-				<td>
-					<button onclick="window.location='boardInsertForm.jsp'">글쓰기</button>			
-				</td>
-				<td colspan='5'>
-				</td>
-			</tr>
-		<%}%>
 			<tr>
 				<td colspan='2'>
 					<p>새글 <%=newCount%>/<%=count%><p>
 				</td>
-	
-			<td colspan='4'>
+				<td colspan='4'>
 					<select name="category">
-						<option value="total">카테고리</option>
-						<option value="notice">공지사항</option>
-						<option value="question">고민과 질문</option>
-						<option value="information">정보 공유</option>
-						<option value="freetalk">잡담과일기</option>
+						<option value="total" <%if(category != null && category.equals("total")){%>selected<%}%>>카테고리</option>
+						<option value="notice" <%if(category != null && category.equals("notice")){%>selected<%}%>>공지사항</option>
+						<option value="question" <%if(category != null && category.equals("question")){%>selected<%}%>>고민과질문</option>
+						<option value="information" <%if(category != null && category.equals("information")){%>selected<%}%>>정보 공유</option>
+						<option value="freetalk" <%if(category != null && category.equals("freetalk")){%>selected<%}%>>잡담과일기</option>
 					</select>
 					<select name="sel">
-						<option value="total">검색조건</option>
-						<option value="title">제목</option>
-						<option value="content">내용</option>
-						<option value="writer">작성자</option>
+						<option value="total" <%if(sel != null && sel.equals("total")){%>selected<%}%>>검색조건</option>
+						<option value="title" <%if(sel != null && sel.equals("title")){%>selected<%}%>>제목</option>
+						<option value="content" <%if(sel != null && sel.equals("content")){%>selected<%}%>>내용</option>
+						<option value="writer" <%if(sel != null && sel.equals("writer")){%>selected<%}%>>작성자</option>
 					</select>
 					<input type="text" name="search"/>
 				</td>	
-				<td><input type="submit" value="검색"/></td>	
-			
+				<td><input type="submit" value="검색"/></td>				
 			</tr>
-			<tr>
-				<td>글번호</td>
-				<td>[말머리]</td>
-				<td>제목</td>
-				<td>글쓴이</td>
-				<td>조회수</td>
-				<td>추천수</td>
-			</tr>
-			<%
-				for(int i = 0; i< articleList.size();i++){
-					FreeBoardDTO dto = (FreeBoardDTO)(articleList.get(i));
-					//활동명 받아오기
-					String name = dao.selectNameById(dto.getWriter());
-			%>
-			<tr>
-				<td><%=number--%></td>
-				<td><%=dto.getCategory()%></td>
-				<td onclick="window.location='boardContent.jsp?num=<%=dto.getNum()%>'"><%=dto.getTitle()%></td>
-				<td><%=name%></td>
-				<td><%=dto.getRead_count()%></td>
-				<td><%=dto.getRecommend()%></td>
-			</tr>
-			<%} %>
 		</table>
 	</form>
-	<%} %>
+	
+	<table class="list">
+		<tr>
+			<td><button onclick="window.location='board.jsp?mode=reg&category=<%=category%>&sel=<%=sel%>&search=<%=search%>&pageNum=<%=pageNum%>'">최신순</button></td>
+			<td><button onclick="window.location='board.jsp?mode=read_count&category=<%=category%>&sel=<%=sel%>&search=<%=search%>&pageNum=<%=pageNum%>'">조회순</button></td>
+			<td><button onclick="window.location='board.jsp?mode=recommend&category=<%=category%>&sel=<%=sel%>&search=<%=search%>&pageNum=<%=pageNum%>'">추천순</button></td>
+		</tr>	
+		<tr>
+			<td>글번호</td>
+			<td>[말머리]</td>
+			<td>제목</td>
+			<td>글쓴이</td>
+			<td>조회수</td>
+			<td>추천수</td>
+		</tr>
+	<%if(count == 0){ %>
+		<tr>
+			<td colspan='6'>게시글이 없습니다.</td>
+		</tr>			
+	<%}else{	
+			for(int i = 0; i< articleList.size();i++){
+				FreeBoardDTO dto = (FreeBoardDTO)(articleList.get(i));
+				//활동명 받아오기
+				String name = dao.selectNameById(dto.getWriter());
+		%>
+		<tr>
+			<td><%=number--%></td>	
+			<%if(dto.getCategory().equals("notice")){%>	
+			<td>공지사항</td>
+			<%} %>
+			<%if(dto.getCategory().equals("freetalk")){%>	
+			<td>잡담과일기</td>
+			<%} %>
+			<%if(dto.getCategory().equals("information")){%>	
+			<td>정보 공유</td>
+			<%} %>
+			<%if(dto.getCategory().equals("question")){%>	
+			<td>고민과질문</td>
+			<%} %>
+			<td onclick="window.location='boardContent.jsp?num=<%=dto.getNum()%>&mode=<%=mode%>&category=<%=category%>&sel=<%=sel%>&search=<%=search%>&pageNum=<%=pageNum%>'"><%=dto.getTitle()%></td>
+			<td><%=name%></td>
+			<td><%=dto.getRead_count()%></td>
+			<td><%=dto.getRecommend()%></td>
+		</tr>
+			<%}
+	}%>
+	</table>
 	
 	<div class="paging">
 	<%
