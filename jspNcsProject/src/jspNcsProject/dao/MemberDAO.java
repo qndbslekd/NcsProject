@@ -285,7 +285,7 @@ public class MemberDAO {
 		int result=0;
 		try {
 			conn = getConnection();
-			String sql = "select count(*) from member where OFFENCE_COUNT > 0";
+			String sql = "select count(*) from member WHERE OFFENCE_URL IS NOT NULL";
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
@@ -378,7 +378,7 @@ public class MemberDAO {
 			conn = getConnection();
 			String sql = "select id,pw,age,gender,name,regdate,offence_count,offence_url,state,r from "
 					+ "(select id,pw,age,gender,name,regdate,offence_count,offence_url,state, rownum r from "
-					+ "(select * from MEMBER where OFFENCE_COUNT>0 ORDER BY OFFENCE_COUNT desc)) where r>=? and r<=?";
+					+ "(select * from MEMBER WHERE OFFENCE_URL IS NOT NULL ORDER BY OFFENCE_COUNT desc)) where r>=? and r<=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, start);
 			pstmt.setInt(2, end);
