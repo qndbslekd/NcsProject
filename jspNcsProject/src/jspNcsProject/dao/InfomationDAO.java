@@ -178,5 +178,23 @@ public class InfomationDAO {
 		}
 		return x;
 	}
-
+	
+	public int deleteInfo(String num) {
+		int result = 0;
+		try {
+			conn = getConnection();
+			String sql = "delete from information where num=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, Integer.parseInt(num));
+			result = pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(rs != null)try {rs.close();}catch(Exception e) {e.printStackTrace();}
+			if(pstmt != null)try {pstmt.close();}catch(Exception e) {e.printStackTrace();}
+			if(conn != null)try {conn.close();}catch(Exception e) {e.printStackTrace();}
+		}
+		return result;
+	}
+	
 }
