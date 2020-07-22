@@ -101,7 +101,6 @@ public class RecipeCommentDAO {
 			
 			if(dto.getRef()!=0) {//받아온 ref값이 있다면(대댓글이라면)
 
-				
 				//기존 댓글들 re_step 하나씩 뒤로 미뤄주기 (새로 달린 대댓글이 위로)
 //				String sql = "update recipe_comment set re_step=re_step+1 where ref=?";
 //				pstmt = conn.prepareStatement(sql);
@@ -119,10 +118,7 @@ public class RecipeCommentDAO {
 				
 				pstmt.executeUpdate();
 				
-			} else {	//ref값이 없다면(일반댓글이라면) 고유번호=ref 같도록
-				
-				
-				
+			} else {	//ref값이 없다면(일반댓글이라면) 고유번호=ref 같도록			
 				//새 댓글 삽입
 				String sql = "insert into recipe_comment values(recipe_comment_seq.nextVal, ?,recipe_comment_seq.currVal,?,?,?,?,sysdate)";
 				pstmt = conn.prepareStatement(sql);
