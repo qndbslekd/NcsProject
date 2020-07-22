@@ -91,7 +91,6 @@
 <body>
 	<jsp:include page="../header.jsp" flush="false" />
 	<br />
-	<h1 align="center">   content </h1>
 	
 	<table id="nonBorder">
 		<tr >
