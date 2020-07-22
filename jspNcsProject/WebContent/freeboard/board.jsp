@@ -27,6 +27,8 @@
 </style>
 </head>
 <%
+	request.setCharacterEncoding("utf-8");	
+
 	String pageNum = request.getParameter("pageNum");
 	if(pageNum == null){
 		pageNum  = "1";
@@ -61,15 +63,25 @@
 	if(category!=null && !category.equals("") && sel != null && !sel.equals("")){
 		//검색 요청 찾기
 		String whereQuery = "where 1=1 ";
+		//작성자명은 활동명이므로 검색시 쿼리문 검색을 위해 id를 받아와야함
+		if(sel.equals("writer")){
+			//활동명->아이디
+			search = dao.selectIdByName(search);
+		}
+		
 		if(!category.equals("total") && !sel.equals("total")){
-			whereQuery += "and category='"+category+"' and "+sel+" like '%"+search+"%'";
+			if(search!=null && !search.equals("")){
+				whereQuery += "and category='"+category+"' and "+sel+" like '%"+search+"%'";
+			}
 		}else if(!category.equals("total") && sel.equals("total")){
 			whereQuery += "and category='"+category;
 		}else if(!sel.equals("total")){
-			whereQuery += "and "+sel+" like '%"+search+"%'";
-		}
-		
+			if(search!=null && !search.equals("")){
+				whereQuery += "and "+sel+" like '%"+search+"%'";
+			}	
+		}		
 		count = dao.getArticlesCount(whereQuery);
+		System.out.println("whereQuery:"+whereQuery +" count:"+count);
 		if(count > 0 ){
 			//검색 요청한 글 리스트 가져오기
 			newCount = dao.getArticlesCount(new Timestamp(today_todate.getTime()),whereQuery);
@@ -82,31 +94,15 @@
 			articleList = dao.selectAllArticle(startRow, endRow);
 		}
 	}
+	
 	number = count -(currPage-1)*pageSize;
 		
 %>
 <body>
 	<jsp:include page="../header.jsp" flush="false"/>
 	<h1 align="center"></h1>
-	
-	<%if(count == 0){ %>
-		<table>
-		<%if(session.getAttribute("memId")!= null){ %>
-			<tr>
-				<td>
-					<button onclick="window.location='boardInsertForm.jsp'">글쓰기</button>			
-				</td>
-				<td colspan='5'>
-				</td>
-			</tr>
-		<%}%>
-			<tr>
-				<td>게시글이 없습니다.</td>
-			</tr>		
-		</table>	
-	<%}else{ %>
 	<form action="board.jsp" method="post">
-		<table>
+		<table class="board-header">
 		<%if(session.getAttribute("memId")!= null){ %>
 			<tr>
 				<td>
@@ -120,12 +116,11 @@
 				<td colspan='2'>
 					<p>새글 <%=newCount%>/<%=count%><p>
 				</td>
-	
-			<td colspan='4'>
+				<td colspan='4'>
 					<select name="category">
 						<option value="total">카테고리</option>
 						<option value="notice">공지사항</option>
-						<option value="question">고민과 질문</option>
+						<option value="question">고민과질문</option>
 						<option value="information">정보 공유</option>
 						<option value="freetalk">잡담과일기</option>
 					</select>
@@ -137,35 +132,51 @@
 					</select>
 					<input type="text" name="search"/>
 				</td>	
-				<td><input type="submit" value="검색"/></td>	
-			
+				<td><input type="submit" value="검색"/></td>				
 			</tr>
-			<tr>
-				<td>글번호</td>
-				<td>[말머리]</td>
-				<td>제목</td>
-				<td>글쓴이</td>
-				<td>조회수</td>
-				<td>추천수</td>
-			</tr>
-			<%
-				for(int i = 0; i< articleList.size();i++){
-					FreeBoardDTO dto = (FreeBoardDTO)(articleList.get(i));
-					//활동명 받아오기
-					String name = dao.selectNameById(dto.getWriter());
-			%>
-			<tr>
-				<td><%=number--%></td>
-				<td><%=dto.getCategory()%></td>
-				<td onclick="window.location='boardContent.jsp?num=<%=dto.getNum()%>'"><%=dto.getTitle()%></td>
-				<td><%=name%></td>
-				<td><%=dto.getRead_count()%></td>
-				<td><%=dto.getRecommend()%></td>
-			</tr>
-			<%} %>
 		</table>
 	</form>
-	<%} %>
+	<table class="list">
+		<tr>
+			<td>글번호</td>
+			<td>[말머리]</td>
+			<td>제목</td>
+			<td>글쓴이</td>
+			<td>조회수</td>
+			<td>추천수</td>
+		</tr>
+	<%if(count == 0){ %>
+		<tr>
+			<td colspan='6'>게시글이 없습니다.</td>
+		</tr>			
+	<%}else{	
+			for(int i = 0; i< articleList.size();i++){
+				FreeBoardDTO dto = (FreeBoardDTO)(articleList.get(i));
+				//활동명 받아오기
+				String name = dao.selectNameById(dto.getWriter());
+		%>
+		<tr>
+			<td><%=number--%></td>	
+			<%if(dto.getCategory().equals("notice")){%>	
+			<td>공지사항</td>
+			<%} %>
+			<%if(dto.getCategory().equals("freetalk")){%>	
+			<td>잡담과일기</td>
+			<%} %>
+			<%if(dto.getCategory().equals("information")){%>	
+			<td>정보 공유</td>
+			<%} %>
+			<%if(dto.getCategory().equals("question")){%>	
+			<td>고민과질문</td>
+			<%} %>
+			<td onclick="window.location='boardContent.jsp?num=<%=dto.getNum()%>'"><%=dto.getTitle()%></td>
+			<td><%=name%></td>
+			<td><%=dto.getRead_count()%></td>
+			<td><%=dto.getRecommend()%></td>
+		</tr>
+			<%}%>
+	<%}%>
+	</table>
 	
 	<div class="paging">
 	<%
