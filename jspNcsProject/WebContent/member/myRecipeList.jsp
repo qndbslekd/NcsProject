@@ -37,6 +37,14 @@
 	if(count > 0){// 글이 하나라도 있으면 가져오기 
 		myRecipeList  = dao.selectMyRecipe(startRow, endRow, memId);
 	}
+	
+	
+	if(memId == null){ %>
+		<script>
+			alert("로그인 후 이용하세요");
+			window.location="loginForm.jsp";
+		</script>
+	<% }else{	
 %>
 <%-- 게시판 형태 만들기 --%>
 <body>
@@ -51,10 +59,11 @@
 		</table>	
 	<%
 	}else{ %>
-	<table>
 	<% for(int i = 0 ; i < myRecipeList.size(); i++){
 		dto =(RecipeDTO)myRecipeList.get(i);
 	%>
+	<div onclick="location.href='../recipe/recipeContent.jsp?num=<%= dto.getNum()%>'">
+	<table style="width:700">
 		<tr>
 			<td rowspan="4">
 				<img src="../recipe/imgs/beach.jpg" width="150px" height="150px"/>
@@ -80,9 +89,10 @@
 			주재료 : <%= dto.getIngredients() %>
 			</td>		
 		</tr>
+	</table>
+	</div>
 	<%}
 	%>
-	</table>
 	<%} %>
 	<br />
 	<div align="center">
@@ -110,4 +120,5 @@
 	%>
 	</div>
 </body>
+	<%} %>
 </html>

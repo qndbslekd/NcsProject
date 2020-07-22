@@ -324,4 +324,41 @@ public class RecipeContentCommentDAO {
 		return count;
 	}
 	
+	// 작성자 아이디로 댓글 가져오기(범위만큼)
+	public List selectMyRecipeStepComment(int start, int end, String writer) {
+		ArrayList myStepCommentList = null;
+		try {
+			conn = getConnection();
+			String sql = "SELECT rcc.* FROM(SELECT rownum AS r, rcc.* FROM (SELECT rcc.* FROM RECIPE_CONTENT_COMMENT rcc WHERE name = ? ORDER BY rcc.reg ASC) rcc)rcc WHERE r >= ? AND r <= ?"; 
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, writer);
+			pstmt.setInt(2, start);
+			pstmt.setInt(3, end);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				myStepCommentList = new ArrayList();
+				do {
+					RecipeContentCommentDTO stepComment = new RecipeContentCommentDTO();
+					stepComment.setContent(rs.getString("content"));
+					stepComment.setContentNum(rs.getInt("content_num"));
+					stepComment.setName(writer);
+					stepComment.setNum(rs.getInt("num"));
+					stepComment.setRecipeNum(rs.getInt("recipe_num"));
+					stepComment.setRef(rs.getInt("ref"));
+					stepComment.setReg(rs.getTimestamp("reg"));
+					stepComment.setReLevel(rs.getInt("re_level"));
+					stepComment.setReStep(rs.getInt("re_step"));
+					myStepCommentList.add(stepComment);
+				}while(rs.next());
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(rs != null)try {rs.close();}catch(Exception e) {e.printStackTrace();}
+			if(pstmt != null)try {pstmt.close();}catch(Exception e) {e.printStackTrace();}
+			if(conn != null)try {conn.close();}catch(Exception e) {e.printStackTrace();}
+		}	
+		return myStepCommentList;
+	}
+		
 }

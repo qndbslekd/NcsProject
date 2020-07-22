@@ -12,6 +12,19 @@
 <meta charset="UTF-8">
 <title>myRecipeCommentList</title>
 <link href="../resource/team05_style.css" type="text/css" rel="stylesheet"/>
+<style>
+
+	#nonBorder {
+		border:0px;
+	}
+	#nonBorder tr {
+		border:0px;
+	}
+	#nonBorder td {
+		border:0px;
+	}
+
+</style>
 </head>
 <%
 	request.setCharacterEncoding("UTF-8");
@@ -41,24 +54,29 @@
 		myCommentList  = dao.selectMyRecipeComment(startRow, endRow, memId);
 	}
 	
-	
+	if(memId == null){ %>
+		<script>
+			alert("로그인 후 이용하세요");
+			window.location="loginForm.jsp";
+		</script>
+	<% }else{	
 
 	
 %>
 <%-- 게시판 형태 만들기 --%>
 <body>
+<h3> [레시피 게시판] </h3>
 	<%-- 게시글이 없을 때 --%>
 	<% if(count == 0){%>
-		<table>
+		<table id="nonBorder">
 			<tr>
-				<td>
-					게시글이 없습니다.
+				<td class="line">
+					작성한 댓글이 없습니다.
 				</td>
 			</tr>
 		</table>	
 	<%
 	}else{ %>
-	<table>
 	<% for(int i = 0 ; i < myCommentList.size(); i++){
 		dto = (RecipeCommentDTO)myCommentList.get(i);
 		
@@ -69,6 +87,8 @@
 		RecipeDTO recipeboardDTO = new RecipeDTO();
 		recipeboardDTO = recipeboardDAO.selectRecipeBoard(recipeNum);
 	%>
+	<div onclick="location.href='../recipe/recipeContent.jsp?num=<%= recipeboardDTO.getNum()%>'">
+	<table border="0" id="nonBorder">
 		<tr>
 			<td >
 				원글제목 <%= recipeboardDTO.getRecipeName() %>
@@ -79,14 +99,15 @@
 				댓글 내용 : <%= dto.getContent() %>
 			</td>		
 		</tr>
-		<tr>
+		<tr style="border-bottom:1px solid black">
 			<td>
 				댓글 단 시간 : <%= dto.getReg() %>
 			</td>
 		</tr>
+	</table>
+	</div>
 	<%}
 	%>
-	</table>
 	<%} %>
 	<br />
 	<div align="center">
@@ -99,14 +120,14 @@
 			int endPage = startPage + pageBlock - 1;
 			if(endPage > pageCount){endPage = pageCount;}
 			if(startPage > pageBlock){ %>
-				<a href="myCommentList.jsp?pageNum=<%= startPage-pageBlock%>"> &lt; </a>
+				<a href="myCommentList.jsp?pageNum=<%= startPage-pageBlock%>&option=myRecipeCommentList"> &lt; </a>
 			<%}
 			// 페이지 번호 뿌려주기
 			for(int i = startPage; i <= endPage; i++){ %>
-				<a href="myCommentList.jsp?pageNum=<%=i%>" class="pageNums"> &nbsp; <%=i %> &nbsp; </a>
+				<a href="myCommentList.jsp?pageNum=<%=i%>&option=myRecipeCommentList" class="pageNums"> &nbsp; <%=i %> &nbsp; </a>
 			<%}
 			if(endPage < pageCount){ %>
-				<a href="myCommentList.jsp?pageNum=<%=startPage+pageBlock%>"> &gt; </a>
+				<a href="myCommentList.jsp?pageNum=<%=startPage+pageBlock%>&option=myRecipeCommentList"> &gt; </a>
 			<%}
 		
 		} // if1 끝
@@ -114,4 +135,5 @@
 	%>
 	</div>
 </body>
+	<%} %>
 </html>

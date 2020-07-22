@@ -276,10 +276,8 @@ public class RecipeCommentDAO {
 						comment.setReceiver(rs.getString("receiver"));
 						comment.setReg(rs.getTimestamp("reg"));
 						myCommentList.add(comment);
-					}while(rs.next());
-			
-				}
-				
+					}while(rs.next());		
+				}	
 			}catch(Exception e) {
 				e.printStackTrace();
 			}finally {
