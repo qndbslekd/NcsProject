@@ -479,6 +479,4 @@ public class FreeBoardDAO {
 			}	
 			return img;
 		}
-
-
 }

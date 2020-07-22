@@ -61,8 +61,8 @@
 					<%} %>
 					<%if (dto.getName().equals(memId) || memId.equals("admin")) {//내가 쓴 댓글(혹은 관리자)이면 삭제버튼%><button onclick="recipeCommentDeleteForm.jsp">삭제</button>
 					<%} else { //아니면 답글, 신고버튼%> 
-						<button onclick="reply(<%=dto.getNum() %>)" >답글</button> 
-						<button onclick="report(<%=dto.getNum() %>)" >신고</button> 
+						<button onclick="reply(<%=dto.getNum() %>)" >&#x1F4AC;답글</button> 
+						<button onclick="report(<%=dto.getNum() %>)" >&#128680;신고</button> 
 					<%} %>
 			<%} %>
 			</td>

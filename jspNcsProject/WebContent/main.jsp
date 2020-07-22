@@ -34,7 +34,7 @@ if(memId != null) {	//로그인 한 상태면 로그인 정보 가져오기
 <br/><br/><br/>
 <table>
 	<tr>
-		<td>키워드 순위</td>
+		<td>태그 순위</td>
 		<%
 		List tagslist = Tdao.selectTagsOrderByTaggedTimes();
 		int x = 10;
