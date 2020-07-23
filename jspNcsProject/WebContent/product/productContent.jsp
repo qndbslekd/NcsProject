@@ -12,6 +12,13 @@
 </head>
 <jsp:include page="../header.jsp"></jsp:include>
 <%
+	if(session.getAttribute("memId")==null){%>
+		<script>
+			alert("로그인 후 이용가능합니다.");
+			window.location="../member/loginForm.jsp";
+		</script>
+	<%}else{
+
 	String name = (String)session.getAttribute("memName");
 	if(name == null){
 		name = "";	
@@ -117,6 +124,7 @@
 		</table>
 		</form> 
 	</body>
+	<%}%>
 	
 	<script type="text/javascript">
 	function recommand(){
