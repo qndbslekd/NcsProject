@@ -12,41 +12,44 @@
 </head>
 <jsp:include page="../header.jsp"></jsp:include>
 <%
-	
 	String num  = request.getParameter("num");
-	InfomationDAO dao = InfomationDAO.getInstance();
-	InfomationDTO information = dao.getInfomation(num);
-	String id = (String)session.getAttribute("memId");
-	if(id == null){
-		id = "";	
-	}
+	if(num==null){
+		response.sendRedirect("informationList.jsp");
+	}else{
+		InfomationDAO dao = InfomationDAO.getInstance();
+		InfomationDTO information = dao.getInfomation(num);
+		String id = (String)session.getAttribute("memId");
+		if(id == null){
+			id = "";	
+		}
 	
-	Cookie[] cookies = request.getCookies();
-	System.out.println("cookies"+cookies.length);
+		Cookie[] cookies = request.getCookies();
+		System.out.println("cookies"+cookies.length);
 %>
-<body>
-<h1 align="center">채식정보 페이지</h1>
-		<hr/>
-		<table>
-		<%if(id.equals("admin")){ %>
-			<tr>
-				<td>
-					<button onclick="window.location = 'InformationModifyForm.jsp?num=<%=num%>'" >수정페이지로 이동</button>
-					<button onclick="window.location = 'InformationDeletePro.jsp?num=<%=num%>'" >삭제</button>
-				</td>
-			</tr>
-		<% }%>
-			<tr>
-				<td><img src="img/<%=information.getImg()%>"/></td>
-			</tr>
-			<tr>
-				<th style=" font-size: 100%;"><%=information.getSubject() %></th>
-			</tr>
-			<tbody>
+	<body>
+	<h1 align="center">채식정보 페이지</h1>
+			<hr/>
+			<table>
+			<%if(id.equals("admin")){ %>
 				<tr>
-					<td><textarea readonly="readonly" rows="20" cols="100"><%=information.getContent()%></textarea></td>
+					<td>
+						<button onclick="window.location = 'InformationModifyForm.jsp?num=<%=num%>'" >수정페이지로 이동</button>
+						<button onclick="window.location = 'InformationDeletePro.jsp?num=<%=num%>'" >삭제</button>
+					</td>
 				</tr>
-			</tbody> 
-		</table>
-	</body>
+			<% }%>
+				<tr>
+					<td><img src="img/<%=information.getImg()%>"/></td>
+				</tr>
+				<tr>
+					<th style=" font-size: 100%;"><%=information.getSubject() %></th>
+				</tr>
+				<tbody>
+					<tr>
+						<td><textarea readonly="readonly" rows="20" cols="100"><%=information.getContent()%></textarea></td>
+					</tr>
+				</tbody> 
+			</table>
+		</body>
+	<%} %>
 </html>
