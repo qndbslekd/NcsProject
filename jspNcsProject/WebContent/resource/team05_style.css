@@ -34,3 +34,16 @@ BUTTON {
 A:link {text-decoration:none;color:#E1E8E7}
 A:hover{text-decoration:yes;color:#77878F}
 A:visited {text-decoration:none;color:#89488A}
+
+#greenButton {
+	border:0px;
+    color:white;
+    padding: 8px 15px;
+    cursor: pointer;
+    width: auto;
+    height: auto;
+    background: rgb(139, 195, 74);
+    border-radius: 10px;
+    outline: none;
+    margin: 5px auto;
+}
