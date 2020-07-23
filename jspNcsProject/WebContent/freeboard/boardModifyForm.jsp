@@ -17,7 +17,6 @@
 	//활동명가져오기
 	String name= dao.selectNameById(article.getWriter());
 	
-
 %>
 <body>
 	<form action="boardModifyPro.jsp" method="post" enctype="multipart/form-data">
