@@ -11,6 +11,7 @@
 	if(id==null){
 %>
 <body>
+<jsp:include page="../header.jsp" flush="false" />
 	<br/>
 	<h1 align="center"> 로그인 </h1>
 	<form action="../loginPro.jsp" method="post" name="login">

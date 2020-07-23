@@ -21,16 +21,6 @@
 #header .tab {
 	width: 250px;
 	background-color: rgb(139, 195, 74);
-	height:
-}
-
-#header .title {
-	font-size: 40px;
-}
-
-#header .tab {
-	width: 250px;
-	background-color: rgb(139, 195, 74);
 	height:50px;
 	color:white;
 	font-size:20px;
