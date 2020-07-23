@@ -9,8 +9,27 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script>
+	function check(){
+		var inputs = document.commentform;
+		if(!inputs.content.value){
+			alert("내용을 입력하세요");
+			return false;
+		}
+	}
+
+</script>
 </head>
 <%	
+	request.setCharacterEncoding("utf-8");
+
+	if(session.getAttribute("memId") == null || request.getParameter("num") == null){%>
+	<script>
+		alert("잘못된 접근입니다.");
+		history.go(-1);
+	</script>
+<%	}else{
+
 	int freeboard_num = Integer.parseInt(request.getParameter("num"));//글번호
 	String form = request.getParameter("form");//modify, insert
 	
@@ -90,7 +109,7 @@
 		}%>
 	</table>
 	<%if(session.getAttribute("memId")!=null){%>
-	<form action="boardCommentPro.jsp" method="post">
+	<form action="boardCommentPro.jsp" method="post" name="commentform" onsubmit="return check()">
 		<input type="hidden" name="freeboard_num" value="<%=freeboard_num%>"/>
 		<input type="hidden" name="writer" value="<%=session.getAttribute("memId")%>"/>		
 		<table class="comment_input">
@@ -109,6 +128,7 @@
 	<%}%>
 	
 </body>
+<%}%>
 <script>
 
 	//리댓달기 창
