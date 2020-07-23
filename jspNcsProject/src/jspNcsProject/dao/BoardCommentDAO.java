@@ -13,6 +13,7 @@ import javax.sql.DataSource;
 import jspNcsProject.dto.BoardCommentDTO;
 import jspNcsProject.dto.FreeBoardDTO;
 
+
 public class BoardCommentDAO {
 	private Connection conn= null;
 	private ResultSet rs =null;
@@ -63,6 +64,44 @@ public class BoardCommentDAO {
 		}	
 		return commentList;
 	}
+	//댓글 고유번호로 댓글 하나만 가져오기
+	public BoardCommentDTO selectBoardComment(int comment_num) {
+		BoardCommentDTO comment = null;
+		
+		try {
+			
+			conn = getConnection();
+			
+			String sql = "select * from freeboard_comment where comment_num=?";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, comment_num);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				comment = new BoardCommentDTO();				
+				comment.setComment_num(rs.getInt("comment_num"));
+				comment.setFreeboard_num(rs.getInt("freeboard_num"));
+				comment.setRef(rs.getInt("ref"));
+				comment.setRe_level(rs.getInt("re_level"));
+				comment.setReg(rs.getTimestamp("reg"));
+				comment.setReceiver(rs.getString("receiver"));
+				comment.setWriter(rs.getString("writer"));
+				comment.setContent(rs.getString("content"));
+			}
+							
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(rs != null) try { rs.close(); } catch(Exception e) {e.printStackTrace();}
+			if(pstmt != null) try { pstmt.close(); } catch(Exception e) {e.printStackTrace();}
+			if(conn != null) try { conn.close(); } catch(Exception e) {e.printStackTrace();}
+		}
+		
+		return comment;
+	}
+		
 	
 	public void insertBoardComment(BoardCommentDTO comment) {
 		try {	
@@ -144,7 +183,26 @@ public class BoardCommentDAO {
 		
 		return img;
 	}
+	//댓글 하나 삭제
+	public void deleteBoardComment(int comment_num) {
+		try {
+			
+			conn = getConnection();
+			
+			String sql = "delete from freeboard_comment where comment_num=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, comment_num);
+			pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(pstmt != null) try { pstmt.close(); } catch(Exception e) {e.printStackTrace();}
+			if(conn != null) try { conn.close(); } catch(Exception e) {e.printStackTrace();}
+		}
+	}
 	
+
 	
 	// id로 댓글 총 개수 체크
 	public int getMyFreeBoardCommentCount(String writer) {
@@ -204,6 +262,31 @@ public class BoardCommentDAO {
 		}
 		return myFreeBoardCommentList;
 	}
+
+	//댓글 수정
+	public void updateBoardComment(int comment_num,String content) {
+		try {
+			
+			conn = getConnection();
+			
+			String sql = "update freeboard_comment set content=? where comment_num=?";			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, content);
+			pstmt.setInt(2, comment_num);
+			
+			pstmt.executeUpdate();
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(pstmt != null) try { pstmt.close(); } catch(Exception e) {e.printStackTrace();}
+			if(conn != null) try { conn.close(); } catch(Exception e) {e.printStackTrace();}
+		}
+	}
+
+	
+	
+>>>>>>> branch 'develop' of https://github.com/ysk0951/codinnnnng.git
 	
 
 }

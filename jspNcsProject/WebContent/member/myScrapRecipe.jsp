@@ -105,7 +105,7 @@
 	}
 </style>
 <%
-request.getParameter("utf-8");
+request.setCharacterEncoding("utf-8");
 
 String memId = (String) session.getAttribute("memId");
 

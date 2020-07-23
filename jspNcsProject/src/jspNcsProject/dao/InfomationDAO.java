@@ -147,7 +147,7 @@ public class InfomationDAO {
 				dto.setContent(rs.getString("content"));
 				dto.setReg(rs.getTimestamp("reg"));
 				dto.setImg(rs.getString("img"));
-				 infoList.add(dto);
+				infoList.add(dto);
 			}
 		}catch(Exception e) {
 			e.printStackTrace();

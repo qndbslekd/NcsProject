@@ -8,12 +8,21 @@
 	<link href="../resource/team05_style.css" rel="stylesheet" type="text/css">
 </head>
 <%
-	if(session.getAttribute("memId") == null){%>
-		<script>
-			alert("로그인 후 이용하세요");
-			window.location="loginForm.jsp";
-		</script>
+	if(session.getAttribute("memId") == null||request.getParameter("pw")==null){%>
+		<%if(session.getAttribute("memId") == null){%>
+			<script>
+				alert("로그인 후 이용하세요");
+				window.location="loginForm.jsp";
+			</script>
+		<%}%>
+		<%if(request.getParameter("pw")==null){%>
+			<script>
+				alert("올바른 접근이 아닙니다");
+				window.location="loginForm.jsp";
+			</script>
+		<%} %>
 	<%}else{
+		
 		request.setCharacterEncoding("UTF-8");
 		String id = (String)session.getAttribute("memId");
 		System.out.println(id);
@@ -34,8 +43,7 @@
 						response.addCookie(c);
 					}
 				}
-			}
-%>
+			}%>
 <body>
 	<table>
 		<tr>
@@ -44,13 +52,13 @@
 		<tr>
 			<td><button onclick="window.location='main.jsp'"> 메인으로 </button></td>
 		</tr>
-	</table>	
+	</table>
 		<%}else{%>
 		<script>
 		alert("비밀번호를 잘못 기입하셨습니다.")
 		history.go(-1);
 	</script>
 </body>
-<%		} 
-			}%>
+		<%} 
+	}%>
 </html>
