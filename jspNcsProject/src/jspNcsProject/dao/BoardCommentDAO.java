@@ -202,6 +202,67 @@ public class BoardCommentDAO {
 		}
 	}
 	
+
+	
+	// id로 댓글 총 개수 체크
+	public int getMyFreeBoardCommentCount(String writer) {
+		int count = 0;
+		try {
+			conn = getConnection();
+			String sql = "select count(*) from freeboard_comment where writer=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, writer);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(rs != null)try {rs.close();}catch(Exception e) {e.printStackTrace();}
+			if(pstmt != null)try {pstmt.close();}catch(Exception e) {e.printStackTrace();}
+			if(conn != null)try {conn.close();}catch(Exception e) {e.printStackTrace();}
+		}
+		return count;
+	}
+		
+	// id로 글 가져오기(범위만큼)
+	public List selectMyFreeBoardComment(int start, int end, String writer) {
+		ArrayList myFreeBoardCommentList = null;
+		try {
+			conn = getConnection();
+			String sql = "SELECT fc.* FROM(SELECT rownum AS r, fc.* FROM (SELECT fc.* FROM FREEBOARD_COMMENT fc WHERE writer = ? ORDER BY fc.reg asc) fc)fc WHERE r >= ? AND r <= ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, writer);
+			pstmt.setInt(2, start);
+			pstmt.setInt(3, end);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				myFreeBoardCommentList = new ArrayList();
+				do {
+					BoardCommentDTO comment = new BoardCommentDTO();
+					comment.setComment_num(rs.getInt("comment_num"));
+					comment.setContent(rs.getString("content"));
+					comment.setFreeboard_num(rs.getInt("freeboard_num"));
+					comment.setRe_level(rs.getInt("re_level"));
+					comment.setReceiver(rs.getString("receiver"));
+					comment.setRef(rs.getInt("ref"));
+					comment.setReg(rs.getTimestamp("reg"));
+					comment.setWriter(writer);
+					myFreeBoardCommentList.add(comment);
+				}while(rs.next());
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(rs != null)try {rs.close();}catch(Exception e) {e.printStackTrace();}
+			if(pstmt != null)try {pstmt.close();}catch(Exception e) {e.printStackTrace();}
+			if(conn != null)try {conn.close();}catch(Exception e) {e.printStackTrace();}
+		}
+		return myFreeBoardCommentList;
+	}
+
 	//댓글 수정
 	public void updateBoardComment(int comment_num,String content) {
 		try {
@@ -222,9 +283,4 @@ public class BoardCommentDAO {
 			if(conn != null) try { conn.close(); } catch(Exception e) {e.printStackTrace();}
 		}
 	}
-
-	
-	
-	
-
 }
