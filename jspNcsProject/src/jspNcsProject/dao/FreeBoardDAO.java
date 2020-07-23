@@ -201,17 +201,19 @@ public class FreeBoardDAO {
 		return articles;
 	}
 	
-	public FreeBoardDTO selectArticle(int num) {
+	public FreeBoardDTO selectArticle(int num, String route) {
 		FreeBoardDTO article = null;
 		
 		try {
 			conn = getConnection();
-			
+			String sql= null;
 			//조회수 올리기
-			String sql ="update freeboard set read_count=read_count+1 where num =?";
+			if(!route.equals("recommend")) {
+			sql ="update freeboard set read_count=read_count+1 where num =?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			pstmt.executeUpdate();
+			}
 			
 			sql ="select * from freeboard where num=?";
 			pstmt = conn.prepareStatement(sql);
@@ -319,7 +321,7 @@ public class FreeBoardDAO {
 	
 	public void deleteArticle(int num) {
 		try {
-			FreeBoardDTO article = selectArticle(num);
+			FreeBoardDTO article = selectArticle(num,"board");
 			conn= getConnection();
 			String sql = "delete from freeboard where ref=?";
 			pstmt =conn.prepareStatement(sql);
