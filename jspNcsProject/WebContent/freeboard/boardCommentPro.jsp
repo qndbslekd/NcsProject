@@ -11,6 +11,18 @@
 <%
 	request.setCharacterEncoding("utf-8");
 
+	System.out.println(request.getParameter("freeboard_num") == null);
+	
+	if(session.getAttribute("memId") == null || request.getParameter("freeboard_num") == null){%>
+		<script>
+			alert("잘못된 접근입니다.");
+			history.go(-1);
+		</script>
+	<% }else{
+
+	
+	
+
 	int freeboard_num = Integer.parseInt(request.getParameter("freeboard_num"));
 	String strRef = request.getParameter("ref");
 	String StrRe_level = request.getParameter("re_level");
@@ -46,7 +58,8 @@
 		<script>alert("댓글이 작성되었습니다.")</script>	
 	<%	String url ="boardContent.jsp?num="+freeboard_num;
 		response.sendRedirect(url);
-	}%>
+	}
+} %>
 <body>
 
 </body>
