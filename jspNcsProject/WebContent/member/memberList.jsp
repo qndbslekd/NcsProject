@@ -28,7 +28,7 @@
 }
 </style>
 <%
-	if(!session.getAttribute("memId").toString().equals("admin")||session.getAttribute("memId")==null){%>
+	if(session.getAttribute("memId")==null||!session.getAttribute("memId").toString().equals("admin")){%>
 		<script>
 			alert("관리자 페이지 입니다.");
 			window.location="main.jsp";
