@@ -20,14 +20,11 @@
 	
 	if(ch == false){
 		dao.insertRecommend(freeboard_num, member_id);
-		System.out.println("추천");
-
 	}else if(ch==true){
 		dao.deleteRecommend(freeboard_num, member_id);
-		System.out.println("추천 해지");
 	}
 	
-	String url = "boardContent.jsp?num="+freeboard_num;
+	String url = "boardContent.jsp?num="+freeboard_num+"&route=recommend";
 	response.sendRedirect(url);	
 %>
 
