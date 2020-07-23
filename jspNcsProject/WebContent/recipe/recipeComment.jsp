@@ -44,7 +44,7 @@
 	for(int i = 0; i < x; i++) {
 		//RecipeCommentDTO dto = (RecipeCommentDTO) RecipeCommentList.get(i);
 		RecipeCommentDTO dto = (RecipeCommentDTO) RecipeCommentList.get(i);
-		
+		//test
 %>
 	<table style="width:700px; border:0px;" class="nonBorder" >
 		<tr style="border:0px; border-top:1px solid #ccc;">
