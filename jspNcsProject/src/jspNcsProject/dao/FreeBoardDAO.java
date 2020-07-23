@@ -421,7 +421,7 @@ public class FreeBoardDAO {
 		return count;
 	}
 	
-	// id로 글 가져오기()
+	// id로 글 가져오기(범위만큼)
 	public List selectMyFreeContent(int start, int end, String writer) {
 		ArrayList myFreeContentList = null;
 		try {
@@ -463,6 +463,7 @@ public class FreeBoardDAO {
 	
 
 	//id 받고 이미지 반환
+
 	public String selectImgById(String id) {
 		String img = null;		
 		try {			
@@ -485,4 +486,43 @@ public class FreeBoardDAO {
 		}	
 		return img;
 	}
+		
+
+	// num으로 글 한개 가져오기 
+	public FreeBoardDTO selectParentArticle(int num) {
+		FreeBoardDTO article = null;
+		try {
+			conn = getConnection();
+			String sql = "select * from freeboard where num =?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				article = new FreeBoardDTO();
+				article.setCategory(rs.getString("category"));
+				article.setContent(rs.getString("content"));
+				article.setImg(rs.getString("img"));
+				article.setNum(num);
+				article.setRe_level(rs.getInt("re_level"));
+				article.setRe_step(rs.getInt("re_step"));
+				article.setRead_count(rs.getInt("read_count"));
+				article.setRecommend(rs.getInt("recommend"));
+				article.setRef(rs.getInt("ref"));
+				article.setReg(rs.getTimestamp("reg"));
+				article.setTitle(rs.getString("title"));
+				article.setWriter(rs.getString("writer"));		
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(rs != null)try {rs.close();}catch(Exception e) {e.printStackTrace();}
+			if(pstmt != null)try {pstmt.close();}catch(Exception e) {e.printStackTrace();}
+			if(conn != null)try {conn.close();}catch(Exception e) {e.printStackTrace();}
+		}
+	return article;
+	}
+	
+
+	
+
 }
