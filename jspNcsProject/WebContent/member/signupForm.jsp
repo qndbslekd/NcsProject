@@ -4,8 +4,35 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
-</head>
 <link href="../resource/team05_style.css" rel="stylesheet" type="text/css">
+</head>
+<style>
+table td {
+	font-size:1.4em;
+	vertical-align:middle;
+}
+td * {
+	margin:0;
+	padding:0;
+	vertical-align:middle;
+	text-align:left;
+}
+.t {
+	text-align:right;
+	padding:20px;
+	border-right:2px solid #ccc;
+	font-size:1.4em;
+}
+input {
+	border:2px solid #ccc;
+	border-radius:5px;
+	font-size:1.4em;
+	self-align:left;
+	margin-left:20px;
+	vertical-align:middle;
+	
+}
+</style>
 <jsp:include page="../header.jsp"></jsp:include>
 <%
 System.out.println(session.getAttribute("memId"));
@@ -16,39 +43,39 @@ if(session.getAttribute("memId")==null){
 	<form method="post" action="signupPro.jsp" enctype="multipart/form-data" name ="inputForm" onsubmit="return check()" accept-charset="utf-8">
 	<table>
 		<tr>
-			<td>아이디*</td>
+			<td class="t">아이디*</td>
 			<td><input type="text" name="id" required="required"/></td>
 		</tr>
 		<!--중복 id 체크버튼-->
 		<tr>
-			<td>아이디 중복체크</td>
-			<td><button type="button" onclick="confirmId(this.form)">중복확인</button></td>
+			<td class="t">아이디 중복체크</td>
+			<td><button class="grayButton" style="width: 80px; height: 30px; text-align: center" type="button" onclick="confirmId(this.form)">중복확인</button></td>
 		</tr>
 		<tr>
-			<td>비밀번호*</td>
+			<td class="t">비밀번호*</td>
 			<td><input type="password" name="pw" required="required"/></td>
 		</tr>
 		<tr>
-			<td>비밀번호 확인*</td>
+			<td class="t">비밀번호 확인*</td>
 			<td><input type="password" name="pwCh" required="required"/></td>
 		</tr>
 		<tr>
-			<td>활동명*</td>
+			<td class="t">활동명*</td>
 			<td><input type="text" name="name"  required="required"/></td>
 		</tr>
 		<tr>
-			<td>활동명 중복체크</td>
-			<td><button type="button" onclick="confirmName(this.form)">중복확인</button></td>
+			<td class="t">활동명 중복체크</td>
+			<td><button class="grayButton" style="width: 80px; height: 30px; text-align: center" type="button" onclick="confirmName(this.form)">중복확인</button></td>
 		</tr>
 		<tr>
-			<td>주민번호*</td> 
+			<td class="t">주민번호*</td> 
 			<td>
-				<input type="text" name="id_number1"  maxlength="6" size="6" required="required"/>- 
-				<input type="text" name="id_number2"  maxlength="1" size="1" required="required"/>
+				<input type="text" name="id_number1"  maxlength="6" size="6" required="required"/>&nbsp;&nbsp;&nbsp;- 
+				<input type="text" name="id_number2"  maxlength="1" size="1" required="required"/>******
 			</td>
 		</tr>
 		<tr>
-			<td>채식주의 타입</td>
+			<td class="t">채식주의 타입</td>
 			<td> 
 				<img src="../recipe/imgs/question.png" width="20px" height="20px" onclick="question()" />
 				<select name="vegi_type" required="required">
@@ -64,14 +91,14 @@ if(session.getAttribute("memId")==null){
 			</td>
 		</tr>
 		<tr>
-			<td>프로필 사진</td>
+			<td class="t">프로필 사진</td>
 			<td><input type="file" name="profile_img" /></td>
 		</tr>		
 		<tr>
-			<td colspan="2" align="center">
-				<input type="submit" value="가입"/>
-				<input type="reset" name="reset" value="재입력" />
-				<input type="button" value="취소" onclick="window.location='../main.jsp'"/>
+			<td colspan="2" align="center" style="padding-top: 30px">
+				<button class="grayButton" type="submit" style="width: 50px; height: 30px; text-align: center">가입</button>
+				<button class="grayButton" type="reset" style="width: 50px; height: 30px; text-align: center" name="reset">재입력</button>
+				<button class="grayButton" type="button" style="width: 50px; height: 30px; text-align: center" onclick="window.location='../main.jsp'">취소</button>
 			</td> 
 		</tr>
 	</table> 

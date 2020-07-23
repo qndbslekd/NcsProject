@@ -26,12 +26,11 @@
 				<td><input type="password" name="pw"/></td>
 			</tr>
 			<tr>
-				<td colspan="2"><input type="submit" value="로그인"/></td>
-			</tr>
-			<tr>
-				<td colspan="2">
-				<input type="checkbox" name="auto" value="1"/>자동로그인
-				<input type="button" value="회원가입" onclick="window.location='signupForm.jsp'"/></td>
+				<td colspan="3">
+					<input type="checkbox" name="auto" value="1"/>자동로그인
+					<button class="grayButton" type="submit"  style="width: 80px; height: 30px; text-align: center">로그인</button>
+					<button class="grayButton" type="button" onclick="window.location='signupForm.jsp'"  style="width: 80px; height: 30px; text-align: center">회원가입</button>
+				</td>
 			</tr>
 		</table>
 	</form>
