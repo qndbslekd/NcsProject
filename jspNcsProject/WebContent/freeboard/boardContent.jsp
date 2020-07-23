@@ -11,12 +11,12 @@
 <title>글 상세보기</title>
 </head>
 <%
-	if(request.getParameter("num") == null){%>
+if(request.getParameter("num") == null){%>
 	<script>
 		alert("잘못된 접근입니다.");
 		history.go(-1);
-	</script>
-	<%}else{
+	</script><%
+}else{
 	int num = Integer.parseInt(request.getParameter("num"));
 
 	String pageNum = request.getParameter("pageNum");
