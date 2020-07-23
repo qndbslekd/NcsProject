@@ -1,3 +1,4 @@
+<%@page import="jspNcsProject.dao.RecommendDAO"%>
 <%@page import="jspNcsProject.dto.FreeBoardDTO"%>
 <%@page import="jspNcsProject.dao.FreeBoardDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -21,8 +22,12 @@
 	
 	FreeBoardDAO dao = FreeBoardDAO.getInstance();
 	FreeBoardDTO article = dao.selectArticle(num);
-	//활동명 받아dhdl
+	//활동명 받아오기
 	String name = dao.selectNameById(article.getWriter());
+	
+	//추천기능
+	RecommendDAO Rdao = RecommendDAO.getInstance();
+	
 		
 %>
 <body>
@@ -38,7 +43,7 @@
 				<td>추천수</td>
 				<td><%=article.getRecommend()%>
 				<%if(session.getAttribute("memId")!=null){%>
-				<td><button onclick="window.location='recommendArticle.jsp?num=<%=article.getNum()%>'">추천하기</button></td>
+				<td><button onclick="window.location='recommendArticle.jsp?freeboard_num=<%=article.getNum()%>&mem_id=<%=session.getAttribute("memId")%>'">추천하기</button></td>
 				<%}%>
 			</tr>
 			<tr>
@@ -94,6 +99,7 @@
 			location.href= "../member/offenceMember.jsp?offenceUrl="+offenceCode+"&member="+member;
 		}		
 	}
+	
 
 </script>
 
