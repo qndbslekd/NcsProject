@@ -12,8 +12,8 @@
 		request.getParameter("comment")==null||
 		request.getParameter("num")==null){ %>
 		<script type="text/javascript">
-			alert("올바른 접근이 아닙니다");
-			window.location = "http://localhost:8080/jnp/product/productList.jsp";
+			alert("로그인후 가능합니다");
+			window.location = "http://localhost:8080/jnp/member/loginForm.jsp";
 		</script>
 	<%}else{
 		request.setCharacterEncoding("UTF-8");
