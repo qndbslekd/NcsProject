@@ -10,8 +10,16 @@
 </head>
 <%
 	request.setCharacterEncoding("utf-8");
+	
+	if(session.getAttribute("memId") == null ){%>
+		<script>
+			alert("잘못된 접근입니다.");
+			history.go(-1);
+		</script>
+	<% }else{
 
 	int freeboard_num = Integer.parseInt(request.getParameter("freeboard_num"));
+	int pageNum = Integer.parseInt(request.getParameter("pageNum"));
 	String member_id = request.getParameter("mem_id");
 	
 	RecommendDAO dao = RecommendDAO.getInstance();
@@ -24,8 +32,9 @@
 		dao.deleteRecommend(freeboard_num, member_id);
 	}
 	
-	String url = "boardContent.jsp?num="+freeboard_num+"&route=recommend";
+	String url = "boardContent.jsp?num="+freeboard_num+"&route=recommend&pageNum="+pageNum;
 	response.sendRedirect(url);	
+}
 %>
 
 <body>
