@@ -7,6 +7,34 @@
 <title>레시피 작성</title>
 <link rel="stylesheet" href="../resource/team05_style.css">
 </head>
+<style>
+	table td {
+		font-size:1.4em;
+		vertical-align:middle;
+	}
+	td * {
+		margin:0;
+		padding:0;
+		vertical-align:middle;
+		text-align:left;
+	}
+	.t {
+		text-align:right;
+		padding:20px;
+		border-right:2px solid #ccc;
+		font-size:1.4em;
+	}
+	input {
+		border:1px solid #ccc;
+		border-radius:5px;
+		font-size:1.4em;
+		self-align:left;
+		margin-left:20px;
+		vertical-align:middle;
+		
+	}
+	
+</style>
 <%
 	String memId = (String) session.getAttribute("memId");
 
@@ -16,18 +44,21 @@
 <body>
 
 <jsp:include page="../header.jsp"/>
+	<br/>
+	<h1>레시피 작성</h1>
+	<br/>
 	<form action="recipeStepInsertForm.jsp" method="post">
-		<table>
+		<table style="padding:10px;">
 			<tr>
-				<td>제목</td>
-				<td width="300"><input type="text" name="recipeName" required /></td>
+				<td class="t">제목</td>
+				<td width="500"><input type="text" name="recipeName" placeholder="제목을 입력해주세요" required style="width:90%"/></td>
 			</tr>
 			<tr>
-				<td>작성자</td>
+				<td class="t">작성자</td>
 				<td><%=session.getAttribute("memName") %><input type="hidden" name="writer" value="<%=memId%>" /></td>
 			</tr>
 			<tr>
-				<td>채식유형</td>
+				<td class="t">채식유형</td>
 				<td style="text-align:left">
 					<input type="radio" name="vegiType" value="vegan" required />비건<br/>
 					<input type="radio" name="vegiType" value="lacto" required />락토<br/>
@@ -39,15 +70,15 @@
 				</td>
 			</tr>
 			<tr>
-				<td>요리 분량</td>
+				<td class="t">요리 분량</td>
 				<td><input type="number" name="quantity" required />인분</td>
 			</tr>
 			<tr>
-				<td>요리 시간</td>
+				<td class="t">요리 시간</td>
 				<td><input type="number" name="cookingTime" required />분</td>
 			</tr>
 			<tr>
-				<td>난이도</td>
+				<td class="t">난이도</td>
 				<td>
 					<select name="difficulty" required >
 						<option value="" disabled selected>난이도를 선택하세요</option>
@@ -58,26 +89,28 @@
 				</td>
 			</tr>
 			<tr>
-				<td>칼로리</td>
+				<td class="t">칼로리</td>
 				<td><input type="number" name="cal" /></td>
 			</tr>
 			<tr>
-				<td>재료</td>
+				<td class="t">재료</td>
 				<td><input type="text" placeholder="예) 감자:1개, 양파:2개, 고추장:두스푼, ..." name="ingredients"/><br/> '재료명:분량,재료명:분량'의 형식으로 적어주세요</td>
 			</tr>
 			<tr>
-				<td>요리 단계</td>
+				<td class="t">요리 단계</td>
 				<td><input type="number" name="recipeStep" required />단계</td>
 			</tr>
 			<tr>
-				<td>키워드</td>
+				<td class="t">키워드</td>
 				<td><input type="text" placeholder="예) 태그,태그,태그 ..." name="tag" /></td>
 			</tr>
 			<tr>
-				<td colspan="2"><input type="submit" value="레시피 작성단계로" />
+			
+				<td colspan="2"><br/><input type="submit" class="greenButton" value="레시피 작성단계로" />
 			</tr>
 		</table>
 	</form>
+	<br/><br/>
 
 </body>
 <%} %>
