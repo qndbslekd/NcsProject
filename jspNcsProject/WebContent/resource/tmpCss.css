@@ -1,9 +1,18 @@
 @charset "UTF-8";
 
 @font-face { font-family: 'InfinitySans-RegularA1'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/InfinitySans-RegularA1.woff') format('woff'); font-weight: normal; font-style: normal; }
+//테마 색 #8bc34aa
 * {
 	font-family: 'InfinitySans-RegularA1';
 	font-size : 15px;
+}
+table {
+	width: 500; 
+	margin: auto; 
+	text-align: center; 
+	border: 0px solid #77878F; 
+	border-collapse: collapse; 
+	padding:5px;
 }
 table * {
 	font-family: 'InfinitySans-RegularA1';
@@ -12,6 +21,8 @@ table * {
 body {
 	font-family: 'InfinitySans-RegularA1';
 	font-size : 15px;
+	COLOR: #8bc34a;
+	LINE-HEIGHT: 160%;
 }
 h1 {
 	font-family: 'InfinitySans-RegularA1';
