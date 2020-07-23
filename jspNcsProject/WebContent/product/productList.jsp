@@ -33,11 +33,12 @@
 	.info{
 		height: 100px;	
 		border: 1px solid black;	
-	}
-	.info .row {	
+	} 
+	.info .row {
+		overflow : hidden;	
 		text-align: center;
-		height: 30px;
-		line-height: 30px;
+		height: 50px;
+		line-height: 50px;
 		color : black;		
 	}
 	.sub-wrapper{
@@ -164,12 +165,12 @@
 				</div>
 				<div class="info">
 					<div class="row"><%=product.getName()%></div>
-					<div class="row">대표성분 :<%
+					<%-- <div class="row">대표성분 :<%
 						if(product.getIngredients().contains(",")){
 							String[] ingredients = product.getIngredients().split(",");
 							int length = ingredients.length;
 							System.out.println(length);
-							if(length>3){
+							if(length>3){ 
 								length = 3;
 							}
 							for(int j=0;j<length;j++){
@@ -178,7 +179,7 @@
 						}else{
 							out.print(product.getIngredients());
 						}
-					%></div>
+					%></div> --%>
 					<div class="row">추천 :<%=product.getRecommend()%></div>
 				</div>			
 			</div>
