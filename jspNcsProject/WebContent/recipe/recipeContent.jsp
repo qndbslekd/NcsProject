@@ -75,7 +75,7 @@
 	<jsp:include page="../header.jsp" flush="false" />
 	<br />
 	
-	<table class="nonBorder">
+	<table class="nonBorder" style="max-width:1100px; min-width:1100px;">
 		<tr >
 			<td colspan="6" >
 				<div style="min-width:40px; display:inline-block">&nbsp;</div>
@@ -215,8 +215,8 @@
 			<span style="text-align:left; margin:0px;" ><h1>조리과정</h1></span> <br/><br/>
 				<jsp:include page="recipeStepComment.jsp" flush="false"/>
 		<tr>
-			<td colspan="6">
-			<span style="text-align:left; margin:0px;" ><h1>댓글</h1><hr></span>
+			<td colspan="6" style="border-top:2px solid #ccc;">
+			<span style="text-align:left; margin:0px;" ><h1>댓글</h1></span>
 				<jsp:include page="recipeComment.jsp">
 					<jsp:param value="<%=num %>" name="num"/>
 				</jsp:include>
@@ -244,11 +244,17 @@
 	</div>
 </body>
 <script>
+
 	//댓글에 답댓글 달기
 	function rating(num) {
+		var width=150;
+		var height=100;
+		var wid = (window.screen.width / 2) - (width / 2);
+		var hei = (window.screen.height / 2) - (height / 2);
+		
 		var url = "recipeRatingForm.jsp?num=" + num;
 		var name = "평점 남기기";
-		var option = "width=400,height=400,left=600,toolbar=no,menubar=no,location=no,scrollbar=no,status=no,resizable=no";
+		var option = "width=300,height=150,left="+wid+",top="+hei+",toolbar=no,menubar=no,location=no,scrollbar=no,status=no,resizable=no";
 		
 		window.open(url,name,option);
 	}
@@ -271,6 +277,7 @@
 			location.href= "../member/offenceMember.jsp?offenceUrl="+offenceCode+"&member="+member;
 		}		
 	}
+	
 </script>
 <%
 	} %>

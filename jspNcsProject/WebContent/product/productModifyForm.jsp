@@ -14,7 +14,7 @@
 		alert("관리자만 이용할 수 있습니다.");
 		window.location="productList.jsp";
 	</script>
-<%}
+<%}else{
 	String num = request.getParameter("num");
 	ProductDAO dao = ProductDAO.getInstance();
 	ProductDTO dto = dao.selectProduct(num);
@@ -60,6 +60,6 @@
 		</tr>
 	</table>
 </form>
-
 </body>
+<%} %>
 </html>

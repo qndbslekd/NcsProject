@@ -21,6 +21,7 @@
 #header .tab {
 	width: 250px;
 	background-color: rgb(139, 195, 74);
+<<<<<<< HEAD
 	height:
 }
 #header .title {
@@ -30,12 +31,17 @@
 #header .tab {
 	width: 250px;
 	background-color: rgb(139, 195, 74);
+=======
+>>>>>>> branch 'develop' of https://github.com/ysk0951/codinnnnng.git
 	height:50px;
 	color:white;
 	font-size:20px;
 	cursor:pointer;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> branch 'develop' of https://github.com/ysk0951/codinnnnng.git
 </style>
 </head>
 <script type="text/javascript">
@@ -109,5 +115,6 @@
 			<td class="tab" onclick="window.location='mailto:admin@beginVegan.com'">문의하기</td>
 		</tr>
 	</table>
+	<br/>
 </body>
 </html>
