@@ -1,3 +1,4 @@
+<%@page import="jspNcsProject.dao.FreeBoardDAO"%>
 <%@page import="jspNcsProject.dao.ProductDAO"%>
 <%@page import="jspNcsProject.dao.RecipeContentCommentDAO"%>
 <%@page import="jspNcsProject.dao.RecipeCommentDAO"%>
@@ -28,7 +29,7 @@
 }
 </style>
 <%
-	if(!session.getAttribute("memId").toString().equals("admin")||session.getAttribute("memId")==null){%>
+	if(session.getAttribute("memId")==null||!session.getAttribute("memId").toString().equals("admin")){%>
 		<script>
 			alert("관리자 페이지 입니다.");
 			window.location="main.jsp";
@@ -88,6 +89,7 @@
 		RecipeCommentDAO rcDao = RecipeCommentDAO.getInstance();
 		RecipeContentCommentDAO rccDao = RecipeContentCommentDAO.getInstance(); 
 		ProductDAO pDao = ProductDAO.getInstance();
+		FreeBoardDAO fDao = FreeBoardDAO.getInstance();
 	%>
 
 <body>
@@ -168,9 +170,20 @@
 											v</button>
 										<%
 										}
+									}else if(urls[splitUrls].contains("FC")){
+										String booleanCheckNum = urls[splitUrls].substring(2);
+										boolean isComment = pDao.isComment(booleanCheckNum);
+										if(isComment){
+											seq = fDao.getSeq(booleanCheckNum);
+											%>
+											 <a href="http://localhost:8080/jnp/freeboard/boardContent.jsp?num=<%=seq%>">제품댓글</a>
+												<button type="button" onclick="window.open('memberOffenceUpdate.jsp?url=<%=urls[splitUrls] %>&id=<%=memberList.get(i).getId()%>','신고확정','toolbar=no,location=no,status = no, menubar = no, scrollbars = no,resizable = no, width = 500,height = 150');">
+												v</button>
+											<%
+										}
 									}else if(urls[splitUrls].contains("F")){
 										seq = urls[splitUrls].substring(1);
-										%> <a href="http://localhost:8080/jnp/recipe/recipeContent.jsp?num=<%=seq%>">자유게시판</a>
+										%> <a href="http://localhost:8080/jnp/freeboard/boardContent.jsp?num=<%=seq%>">자유게시판</a>
 											<button type="button" onclick="window.open('memberOffenceUpdate.jsp?url=<%=urls[splitUrls] %>&id=<%=memberList.get(i).getId()%>','신고확정','toolbar=no,location=no,status = no, menubar = no, scrollbars = no,resizable = no, width = 500,height = 150');">
 											v</button>
 										<%
@@ -243,9 +256,20 @@
 											v</button>
 										<%
 										}
+									}else if(urls[splitUrls].contains("FC")){
+										String booleanCheckNum = urls[splitUrls].substring(2);
+										boolean isComment = pDao.isComment(booleanCheckNum);
+										if(isComment){
+											seq = fDao.getSeq(booleanCheckNum);
+											%>
+											 <a href="http://localhost:8080/jnp/freeboard/boardContent.jsp?num=<%=seq%>">제품댓글</a>
+												<button type="button" onclick="window.open('memberOffenceUpdate.jsp?url=<%=urls[splitUrls] %>&id=<%=memberList.get(i).getId()%>','신고확정','toolbar=no,location=no,status = no, menubar = no, scrollbars = no,resizable = no, width = 500,height = 150');">
+												v</button>
+											<%
+										}
 									}else if(urls[splitUrls].contains("F")){
 										seq = urls[splitUrls].substring(1);
-										%> <a href="http://localhost:8080/jnp/recipe/recipeContent.jsp?num=<%=seq%>">자유게시판</a>
+										%> <a href="http://localhost:8080/jnp/freeboard/boardContent.jsp?num=<%=seq%>">자유게시판</a>
 											<button type="button" onclick="window.open('memberOffenceUpdate.jsp?url=<%=urls[splitUrls] %>&id=<%=memberList.get(i).getId()%>','신고확정','toolbar=no,location=no,status = no, menubar = no, scrollbars = no,resizable = no, width = 500,height = 150');">
 											v</button>
 										<%
@@ -269,7 +293,7 @@
 				}%>
 			<tr> 
 				<td colspan="10">
-					<button onclick="window.location='../	main.jsp'">메인으로</button>
+					<button onclick="window.location='../main.jsp'">메인으로</button>
 					<button onclick="window.location='memberList.jsp?offence=1'">신고받은 회원 조회</button>
 					<form action="memberList.jsp" method="get">
 					<select name="option">

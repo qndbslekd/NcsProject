@@ -13,7 +13,7 @@
 			alert("관리자만 제품 등록이 가능합니다");
 			window.location="productList.jsp";
 		</script>
-	<%}
+	<%}else{
 %>
 <body>
 <form action="productInsertPro.jsp" method="post" enctype="multipart/form-data">
@@ -49,6 +49,6 @@
 		</tr>
 	</table>
 </form>
-
 </body>
+<%} %>
 </html>

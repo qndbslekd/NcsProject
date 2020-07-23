@@ -59,11 +59,12 @@ public class ProductDAO {
 		int countForSearch = 0;
 		try {
 			conn= getConnection();
-			String sql =  "SELECT COUNT(*) FROM PRODUCT WHERE "+option+" LIKE '%"+search+"%' + and re_level = 0 and re_step = 0 ";
+			String sql =  "SELECT COUNT(*) FROM PRODUCT WHERE "+option+" LIKE '%"+search+"%' and re_level = 0 and re_step = 0 ";
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				countForSearch = rs.getInt(1);
+				System.out.println("검색Test :"+countForSearch);
 			} 	
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -74,7 +75,6 @@ public class ProductDAO {
 		}
 		return countForSearch;
 	}
-	
 	//Product 최신순으로 검색하여 가져오기
 		public List seletAllProduct(int startrow, int endrow, String mode,String option,String search) {
 			ArrayList productList = null;
@@ -252,10 +252,11 @@ public class ProductDAO {
 	public int deleteProduct(String num) {
 		int result = 0;
 		try {
-			String sql = "DELETE FROM PRODUCT p2 WHERE num = ?";
+			String sql = "DELETE FROM PRODUCT p2 WHERE num = ? or ref=?";
 			conn = getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, Integer.parseInt(num));
+			pstmt.setInt(2, Integer.parseInt(num));
 			result = pstmt.executeUpdate();
 		}catch (Exception e) {
 			e.printStackTrace();

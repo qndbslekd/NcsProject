@@ -17,7 +17,7 @@ if(session.getAttribute("memId")==null){
 	<table>
 		<tr>
 			<td>아이디*</td>
-			<td><input type="text" name="id" /></td>
+			<td><input type="text" name="id" required="required"/></td>
 		</tr>
 		<!--중복 id 체크버튼-->
 		<tr>
@@ -26,15 +26,15 @@ if(session.getAttribute("memId")==null){
 		</tr>
 		<tr>
 			<td>비밀번호*</td>
-			<td><input type="password" name="pw" /></td>
+			<td><input type="password" name="pw" required="required"/></td>
 		</tr>
 		<tr>
 			<td>비밀번호 확인*</td>
-			<td><input type="password" name="pwCh" /></td>
+			<td><input type="password" name="pwCh" required="required"/></td>
 		</tr>
 		<tr>
 			<td>활동명*</td>
-			<td><input type="text" name="name"  /></td>
+			<td><input type="text" name="name"  required="required"/></td>
 		</tr>
 		<tr>
 			<td>활동명 중복체크</td>
@@ -43,15 +43,15 @@ if(session.getAttribute("memId")==null){
 		<tr>
 			<td>주민번호*</td> 
 			<td>
-				<input type="text" name="id_number1"  maxlength="6" size="6"/>- 
-				<input type="text" name="id_number2"  maxlength="1" size="1"/>
+				<input type="text" name="id_number1"  maxlength="6" size="6" required="required"/>- 
+				<input type="text" name="id_number2"  maxlength="1" size="1" required="required"/>
 			</td>
 		</tr>
 		<tr>
 			<td>채식주의 타입</td>
 			<td> 
 				<img src="../recipe/imgs/question.png" width="20px" height="20px" onclick="question()" />
-				<select name="vegi_type">
+				<select name="vegi_type" required="required">
 						<option value="none">Non-vegetarian</option>
 						<option value="vegan">vegan</option>
 						<option value="lacto">Lacto vegetarian</option>
@@ -107,6 +107,7 @@ if(session.getAttribute("memId")==null){
 				"아이디 중복 체크",
 				"toolbar=no,location=no,status = no, menubar = no, scrollbars = no,resizable = no, width = 300,height = 200");
 	}
+	
 	// 유효성 검사 수정전
 	/* function check() {
 		var inputs = document.inputForm;
