@@ -4,7 +4,6 @@
 <html>
 <head>
 <meta charset="utf-8">
-
 <link href="../resource/team05_style.css" type="text/css" rel="stylesheet"/>
 
 <title>header</title>
@@ -22,6 +21,7 @@
 #header .tab {
 	width: 250px;
 	background-color: rgb(139, 195, 74);
+	height:
 }
 
 a:link {
@@ -45,6 +45,10 @@ a:hover {
 #header .tab {
 	width: 250px;
 	background-color: rgb(139, 195, 74);
+	height:50px;
+	color:white;
+	font-size:20px;
+	cursor:pointer;
 }
 
 a:link {
@@ -112,26 +116,20 @@ a:hover {
 %>
 <body>
 	<table id="header">
-		<tr>
-			
-			<td class="title" colspan="5">
-			<img src="/jnp/leaf.png" width="100px"/>
-			<a href="/jnp/main.jsp">BEGIN VEGAN</a>
+			<td></td>
+			<td></td>
+			<td class="title" style="padding-top:20px;">
+				<a href="/jnp/main.jsp"><img src="/jnp/save/logo.png" style="width:250px"/></a>
 			</td>
-		<tr>
-			<td>
-			<td>
-			<td>
-			<td>
+			<td></td>
+			<td style="vertical-align:bottom; padding-bottom:10px;">
 			<%if(session.getAttribute("memId") == null){
 			%>
-			<td>
 				<button onclick="window.location='/jnp/member/loginForm.jsp'">로그인</button>
 				<button onclick="window.location='/jnp/member/signupForm.jsp'">회원가입</button>
 			</td>
 			<%}else{%>
-			<td>
-				<p><%=session.getAttribute("memId")%>님</p>		
+				<p><%=session.getAttribute("memName")%>님 환영합니다!</p>		
 				<button onclick="window.location='/jnp/logoutPro.jsp'">로그아웃</button>
 				<button onclick="window.location='/jnp/member/myPage.jsp'">마이페이지</button>
 			</td>
