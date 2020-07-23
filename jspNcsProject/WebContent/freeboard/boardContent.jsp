@@ -11,6 +11,7 @@
 <title>글 상세보기</title>
 </head>
 <%
+
 	int num = Integer.parseInt(request.getParameter("num"));
 
 	String pageNum = request.getParameter("pageNum");
@@ -19,11 +20,17 @@
 	String sel = request.getParameter("sel");
 	String search = request.getParameter("search");
 	
+	String route = request.getParameter("route");
+	if(route==null || route.equals("")){
+		route = "board";
+	}
 	
 	FreeBoardDAO dao = FreeBoardDAO.getInstance();
-	FreeBoardDTO article = dao.selectArticle(num);
+	
+	FreeBoardDTO article = dao.selectArticle(num,route);
 	//활동명 받아오기
 	String name = dao.selectNameById(article.getWriter());
+	
 	
 	//추천기능
 	RecommendDAO Rdao = RecommendDAO.getInstance();
