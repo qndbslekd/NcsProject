@@ -107,6 +107,7 @@ if(session.getAttribute("memId")==null){
 				"아이디 중복 체크",
 				"toolbar=no,location=no,status = no, menubar = no, scrollbars = no,resizable = no, width = 300,height = 200");
 	}
+	
 	// 유효성 검사 수정전
 	/* function check() {
 		var inputs = document.inputForm;
