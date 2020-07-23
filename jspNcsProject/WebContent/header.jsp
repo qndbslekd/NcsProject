@@ -23,21 +23,6 @@
 	background-color: rgb(139, 195, 74);
 	height:
 }
-
-a:link {
-	text-decoration: none;
-}
-
-a:visited {
-	text-decoration: none;
-	color: #ffff;
-}
-
-a:hover {
-	text-decoration: underline;
-	color: #559AFC;
-}
-
 #header .title {
 	font-size: 40px;
 }
@@ -51,25 +36,6 @@ a:hover {
 	cursor:pointer;
 }
 
-a:link {
-	text-decoration: none;
-	color: #ffff;
-}
-
-a:visited {
-	text-decoration: none;
-	color: #ffff;
-}
-
-a:active {
-	text-decoration: none;
-	color: #ffff;
-}
-
-a:hover {
-	text-decoration: underline;
-	color: #559AFC;
-}
 </style>
 </head>
 <script type="text/javascript">

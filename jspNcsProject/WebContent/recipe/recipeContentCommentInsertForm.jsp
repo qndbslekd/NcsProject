@@ -8,15 +8,20 @@
 <link href="../resource/team05_style.css" type="text/css" rel="stylesheet"/>
 </head>
 <%
-	// 고유번호 num; recipeNum, contentNum, ref, reLvel, reStep, Content, name, reg
-	request.setCharacterEncoding("UTF-8");
+	// 유효성 검사
+	if(session.getAttribute("memId") == null){%>
+		<script> alert("로그인 후 이용하세요."); window.location="loginForm.jsp";</script>
+	<%}else{
 	
-	
-	int contentNum = Integer.parseInt(request.getParameter("contentNum"));
-	int recipeNum = Integer.parseInt(request.getParameter("recipeNum"));
-	int reLevel = Integer.parseInt(request.getParameter("reLevel"));
-	int reStep = Integer.parseInt(request.getParameter("reStep"));
-	int ref = Integer.parseInt(request.getParameter("ref"));
+		// 고유번호 num; recipeNum, contentNum, ref, reLvel, reStep, Content, name, reg
+		request.setCharacterEncoding("UTF-8");
+		
+		
+		int contentNum = Integer.parseInt(request.getParameter("contentNum"));
+		int recipeNum = Integer.parseInt(request.getParameter("recipeNum"));
+		int reLevel = Integer.parseInt(request.getParameter("reLevel"));
+		int reStep = Integer.parseInt(request.getParameter("reStep"));
+		int ref = Integer.parseInt(request.getParameter("ref"));
 
 %>
 <body>	
@@ -30,7 +35,7 @@
 		<table>
 			<tr>
 				<td colspan="2">
-					<input type="text" name="commentContent"/>
+					<input type="text" name="commentContent" required/>
 				</td>
 			</tr>
 			<tr>
@@ -42,4 +47,5 @@
 		</table>
 	</form>
 </body>
+<%	} %>
 </html>
