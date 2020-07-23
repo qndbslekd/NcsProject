@@ -11,6 +11,13 @@
 <title>Insert title here</title>
 </head>
 <%
+	if(session.getAttribute("memId") == null ){%>
+	<script>
+		alert("잘못된 접근입니다.");
+	history.go(-1);
+	</script>
+	<% }else{
+	
 	request.setCharacterEncoding("utf-8"); 
 	
 	String path = request.getRealPath("freeboard/save");
@@ -42,7 +49,8 @@
 			alert("에러가 발생했습니다. 다시 시도해 주십시오.");
 			history.go(-1);
 		</script>
-	<%}%>
+	<%}
+}%>
 <body>
 
 </body>

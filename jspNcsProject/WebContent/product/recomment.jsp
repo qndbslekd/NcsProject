@@ -7,17 +7,30 @@
 	<title>Insert title here</title>
 	<link href="../resource/team05_style.css" rel="stylesheet" type="text/css">
 </head>
-<%
-
-
-request.setCharacterEncoding("utf-8");
-String beforeName = request.getParameter("beforeName");
-String num = request.getParameter("num");
-
-System.out.println("beforeName"+beforeName);
-System.out.println("num"+num);
+<%	if(session.getAttribute("memName")==null
+	||request.getParameter("beforeName")==null
+	||request.getParameter("num")==null){%>
+	<%if(session.getAttribute("memName")==null){%>
+	<script type="text/javascript">
+			alert("로그인 후 가능합니다");
+			opener.location = "http://localhost:8080/jnp/member/loginForm.jsp";
+			window.close();
+	</script>
+	<%}else{%>
+	<script type="text/javascript">
+			alert("올바른 접근이 아닙니다");
+			opener.location = "http://localhost:8080/jnp/product/productList.jsp";
+			window.close();
+	</script>
+	<%} %>
+<%}else{
+	request.setCharacterEncoding("utf-8");
+	String beforeName = request.getParameter("beforeName");
+	String num = request.getParameter("num");
+	
+	System.out.println("beforeName"+beforeName);
+	System.out.println("num"+num);
 %>
-
 <body>
 	<form action="recommentPro.jsp" method="post">
 		답글내용 : <input type="text" name="recomment" />
@@ -26,4 +39,5 @@ System.out.println("num"+num);
 		<input type="hidden" value="<%=num%>" name="num"/>
 	</form>
 </body>
+<%} %>
 </html>

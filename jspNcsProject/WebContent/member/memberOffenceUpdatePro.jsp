@@ -21,11 +21,15 @@
 		MemberDAO dao = MemberDAO.getInstance();
 		boolean isCommit = dao.updateOffence(option,url,id);
 		if(isCommit){
-			%>
-				<script type="text/javascript">
-					alert();			
-				</script>
-			<%
+			%><script type="text/javascript">
+					alert("신고 확정 처리되었습니다.");			
+			  </script><%
+			
+		}else{
+			%><script type="text/javascript">
+					alert("신고 취소 처리되었습니다.");			
+			  </script><%
+			
 		} 
 	}
 %>
