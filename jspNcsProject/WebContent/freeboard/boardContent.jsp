@@ -76,7 +76,7 @@
 	</form>
 	
 	<jsp:include page="boardComment.jsp">
-		<jsp:param value="<%=num %>" name="num"/>
+		<jsp:param value="<%=num%>" name="num"/>
 	</jsp:include>
 </body>
 <script>

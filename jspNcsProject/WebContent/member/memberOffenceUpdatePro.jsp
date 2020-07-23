@@ -13,7 +13,14 @@
 	String id = request.getParameter("id");
 	
 	MemberDAO dao = MemberDAO.getInstance();
-	dao.updateOffence(option,url,id);
+	boolean isCommit = dao.updateOffence(option,url,id);
+	if(isCommit){
+		%>
+			<script type="text/javascript">
+				alert();			
+			</script>
+		<%
+	} 
 %>
 <body>
 <script type="text/javascript">

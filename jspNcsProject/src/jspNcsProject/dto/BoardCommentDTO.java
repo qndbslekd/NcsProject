@@ -12,7 +12,24 @@ public class BoardCommentDTO {
 	private String writer;//작성자
 	private String content;
 	
-	
+	public BoardCommentDTO() {}
+
+	public BoardCommentDTO(int comment_num, int freeboard_num, int ref, int re_level, Timestamp reg, String receiver,
+			String writer, String content) {
+		super();
+		this.comment_num = comment_num;
+		this.freeboard_num = freeboard_num;
+		this.ref = ref;
+		this.re_level = re_level;
+		this.reg = reg;
+		this.receiver = receiver;
+		this.writer = writer;
+		this.content = content;
+	}
+
+
+
+
 	public int getComment_num() {
 		return comment_num;
 	}
