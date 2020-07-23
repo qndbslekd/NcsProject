@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 @font-face { font-family: 'InfinitySans-RegularA1'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/InfinitySans-RegularA1.woff') format('woff'); font-weight: normal; font-style: normal; }
-/* 테마 색 #8bc34aa */
+/* 테마 색 #8bc34a */
 * {
 	font-family: 'InfinitySans-RegularA1';
 	font-size : 15px;
@@ -11,8 +11,7 @@ table {
 	width: 500; 
 	margin: auto; 
 	text-align: center; 
-	border: 1px solid #black; 
-	border-collapse: collapse; 
+	border-collapse: collapse;  
 	padding:5px;
 }
 table * {
@@ -138,7 +137,7 @@ a:visited{
 	text-decoration:none;
 	color:black;
 }
-a:*{
+a>*{
 	text-decoration:none;
 	color:black;
 }

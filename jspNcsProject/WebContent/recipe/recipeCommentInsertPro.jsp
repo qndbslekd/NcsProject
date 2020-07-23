@@ -11,8 +11,8 @@
 request.setCharacterEncoding("utf-8");
 
 String num = request.getParameter("recipeNum");
-%>
 
+%>
 <jsp:useBean id="comment" class="jspNcsProject.dto.RecipeCommentDTO"/>
 <jsp:setProperty property="*" name="comment"/>
 <%
@@ -23,10 +23,10 @@ dao.insertRecipeComment(comment);
 
 
 //대댓글이면 창닫기
-if(comment.getReceiver()!=null) {
-	%><script>
-	opener.parent.location.reload();
-	self.close();
+if(comment.getReceiver()!=null) { %>
+	<script>
+		opener.parent.location.reload();
+		self.close();
 	</script>
 	
 <%} else {%>
