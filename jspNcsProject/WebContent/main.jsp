@@ -16,7 +16,7 @@
 	<link href="resource/team05_style.css" rel="stylesheet" type="text/css">
 </head> 
 <style>
-	table * {
+	.mainTable * {
 		margin-top:5px;
 		margin-bottom:5px;
 	}
@@ -37,7 +37,6 @@ if(memId != null) {	//로그인 한 상태면 로그인 정보 가져오기
 %>
 <body>
 <jsp:include page="header.jsp" flush="false" />
-<br/>
 <table>
 	<tr>
 		<td>태그 순위 : </td>
@@ -54,7 +53,7 @@ if(memId != null) {	//로그인 한 상태면 로그인 정보 가져오기
 </table>
 <br/>
 <br/>
-<table>
+<table class="mainTable">
 
 	<tr>
 		<td colspan="4" style="text-align:left; vertical-align:middle"><img src="resource/leaf.png" style="width:25px; margin:0; padding:0; bottom:0;"/> <span style="font-size:1.3em">추천 레시피</span></td>
@@ -136,7 +135,7 @@ if(memId != null) {	//로그인 한 상태면 로그인 정보 가져오기
 </table>
 <%--------------------------------------------여기까지 추천레시피 -------------------------------------%>
 <br/><br/><br/>
-<table>
+<table class="mainTable">
 	<tr>
 		<td colspan="4" style="text-align:left; vertical-align:middle"><img src="resource/leaf.png" style="width:25px; margin:0; padding:0; bottom:0;"/> <span style="font-size:1.3em">추천 제품</span></td>
 		<td style="text-align:right;">
@@ -191,7 +190,7 @@ String mostTag = Mdao.selectMostTag(memId);
 
 if(mostTag == null) { //찜한 레시피가 없을 때 : 전체 레시피 중 평점순으로 출력
 %>
-<table>
+<table class="mainTable">
 	<tr>
 	<td colspan="4" style="text-align:left; vertical-align:middle"><img src="resource/leaf.png" style="width:25px; margin:0; padding:0; bottom:0;"/> <span style="font-size:1.3em">평점 높은 레시피</span></td>
 	<td style="text-align:right;"> <a href="/jnp/recipe/recipeList.jsp?mode=rating" style="color:black;">+more</a></td>
@@ -228,7 +227,7 @@ if(mostTag == null) { //찜한 레시피가 없을 때 : 전체 레시피 중 �
 </table>
 
 <%} else { //찜한 레시피가 있을 때 : 가장 많이 찜한 태그로 평점순으로 출력 %>
-<table>
+<table class="mainTable">
 	<tr>
 		<td colspan="4" style="text-align:left; vertical-align:middle"><img src="resource/leaf.png" style="width:25px; margin:0; padding:0; bottom:0;"/> <span style="font-size:1.3em">가장 많이 찜한 태그 : <%=mostTag %> </span></td>
 		<td style="text-align:right;"> <a href="/jnp/recipe/recipeSearchList.jsp?tag=<%=mostTag %>&mode=rating" style="color:black;">+more</a></td>

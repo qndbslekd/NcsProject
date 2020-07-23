@@ -46,11 +46,11 @@ if(maxSize > 0) {
 %>
 
 <body>
-<table>
+<table style="max-width:1100px; min-width:1100px;">
 	<tr>
-		<td colspan="<%=maxSize%>"><h2>추천 제품</h2></td>
+		<td colspan="4" style="max-width:1100px; min-width:1100px; padding:0px; "><span style="text-align:left; margin:0px;" ><h1>추천 제품</h1></span></td>
 	</tr>
-	<tr>
+	<tr >
 		<%for(int i = 0; i < maxSize; i++) {
 			ProductDTO dto = (ProductDTO) recommendList.get(i);
 		%>
@@ -63,7 +63,7 @@ if(maxSize > 0) {
 		<%} %>
 	</tr>
 </table>
-
+<hr size="2px" width="1100px" color="#ccc">
 </body>
 
 <%} %>
