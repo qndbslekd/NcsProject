@@ -8,10 +8,17 @@
 </head>
 <%
 	String num = request.getParameter("num");
+	if( num==null||session.getAttribute("memId")==null||!session.getAttribute("memId").equals("admin") ){%>
+		<script>
+			alert("올바른 접근이 아닙니다.");
+			history.go(-1);
+		</script>
+	<%}else{ 
+
 	InfomationDAO dao = InfomationDAO.getInstance();
 	dao.deleteInfo(num);
 	response.sendRedirect("informationList.jsp");
-%>
+	}%>
 <body>
 </body>
 </html>
