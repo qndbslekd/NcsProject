@@ -5,13 +5,13 @@
 * {
 	font-family: 'InfinitySans-RegularA1';
 	font-size : 15px;
-	
+	color:black;
 }
 table {
 	width: 500; 
 	margin: auto; 
 	text-align: center; 
-	border: 0px solid #77878F; 
+	border: 1px solid #black; 
 	border-collapse: collapse; 
 	padding:5px;
 }
@@ -26,6 +26,7 @@ body {
 	COLOR: black;
 	LINE-HEIGHT: 160%;
 	vertical-align:middle;
+	text-align:center;
 }
 h1 {
 	font-family: 'InfinitySans-RegularA1';
@@ -118,4 +119,26 @@ h1 {
 	border-radius:10px;
 	border:0px;
 	cursor:pointer;
+}
+
+button:focus {outline:0px;}
+input:focus {outline:0px;}
+
+a{
+	text-decoration:none;
+	color:black;
+}
+
+a:link{
+	text-decoration:none;
+	color:black;
+}
+
+a:visited{
+	text-decoration:none;
+	color:black;
+}
+a:*{
+	text-decoration:none;
+	color:black;
 }
