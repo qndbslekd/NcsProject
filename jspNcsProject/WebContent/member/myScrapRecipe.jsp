@@ -158,7 +158,7 @@ if(memId == null) {
 				<div class='row'>채식유형 : <%=recipe.getVegiType()%> | 난이도 : <%=recipe.getDifficulty()%> 
 				| 조리시간: <%=recipe.getCookingTime()%>분 | 분량: <%=recipe.getQuantity()%>인분 | 칼로리(1인분/Kcal): <%=recipe.getCal()%>Kcal		
 				</div>
-				<div class='row'>재료: <%= recipe.getIngredients()%></div>				
+				<div class='row'>재료: <%= recipe.getIngredients().substring(1,recipe.getIngredients().length()-1)%></div>				
 			</div>		
 		</div>
 		<div align="left"><button onclick="UnScrap(<%=recipe.getNum()%>)">찜 해제</button></div>		
