@@ -12,14 +12,14 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>비긴 비건</title>
+	<title>Begin Vegan</title>
 	<link href="resource/team05_style.css" rel="stylesheet" type="text/css">
 </head> 
 <style>
 	.mainTable * {
 		margin-top:5px;
 		margin-bottom:5px;
-	}
+	} 
 </style>
 <%
 String memId = (String) session.getAttribute("memId");
@@ -119,9 +119,9 @@ if(memId != null) {	//로그인 한 상태면 로그인 정보 가져오기
 									<img width="198px" height="198px" src="/jnp/recipe/imgs/<%=dto.getThumbnail()%>"/>
 								</div>
 								<div>
-									<div><%=dto.getRecipeName()%></div>
-									<div>posted by <%=dto.getWriter() %></div>
-									<div><%=dto.getRating()%>(<%=RatingDAO.getInstance().getCountRating(dto.getNum())%>개의 평가)</div>			
+									<div style="width:200px"><%=dto.getRecipeName()%></div>
+									<div style="width:200px">posted by <%=dto.getWriter() %></div>
+									<div style="width:200px"><%=dto.getRating()%>(<%=RatingDAO.getInstance().getCountRating(dto.getNum())%>개의 평가)</div>			
 								</div>			
 							</div>
 						</td>
@@ -162,8 +162,8 @@ if(memId != null) {	//로그인 한 상태면 로그인 정보 가져오기
 								<img width="198px" height="198px" src="/jnp/product/imgs/<%=dto.getProduct_img()%>"/>
 							</div>
 							<div class="info">
-								<div><%=dto.getName()%></div>
-								<div>추천 수 : <%=dto.getRecommend()%></div>			
+								<div style="width:200px"><%=dto.getName()%></div>
+								<div  style="width:200px">추천 수 : <%=dto.getRecommend()%></div>			
 							</div>			
 						</div>
 					</td>
@@ -213,9 +213,9 @@ if(mostTag == null) { //찜한 레시피가 없을 때 : 전체 레시피 중 �
 									<img width="198px" height="198px" src="/jnp/recipe/imgs/<%=dto.getThumbnail()%>"/>
 								</div>
 								<div class="info">
-									<div class="row"><%=dto.getRecipeName()%></div>
-									<div class="row">posted by <%=dto.getWriter() %></div>
-									<div class="row"><%=dto.getRating()%>(<%=RatingDAO.getInstance().getCountRating(dto.getNum())%>개의 평가)</div>			
+									<div style="width:200px"><%=dto.getRecipeName()%></div>
+									<div style="width:200px">posted by <%=dto.getWriter() %></div>
+									<div style="width:200px"><%=dto.getRating()%>(<%=RatingDAO.getInstance().getCountRating(dto.getNum())%>개의 평가)</div>			
 								</div>			
 							</div>
 						</td>
@@ -253,9 +253,9 @@ if(mostTag == null) { //찜한 레시피가 없을 때 : 전체 레시피 중 �
 									<img width="198px" height="198px" src="/jnp/recipe/imgs/<%=dto.getThumbnail()%>"/>
 								</div>
 								<div class="info">
-									<div class="row"><%=dto.getRecipeName()%></div>
-									<div class="row">posted by <%=dto.getWriter() %></div>
-									<div class="row"><%=dto.getRating()%>(<%=RatingDAO.getInstance().getCountRating(dto.getNum())%>개의 평가)</div>			
+									<div style="width:200px"><%=dto.getRecipeName()%></div>
+									<div style="width:200px">posted by <%=dto.getWriter() %></div>
+									<div style="width:200px"><%=dto.getRating()%>(<%=RatingDAO.getInstance().getCountRating(dto.getNum())%>개의 평가)</div>			
 								</div>			
 							</div>
 						</td>

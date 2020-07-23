@@ -11,7 +11,7 @@ table {
 	width: 500; 
 	margin: auto; 
 	text-align: center; 
-	border-collapse: collapse;  
+	border-collapse: collapse; 
 	padding:5px;
 }
 table * {
