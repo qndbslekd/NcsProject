@@ -162,21 +162,24 @@
 			</tr>
 		</table>
 	</form>
-	
-	<table class="list">
+	<table>
 		<tr>
 			<td><button onclick="window.location='board.jsp?mode=reg&category=<%=category%>&sel=<%=sel%>&search=<%=search%>&pageNum=<%=pageNum%>'">최신순</button></td>
 			<td><button onclick="window.location='board.jsp?mode=read_count&category=<%=category%>&sel=<%=sel%>&search=<%=search%>&pageNum=<%=pageNum%>'">조회순</button></td>
 			<td><button onclick="window.location='board.jsp?mode=recommend&category=<%=category%>&sel=<%=sel%>&search=<%=search%>&pageNum=<%=pageNum%>'">추천순</button></td>
-		</tr>	
-		<tr>
-			<td>글번호</td>
-			<td>[말머리]</td>
-			<td>제목</td>
-			<td>글쓴이</td>
-			<td>조회수</td>
-			<td>추천수</td>
 		</tr>
+	</table>
+	<table class="list" style="width:1000px; align:center; margin:auto;">
+		<thead>	
+		<tr>
+			<th>글번호</th>
+			<th>[말머리]</th>
+			<th>제목</th>
+			<th>글쓴이</th>
+			<th>조회수</th>
+			<th>추천수</th>
+		</tr>
+		</thead>
 	<%if(count == 0){ %>
 		<tr>
 			<td colspan='6'>게시글이 없습니다.</td>
@@ -188,23 +191,23 @@
 				String name = dao.selectNameById(dto.getWriter());
 		%>
 		<tr>
-			<td><%=number--%></td>	
+			<td <%if(i % 2 == 1) { %> class="even" <%} %> ><%=number--%></td>	
 			<%if(dto.getCategory().equals("notice")){%>	
-			<td>공지사항</td>
+			<td <%if(i % 2 == 1) { %> class="even" <%} %>>공지사항</td>
 			<%} %>
 			<%if(dto.getCategory().equals("freetalk")){%>	
-			<td>잡담과일기</td>
+			<td <%if(i % 2 == 1) { %> class="even" <%} %>>잡담과일기</td>
 			<%} %>
 			<%if(dto.getCategory().equals("information")){%>	
-			<td>정보 공유</td>
+			<td <%if(i % 2 == 1) { %> class="even" <%} %>>정보 공유</td>
 			<%} %>
 			<%if(dto.getCategory().equals("question")){%>	
-			<td>고민과질문</td>
+			<td <%if(i % 2 == 1) { %> class="even" <%} %>>고민과질문</td>
 			<%} %>
-			<td onclick="window.location='boardContent.jsp?num=<%=dto.getNum()%>&mode=<%=mode%>&category=<%=category%>&sel=<%=sel%>&search=<%=search%>&pageNum=<%=pageNum%>'"><%=dto.getTitle()%></td>
-			<td><%=name%></td>
-			<td><%=dto.getRead_count()%></td>
-			<td><%=dto.getRecommend()%></td>
+			<td <%if(i % 2 == 1) { %> class="even" <%} %> onclick="window.location='boardContent.jsp?num=<%=dto.getNum()%>&mode=<%=mode%>&category=<%=category%>&sel=<%=sel%>&search=<%=search%>&pageNum=<%=pageNum%>'"><%=dto.getTitle()%></td>
+			<td <%if(i % 2 == 1) { %> class="even" <%} %>><%=name%></td>
+			<td <%if(i % 2 == 1) { %> class="even" <%} %>><%=dto.getRead_count()%></td>
+			<td <%if(i % 2 == 1) { %> class="even" <%} %>><%=dto.getRecommend()%></td>
 		</tr>
 			<%}
 	}%>

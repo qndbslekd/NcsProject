@@ -39,7 +39,6 @@
 		dao.updateRating(num);
 %>
 <script>
-	alert("평점을 남겼습니다.");
 	opener.parent.location.reload();
 	window.close();
 </script>

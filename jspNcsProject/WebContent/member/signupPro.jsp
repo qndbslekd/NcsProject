@@ -18,7 +18,6 @@ int max = 1024*1024*5; //5MB byte 단위
 String enc = "UTF-8";
 DefaultFileRenamePolicy dp = new DefaultFileRenamePolicy(); //중복파일금지
 MultipartRequest mr = new MultipartRequest(request,path,max,enc,dp);
-
 if(mr.getParameter("id")==null||mr.getParameter("pw")==null||mr.getParameter("name")==null||mr.getParameter("id_number1")==null||mr.getParameter("id_number2")==null||mr.getParameter("vegi_type")==null){%>
 		<script>
 			alert("잘못된 접근입니다");
@@ -88,7 +87,7 @@ if(mr.getParameter("id")==null||mr.getParameter("pw")==null||mr.getParameter("na
 		if(!(type !=null && type[0].equals("image"))){
 			File f = mr.getFile("profile_img");
 			f.delete();
-		}
+		} 
 	}
 	//sendRedirect
 	response.sendRedirect("../main.jsp");

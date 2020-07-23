@@ -52,6 +52,7 @@
 		
 	</script>
 </head>
+
 <%
 	request.setCharacterEncoding("UTF-8");
 	
@@ -93,9 +94,9 @@
 		%>				
 		<tr>
 			<td style="width:70px; vertical-align:top;"><button style="width:40px; height:40px;border-radius:20px; border:0px; color:white; background-color: rgb(139, 195, 74); top:10px; text-align:center; vertical-align:middle; font-size:1.5em; font-weight:800; cursor:default;"><%= nowContentNum%></button></td>
-			<td style="width:600px; vertical-align:top; text-align:left; padding-top:25px; ">
+			<td style="width:600px; vertical-align:top; text-align:left; padding-top:15px; ">
 				<%= recipeContentdto.getContent() %>
-				 <table class="nonBorder" style="margin:10px; left:0px;">
+				 <table class="nonBorder" style="margin:3px; left:0px;">
 				<%
 				List recipeContentCommentlist = null;
 				dao = RecipeContentCommentDAO.getInstance();
@@ -107,8 +108,8 @@
 						reStep = dto.getReStep();
 						reLevel = dto.getReLevel();
 				%>
-			<tr >
-				<td align="left" style="padding:3px;">
+			<tr>
+				<td align="left" style="padding:2px">
 					<% // 댓글 들여쓰기 처리
 						int wid = 0;
 						if(dto.getReLevel() > 0){ //if4
@@ -120,8 +121,8 @@
 						<img src="imgs/replyImg.png" width="11" />
 					"<%= dto.getContent()  %>"
 					</td>
-				<td style="padding:3px;">|  <%= recipeDAO.selectNameById(dto.getName()) %>  </td>
-				<td> 
+				<td style="padding:2px;"> | <%=recipeDAO.selectNameById(dto.getName()) %></td>
+				<td style="padding:2px"> 
 					<% 
 					if(session.getAttribute("memId") == null){//if3 로그아웃 상태%>
 					
@@ -180,6 +181,7 @@
 	} // 조리과정 제일 큰 for문
 	%>
 	</table>
+	<br/><br/><br/>
 </body>
 </html>
    

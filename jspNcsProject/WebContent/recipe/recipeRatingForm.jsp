@@ -74,7 +74,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td><input type="submit" value="평점 수정" /> </td>
+						<td><input type="submit" class="greenButton" value="평점 수정" /> </td>
 					</tr>
 				</table>
 			</form>
