@@ -9,45 +9,54 @@
 	<title>제품 리스트</title>
 	<link href="../resource/team05_style.css" type="text/css" rel="stylesheet"/>
 <style>
-	#search{
+#search{
 		width : 800px;
-		margin-top : 100px;
+		margin-top : 50px;
 		margin-bottom : 50px;
 	}
 	#recipe-wrapper{
+		overflow: hidden;
 		width : 968px;
+		height: auto;
 		margin: 0 auto;
 	}
 	.recipe{
+	
 		width : 200px;
 		height : 300px;
 		float: left;
 		margin: 20px 20px; 		
 	}
+	
 	.thumbnail {
 		height: 200px;
 		border-top : 1px solid black;	
 		border-right : 1px solid black;	
 		border-left : 1px solid black;	
+		
 	}
+	
 	.info{
 		height: 100px;	
 		border: 1px solid black;	
-	} 
-	.info .row {
-		overflow : hidden;	
+	}
+	
+	.info .row {	
 		text-align: center;
-		height: 50px;
-		line-height: 50px;
+		height: 30px;
+		line-height: 30px;
 		color : black;		
 	}
+		
 	.sub-wrapper{
 		height: 70px;
 		width : 920px;
 		margin: 0 auto;
 	}
+	
 	.write_button{
 		background-color: green;
+		
 	}
 	
 	.total_recipe{
@@ -67,49 +76,50 @@
 </head>
 <%
 	//paging
-	int pageSize =20;
-	//최신순
-	
-	String pageNum = request.getParameter("pageNum");
-	if(pageNum == null) pageNum ="1";
-	
-	int currPage = Integer.parseInt(pageNum);
-	int startRow = (currPage-1)*pageSize +1;
-	int endRow = currPage*pageSize;
-	int count = 0;
-	int rowNum = 5;
-	
-	String mode = request.getParameter("mode");
-	if(mode==null){
-		mode = "num";
-	}
-	System.out.println("mode : "+mode);
+int pageSize = 20;
+//최신순
 
-	ProductDAO dao = ProductDAO.getInstance();
-	List productList = null;
+String pageNum = request.getParameter("pageNum");
+if (pageNum == null)
+	pageNum = "1";
 
-	//search Param
-	String option = "";
-	String search = "";
-	option = request.getParameter("option");
-	search = request.getParameter("search");
-	System.out.println("option : "+option);
-	System.out.println("search : "+search);
-	 
-	if(search==null||search.equals("")){
-		//비 검색시
-		count = dao.getProductCount();
-		if(count>0){
-			productList = dao.seletAllProduct(startRow, endRow, mode);
-		} 
-	}else{
-		//검색시
-		count = dao.getProductCount(option,search);
-		if(count>0){
-			System.out.println("count"+count);
-			productList = dao.seletAllProduct(startRow, endRow, mode,option,search);
-		} 
+int currPage = Integer.parseInt(pageNum);
+int startRow = (currPage - 1) * pageSize + 1;
+int endRow = currPage * pageSize;
+int count = 0;
+int rowNum = 5;
+
+String mode = request.getParameter("mode");
+if (mode == null) {
+	mode = "num";
+}
+System.out.println("mode : " + mode);
+
+ProductDAO dao = ProductDAO.getInstance();
+List productList = null;
+
+//search Param
+String option = "";
+String search = "";
+option = request.getParameter("option");
+search = request.getParameter("search");
+System.out.println("option : " + option);
+System.out.println("search : " + search);
+
+if (search == null || search.equals("")) {
+	//비 검색시
+	count = dao.getProductCount();
+	if (count > 0) {
+		productList = dao.seletAllProduct(startRow, endRow, mode);
 	}
+} else {
+	//검색시
+	count = dao.getProductCount(option, search);
+	if (count > 0) {
+		System.out.println("count" + count);
+		productList = dao.seletAllProduct(startRow, endRow, mode, option, search);
+	}
+}
 %>
 <jsp:include page="../header.jsp" flush="false"/>
 <body>
@@ -186,7 +196,7 @@
 	<%	}
 	}%>			
 	</div>
-		<div class="paging">
+	<div class="paging">
 	<%
 		if(count>0){
 			int pageCount = count/pageSize + (count%pageSize == 0 ? 0 :1);
