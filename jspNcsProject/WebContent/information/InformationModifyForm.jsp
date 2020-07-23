@@ -66,7 +66,13 @@ input[type="file"]{
 				</tr>
 					<tr>
 						<td class="t">사진</td>
-						<td><img src="img/<%=information.getImg()%>" width="454px;" height="353px;" /></td>
+						<td>
+						<%if(information.getImg()==null){%>
+							<img src="../product/imgs/unnamed.gif" width="454px;" height="353px;" />
+						<%}else{ %>
+							<img src="img/<%=information.getImg()%>" width="454px;" height="353px;" />
+						<%} %>
+						</td>
 					</tr>
 					<tr>
 						<td class="t">수정할 이미지</td>
@@ -83,8 +89,8 @@ input[type="file"]{
 					<tr>
 						<td></td>
 						<td style="padding-top: 20px;">
-							<input type="submit" value="수정">
-							<input type="button" value="수정취소" onclick="window.location='informationList.jsp'"/>
+							<button type="submit" >수정</button>
+							<button type="button" onclick="window.location='informationList.jsp'">수정취소</button>
 						</td>
 					</tr>	
 				<input type="hidden" value= "<%=information.getNum()%>" name="num"/>
