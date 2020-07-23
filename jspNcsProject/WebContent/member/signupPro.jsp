@@ -64,6 +64,7 @@ int brithDay = Integer.parseInt(id_number1.substring(4,5));
 if (brithMonth * 100 + brithDay > currentMonth * 100 + currentDay){
 	age_--;
 }
+
 dto.setAge(age_+"");
 dto.setId(id);
 dto.setId_number(id_number1+id_number2);
