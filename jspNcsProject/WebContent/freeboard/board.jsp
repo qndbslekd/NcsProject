@@ -25,6 +25,23 @@
 	}
 
 </style>
+<script>
+	function check(){
+		var inputs = document.searchForm;
+		if(inputs.sel.value != "total" && !inputs.search.value){
+			var message = "";
+			if(inputs.sel.value == "title") message += "제목을"
+			if(inputs.sel.value== "writer") message+="작성자를"
+			if(inputs.sel.value=="content") message+="내용을"
+			message += " 입력하세요.";
+			alert(message);
+			return false;
+		}
+	}
+
+
+
+</script>
 </head>
 <%
 	request.setCharacterEncoding("utf-8");	
@@ -32,14 +49,18 @@
 	//정렬기준
 	String mode= request.getParameter("mode");// reg, recommend, read_count
 	
-	if(mode==null || mode.equals("")){
+	if(mode==null || mode.equals("") || mode.equals("null")){
 		mode = "reg";
 	}
 		
 	String pageNum = request.getParameter("pageNum");
-	if(pageNum == null){
+	
+	//pageNum null처리
+	if(pageNum == null || pageNum.equals("null")|| pageNum.equals("")){
 		pageNum  = "1";
 	}
+	
+	
 	int pageSize= 10;
 	int currPage = Integer.parseInt(pageNum);
 	int startRow = (currPage-1)*pageSize+1;
@@ -69,10 +90,6 @@
 	if(sel != null &&sel.equals("null")) {sel=null;}
 	if(search != null &&search.equals("null")) {search=null;}
 	
-	System.out.println("category:"+category+" sel:"+sel+" search:"+search);
-	
-	
-	
 	List articleList = null;
 	
 
@@ -81,6 +98,7 @@
 		String whereQuery = "where 1=1 ";
 		String name = "";
 		//작성자명은 활동명이므로 검색시 쿼리문 검색을 위해 id를 받아와야함
+			
 			
 		if(!category.equals("total") && !sel.equals("total")){		
 			if(search!=null && !search.equals("")){
@@ -136,7 +154,7 @@
 		</tr>
 	<%}%>
 	</table>
-	<form action="board.jsp" method="post">
+	<form action="board.jsp" method="post" name="searchForm" onsubmit="return check()">
 		<table>
 			<tr>
 				<td colspan='2'>
