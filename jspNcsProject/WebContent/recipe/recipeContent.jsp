@@ -71,7 +71,7 @@
 	<jsp:include page="../header.jsp" flush="false" />
 	<br />
 	
-	<table class="nonBorder">
+	<table class="nonBorder" style="max-width:1100px; min-width:1100px;">
 		<tr >
 			<td colspan="6" >
 				<div style="min-width:40px; display:inline-block">&nbsp;</div>
@@ -211,8 +211,8 @@
 			<span style="text-align:left; margin:0px;" ><h1>조리과정</h1></span> <br/><br/>
 				<jsp:include page="recipeStepComment.jsp" flush="false"/>
 		<tr>
-			<td colspan="6">
-			<span style="text-align:left; margin:0px;" ><h1>댓글</h1><hr></span>
+			<td colspan="6" style="border-top:2px solid #ccc;">
+			<span style="text-align:left; margin:0px;" ><h1>댓글</h1></span>
 				<jsp:include page="recipeComment.jsp">
 					<jsp:param value="<%=num %>" name="num"/>
 				</jsp:include>

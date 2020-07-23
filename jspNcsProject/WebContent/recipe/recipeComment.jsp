@@ -47,7 +47,7 @@
 		
 %>
 	<table style="width:700px; border:0px;" class="nonBorder" >
-		<tr style="border:0px; border-top:1px solid #ccc;">
+		<tr style="border:0px; ">
 			<%if (dto.getReLevel()>0) {%><td rowspan="2" width="20px;" style="vertical-align:top;border:0px;"><img src="/jnp/recipe/imgs/replyImg.png" width="10px"/></td><%} %>
 			<td rowspan="2" style="width:60px; height:60px; vertical-align:top;border:0px;"><img src="/jnp/save/<%=rDAO.selectImgById(dto.getName())%>" style="width:60px; height:60px; border-radius:30px;"/></td>
 			<td style="text-align:left; border:0px;padding-bottom:2px;">
