@@ -44,10 +44,11 @@
 	for(int i = 0; i < x; i++) {
 		//RecipeCommentDTO dto = (RecipeCommentDTO) RecipeCommentList.get(i);
 		RecipeCommentDTO dto = (RecipeCommentDTO) RecipeCommentList.get(i);
-		
+		//test
 %>
-	<table style="width:700px; border:0px;" class="nonBorder" >
-		<tr style="border:0px; border-top:1px solid #ccc;">
+	<hr size="1px" width="700px" color="#ccc" style="margin-top:3px; margin-bottom:0px;">
+	<table class="nonBorder" style="width:700px;"  >
+		<tr>
 			<%if (dto.getReLevel()>0) {%><td rowspan="2" width="20px;" style="vertical-align:top;border:0px;"><img src="/jnp/recipe/imgs/replyImg.png" width="10px"/></td><%} %>
 			<td rowspan="2" style="width:60px; height:60px; vertical-align:top;border:0px;"><img src="/jnp/save/<%=rDAO.selectImgById(dto.getName())%>" style="width:60px; height:60px; border-radius:30px;"/></td>
 			<td style="text-align:left; border:0px;padding-bottom:2px;">
@@ -63,7 +64,7 @@
 			</td>
 			<td style="text-align:right; border:0px;"><%=sdf.format(dto.getReg()) %></td>
 		</tr>
-		<tr style="border:0px; ">
+		<tr>
 			<td colspan="2" style="text-align:left;border:0px;padding-top:0px;">
 				<%if (dto.getReceiver() !=null) { //만약 대댓글이라면 원본댓글 작성자 이름 넣어주기%>
 					<Strong><%= rDAO.selectNameById(dto.getReceiver()) %></Strong>&nbsp;&nbsp;
@@ -72,8 +73,8 @@
 			</td>
 		</tr>
 	</table>
-	
 <%}%>
+	<hr size="1px" width="700px" color="#ccc" style="margin-top:3px">
 <hr>
 <%--
 <div align=right >

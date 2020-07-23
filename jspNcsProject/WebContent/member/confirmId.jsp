@@ -19,7 +19,7 @@
 			window.location = '../main.jsp';
 		}
 	}
-</script> 
+</script>
 <% 
 	request.setCharacterEncoding("UTF-8");
 	String id = request.getParameter("id");
