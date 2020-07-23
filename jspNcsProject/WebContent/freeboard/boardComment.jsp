@@ -23,7 +23,7 @@
 <%	
 	request.setCharacterEncoding("utf-8");
 
-	if(session.getAttribute("memId") == null || request.getParameter("num") == null){%>
+	if(request.getParameter("num") == null){%>
 	<script>
 		alert("잘못된 접근입니다.");
 		history.go(-1);

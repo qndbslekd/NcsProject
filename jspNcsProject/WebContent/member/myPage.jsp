@@ -36,7 +36,7 @@
 		</tr>
 		<tr>
 			<td colspan="2">
-				<button onclick="window.location='main.jsp'">메인으로</button>
+				<button onclick="window.location='../main.jsp'">메인으로</button>
 				<button onclick="window.location='../logoutPro.jsp'">로그아웃</button>
 			</td>
 		</tr>

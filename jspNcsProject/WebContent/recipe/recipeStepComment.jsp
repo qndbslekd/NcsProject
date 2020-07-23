@@ -85,7 +85,7 @@
 		%>				
 		<tr>
 			<td style="width:70px; vertical-align:top;"><button style="width:40px; height:40px;border-radius:20px; border:0px; color:white; background-color: rgb(139, 195, 74); top:10px; text-align:center; vertical-align:middle; font-size:1.5em; font-weight:800; cursor:default;"><%= nowContentNum%></button></td>
-			<td style="width:600px; vertical-align:top; text-align:left; padding-top:25px; ">
+			<td style="width:600px; vertical-align:top; text-align:left; padding-top:15px; ">
 				<%= recipeContentdto.getContent() %>
 				 <table class="nonBorder" style="margin:3px; left:0px;">
 				<%
@@ -169,6 +169,7 @@
 	} // 조리과정 제일 큰 for문
 	%>
 	</table>
+	<br/><br/><br/>
 </body>
 </html>
    
