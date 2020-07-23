@@ -10,10 +10,19 @@
 <%	if(session.getAttribute("memName")==null
 	||request.getParameter("beforeName")==null
 	||request.getParameter("num")==null){%>
+	<%if(session.getAttribute("memName")==null){%>
+	<script type="text/javascript">
+			alert("로그인 후 가능합니다");
+			opener.location = "http://localhost:8080/jnp/member/loginForm.jsp";
+			window.close();
+	</script>
+	<%}else{%>
 	<script type="text/javascript">
 			alert("올바른 접근이 아닙니다");
-			window.location = "http://localhost:8080/jnp/product/productList.jsp";
+			opener.location = "http://localhost:8080/jnp/product/productList.jsp";
+			window.close();
 	</script>
+	<%} %>
 <%}else{
 	request.setCharacterEncoding("utf-8");
 	String beforeName = request.getParameter("beforeName");
