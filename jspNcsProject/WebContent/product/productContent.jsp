@@ -75,6 +75,11 @@
 					<%=dto.getDetail()%>
 				</td>
 			<tr>
+			<tr>
+				<td style="text-align: left; padding-top: 5px; padding-bottom: 5px;">
+					<h1>댓글</h1>
+				</td>
+			<tr>
 			
 			<%for(int i=0;i<comment.size();i++){ %>
 				<tr>  
