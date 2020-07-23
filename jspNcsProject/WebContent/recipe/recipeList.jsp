@@ -15,10 +15,21 @@
 
 <style>
 	#search{
+		height: 250px;
 		width : 800px;
 		margin-top : 50px;
 		margin-bottom : 50px;
+		background-color : #DADBD7;
 	}
+	#search .title{
+		width:80px;
+		font-size:17px;
+		text-align: right;
+	
+	}
+	#search .content{
+	}
+	
 	#recipe-wrapper{
 		overflow: hidden;
 		width : 968px;
@@ -122,18 +133,19 @@
 	<form action="recipeSearchList.jsp" name="searchForm" method="post">
 		<input type="hidden" name="mode" value="num"/>
 		<table id="search">
+			<tr><td><td/></tr>
 			<tr>
-				<td>요리명</td>
-				<td colspan='7'><input type="text" name="name" style="width: 700px;"/></td>
+				<td class="title">요리명</td>
+				<td colspan='7'><input type="text" name="name" style="width: 620px;"/></td>
 			</tr>
 			<tr>
-				<td>재료명</td>
-				<td colspan='7'><input type="text" name="ingredients" style="width: 700px;"placeholder="재료1,재료2,.."/></td>
+				<td class="title">재료명</td>
+				<td colspan='7'><input type="text" name="ingredients" style="width: 620px;"placeholder="재료1,재료2,.."/></td>
 			</tr>
 			<tr>
-				<td>분류</td>
-				<td>채식유형별</td>
-				<td>
+				<td class="title">분류</td>
+				<td style="width:100px; text-align:right;">채식유형별</td>
+				<td style="width:150px;">
 					<select name="vegiType">
 						<option value="total" selected>전체</option>
 						<option value="vegan">비건</option>
@@ -146,8 +158,8 @@
 					</select>
 					<img src="./imgs/question.png" width="20px" height="20px" onclick="question()" />
 				</td>	
-				<td>난이도별</td>
-				<td>
+				<td style="width:60px;text-align:right;">난이도별</td>
+				<td style="width:80px;">
 					<select name="difficulty">
 						<option value="전체" selected>전체</option>
 						<option value="쉬움">쉬움</option>
@@ -155,19 +167,19 @@
 						<option value="어려움">어려움</option>
 					</select>
 				</td>
-				<td>열량</td>
-				<td>
-				<input type="text" name="calMore"/>~
-				<input type="text" name="calUnder"/>
+				<td style="width:40px; text-align:right;">열량</td>
+				<td style="width:100px;">
+				<input type="text" name="calMore" style="width:35px;"/> ~
+				<input type="text" name="calUnder" style="width:35px;"/>
 				</td>
 			</tr>
 			<tr>
-				<td>작성자</td>
-				<td colspan='7'><input type="text" name="writer" style="width: 700px;"/></td>
+				<td class="title">작성자</td>
+				<td colspan='7'><input type="text" name="writer" style="width: 620px;"/></td>
 			</tr>
 			<tr>
-				<td>태그</td>
-				<td colspan='7'><input type="text" name="tag" style="width: 700px;" placeholder="태그명1,태그명2,.."/></td>
+				<td class="title">태그</td>
+				<td colspan='7'><input type="text" name="tag" style="width: 620px;" placeholder="태그명1,태그명2,.."/></td>
 			</tr>
 			<tr>
 				<td colspan='8'><input type="submit" value="검색"/></td>
