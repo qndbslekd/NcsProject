@@ -11,7 +11,12 @@
 <title>글 상세보기</title>
 </head>
 <%
-
+	if(request.getParameter("num") == null){%>
+	<script>
+		alert("잘못된 접근입니다.");
+		history.go(-1);
+	</script>
+	<%}else{
 	int num = Integer.parseInt(request.getParameter("num"));
 
 	String pageNum = request.getParameter("pageNum");
@@ -50,12 +55,12 @@
 				<td>추천수</td>
 				<td><%=article.getRecommend()%>
 				<%if(session.getAttribute("memId")!=null){%>
-				<td><button onclick="window.location='recommendArticle.jsp?freeboard_num=<%=article.getNum()%>&mem_id=<%=session.getAttribute("memId")%>'">추천하기</button></td>
+				<td><button onclick="window.location='recommendArticle.jsp?freeboard_num=<%=article.getNum()%>&mem_id=<%=session.getAttribute("memId")%>&pageNum=<%=pageNum%>'">추천하기</button></td>
 				<%}%>
 			</tr>
 			<tr>
 				<td>조회수</td>
-				<td><%= article.getRead_count()%></td>
+				<td><%=article.getRead_count()%></td>
 			</tr>
 			<tr>
 				<td>작성자</td>
@@ -92,6 +97,7 @@
 		<jsp:param value="<%=num%>" name="num"/>
 	</jsp:include>
 </body>
+<%} %>
 <script>
 	//글 삭제확인
 	function deleteArticle(num) {
