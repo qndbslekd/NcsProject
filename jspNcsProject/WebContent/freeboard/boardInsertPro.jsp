@@ -10,7 +10,15 @@
 <meta charset="UTF-8">
 <title>inserPro</title>
 </head>
-<%	request.setCharacterEncoding("utf-8"); 
+<%
+	if(session.getAttribute("memId") == null ){%>
+	<script>
+		alert("잘못된 접근입니다.");
+		history.go(-1);
+	</script>
+	<% }else{
+
+	request.setCharacterEncoding("utf-8"); 
 		
 	String path = request.getRealPath("freeboard/save");
 	int max = 1024*1024*10;
@@ -36,6 +44,7 @@
 	FreeBoardDAO dao = FreeBoardDAO.getInstance();
 	dao.insertArticle(article);
 	response.sendRedirect("board.jsp");
+	}
 %>
 
 

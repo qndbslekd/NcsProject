@@ -9,14 +9,20 @@
 </head>
 <body>
 <%
+	if(session.getAttribute("memId") == null || request.getParameter("num") == null){%>
+	<script>
+		alert("잘못된 접근입니다.");
+		history.go(-1);
+	</script>
+	<% }else{
+
 	int num = Integer.parseInt(request.getParameter("num"));
 
 	FreeBoardDAO dao = FreeBoardDAO.getInstance();
 	dao.deleteArticle(num);
 	
 	response.sendRedirect("board.jsp");
-
-
+	}	
 %>
 
 </body>

@@ -14,7 +14,6 @@
 <link href="../resource/team05_style.css" type="text/css" rel="stylesheet"/>
 
 <style>
-
 	#search{
 		width : 800px;
 		margin-top : 50px;
@@ -79,10 +78,6 @@
 		color : black;
 	}
 
-	
-
-	
-
 </style>
 <script>
 	function question(){
@@ -109,7 +104,6 @@
 	if(request.getParameter("mode")!=null){
 		mode= request.getParameter("mode");
 	}
-
 
 	RecipeDAO RecipeDao = RecipeDAO.getInstance();
 	
