@@ -25,23 +25,6 @@
 	}
 
 </style>
-<script>
-	function check(){
-		var inputs = document.searchForm;
-		if(inputs.sel.value != "total" && !inputs.search.value){
-			var message = "";
-			if(inputs.sel.value == "title") message += "제목을"
-			if(inputs.sel.value== "writer") message+="작성자를"
-			if(inputs.sel.value=="content") message+="내용을"
-			message += " 입력하세요.";
-			alert(message);
-			return false;
-		}
-	}
-
-
-
-</script>
 </head>
 <%
 	request.setCharacterEncoding("utf-8");	
@@ -49,18 +32,14 @@
 	//정렬기준
 	String mode= request.getParameter("mode");// reg, recommend, read_count
 	
-	if(mode==null || mode.equals("") || mode.equals("null")){
+	if(mode==null || mode.equals("")){
 		mode = "reg";
 	}
 		
 	String pageNum = request.getParameter("pageNum");
-	
-	//pageNum null처리
-	if(pageNum == null || pageNum.equals("null")|| pageNum.equals("")){
+	if(pageNum == null){
 		pageNum  = "1";
 	}
-	
-	
 	int pageSize= 10;
 	int currPage = Integer.parseInt(pageNum);
 	int startRow = (currPage-1)*pageSize+1;
@@ -90,6 +69,10 @@
 	if(sel != null &&sel.equals("null")) {sel=null;}
 	if(search != null &&search.equals("null")) {search=null;}
 	
+	System.out.println("category:"+category+" sel:"+sel+" search:"+search);
+	
+	
+	
 	List articleList = null;
 	
 
@@ -98,7 +81,6 @@
 		String whereQuery = "where 1=1 ";
 		String name = "";
 		//작성자명은 활동명이므로 검색시 쿼리문 검색을 위해 id를 받아와야함
-			
 			
 		if(!category.equals("total") && !sel.equals("total")){		
 			if(search!=null && !search.equals("")){
@@ -154,7 +136,7 @@
 		</tr>
 	<%}%>
 	</table>
-	<form action="board.jsp" method="post" name="searchForm" onsubmit="return check()">
+	<form action="board.jsp" method="post">
 		<table>
 			<tr>
 				<td colspan='2'>
@@ -180,21 +162,24 @@
 			</tr>
 		</table>
 	</form>
-	
-	<table class="list">
+	<table>
 		<tr>
 			<td><button onclick="window.location='board.jsp?mode=reg&category=<%=category%>&sel=<%=sel%>&search=<%=search%>&pageNum=<%=pageNum%>'">최신순</button></td>
 			<td><button onclick="window.location='board.jsp?mode=read_count&category=<%=category%>&sel=<%=sel%>&search=<%=search%>&pageNum=<%=pageNum%>'">조회순</button></td>
 			<td><button onclick="window.location='board.jsp?mode=recommend&category=<%=category%>&sel=<%=sel%>&search=<%=search%>&pageNum=<%=pageNum%>'">추천순</button></td>
-		</tr>	
-		<tr>
-			<td>글번호</td>
-			<td>[말머리]</td>
-			<td>제목</td>
-			<td>글쓴이</td>
-			<td>조회수</td>
-			<td>추천수</td>
 		</tr>
+	</table>
+	<table class="list" style="width:1000px; align:center; margin:auto;">
+		<thead>	
+		<tr>
+			<th>글번호</th>
+			<th>[말머리]</th>
+			<th>제목</th>
+			<th>글쓴이</th>
+			<th>조회수</th>
+			<th>추천수</th>
+		</tr>
+		</thead>
 	<%if(count == 0){ %>
 		<tr>
 			<td colspan='6'>게시글이 없습니다.</td>
@@ -206,23 +191,23 @@
 				String name = dao.selectNameById(dto.getWriter());
 		%>
 		<tr>
-			<td><%=number--%></td>	
+			<td <%if(i % 2 == 1) { %> class="even" <%} %> ><%=number--%></td>	
 			<%if(dto.getCategory().equals("notice")){%>	
-			<td>공지사항</td>
+			<td <%if(i % 2 == 1) { %> class="even" <%} %>>공지사항</td>
 			<%} %>
 			<%if(dto.getCategory().equals("freetalk")){%>	
-			<td>잡담과일기</td>
+			<td <%if(i % 2 == 1) { %> class="even" <%} %>>잡담과일기</td>
 			<%} %>
 			<%if(dto.getCategory().equals("information")){%>	
-			<td>정보 공유</td>
+			<td <%if(i % 2 == 1) { %> class="even" <%} %>>정보 공유</td>
 			<%} %>
 			<%if(dto.getCategory().equals("question")){%>	
-			<td>고민과질문</td>
+			<td <%if(i % 2 == 1) { %> class="even" <%} %>>고민과질문</td>
 			<%} %>
-			<td onclick="window.location='boardContent.jsp?num=<%=dto.getNum()%>&mode=<%=mode%>&category=<%=category%>&sel=<%=sel%>&search=<%=search%>&pageNum=<%=pageNum%>'"><%=dto.getTitle()%></td>
-			<td><%=name%></td>
-			<td><%=dto.getRead_count()%></td>
-			<td><%=dto.getRecommend()%></td>
+			<td <%if(i % 2 == 1) { %> class="even" <%} %> onclick="window.location='boardContent.jsp?num=<%=dto.getNum()%>&mode=<%=mode%>&category=<%=category%>&sel=<%=sel%>&search=<%=search%>&pageNum=<%=pageNum%>'"><%=dto.getTitle()%></td>
+			<td <%if(i % 2 == 1) { %> class="even" <%} %>><%=name%></td>
+			<td <%if(i % 2 == 1) { %> class="even" <%} %>><%=dto.getRead_count()%></td>
+			<td <%if(i % 2 == 1) { %> class="even" <%} %>><%=dto.getRecommend()%></td>
 		</tr>
 			<%}
 	}%>
