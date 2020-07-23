@@ -68,8 +68,8 @@
 					<input type="button" value="삭제" onclick="deleteArticle('<%=num%>')"/>
 				<%}%>
 				<%if(session.getAttribute("memId")!=null && !(article.getWriter().equals((String)session.getAttribute("memId")))){%>
-					<input type="button" value="답글" onclick=""/>
-				<%}%>
+					<input type="button" value="신고" onclick="report('F','<%=article.getNum()%>','<%=article.getWriter()%>')" />
+ 				<%}%>
 					<input type="button" value="뒤로" onclick="window.location='board.jsp?mode=<%=mode%>&category=<%=category%>&sel=<%=sel%>&search=<%=search%>&pageNum=<%=pageNum%>'"/>
 				</td>		
 			</tr>
@@ -85,6 +85,13 @@
 	function deleteArticle(num) {
 		if(confirm("정말 삭제하시겠습니까?")){
 			window.location="boardDeletePro.jsp?num="+num;
+		}		
+	}
+	//신고 기능
+	function report(code,commentNum,member) {
+		if(confirm("이 글을 신고하시겠습니까?")==true) {
+			var offenceCode = code+commentNum;
+			location.href= "../member/offenceMember.jsp?offenceUrl="+offenceCode+"&member="+member;
 		}		
 	}
 
