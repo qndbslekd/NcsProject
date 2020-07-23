@@ -16,6 +16,15 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="../resource/team05_style.css">
 	<script>
+		// 팝업창 위치 관한 변수
+		var _width = '400';
+		var _height = '250';
+		
+		// 팝업 가운데 위치 시키기 위해서 중간 값 구해주기
+		var _left = Math.ceil((window.screen.width - _width)/2);
+		var _top = Math.ceil((window.screen.height - _height)/2);
+	
+	
 		// 조리단계별 댓글 or 답글 달기 
 		function openReplyForm(nowContentNum, recipeNum, reLevel, reStep, ref){			
 			if(reLevel >= 1){ // 답글을 이미 한번 단 경우
@@ -24,7 +33,7 @@
 			}else{
 				
 				var url = 'recipeContentCommentInsertForm.jsp?contentNum='+nowContentNum+'&recipeNum='+recipeNum+'&reLevel='+reLevel+'&reStep='+reStep+'&ref='+ref;	
-				window.open(url, "댓글쓰기", "width=400, height=250, resizeable=no, scrollbars=no");
+				window.open(url, "댓글쓰기", "width="+ _width + ", height="+ _height + ", left=" + _left + ", top=" + _top + ", resizeable=no, scrollbars=no");
 				// window.open("open할 window", "이름", "팝업창옵션")
 			}
 		}
