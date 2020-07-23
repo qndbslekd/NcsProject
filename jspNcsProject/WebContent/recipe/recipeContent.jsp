@@ -18,7 +18,7 @@
 <head>
 <meta charset="UTF-8">
 <title>레시피 보기</title>
-<link rel="stylesheet" href="../resource/tmpCss.css">	
+<link rel="stylesheet" href="../resource/team05_style.css">	
  
 <style>
 
@@ -240,11 +240,17 @@
 	</div>
 </body>
 <script>
+
 	//댓글에 답댓글 달기
 	function rating(num) {
+		var width=150;
+		var height=100;
+		var wid = (window.screen.width / 2) - (width / 2);
+		var hei = (window.screen.height / 2) - (height / 2);
+		
 		var url = "recipeRatingForm.jsp?num=" + num;
 		var name = "평점 남기기";
-		var option = "width=400,height=400,left=600,toolbar=no,menubar=no,location=no,scrollbar=no,status=no,resizable=no";
+		var option = "width=300,height=150,left="+wid+",top="+hei+",toolbar=no,menubar=no,location=no,scrollbar=no,status=no,resizable=no";
 		
 		window.open(url,name,option);
 	}
@@ -267,5 +273,6 @@
 			location.href= "../member/offenceMember.jsp?offenceUrl="+offenceCode+"&member="+member;
 		}		
 	}
+	
 </script>
 </html>
