@@ -30,25 +30,23 @@
 	<h1 align="center">채식정보 페이지</h1>
 			<hr/>
 			<table>
-			<%if(id.equals("admin")){ %>
-				<tr>
-					<td>
-						<button onclick="window.location = 'InformationModifyForm.jsp?num=<%=num%>'" >수정페이지로 이동</button>
-						<button onclick="window.location = 'InformationDeletePro.jsp?num=<%=num%>'" >삭제</button>
-					</td>
-				</tr>
-			<% }%>
 				<tr>
 					<td><img src="img/<%=information.getImg()%>"/></td>
 				</tr>
 				<tr>
-					<th style=" font-size: 100%;"><%=information.getSubject() %></th>
+					<td style=" font-size: 100%;"><%=information.getSubject() %></td>
 				</tr>
-				<tbody>
 					<tr>
 						<td><textarea readonly="readonly" rows="20" cols="100"><%=information.getContent()%></textarea></td>
 					</tr>
-				</tbody> 
+				<%if(id.equals("admin")){ %>
+					<tr>
+						<td>
+							<button onclick="window.location = 'InformationModifyForm.jsp?num=<%=num%>'" >수정페이지로 이동</button>
+							<button onclick="window.location = 'InformationDeletePro.jsp?num=<%=num%>'" >삭제</button>
+						</td>
+					</tr>
+				<%}%>
 			</table>
 		</body>
 	<%} %>
