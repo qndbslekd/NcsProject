@@ -11,6 +11,7 @@
 	<title>Insert title here</title>
 </head>
 <%
+	
 	request.setCharacterEncoding("UTF-8");
 	String path = request.getRealPath("product/imgs");
 	int max = 1024*1024*5; 
