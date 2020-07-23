@@ -252,10 +252,11 @@ public class ProductDAO {
 	public int deleteProduct(String num) {
 		int result = 0;
 		try {
-			String sql = "DELETE FROM PRODUCT p2 WHERE num = ?";
+			String sql = "DELETE FROM PRODUCT p2 WHERE num = ? or ref=?";
 			conn = getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, Integer.parseInt(num));
+			pstmt.setInt(2, Integer.parseInt(num));
 			result = pstmt.executeUpdate();
 		}catch (Exception e) {
 			e.printStackTrace();
