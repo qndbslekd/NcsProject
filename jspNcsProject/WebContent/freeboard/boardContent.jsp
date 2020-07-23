@@ -26,6 +26,7 @@
 		
 %>
 <body>
+<jsp:include page="../header.jsp"/>
 		<table>
 		
 

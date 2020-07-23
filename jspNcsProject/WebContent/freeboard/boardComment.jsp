@@ -62,11 +62,11 @@
 				</tr>	
 		<% 		}else{
 					String receiverName = dao.selectNameById(comment.getReceiver());
-					String receiverImg = dao.selectImgById(comment.getReceiver());
+					String img2 = dao.selectImgById(comment.getWriter());
 		%>
 				<tr>
 					<td rowspan='2'><img width="20px" src="/jnp/freeboard/img/replyImg.png"/></td>
-					<td rowspan='2'><img width="60px" height="60px" src="/jnp/save/<%=receiverImg%>"/></td>
+					<td rowspan='2'><img width="60px" height="60px" src="/jnp/save/<%=img2%>"/></td>
 					<td><%=name%></td>
 					<td>버튼</td>
 					<td><%=sdf.format(comment.getReg())%></td>
