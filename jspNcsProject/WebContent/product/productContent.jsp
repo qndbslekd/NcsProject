@@ -78,15 +78,12 @@
 				</td>
 			<tr>
 			<tr>
-<<<<<<< HEAD
 				<td style="text-align: left; padding-top: 5px; padding-bottom: 5px;">
 					<h1>댓글</h1>
 				</td>
-=======
 				<td colspan="2" style="text-align: left; padding-top: 5px; padding-bottom: 5px;">
 					<h1>댓글</h1>
 				</td> 
->>>>>>> branch 'develop' of https://github.com/ysk0951/codinnnnng.git
 			<tr>
 			
 			<%for(int i=0;i<comment.size();i++){ %>
