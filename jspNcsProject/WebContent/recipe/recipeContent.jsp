@@ -18,7 +18,7 @@
 <head>
 <meta charset="UTF-8">
 <title>레시피 보기</title>
-<link rel="stylesheet" href="../resource/tmpCss.css">	
+<link rel="stylesheet" href="../resource/team05_style.css">	
  
 <style>
 

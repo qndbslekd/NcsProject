@@ -321,10 +321,16 @@ public class FreeBoardDAO {
 		try {
 			FreeBoardDTO article = selectArticle(num);
 			conn= getConnection();
-			String sql = "delete from freeboard where ref=? and re_step >=0";
+			String sql = "delete from freeboard where ref=?";
 			pstmt =conn.prepareStatement(sql);
 			pstmt.setInt(1, article.getRef());
-			pstmt.executeUpdate();			
+			pstmt.executeUpdate();
+			
+			sql="delete from freeboard_comment where freeboard_num=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			pstmt.executeUpdate();
+					
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -457,26 +463,26 @@ public class FreeBoardDAO {
 	
 
 	//id 받고 이미지 반환
-		public String selectImgById(String id) {
-			String img = null;		
-			try {			
-				conn = getConnection();				
-				String sql = "select profile_img from member where id=?";
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, id);
-				
-				rs = pstmt.executeQuery();
-				
-				if(rs.next()) {
-					img = rs.getString(1);
-				}		
-			} catch (Exception e) {
-				e.printStackTrace();
-			} finally {
-				if(rs != null)try {rs.close();}catch(Exception e) {e.printStackTrace();}
-				if(pstmt != null)try {pstmt.close();}catch(Exception e) {e.printStackTrace();}
-				if(conn != null)try {conn.close();}catch(Exception e) {e.printStackTrace();}
-			}	
-			return img;
-		}
+	public String selectImgById(String id) {
+		String img = null;		
+		try {			
+			conn = getConnection();				
+			String sql = "select profile_img from member where id=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				img = rs.getString(1);
+			}		
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(rs != null)try {rs.close();}catch(Exception e) {e.printStackTrace();}
+			if(pstmt != null)try {pstmt.close();}catch(Exception e) {e.printStackTrace();}
+			if(conn != null)try {conn.close();}catch(Exception e) {e.printStackTrace();}
+		}	
+		return img;
+	}
 }
