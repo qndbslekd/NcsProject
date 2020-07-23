@@ -67,6 +67,12 @@
 	// 조리단계 댓글 dao
 	RecipeContentCommentDAO dao = null;
 %>
+<style>
+* {
+	font-family: 'InfinitySans-RegularA1';
+	font-size : 15px;
+}
+</style>
 <body>
 	<jsp:include page="../header.jsp" flush="false" />
 	<br />
