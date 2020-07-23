@@ -78,6 +78,9 @@
 				</td>
 			<tr>
 			<tr>
+				<td style="text-align: left; padding-top: 5px; padding-bottom: 5px;">
+					<h1>댓글</h1>
+				</td>
 				<td colspan="2" style="text-align: left; padding-top: 5px; padding-bottom: 5px;">
 					<h1>댓글</h1>
 				</td> 

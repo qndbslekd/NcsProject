@@ -36,7 +36,7 @@ input {
 <jsp:include page="../header.jsp"></jsp:include>
 <%
 	String num = request.getParameter("num");
-	if(session.getAttribute("memId") == null||!session.getAttribute("memId").equals("admin")){%>
+	if((session.getAttribute("memId") == null||!session.getAttribute("memId").equals("admin"))){%>
 	<script>
 		alert("관리자만 이용할수 있습니다");
 		window.location="informationList.jsp";
