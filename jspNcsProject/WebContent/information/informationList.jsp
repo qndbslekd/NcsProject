@@ -90,7 +90,10 @@
 		<%} %>
 		<%if(session.getAttribute("memId")!=null&&session.getAttribute("memId").equals("admin")){ %>
 			<tr>
-				<td>
+				<td colspan="3">&nbsp;</td> 
+			</tr>
+			<tr>
+				<td colspan="3">
 					<button type="button" onclick="window.location='informationInsertForm.jsp'">글쓰기</button>
 				</td>
 			</tr>
@@ -98,6 +101,7 @@
 		</table>
 	<%} %>
 	</form>
+	<div style="margin: 5px;"></div>
 	<div class="paging">
 		<%
 			if(count >0){
