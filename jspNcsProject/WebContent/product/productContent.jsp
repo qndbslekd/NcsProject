@@ -51,9 +51,9 @@
 			<tr> 
 				<td>
 					<%if(dto.getProduct_img()==null||dto.getProduct_img().equals("null")){ %>
-					<img src="/jnp/product/imgs/unnamed.gif" style="max-width: 300px; max-height: 400px;" />
-					<%}else{ %> 
-					<img src="/jnp/product/imgs/<%=dto.getProduct_img()%>"  style="max-width: 300px; max-height: 400px;" />
+					<img src="/jnp/product/imgs/unnamed.gif" style="width: 300px; height: 500px; margin-bottom: 10px" />
+					<%}else{ %>  
+					<img src="/jnp/product/imgs/<%=dto.getProduct_img()%>"  style="width: 300px; height: 500px; margin-bottom: 10px" />
 					<%} %>
 				</td>
 			</tr>  
@@ -154,7 +154,7 @@
 		var url = "recomment.jsp?beforeName="+beforeName+"&num="+num;
 		open(url,"답글달기","toolbar=no,location=no,status = no, menubar = no, scrollbars = no,resizable = no, width = 300,height = 200");
 		
-		var back = window.location.href;
+		var back = window.location.href; 
 		var form = document.getElementsByName("history");
 		form[0].value = back;
 	}
