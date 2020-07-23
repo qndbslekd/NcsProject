@@ -11,7 +11,7 @@
 <head>
 <meta charset="UTF-8">
 <title>댓글 보기</title>
-<link href="../resource/tmpsCss.css" type="text/css" rel="stylesheet"/>
+<link href="../resource/tmpCss.css" type="text/css" rel="stylesheet"/>
 
 </head>
 
