@@ -24,20 +24,6 @@
 	height:
 }
 
-a:link {
-	text-decoration: none;
-}
-
-a:visited {
-	text-decoration: none;
-	color: #ffff;
-}
-
-a:hover {
-	text-decoration: underline;
-	color: #559AFC;
-}
-
 #header .title {
 	font-size: 40px;
 }
@@ -49,26 +35,6 @@ a:hover {
 	color:white;
 	font-size:20px;
 	cursor:pointer;
-}
-
-a:link {
-	text-decoration: none;
-	color: #ffff;
-}
-
-a:visited {
-	text-decoration: none;
-	color: #ffff;
-}
-
-a:active {
-	text-decoration: none;
-	color: #ffff;
-}
-
-a:hover {
-	text-decoration: underline;
-	color: #559AFC;
 }
 </style>
 </head>
@@ -143,5 +109,6 @@ a:hover {
 			<td class="tab" onclick="window.location='mailto:admin@beginVegan.com'">문의하기</td>
 		</tr>
 	</table>
+	<br/>
 </body>
 </html>
