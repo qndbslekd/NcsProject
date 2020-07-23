@@ -74,7 +74,7 @@ input {
 				<tr>
 					<td class="t">내용</td>
 					<td style="text-align: left; padding-left: 50px; padding-right: 50px; padding-top:20px;">
-					<textarea readonly="readonly" rows="20" cols="100"><%=information.getContent()%></textarea></td>
+					<textarea readonly="readonly" rows="20" cols="100" style="border: none"><%=information.getContent()%></textarea></td>
 				</tr>
 				<%if(id.equals("admin")){ %>
 					<tr>
