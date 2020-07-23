@@ -44,7 +44,7 @@
 			</tr>
 			<tbody>
 				<tr>
-					<td style="text-align: left;"><%=information.getContent()%></td>
+					<td><textarea readonly="readonly" rows="20" cols="100"><%=information.getContent()%></textarea></td>
 				</tr>
 			</tbody> 
 		</table>
