@@ -12,13 +12,6 @@
 </head>
 <jsp:include page="../header.jsp"></jsp:include>
 <%
-	if(session.getAttribute("memId")==null){%>
-		<script>
-			alert("로그인 후 이용가능합니다.");
-			window.location="../member/loginForm.jsp";
-		</script>
-	<%}else{
-
 	String name = (String)session.getAttribute("memName");
 	if(name == null){
 		name = "";	
@@ -89,13 +82,18 @@
 					<td colspan="2" style="text-align: left;">
 						<%=comment.get(i).getName()%> : <%=comment.get(i).getDetail()%> 작성시간 : <%=comment.get(i).getReg()%>
 						<button type="button" onclick="recommentFn('<%=comment.get(i).getName()%>','<%=comment.get(i).getNum()%>')">답글</button>
-						<%if(!(session.getAttribute("memId").equals("admin")||comment.get(i).getName().equals("관리자")||session.getAttribute("memName").equals(comment.get(i).getName()))){%>
+						
+						<%if(!(session.getAttribute("memId")==null||session.getAttribute("memId").equals("admin")||comment.get(i).getName().equals("관리자")||session.getAttribute("memName").equals(comment.get(i).getName()))){%>
 						<%offenceIdByName = MDao.selectMemberIdForOffenceByName(comment.get(i).getName());%>
 						<button type="button" onclick="report('<%=comment.get(i).getNum()%>','<%=offenceIdByName%>')">신고</button>
 						<%} %>
-						<%if(session.getAttribute("memId").equals("admin")||session.getAttribute("memId").equals(comment.get(i).getName())){ %>
-								<button type="button" onclick="deleteFn('<%=comment.get(i).getNum()%>','<%=comment.get(i).getName()%>','<%=dto.getNum()%>')">삭제</button>	
+						
+						<%if(session.getAttribute("memId")!=null){ %>
+							<%if(session.getAttribute("memId").equals("admin")||session.getAttribute("memId").equals(comment.get(i).getName())){ %>
+									<button type="button" onclick="deleteFn('<%=comment.get(i).getNum()%>','<%=comment.get(i).getName()%>','<%=dto.getNum()%>')">삭제</button>	
+							<%} %>
 						<%} %>
+						
 						<%
 							List<ProductDTO> recoment =  dao.selectRecomment(comment.get(i).getNum()+"");
 							System.out.println("답글의 갯수 : " +recoment.size());
@@ -109,13 +107,15 @@
 								<img src="../resource/replyImg.png" width="8px"/>
 								<%=recoment.get(j).getName()%> : <%=recoment.get(j).getDetail()%> 작성시간 : <%=recoment.get(j).getReg()%>
 								<button type="button" onclick="recommentFn('<%=recoment.get(j).getName()%>','<%=comment.get(i).getNum()%>')">답글</button>
-								<%if(!(session.getAttribute("memId").equals("admin")||session.getAttribute("memName").equals(recoment.get(j).getName()))){%>
+								<%if(!(session.getAttribute("memId")==null||session.getAttribute("memId").equals("admin")||recoment.get(j).getName().equals("관리자")||session.getAttribute("memName").equals(recoment.get(j).getName()))){%>
 								<%offenceIdByName = MDao.selectMemberIdForOffenceByName(recoment.get(j).getName());%>
 								<button type="button" onclick="report('<%=recoment.get(j).getNum()%>','<%=offenceIdByName%>')">신고</button>
 								<%} %>
+							<%if(session.getAttribute("memId")!=null){ %>	
 								<%if(session.getAttribute("memId").equals("admin")||session.getAttribute("memId").equals(recoment.get(j).getName())){ %>
 								<button type="button" onclick="deleteFn('<%=recoment.get(j).getNum()%>','<%=recoment.get(j).getName()%>','<%=dto.getNum()%>')">삭제</button>	
 								<%} %>
+							<%} %>
 						<%}%>
 						<input type="hidden" name="beforeName" value="default"/>
 					</td>
@@ -124,8 +124,6 @@
 		</table>
 		</form> 
 	</body>
-	<%}%>
-	
 	<script type="text/javascript">
 	function recommand(){
 		var back = window.location.href ; 
