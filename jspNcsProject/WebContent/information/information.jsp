@@ -10,6 +10,33 @@
 	<title>Insert title here</title>
 	<link href="../resource/team05_style.css" rel="stylesheet" type="text/css">
 </head>
+<style>
+table td {
+	font-size:1.4em;
+	vertical-align:middle;
+}
+td * {
+	margin:0;
+	padding:0;
+	vertical-align:middle;
+	text-align:left;
+}
+.t {
+	text-align:right;
+	padding:20px;
+	border-right:2px solid #ccc;
+	font-size:1.4em;
+}
+input {
+	border:1px solid #ccc;
+	border-radius:5px;
+	font-size:1.4em;
+	self-align:left;
+	margin-left:20px;
+	vertical-align:middle;
+	
+}
+</style>
 <jsp:include page="../header.jsp"></jsp:include>
 <%
 	String num  = request.getParameter("num");
@@ -30,18 +57,29 @@
 	<h1 align="center">채식정보 페이지</h1>
 			<hr/>
 			<table>
-				<tr>
-					<td><img src="img/<%=information.getImg()%>"/></td>
+				<tr> 
+					<td class="t">제목</td>
+					<td><%=information.getSubject() %></td>
 				</tr>
 				<tr>
-					<td style=" font-size: 100%;"><%=information.getSubject() %></td>
+					<td class="t">사진</td>
+					<td>
+					<%if(information.getImg()==null){%>
+						<img src="../product/imgs/unnamed.gif" width="454px;" height="353px;" />
+					<%}else{ %>
+						<img src="img/<%=information.getImg()%>" width="454px;" height="353px;" />
+					<%} %>
+					</td>
 				</tr>
-					<tr>
-						<td><textarea readonly="readonly" rows="20" cols="100"><%=information.getContent()%></textarea></td>
-					</tr>
+				<tr>
+					<td class="t">내용</td>
+					<td style="text-align: left; padding-left: 50px; padding-right: 50px; padding-top:20px;">
+					<textarea readonly="readonly" rows="20" cols="100"><%=information.getContent()%></textarea></td>
+				</tr>
 				<%if(id.equals("admin")){ %>
 					<tr>
-						<td>
+						<td></td>
+						<td style="padding-top: 20px;">
 							<button onclick="window.location = 'InformationModifyForm.jsp?num=<%=num%>'" >수정페이지로 이동</button>
 							<button onclick="window.location = 'InformationDeletePro.jsp?num=<%=num%>'" >삭제</button>
 						</td>
