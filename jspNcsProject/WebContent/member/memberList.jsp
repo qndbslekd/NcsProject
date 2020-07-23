@@ -269,7 +269,7 @@
 				}%>
 			<tr> 
 				<td colspan="10">
-					<button onclick="window.location='../	main.jsp'">메인으로</button>
+					<button onclick="window.location='../main.jsp'">메인으로</button>
 					<button onclick="window.location='memberList.jsp?offence=1'">신고받은 회원 조회</button>
 					<form action="memberList.jsp" method="get">
 					<select name="option">

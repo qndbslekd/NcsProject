@@ -19,7 +19,7 @@
 			window.location = '../main.jsp';
 		}
 	}
-</script> 
+</script>
 <% 
 	request.setCharacterEncoding("UTF-8");
 	String id = request.getParameter("id");
@@ -34,16 +34,7 @@
 		result = dao.confirmName(name);
 	}
 %>
-<script type="text/javascript">
-	function setId(){
-		opener.document.inputForm.id.value = "<%=id%>";
-		self.close();
-	}
-	function setName(){
-		opener.document.inputForm.name.value = "<%=name%>";
-		self.close();
-	}
-</script>
+
 <body>
 	<%if(id!=null){%>
 		<%if(result){%>
@@ -103,4 +94,14 @@
 		<%} %>
 	<%}%>
 </body>
+<script type="text/javascript">
+	function setId(){
+		opener.document.inputForm.id.value = "<%=id%>";
+		self.close();
+	}
+	function setName(){
+		opener.document.inputForm.name.value = "<%=name%>";
+		self.close();
+	}
+</script>
 </html>
