@@ -14,7 +14,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="../resource/tmpCss.css">
+<link rel="stylesheet" href="../resource/team05_style.css">
 	<script>
 		// 조리단계별 댓글 or 답글 달기 
 		function openReplyForm(nowContentNum, recipeNum, reLevel, reStep, ref){			
