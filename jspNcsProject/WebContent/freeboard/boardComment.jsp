@@ -53,7 +53,7 @@
 					<%}%>
 					<% if(loginId !=null && !loginId.equals(comment.getWriter()) &&!loginId.equals("admin") ){ %>
 						<button onclick="reply('<%=freeboard_num%>','<%=comment.getRef()%>','<%=comment.getRe_level()%>','<%=comment.getWriter()%>')">답글</button>
-						<button>신고</button>
+						<button onclick="report('FC','<%=comment.getComment_num()%>','<%=comment.getWriter()%>')">신고</button>
 					<%} %>
 					</td>
 					<td><%=sdf.format(comment.getReg())%></td>
@@ -77,7 +77,7 @@
 					<%}%>
 					<% if(loginId !=null && !loginId.equals(comment.getWriter()) &&!loginId.equals("admin") ){ %>
 						<button onclick="reply('<%=freeboard_num%>','<%=comment.getRef()%>','<%=comment.getRe_level()%>','<%=comment.getWriter()%>')">답글</button>
-						<button>신고</button>
+						<button onclick="report('FC','<%=comment.getComment_num()%>','<%=comment.getWriter()%>')">신고</button>
 					<%} %></td>
 					<td><%=sdf.format(comment.getReg())%></td>
 				</tr>
