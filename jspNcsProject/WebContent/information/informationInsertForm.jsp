@@ -59,8 +59,8 @@ input {
 					</tr>
 					<tr>
 						<td colspan="2">
-							<input type="submit" value="등록"/> 
-							<input type="reset" value="재입력"/>
+							<button type="submit" >등록</button>
+							<button type="reset" >재입력</button> 
 							<button onclick="window.location='informationList.jsp'">취소</button>
 						</td>
 					</tr>
