@@ -267,5 +267,6 @@
 			location.href= "../member/offenceMember.jsp?offenceUrl="+offenceCode+"&member="+member;
 		}		
 	}
+	
 </script>
 </html>
