@@ -43,21 +43,11 @@
 	InfomationDAO dao = InfomationDAO.getInstance();
 	List<InfomationDTO> infoList = null;
 	
-	String option = request.getParameter("option");
-	String search = request.getParameter("search");
-	
-	if(option != null && search != null){
-		count = dao.getSearchInfoCount(option, search);	
-		if(count >0){
-			infoList = dao.getSearchInfo(startRow, endRow, option, search);
-		}
-	}else{
-		System.out.println("ELSE");
-		count = dao.getinfoCount();
-		if(count > 0){
-			infoList = dao.getInfomation(startRow, endRow);
-		} 
-	}
+	System.out.println("ELSE");
+	count = dao.getinfoCount();
+	if(count > 0){
+		infoList = dao.getInfomation(startRow, endRow);
+	} 
 	number = count - (currPage -1) * pageSize;
 %>
 <body>
@@ -73,7 +63,7 @@
 				<td> 작성일 </td>
 			</tr>
 			<tr>
-				<td > 정보글이 없습니다. </td>
+				<td colspan="4" > 정보글이 없습니다. </td>
 			</tr>
 		<%if(session.getAttribute("memId")!=null&&session.getAttribute("memId").equals("admin")){ %>
 			<tr>
