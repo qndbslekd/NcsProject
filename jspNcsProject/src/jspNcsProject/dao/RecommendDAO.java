@@ -35,8 +35,9 @@ public class RecommendDAO {
 			pstmt.setInt(1, freeboard_num);
 			pstmt.setString(2, mem_id);
 			int result = pstmt.executeUpdate();
-			if(result ==1) {
+			if(result == 1) {
 				sql="update freeboard set recommend = recommend+1 where num=?";
+				pstmt = conn.prepareStatement(sql);
 				pstmt.setInt(1, freeboard_num);
 				pstmt.executeUpdate();
 			}
@@ -58,10 +59,11 @@ public class RecommendDAO {
 			if(ch == true) {
 				conn= getConnection();
 				String sql="delete from recommend where freeboard_num=? and member_id=?";
+				pstmt = conn.prepareStatement(sql);
 				pstmt.setInt(1, freeboard_num);
 				pstmt.setString(2,member_id);
 				int result = pstmt.executeUpdate();
-				if(result == -1) {
+				if(result == 1) {
 					sql ="update freeboard set recommend = recommend-1 where num=?";
 					pstmt = conn.prepareStatement(sql);
 					pstmt.setInt(1, freeboard_num);
