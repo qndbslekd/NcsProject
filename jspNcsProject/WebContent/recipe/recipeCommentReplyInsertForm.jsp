@@ -33,7 +33,7 @@
 				<td colspan="2">답댓글 달기</td>
 			</tr>
 			<tr>
-				<td><textarea name="content" style="resize:none;"></textarea></td><td><input type="submit" value="댓글작성"/>
+				<td><textarea name="content" style="resize:none;" required></textarea></td><td><input type="submit" value="댓글작성"/>
 			</tr>
 		</table>
 	</form>
