@@ -285,8 +285,4 @@ public class BoardCommentDAO {
 	}
 
 	
-	
->>>>>>> branch 'develop' of https://github.com/ysk0951/codinnnnng.git
-	
-
 }
