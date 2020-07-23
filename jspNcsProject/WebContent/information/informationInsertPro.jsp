@@ -30,7 +30,7 @@ if(session.getAttribute("memId")==null || !session.getAttribute("memId").equals(
 	InfomationDAO dao = InfomationDAO.getInstance();
 	dao.insertInfo(subject,content,info_img);
 	response.sendRedirect("informationList.jsp");
-	}%>
+}%>
 <body>
 
 </body>
