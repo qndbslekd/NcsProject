@@ -1,3 +1,4 @@
+<%@page import="jspNcsProject.dao.BoardCommentDAO"%>
 <%@page import="jspNcsProject.dao.ProductDAO"%>
 <%@page import="jspNcsProject.dao.RecipeContentCommentDAO"%>
 <%@page import="jspNcsProject.dao.RecipeCommentDAO"%>
@@ -31,7 +32,7 @@
 		option = "myRecipeCommentList";
 	}
 	
-	// select 옵션에 따라 총 댓글 개수 체크
+	// select 옵션에 따라 총 댓글 개수 체크(레시피, 레시피조리단계, 자유게시판, 제품게시판)
 		if(option.equals("myRecipeCommentList")){
 			RecipeCommentDAO dao = RecipeCommentDAO.getInstance();	
 			count = dao.getMyRecipeCommentCount(memId);
@@ -40,6 +41,8 @@
 			count = dao.getMyRecipeStepCommentCount(memId);	
 		}else if(option.equals("myFreeboardCommentList")){
 			// 자유게시판 댓글
+			BoardCommentDAO dao = BoardCommentDAO.getInstance();
+			count = dao.getMyFreeBoardCommentCount(memId);
 		}else if(option.equals("myProductCommentList")){
 			// 제품게시판 댓글 
 			ProductDAO dao = ProductDAO.getInstance();
