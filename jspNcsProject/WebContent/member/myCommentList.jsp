@@ -60,20 +60,20 @@
 <jsp:include page="../header.jsp" flush="false"/>
 <br /><br />
 <h1 align="center"> 내 댓글 목록 </h1> 
+<br />
 <form>
-	<table id="nonBorder">
+	<table id="nonBorder"  style="width:804">
 		<tr>
-			<td>
+			<td style="width:177px">
 				총 댓글 수 : <%= count %>
 			</td>
 			
 			<td>
-				<select name="option">
+				<select name="option" style="width:129px">
 					<option value="myRecipeCommentList">레시피</option>
 					<option value="myRecipeStepCommentList" <%if(option.equals("myRecipeStepCommentList")){%>selected<%} %>>레시피[조리단계]</option>
 					<option value="myFreeboardCommentList" <%if(option.equals("myFreeboardCommentList")){%>selected<%} %>>자유게시판</option>
-					<option value="myProductCommentList" <%if(option.equals("myProductCommentList")){%>selected<%} %>>제품</option>
-			
+					<option value="myProductCommentList" <%if(option.equals("myProductCommentList")){%>selected<%} %>>제품</option>			
 				</select>	
 				<input type="submit" value="이동" />
 			</td>
@@ -83,23 +83,27 @@
 			</td>
 		</tr>
 		<tr>
-			<td colspan="5">
+			<td colspan="5" width="804">
 				<% if(option.equals("myRecipeCommentList")){%>
+					<br />
 					<jsp:include page="myRecipeCommentList.jsp" flush="false" >
 						<jsp:param value="<%= pageNum %>" name="pageNum"/>
 						<jsp:param value="<%= option %>" name="option"/>
 		 			</jsp:include>	
 				<%}else if(option.equals("myRecipeStepCommentList")){ %>
+					<br />
 					<jsp:include page="myRecipeStepCommentList.jsp" flush="false" >
 						<jsp:param value="<%= pageNum %>" name="pageNum"/>
 						<jsp:param value="<%= option %>" name="option"/>
 		 			</jsp:include>	
 				<%}else if(option.equals("myFreeboardCommentList")){ %>
+					<br />
 					<jsp:include page="myFreeboardCommentList.jsp" flush="false" >
 						<jsp:param value="<%= pageNum %>" name="pageNum"/>
 						<jsp:param value="<%= option %>" name="option"/>
 	 				</jsp:include>	
 				<%}else if(option.equals("myProductCommentList")){ %>
+					<br />
 					<jsp:include page="myProductCommentList.jsp" flush="false" >
 						<jsp:param value="<%= pageNum %>" name="pageNum"/>
 						<jsp:param value="<%= option %>" name="option"/>

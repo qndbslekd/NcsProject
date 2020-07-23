@@ -58,6 +58,7 @@
 %>
 <%-- 게시판 형태 만들기 --%>
 <body>
+<h3> [자유 게시판] </h3>
 	<%-- 게시글이 없을 때 --%>
 	<% if(count == 0){%>
 		<table>
@@ -73,7 +74,7 @@
 		dto =(FreeBoardDTO)myFreeContentList.get(i);
 	%>
 	<div onclick="location.href='../freeboard/boardContent.jsp?num=<%= dto.getNum()%>'">
-	<table>
+	<table style="width:700;">
 		<tr>
 			<td>
 				말머리 : <%= dto.getCategory() %>  
@@ -89,7 +90,7 @@
 		</tr>
 		<tr style="border-bottom:1px solid black">
 			<td colspan="2">
-				날짜 : <%= dto.getReg() %>
+				시간 : <%= dto.getReg() %>
 			</td>		
 		</tr>
 	</table>
