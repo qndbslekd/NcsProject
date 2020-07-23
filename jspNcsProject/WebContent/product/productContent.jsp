@@ -93,7 +93,7 @@
 							List<ProductDTO> recoment =  dao.selectRecomment(comment.get(i).getNum()+"");
 							System.out.println("답글의 갯수 : " +recoment.size());
 							System.out.println(recoment);
-							for(int j=0;j<recoment.size();j++){
+							for(int j=0;j<recoment.size();j++){	
 								System.out.println("======"+comment.get(i).getNum());
 							%> 
 								<!--before Name-->
