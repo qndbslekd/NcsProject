@@ -164,7 +164,7 @@ if (search == null || search.equals("")) {
 				<%} %>
 		</div>
 	</div>
-	<div id="recipe-wrapper">
+	<div id="recipe-wrapper" style="padding-top: 50px;">
 	<%if(productList==null){ %>
 		<h1 style="color:black;">등록된 제품이 없습니다.</h1>
 	<%}else{
