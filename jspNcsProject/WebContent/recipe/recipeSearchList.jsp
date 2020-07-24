@@ -1,3 +1,4 @@
+<%@page import="jspNcsProject.dao.MemberDAO"%>
 <%@page import="jspNcsProject.dto.TagDTO"%>
 <%@page import="jspNcsProject.dao.TagDAO"%>
 <%@page import="java.util.List"%>
@@ -124,13 +125,14 @@
 	String difficulty = request.getParameter("difficulty");//난이도
 	String calMore = request.getParameter("calMore");// 칼로리 하한선
 	String calUnder = request.getParameter("calUnder");//칼로리 상한선
-	String writer = request.getParameter("writer");//작성자
+	String writer = request.getParameter("writer");//작성자 활동명
 	System.out.println("name : "+ name +" writer:"+writer);
 	String tag = request.getParameter("tag");
 	//where절 쿼리 처리
 	String whereQuery="where 1=1";	
 	//요리명 검색
 	
+	RecipeDAO dao = RecipeDAO.getInstance();
 	
 	if( name!=null && !name.equals("")){
 		//앞뒤 공백제거
@@ -164,8 +166,6 @@
 	}
 	//칼로리 검색
 	
-	// null 100
-	// "" null
 	if((calMore!=null  && !calMore.equals("") )|| (calUnder!=null && !calUnder.equals(""))){//둘중 하나라도 값이 있을때	
 		if((!calMore.equals("") && calMore!=null ) &&  (!calUnder.equals("") && calMore!=null)){ // 둘다 있는경우
 			int calMoreNum = Integer.parseInt(calMore);
@@ -178,23 +178,7 @@
 			int calUnderNum = Integer.parseInt(calUnder);
 			whereQuery += (" and cal <= "+calUnderNum);
 		}
-		
-		/*
-		
-		if(!calMore.equals("") && calUnder.equals("")){//이상값만 있는경우
-			int calMoreNum = Integer.parseInt(calMore);
-			whereQuery += (" and cal >= "+calMoreNum);
-		}else if(calMore.equals("") && !calUnder.equals("")){ //이하값만 있는경우
-			int calUnderNum = Integer.parseInt(calUnder);
-			whereQuery += (" and cal <= "+calUnderNum);
-		}else if(!calMore.equals("") &&  !calUnder.equals("")){ // 둘다 있는경우
-			int calMoreNum = Integer.parseInt(calMore);
-			int calUnderNum = Integer.parseInt(calUnder);
-			whereQuery +=(" and cal >= "+ calMoreNum + " and cal<="+calUnderNum);
-		}
-		*/
-	}
-	
+	}	
 	//칼로리 검색	
 	if(( calMore!=null && !calMore.equals("") )|| (calUnder!= null && !calUnder.equals(""))){//둘중 하나라도 값이 있을때	
 		if(( calMore!=null  && !calMore.equals("")) && (calUnder!=null && !calUnder.equals(""))){ // 둘다 있는경우
@@ -213,7 +197,9 @@
 	//작가 검색
 	if(writer!=null && !writer.equals("")){
 		writer = writer.trim();//앞뒤 공백제거
-		whereQuery += (" and writer like '%"+writer+"%'");
+		String writerToId = dao.selectIdByName(writer);
+		System.out.println("검색 writer:"+writer+" id변환:"+writerToId);
+		whereQuery += (" and writer like '%"+writerToId+"%'");
 	}
 		
 	//태그 검색;
@@ -236,12 +222,12 @@
 		}
 		
 		//tag테이블에서 검색한 tag와 관련된 태그20개  리스트로 가져오기	
-		TagDAO dao = TagDAO.getInstance();
-		tagList = dao.searchTagList(tagWhereQuery);
+		TagDAO tdao = TagDAO.getInstance();
+		tagList = tdao.searchTagList(tagWhereQuery);
 	}
 		
 	//페이지 글 가져오기
-	RecipeDAO dao = RecipeDAO.getInstance();
+	
 	int pageSize =20;
 
 	String pageNum = request.getParameter("pageNum");
@@ -259,6 +245,7 @@
 	}
 		
 	List searchRecipeList = dao.searchRecipeList(startRow, endRow, whereQuery, mode);
+	System.out.println("검색 쿼리:"+whereQuery);
 
 	//리스트 글수
 	int count = 0;
@@ -381,6 +368,7 @@
 		<%}else{
 			for(int i = 0 ; i < searchRecipeList.size() ; i++){	
 					RecipeDTO recipe  = (RecipeDTO)searchRecipeList.get(i);
+					String idToName = dao.selectNameById(recipe.getWriter());
 		%>
 		<div class="recipe" onclick="window.location='recipeContent.jsp?num=<%=recipe.getNum()%>'">
 			<div class="thumbnail">
@@ -388,7 +376,7 @@
 			</div>
 			<div class="info">
 				<div class='row title' ><%=recipe.getRecipeName() %></div>
-				<div class='row'>posted by <%=recipe.getWriter() %></div>
+				<div class='row'>posted by <%=idToName %></div>
 				<div class='row'>평점: <%=recipe.getRating() %>(리뷰수)</div>
 				<div class='row'>채식유형 : <%=recipe.getVegiType()%> | 난이도 : <%=recipe.getDifficulty()%> 
 				| 조리시간: <%=recipe.getCookingTime()%>분 | 분량: <%=recipe.getQuantity()%>인분 | 칼로리(1인분/Kcal): <%=recipe.getCal()%>Kcal		
@@ -423,7 +411,7 @@
 			if(endPage > pageCount){%>
 				<div class="page" onclick="window.location='recipeSearchList.jsp?pageNum=<%=startPage+pageBlock%>&name=<%=name%>&ingredients=<%=ingredients%>&vegiType=<%=vegiType%>&difficulty=<%=difficulty%>&calMore=<%=calMore%>&calUnder=<%=calUnder%>&writer=<%=writer%>&mode=<%=mode%>&tag=<%=tag%>'">&gt;</div>		
 			<%}		
-			}
+		}
 	%>
 	</div>
 </body>
