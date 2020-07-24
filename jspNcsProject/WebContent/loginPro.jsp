@@ -35,6 +35,7 @@
 		System.out.println("auto : " +auto);
 		System.out.println("name : " +name);
 	}
+	
 	if(res == 1){
 		session.setAttribute("memId", id);
 		session.setAttribute("memPw", pw);
@@ -61,9 +62,15 @@
 			System.out.println("Cookie Set Test : "+c4.getName());
 		}
 		System.out.println("===LOGIN PRO END===");
-		System.out.println("history : "+request.getParameter("history"));
-		response.sendRedirect(request.getParameter("history"));
-	}else if(res == 0){%>
+		
+			if(request.getParameter("history").equals("http://localhost:8080/jnp/member/loginPro.jsp")){
+				System.out.println("history : "+request.getParameter("history"));
+				response.sendRedirect("http://localhost:8080/jnp/main.jsp");
+			}else{
+				System.out.println("history : "+request.getParameter("history"));
+				response.sendRedirect(request.getParameter("history"));
+			}
+		}else if(res == 0){%>
 		<script>
 			alert("아이디와 비밀번호를 다시 확인해주세요");
 			history.go(-1);
