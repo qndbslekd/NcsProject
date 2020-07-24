@@ -92,7 +92,7 @@ System.out.println(dto);
 			<td colspan="2" align="center">
 				<input type="submit" value="수정"/>
 				<input type="reset" name="reset" value="재입력" />
-				<input type="button" value="취소" onclick="window.location='main.jsp'"/>
+				<input type="button" value="취소" onclick="window.location='../main.jsp'"/>
 			</td> 
 		</tr>
 	</table> 
