@@ -80,7 +80,11 @@ input[type="file"]{
 						<td class="t">수정할 이미지</td>
 						<td>
 							<input type = "file" name ="info_img">
-							<input type = "hidden" name = "info_img_before" value="<%=information.getImg()%>"/>
+							<%if(information.getImg()!=null){ %>
+								<input type = "hidden" name = "info_img_before" value="<%=information.getImg()%>"/>
+							<%}else{ %>
+								<input type = "hidden" name = "info_img_before" />
+							<%} %>
 						</td>
 					</tr>
 					<tr><td class="t">내용</td>
