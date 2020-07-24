@@ -44,7 +44,10 @@ if(session.getAttribute("memId")==null){
 	<table>
 		<tr>
 			<td class="t">아이디*</td>
-			<td><input type="text" name="id" required="required"/></td>
+			<td><input type="text" name="id" required="required"/>
+				<input type = "hidden" name = "idConfirm" value="false" />
+				<input type = "hidden" name = "nameConfirm" value="false" />
+			</td>
 		</tr>
 		<!--중복 id 체크버튼-->
 		<tr>
@@ -70,8 +73,8 @@ if(session.getAttribute("memId")==null){
 		<tr>
 			<td class="t">주민번호*</td> 
 			<td>
-				<input type="text" name="id_number1"  maxlength="6" size="6" required="required"/>&nbsp;&nbsp;&nbsp;- 
-				<input type="text" name="id_number2"  maxlength="1" size="1" required="required"/>******
+				<input type="text" name="id_number1" id="idTest1" maxlength="6" size="6" required="required"/>&nbsp;&nbsp;&nbsp;- 
+				<input type="text" name="id_number2" id="idTest2"  maxlength="1" size="1" required="required"/>******
 			</td>
 		</tr>
 		<tr>
@@ -115,6 +118,7 @@ if(session.getAttribute("memId")==null){
 	
 	function confirmId(inputForm) {
 		if (!inputForm.id.value) {
+			alert("아이디를 입력하세요");
 			return;
 		}
 		var url = "confirmId.jsp?id=" + inputForm.id.value;
@@ -125,6 +129,7 @@ if(session.getAttribute("memId")==null){
 	}
 	function confirmName(inputForm) {
 		if (!inputForm.name.value) {
+			alert("활동명을 입력하세요");	
 			return;
 		}
 		var url = "confirmId.jsp?name=" + inputForm.name.value;
@@ -134,38 +139,41 @@ if(session.getAttribute("memId")==null){
 				"toolbar=no,location=no,status = no, menubar = no, scrollbars = no,resizable = no, width = 300,height = 200");
 	}
 	
-	// 유효성 검사 수정전
-	/* function check() {
+	//회원가입, 회원정보 수정 유효성 검사
+	function check() {
 		var inputs = document.inputForm;
 		console.log(inputs);
-		if (!inputs.id.value) {
-			alert("아이디를 입력하세요");
-			return false;
-		}
-		if (!inputs.pw.value) {
-			alert("비밀번호를 입력하세요");
-			return false;
-		}
-		if (!inputs.name.value) {
-			alert("이름을 입력하세요");
-			return false;
-		}
-		if (!inputs.birth.value) {
-			alert("생년월일을 입력하세요");
-			return false;
-		}
-		if (!inputs.email.value) {
-			alert("이메일을 입력하세요");
-			return false;
-		}
-		if (!inputs.pwCh.value) {
-			alert("비밀번호 확인란를 입력하세요");
-			return false;
-		}
+		
+
 		if (inputs.pw.value != inputs.pwCh.value) {
-			alert("비밀번호를 동일하게 입력하세요");
+			alert("비밀번호확인을 동일하게 입력하세요");
 			return false;
 		}
-	} */
+		
+		var re1= /([0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[1,2][0-9]|3[0,1]))/;
+		var re2= /^[0-9]*$/;
+		var test1 = document.getElementById("idTest1").value;
+		var test2 = document.getElementById("idTest2").value;
+			
+		if(!re1.test(test1)){
+			alert("주민번호 앞자리는 6자리 숫자만 입력 가능합니다");
+			return false;
+		} 
+		
+		if(!re2.test(test2)){
+			alert("주민번호 뒷자리는 숫자만 입력 가능합니다");
+			return false;
+		}
+		if(inputs.idConfirm.value=='false'){
+			alert("아이디 중복확인을 해주세요");
+			return false;
+		}
+		
+		if(inputs.nameConfirm.value=='false'){
+			alert("활동명 중복확인을 해주세요");
+			return false;
+		}
+	}
+	
 </script>
 </html>
