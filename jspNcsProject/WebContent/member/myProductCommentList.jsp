@@ -97,7 +97,7 @@
 		</tr>
 		<tr style="border-bottom:1px solid black">
 			<td>
-				댓글 단 시간 : <%= dto.getReg() %>
+				시간 : <%= dto.getReg() %>
 			</td>
 		</tr>
 	</table>
