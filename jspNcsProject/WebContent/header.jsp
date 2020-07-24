@@ -77,13 +77,13 @@
 			<td style="vertical-align:bottom; padding-bottom:10px;">
 			<%if(session.getAttribute("memId") == null){
 			%>
-				<button onclick="window.location='/jnp/member/loginForm.jsp'">로그인</button>
-				<button onclick="window.location='/jnp/member/signupForm.jsp'">회원가입</button>
+				<button class = "grayButton" style="width: 80px; height: 30px; text-align: center" onclick="window.location='/jnp/member/loginForm.jsp'">로그인</button>
+				<button class = "grayButton" style="width: 80px; height: 30px; text-align: center"  onclick="window.location='/jnp/member/signupForm.jsp'">회원가입</button>
 			</td>
 			<%}else{%>
 				<p><%=session.getAttribute("memName")%>님 환영합니다!</p>		
-				<button onclick="window.location='/jnp/logoutPro.jsp'">로그아웃</button>
-				<button onclick="window.location='/jnp/member/myPage.jsp'">마이페이지</button>
+				<button class = "grayButton" style="width: 80px; height: 30px; text-align: center" onclick="window.location='/jnp/logoutPro.jsp'">로그아웃</button>
+				<button class = "grayButton" style="width: 100px; height: 30px; text-align: center" onclick="window.location='/jnp/member/myPage.jsp'">마이페이지</button>
 			</td>
 			<%} %>
 		</tr>
