@@ -9,7 +9,9 @@
 	<title>Insert title here</title>
 	<link href="../resource/team05_style.css" rel="stylesheet" type="text/css">
 </head>
-<jsp:include page="../header.jsp"></jsp:include>
+	<jsp:include page="../header.jsp" flush="false">
+		<jsp:param value="information" name="mode"/>
+	</jsp:include>
 <style>
 table td {
 	font-size:1.4em;
