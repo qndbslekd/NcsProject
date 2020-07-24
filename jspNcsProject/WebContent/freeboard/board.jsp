@@ -154,7 +154,9 @@
 		
 %>
 <body>
-	<jsp:include page="../header.jsp" flush="false"/>
+	<jsp:include page="../header.jsp" flush="false">
+		<jsp:param value="freeboard" name="mode"/>
+	</jsp:include>
 	<h1 align="center"></h1>
 	<table >
 	<%if(session.getAttribute("memId")!= null){ %>

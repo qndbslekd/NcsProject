@@ -44,7 +44,10 @@ if(session.getAttribute("memId")==null){
 	<table>
 		<tr>
 			<td class="t">아이디*</td>
-			<td><input type="text" name="id" required="required"/></td>
+			<td><input type="text" name="id" required="required"/>
+				<input type = "hidden" name = "idConfirm" value="false" />
+				<input type = "hidden" name = "nameConfirm" value="false" />
+			</td>
 		</tr>
 		<!--중복 id 체크버튼-->
 		<tr>
@@ -140,11 +143,13 @@ if(session.getAttribute("memId")==null){
 	function check() {
 		var inputs = document.inputForm;
 		console.log(inputs);
+		
 
 		if (inputs.pw.value != inputs.pwCh.value) {
 			alert("비밀번호확인을 동일하게 입력하세요");
 			return false;
 		}
+		
 		var re1= /([0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[1,2][0-9]|3[0,1]))/;
 		var re2= /^[0-9]*$/;
 		var test1 = document.getElementById("idTest1").value;
@@ -154,8 +159,18 @@ if(session.getAttribute("memId")==null){
 			alert("주민번호 앞자리는 6자리 숫자만 입력 가능합니다");
 			return false;
 		} 
+		
 		if(!re2.test(test2)){
 			alert("주민번호 뒷자리는 숫자만 입력 가능합니다");
+			return false;
+		}
+		if(inputs.idConfirm.value=='false'){
+			alert("아이디 중복확인을 해주세요");
+			return false;
+		}
+		
+		if(inputs.nameConfirm.value=='false'){
+			alert("활동명 중복확인을 해주세요");
 			return false;
 		}
 	}

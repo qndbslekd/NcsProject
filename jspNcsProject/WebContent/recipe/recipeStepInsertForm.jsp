@@ -24,7 +24,10 @@
 	String cookingTime = request.getParameter("cookingTime");
 %>
 <body>
-	<jsp:include page="../header.jsp"/>
+	<jsp:include page="../header.jsp" flush="false">
+		<jsp:param value="recipe" name="mode"/>
+	</jsp:include>
+
 	<br/>
 	<form method="post" action="recipeInsertPro.jsp" enctype="multipart/form-data">
 		<input type="hidden" name="recipeStep" value="<%=recipeStep%>"/>

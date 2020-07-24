@@ -125,7 +125,9 @@ if (search == null || search.equals("")) {
 	}
 }
 %>
-<jsp:include page="../header.jsp" flush="false"/>
+	<jsp:include page="../header.jsp" flush="false">
+		<jsp:param value="product" name="mode"/>
+	</jsp:include>
 <body>
 	<form action="productList.jsp" method="get">
 		<table id="search">
