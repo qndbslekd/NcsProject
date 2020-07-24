@@ -90,6 +90,7 @@
 				<tr>  
 						<td style="text-align: left;">
 						<%=comment.get(i).getName()%> 
+						<%=comment.get(i).getDetail()%>
 						<button class="grayButton" type="button" style="background-color:rgb(139, 195, 74); color:white" onclick="recommentFn('<%=comment.get(i).getName()%>','<%=comment.get(i).getNum()%>')">&#x1F4AC;답글</button>
 						
 						<%if(!(session.getAttribute("memId")==null||session.getAttribute("memId").equals("admin")||comment.get(i).getName().equals("관리자")||session.getAttribute("memName").equals(comment.get(i).getName()))){%>
@@ -102,7 +103,6 @@
 									<button class="grayButton" type="button" onclick="deleteFn('<%=comment.get(i).getNum()%>','<%=comment.get(i).getName()%>','<%=dto.getNum()%>')">삭제</button>	
 							<%} %>
 						<%} %>
-						<%=comment.get(i).getDetail()%>
 						</td>
 						<td style="text-align:right;"><%=sdf.format(comment.get(i).getReg())%></td>
 						</tr>
@@ -118,12 +118,12 @@
 								<td style="text-align: left;">
 								<img src="/jnp/recipe/imgs/replyImg.png" width="10px"/>
 								<%=recoment.get(j).getName()%> 		
+								<%=recoment.get(j).getDetail()%> 
 								<button class="grayButton" type="button" style="background-color:rgb(139, 195, 74); color:white" onclick="recommentFn('<%=recoment.get(j).getName()%>','<%=comment.get(i).getNum()%>')">&#x1F4AC;답글</button>
 								<%if(!(session.getAttribute("memId")==null||session.getAttribute("memId").equals("admin")||recoment.get(j).getName().equals("관리자")||session.getAttribute("memName").equals(recoment.get(j).getName()))){%>
 								<%offenceIdByName = MDao.selectMemberIdForOffenceByName(recoment.get(j).getName());%>
 								<button class="grayButton" type="button" onclick="report('<%=recoment.get(j).getNum()%>','<%=offenceIdByName%>')">&#128680;신고</button>
 								<%} %>
-								<%=recoment.get(j).getDetail()%> 
 							<%if(session.getAttribute("memId")!=null){ %>	
 								<%if(session.getAttribute("memId").equals("admin")||session.getAttribute("memId").equals(recoment.get(j).getName())){ %>
 								<button class="grayButton" type="button" onclick="deleteFn('<%=recoment.get(j).getNum()%>','<%=recoment.get(j).getName()%>','<%=dto.getNum()%>')">삭제</button>
