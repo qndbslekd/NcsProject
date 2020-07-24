@@ -258,7 +258,10 @@
 <body>
 	<form action="recipeSearchList.jsp" name="searchForm" method="post">
 		<input type="hidden" name="mode" value="num"/>
-		<jsp:include page="../header.jsp" flush="false"/>
+		<jsp:include page="../header.jsp" flush="false">
+			<jsp:param value="recipe" name="mode"/>
+		</jsp:include>
+
 			<table id="search">
 				<tr>
 					<td>요리명</td>
