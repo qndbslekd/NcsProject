@@ -50,22 +50,23 @@
 <jsp:include page="../header.jsp" flush="false"/>
 <br /><br />
 <h1 align="center"> 내 글 목록 </h1> 
+<br />
 <form>
-	<table id="nonBorder">
+	<table id="nonBorder" style="width:700">
 		<tr>
-			<td>
+			<td style="width:177px">
 				<%-- 여긴 select option 값에 따라서 계속 변할 예정  --%>
 				총 게시글 수 : <%= count %>
 			</td>
 			
-			<td>
-				<select name="option">
+			<td style="width:309px">
+				<select name="option" style="width:129px">
 					<option value="myRecipeList">레시피</option>
 					<option value="myFreeboardList" <%if(option.equals("myFreeboardList")){%>selected<%} %>>자유게시판</option>
 				</select>	
 				<input type="submit" value="이동" />
 			</td>
-			<td>
+			<td style="width:318px">
 				<input type="button" onclick="window.location='myList.jsp'" value="내 글 보기" />
 				<input type="button" onclick="window.location='myCommentList.jsp'" value="내 댓글 보기" />
 
@@ -74,11 +75,13 @@
 		<tr>
 			<td colspan="5">
 				<% if(option.equals("myRecipeList")){%>
+					<br />
 					<jsp:include page="myRecipeList.jsp" flush="false" >
 						<jsp:param value="<%= pageNum %>" name="pageNum"/>
 						<jsp:param value="<%= option %>" name="option"/>
 		 			</jsp:include>	
 				<%}else if(option.equals("myFreeboardList")){ %>
+					<br />
 					<jsp:include page="myFreeboardList.jsp" flush="false" >
 						<jsp:param value="<%= pageNum %>" name="pageNum"/>
 						<jsp:param value="<%= option %>" name="option"/>
