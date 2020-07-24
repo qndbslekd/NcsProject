@@ -1,3 +1,4 @@
+<%@page import="jspNcsProject.dao.RatingDAO"%>
 <%@page import="jspNcsProject.dao.MemberDAO"%>
 <%@page import="jspNcsProject.dto.TagDTO"%>
 <%@page import="jspNcsProject.dao.TagDAO"%>
@@ -41,7 +42,8 @@
 	#searchRecipe-wrapper .recipe{
 	
 		width : 850px;
-		height : 150px;
+		height : auto;
+		overflow: hidden;
 		/*border: 1px solid black;*/
 		margin: 20px auto;
 		 		
@@ -57,14 +59,16 @@
 	
 	#searchRecipe-wrapper .info{
 		width: 692px;
-		height: 146px;	
+		height: auto;
+		overflow: hidden;	
 		margin: 1px 1px;
 		float: left;			
 	}
 	
 	#searchRecipe-wrapper .info .row {	
 		text-align: left;
-		height: 19.2px;
+		height : auto;
+		overflow: hidden;
 		line-height: 19.2px;
 		color : black;	
 		padding: 5px 10px;	
@@ -146,9 +150,10 @@
 	String ingredients = request.getParameter("ingredients");//재료명
 	String vegiType  = request.getParameter("vegiType");//채식 유형
 	String difficulty = request.getParameter("difficulty");//난이도
+	String writer = request.getParameter("writer");// 칼로리 하한선
 	String calMore = request.getParameter("calMore");// 칼로리 하한선
 	String calUnder = request.getParameter("calUnder");//칼로리 상한선
-	String writer = request.getParameter("writer");//작성자 활동명
+
 	System.out.println("name : "+ name +" writer:"+writer);
 	String tag = request.getParameter("tag");
 	//where절 쿼리 처리
@@ -216,7 +221,9 @@
 			whereQuery += (" and cal <= "+calUnderNum);
 		}
 	}
+	
 
+	
 	//작가 검색
 	if(writer!=null && !writer.equals("")){
 		writer = writer.trim();//앞뒤 공백제거
@@ -392,24 +399,34 @@
 			<h2>검색된 레시피가 없습니다.</h2>
 		
 		<%}else{
+			RatingDAO rdao = RatingDAO.getInstance();
 			for(int i = 0 ; i < searchRecipeList.size() ; i++){	
 					RecipeDTO recipe  = (RecipeDTO)searchRecipeList.get(i);
 					String idToName = dao.selectNameById(recipe.getWriter());
-					String ingredientes = recipe.getIngredients();
-					ingredientes = ingredientes.substring(1,ingredientes.length()-1);
+					String[] ingredientes = recipe.getIngredients().split(",");
+					String ingre  = "";
+					for(int j=0; j< ingredientes.length; j++){
+						String[] tmp = ingredientes[j].split(":");
+						ingre += tmp[0]+",";
+					}
+					ingre = ingre.substring(1,ingre.length()-1);
+		
+					
+				
+					int rateCount = rdao.getCountRating(recipe.getNum());
 		%>
 		<div class="recipe" onclick="window.location='recipeContent.jsp?num=<%=recipe.getNum()%>'">
 			<div class="thumbnail">
-				<img width="150px" height="146px" style="board-radius: 5px;" src="/jnp/recipe/imgs/<%=recipe.getThumbnail()%>"/>
+				<img width="150px" height="146px" style="border-radius:5px;" src="/jnp/recipe/imgs/<%=recipe.getThumbnail()%>"/>
 			</div>
 			<div class="info">
 				<div class='row title' ><%=recipe.getRecipeName() %></div>
-				<div class='row'>posted by <%=idToName %></div>
-				<div class='row'>평점 : <%=recipe.getRating() %>(리뷰수)</div>
+				<div class='row' style="color:#999;">posted by <%=idToName %></div>
+				<div class='row'>평점 : <%=recipe.getRating() %>(<%=rateCount%>)</div>
 				<div class='row'>채식유형 : <%=recipe.getVegiType()%> | 난이도 : <%=recipe.getDifficulty()%> 
 				| 조리시간 : <%=recipe.getCookingTime()%>분 | 분량 : <%=recipe.getQuantity()%>인분 | 칼로리(1인분/Kcal) : <%=recipe.getCal()%>Kcal		
 				</div>
-				<div class='row'>재료 : <%=ingredientes%></div>				
+				<div class='row'>재료 : <%=ingre%></div>				
 			</div>		
 		</div>		
 		<%	} 

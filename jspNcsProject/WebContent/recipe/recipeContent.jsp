@@ -157,7 +157,7 @@
 					<tr>
 						<td> <img src="/jnp/save/<%=recipeDAO.selectImgById(recipeBoard.getWriter())%>" style="width:60px; height:60px; border-radius:30px; "/> </td>
 						<td><h2><%= recipeDAO.selectNameById(recipeBoard.getWriter())%></h2></td>
-						<td><button class = "greenButton" onclick="window.location='recipeSearchList.jsp?writer=<%=recipeBoard.getWriter()%>'">레시피 더 보기</button></td>
+						<td><button class = "greenButton" onclick="window.location='recipeSearchList.jsp?writer=<%=recipeDAO.selectNameById(recipeBoard.getWriter())%>'">레시피 더 보기</button></td>
 					</tr>
 				</table>
 			</td>
