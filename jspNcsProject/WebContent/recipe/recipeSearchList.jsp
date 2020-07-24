@@ -1,3 +1,5 @@
+<%@page import="jspNcsProject.dao.RatingDAO"%>
+<%@page import="jspNcsProject.dao.MemberDAO"%>
 <%@page import="jspNcsProject.dto.TagDTO"%>
 <%@page import="jspNcsProject.dao.TagDAO"%>
 <%@page import="java.util.List"%>
@@ -13,10 +15,24 @@
 <title>Insert title here</title>
 <style>
 	#search{
-			width : 800px;
-			margin-top : 50px;
-			margin-bottom : 50px;
-		}
+		height: 250px;
+		width : 800px;
+		margin-top : 50px;
+		margin-bottom : 50px;
+		background-color : #DADBD7;
+	}
+	
+	#search .title{
+		width:80px;
+		font-size:17px;
+		text-align: right;
+	
+	}
+	.input-box{
+		border: 1px solid #999;
+	
+	}
+	
 	#searchRecipe-wrapper{
 		width : 968px;
 		height: auto;
@@ -26,7 +42,8 @@
 	#searchRecipe-wrapper .recipe{
 	
 		width : 850px;
-		height : 150px;
+		height : auto;
+		overflow: hidden;
 		/*border: 1px solid black;*/
 		margin: 20px auto;
 		 		
@@ -36,21 +53,22 @@
 		width: 150px;
 		height:146px;
 		margin: 1px 1px;
-		border: 1px solid black;
+		
 		float: left;
 	}
 	
 	#searchRecipe-wrapper .info{
 		width: 692px;
-		height: 146px;	
+		height: auto;
+		overflow: hidden;	
 		margin: 1px 1px;
-		border: 1px solid black;
 		float: left;			
 	}
 	
 	#searchRecipe-wrapper .info .row {	
 		text-align: left;
-		height: 19.2px;
+		height : auto;
+		overflow: hidden;
 		line-height: 19.2px;
 		color : black;	
 		padding: 5px 10px;	
@@ -63,13 +81,20 @@
 
 		
 	.sub-wrapper{
-		height: 70px;
-		width : 800px;
+		height: 30px;
+		width : 850px;
 		margin: 0 auto;
 	}
 	
 	.write_button{
-		background-color: green;
+		width:100px;
+		float:left;
+		border: 1px solid #DADBD7;
+		padding: 7px 10px 7px 10px;
+		background-color: rgb(139, 195, 74);
+		color: white;
+		cursor: pointer;
+		border-radius : 5px;
 		
 	}
 	
@@ -104,6 +129,16 @@
 		border-radius: 10px;
 		margin: 5px 0;
 	}
+	.buttn{		
+		float:left;
+		border: 1px solid #DADBD7;
+		padding: 5px 24px 5px 24px;		
+	}
+	#selected{
+
+		background-color: #44b6b5;
+		color: white;
+	}
 </style>
 <script>
 	function question(){
@@ -122,15 +157,17 @@
 	String ingredients = request.getParameter("ingredients");//재료명
 	String vegiType  = request.getParameter("vegiType");//채식 유형
 	String difficulty = request.getParameter("difficulty");//난이도
+	String writer = request.getParameter("writer");// 칼로리 하한선
 	String calMore = request.getParameter("calMore");// 칼로리 하한선
 	String calUnder = request.getParameter("calUnder");//칼로리 상한선
-	String writer = request.getParameter("writer");//작성자
+
 	System.out.println("name : "+ name +" writer:"+writer);
 	String tag = request.getParameter("tag");
 	//where절 쿼리 처리
 	String whereQuery="where 1=1";	
 	//요리명 검색
 	
+	RecipeDAO dao = RecipeDAO.getInstance();
 	
 	if( name!=null && !name.equals("")){
 		//앞뒤 공백제거
@@ -164,8 +201,6 @@
 	}
 	//칼로리 검색
 	
-	// null 100
-	// "" null
 	if((calMore!=null  && !calMore.equals("") )|| (calUnder!=null && !calUnder.equals(""))){//둘중 하나라도 값이 있을때	
 		if((!calMore.equals("") && calMore!=null ) &&  (!calUnder.equals("") && calMore!=null)){ // 둘다 있는경우
 			int calMoreNum = Integer.parseInt(calMore);
@@ -178,23 +213,7 @@
 			int calUnderNum = Integer.parseInt(calUnder);
 			whereQuery += (" and cal <= "+calUnderNum);
 		}
-		
-		/*
-		
-		if(!calMore.equals("") && calUnder.equals("")){//이상값만 있는경우
-			int calMoreNum = Integer.parseInt(calMore);
-			whereQuery += (" and cal >= "+calMoreNum);
-		}else if(calMore.equals("") && !calUnder.equals("")){ //이하값만 있는경우
-			int calUnderNum = Integer.parseInt(calUnder);
-			whereQuery += (" and cal <= "+calUnderNum);
-		}else if(!calMore.equals("") &&  !calUnder.equals("")){ // 둘다 있는경우
-			int calMoreNum = Integer.parseInt(calMore);
-			int calUnderNum = Integer.parseInt(calUnder);
-			whereQuery +=(" and cal >= "+ calMoreNum + " and cal<="+calUnderNum);
-		}
-		*/
-	}
-	
+	}	
 	//칼로리 검색	
 	if(( calMore!=null && !calMore.equals("") )|| (calUnder!= null && !calUnder.equals(""))){//둘중 하나라도 값이 있을때	
 		if(( calMore!=null  && !calMore.equals("")) && (calUnder!=null && !calUnder.equals(""))){ // 둘다 있는경우
@@ -209,11 +228,15 @@
 			whereQuery += (" and cal <= "+calUnderNum);
 		}
 	}
+	
 
+	
 	//작가 검색
 	if(writer!=null && !writer.equals("")){
 		writer = writer.trim();//앞뒤 공백제거
-		whereQuery += (" and writer like '%"+writer+"%'");
+		String writerToId = dao.selectIdByName(writer);
+		System.out.println("검색 writer:"+writer+" id변환:"+writerToId);
+		whereQuery += (" and writer like '%"+writerToId+"%'");
 	}
 		
 	//태그 검색;
@@ -236,12 +259,12 @@
 		}
 		
 		//tag테이블에서 검색한 tag와 관련된 태그20개  리스트로 가져오기	
-		TagDAO dao = TagDAO.getInstance();
-		tagList = dao.searchTagList(tagWhereQuery);
+		TagDAO tdao = TagDAO.getInstance();
+		tagList = tdao.searchTagList(tagWhereQuery);
 	}
 		
 	//페이지 글 가져오기
-	RecipeDAO dao = RecipeDAO.getInstance();
+	
 	int pageSize =20;
 
 	String pageNum = request.getParameter("pageNum");
@@ -259,6 +282,7 @@
 	}
 		
 	List searchRecipeList = dao.searchRecipeList(startRow, endRow, whereQuery, mode);
+	System.out.println("검색 쿼리:"+whereQuery);
 
 	//리스트 글수
 	int count = 0;
@@ -271,21 +295,25 @@
 <body>
 	<form action="recipeSearchList.jsp" name="searchForm" method="post">
 		<input type="hidden" name="mode" value="num"/>
-		<jsp:include page="../header.jsp" flush="false"/>
+		<jsp:include page="../header.jsp" flush="false">
+			<jsp:param value="recipe" name="mode"/>
+		</jsp:include>
+
 			<table id="search">
+				<tr><td></td></tr>
 				<tr>
-					<td>요리명</td>
-					<td colspan='7'><input type="text" style="width: 700px;" name="name" <%if(name!= null && !name.equals(""))%>value="<%=name%>" /></td>
+					<td class="title">요리명</td>
+					<td colspan='7'><input type="text" style="width:620px;" class="input-box" name="name" <%if(name!= null && !name.equals(""))%>value="<%=name%>" /></td>
 				</tr>
 				<tr>
-					<td>재료명</td>
-					<td colspan='7'><input type="text" style="width: 700px;" name="ingredients" placeholder="재료1,재료2,.." <%if(ingredients!=null && !ingredients.equals(""))%>value="<%=ingredients%>" /></td>
+					<td class="title">재료명</td>
+					<td colspan='7'><input type="text" style="width:620px;"class="input-box" name="ingredients" placeholder="재료1,재료2,.." <%if(ingredients!=null && !ingredients.equals(""))%>value="<%=ingredients%>" /></td>
 				</tr>
 				<tr>
-					<td>분류</td>
-					<td>채식유형별</td>
-					<td>
-						<select name="vegiType">
+					<td class="title">분류</td>
+					<td style="width:100px; text-align:right;">채식유형별</td>
+					<td style="width:150px;">
+						<select name="vegiType" class="input-box">
 						
 							<option value="total" <%if(vegiType!=null && vegiType.equals("total")){%>selected<%}%>>전체</option>
 							<option value="vegan"<%if(vegiType!=null && vegiType.equals("vegan")){%>selected<%}%>>비건</option>
@@ -298,28 +326,28 @@
 						</select>
 						<img src="./imgs/question.png" width="20px" height="20px" onclick="question()" />
 					</td>	
-					<td>난이도별</td>
-					<td>
-						<select name="difficulty">
+					<td style="width:60px;text-align:right;" >난이도별</td>
+					<td style="width:80px;">
+						<select name="difficulty" class="input-box">
 							<option value="전체" <%if(difficulty!=null && difficulty.equals("전체")){%>selected<%}%>>전체</option>
 							<option value="쉬움" <%if(difficulty!=null && difficulty.equals("쉬움")){%>selected<%}%>>쉬움</option>
 							<option value="보통" <%if(difficulty!=null && difficulty.equals("보통")){%>selected<%}%>>보통</option>
 							<option value="어려움" <%if(difficulty!=null && difficulty.equals("어려움")){%>selected<%}%>>어려움</option>
 						</select>
 					</td>
-					<td>열량</td>
-					<td>
-					<input type="text" name="calMore" <%if(calMore !=null && !calMore.equals(""))%> value="<%=calMore%>" />~
-					<input type="text" name="calUnder" <%if(calUnder !=null && !calUnder.equals(""))%> value="<%=calUnder%>"/>
+					<td style="width:40px; text-align:right;">열량</td>
+					<td style="width:100px;">
+					<input type="text" name="calMore" style="width:35px;" <%if(calMore !=null && !calMore.equals(""))%> class="input-box"  value="<%=calMore%>" />~
+					<input type="text" name="calUnder" style="width:35px;" <%if(calUnder !=null && !calUnder.equals(""))%> class="input-box"  value="<%=calUnder%>"/>
 					</td>
 				</tr> 
 				<tr> 
-					<td>작성자</td>
-					<td colspan='7'><input type="text" style="width:700px;" name="writer" <%if(writer!= null && !writer.equals(""))%> value="<%=writer%>"/></td>
+					<td class="title">작성자</td>
+					<td colspan='7'><input type="text" style="width:620px;" class="input-box" name="writer" <%if(writer!= null && !writer.equals(""))%> value="<%=writer%>"/></td>
 				</tr>
 				<tr>
-					<td>태그</td>
-					<td colspan='7'><input type="text" name="tag" style="width: 700px;" placeholder="태그명1,태그명2,.." <%if(tag!=null && !tag.equals(""))%> value="<%=tag%>"/></td>
+					<td class="title">태그</td>
+					<td colspan='7'><input type="text" name="tag" class="input-box" style="width: 620px;" placeholder="태그명1,태그명2,.." <%if(tag!=null && !tag.equals(""))%> value="<%=tag%>"/></td>
 				</tr>
 				<tr>
 					<td colspan='8'><input type="submit" value="검색"/></td>
@@ -337,12 +365,12 @@
 	
 	<div class="sub-wrapper">
 		<% if(session.getAttribute("memId")!= null){ %>
-		<div>
+		<div style="height:50px;">
 			<button  class="write_button" onclick="window.location='recipeInsertForm.jsp'" >레시피 작성</button>
 		</div>
 		<%}%>
 		<div class="total_recipe">
-			<h3>총 <%=count %>개의 레시피가 있습니다.</h3>
+			<div style="text-align:left; font-size:17px; float: left; width:667px; height:auto; overflow:hidden;">총 <span style="color:rgb(139, 195, 74); font-size:23px;"><%=count %></span>개의 레시피가 있습니다.</div>
 		</div>
 		<div class="sort_button">
 				<form action="recipeSearchList.jsp">
@@ -355,8 +383,10 @@
 					<input type="hidden" name="writer" value="<%=writer%>" />
 					<input type="hidden" name="tag" value="<%=tag%>" />
 					<input type="hidden" name="mode" value="num" />
-					<input type="submit" value="최신순"/>	
+					<input type="submit" class="buttn" <%if(mode.equals("num")){%> id="selected"<%}%> class="buttn" value="최신순"/>	
 				</form>
+		</div>
+		<div class="sort_button" style="float: left;">
 				<form action="recipeSearchList.jsp">
 					<input type="hidden" name="name" value="<%=name%>" />
 					<input type="hidden" name="ingredients" value="<%=ingredients%>" />
@@ -367,7 +397,7 @@
 					<input type="hidden" name="writer" value="<%=writer%>" />
 					<input type="hidden" name="tag" value="<%=tag%>" />
 					<input type="hidden" name="mode" value="rating"/>
-					<input type="submit" value="평점순"/>	
+					<input type="submit" class="buttn" <%if(mode.equals("rating")){%> id="selected"<%}%> class="buttn" value="평점순"/>	
 				</form>
 		</div>
 	</div>
@@ -376,21 +406,34 @@
 			<h2>검색된 레시피가 없습니다.</h2>
 		
 		<%}else{
+			RatingDAO rdao = RatingDAO.getInstance();
 			for(int i = 0 ; i < searchRecipeList.size() ; i++){	
 					RecipeDTO recipe  = (RecipeDTO)searchRecipeList.get(i);
+					String idToName = dao.selectNameById(recipe.getWriter());
+					String[] ingredientes = recipe.getIngredients().split(",");
+					String ingre  = "";
+					for(int j=0; j< ingredientes.length; j++){
+						String[] tmp = ingredientes[j].split(":");
+						ingre += tmp[0]+",";
+					}
+					ingre = ingre.substring(1,ingre.length()-1);
+		
+					
+				
+					int rateCount = rdao.getCountRating(recipe.getNum());
 		%>
 		<div class="recipe" onclick="window.location='recipeContent.jsp?num=<%=recipe.getNum()%>'">
 			<div class="thumbnail">
-				<img width="150px" height="146px" src="/jnp/recipe/imgs/<%=recipe.getThumbnail()%>"/>
+				<img width="150px" height="146px" style="border-radius:5px;" src="/jnp/recipe/imgs/<%=recipe.getThumbnail()%>"/>
 			</div>
 			<div class="info">
 				<div class='row title' ><%=recipe.getRecipeName() %></div>
-				<div class='row'>posted by <%=recipe.getWriter() %></div>
-				<div class='row'>평점: <%=recipe.getRating() %>(리뷰수)</div>
+				<div class='row' style="color:#999;">posted by <%=idToName %></div>
+				<div class='row'>평점 : <%=recipe.getRating() %>(<%=rateCount%>)</div>
 				<div class='row'>채식유형 : <%=recipe.getVegiType()%> | 난이도 : <%=recipe.getDifficulty()%> 
-				| 조리시간: <%=recipe.getCookingTime()%>분 | 분량: <%=recipe.getQuantity()%>인분 | 칼로리(1인분/Kcal): <%=recipe.getCal()%>Kcal		
+				| 조리시간 : <%=recipe.getCookingTime()%>분 | 분량 : <%=recipe.getQuantity()%>인분 | 칼로리(1인분/Kcal) : <%=recipe.getCal()%>Kcal		
 				</div>
-				<div class='row'>재료: <%= recipe.getIngredients()%></div>				
+				<div class='row'>재료 : <%=ingre%></div>				
 			</div>		
 		</div>		
 		<%	} 
@@ -420,7 +463,7 @@
 			if(endPage > pageCount){%>
 				<div class="page" onclick="window.location='recipeSearchList.jsp?pageNum=<%=startPage+pageBlock%>&name=<%=name%>&ingredients=<%=ingredients%>&vegiType=<%=vegiType%>&difficulty=<%=difficulty%>&calMore=<%=calMore%>&calUnder=<%=calUnder%>&writer=<%=writer%>&mode=<%=mode%>&tag=<%=tag%>'">&gt;</div>		
 			<%}		
-			}
+		}
 	%>
 	</div>
 </body>

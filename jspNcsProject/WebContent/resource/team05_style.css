@@ -7,6 +7,9 @@
 	font-size : 15px;
 	color:black;
 }
+*:focus {
+	outline:0;
+}
 table {
 	width: 500; 
 	margin: auto; 
@@ -141,3 +144,39 @@ a>*{
 	text-decoration:none;
 	color:black;
 }
+
+.myButton{
+	border:0px;
+	border-radius:10px;
+	cursor:pointer;
+	outline:none;
+	padding:5px;
+}
+
+.insertTable td {
+	font-size:20px;
+	vertical-align:middle;
+	padding:20px;
+}
+.insertTable .h {
+	vertical-align:middle;
+	text-align:left;
+	margin-left:20px;
+}
+.insertTable .t {
+	text-align:right;
+	padding:25px;
+	border-right:2px solid #ccc;
+	font-size:1.4em;
+	vertical-align:top;
+}
+.insertTable select, .insertTable textarea, .insertTable input[type="number"], .insertTable input[type="text"], .insertTable input[type="radio"]{
+	border:1px solid #ccc;
+	border-radius:5px;
+	font-size:25px;
+	self-align:left;
+	margin-left:20px;
+	margin-bottom:5px;
+	vertical-align:middle;
+}
+
