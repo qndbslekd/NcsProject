@@ -14,10 +14,24 @@
 <title>Insert title here</title>
 <style>
 	#search{
-			width : 800px;
-			margin-top : 50px;
-			margin-bottom : 50px;
-		}
+		height: 250px;
+		width : 800px;
+		margin-top : 50px;
+		margin-bottom : 50px;
+		background-color : #DADBD7;
+	}
+	
+	#search .title{
+		width:80px;
+		font-size:17px;
+		text-align: right;
+	
+	}
+	.input-box{
+		border: 1px solid #999;
+	
+	}
+	
 	#searchRecipe-wrapper{
 		width : 968px;
 		height: auto;
@@ -37,7 +51,7 @@
 		width: 150px;
 		height:146px;
 		margin: 1px 1px;
-		border: 1px solid black;
+		
 		float: left;
 	}
 	
@@ -45,7 +59,6 @@
 		width: 692px;
 		height: 146px;	
 		margin: 1px 1px;
-		border: 1px solid black;
 		float: left;			
 	}
 	
@@ -64,8 +77,8 @@
 
 		
 	.sub-wrapper{
-		height: 70px;
-		width : 800px;
+		height: 30px;
+		width : 850px;
 		margin: 0 auto;
 	}
 	
@@ -104,6 +117,16 @@
 		background-color: gray;
 		border-radius: 10px;
 		margin: 5px 0;
+	}
+	.buttn{		
+		float:left;
+		border: 1px solid #DADBD7;
+		padding: 5px 24px 5px 24px;		
+	}
+	#selected{
+
+		background-color: #44b6b5;
+		color: white;
 	}
 </style>
 <script>
@@ -260,19 +283,20 @@
 		<input type="hidden" name="mode" value="num"/>
 		<jsp:include page="../header.jsp" flush="false"/>
 			<table id="search">
+				<tr><td></td></tr>
 				<tr>
-					<td>요리명</td>
-					<td colspan='7'><input type="text" style="width: 700px;" name="name" <%if(name!= null && !name.equals(""))%>value="<%=name%>" /></td>
+					<td class="title">요리명</td>
+					<td colspan='7'><input type="text" style="width:620px;" class="input-box" name="name" <%if(name!= null && !name.equals(""))%>value="<%=name%>" /></td>
 				</tr>
 				<tr>
-					<td>재료명</td>
-					<td colspan='7'><input type="text" style="width: 700px;" name="ingredients" placeholder="재료1,재료2,.." <%if(ingredients!=null && !ingredients.equals(""))%>value="<%=ingredients%>" /></td>
+					<td class="title">재료명</td>
+					<td colspan='7'><input type="text" style="width:620px;"class="input-box" name="ingredients" placeholder="재료1,재료2,.." <%if(ingredients!=null && !ingredients.equals(""))%>value="<%=ingredients%>" /></td>
 				</tr>
 				<tr>
-					<td>분류</td>
-					<td>채식유형별</td>
-					<td>
-						<select name="vegiType">
+					<td class="title">분류</td>
+					<td style="width:100px; text-align:right;">채식유형별</td>
+					<td style="width:150px;">
+						<select name="vegiType" class="input-box">
 						
 							<option value="total" <%if(vegiType!=null && vegiType.equals("total")){%>selected<%}%>>전체</option>
 							<option value="vegan"<%if(vegiType!=null && vegiType.equals("vegan")){%>selected<%}%>>비건</option>
@@ -285,28 +309,28 @@
 						</select>
 						<img src="./imgs/question.png" width="20px" height="20px" onclick="question()" />
 					</td>	
-					<td>난이도별</td>
-					<td>
-						<select name="difficulty">
+					<td style="width:60px;text-align:right;" >난이도별</td>
+					<td style="width:80px;">
+						<select name="difficulty" class="input-box">
 							<option value="전체" <%if(difficulty!=null && difficulty.equals("전체")){%>selected<%}%>>전체</option>
 							<option value="쉬움" <%if(difficulty!=null && difficulty.equals("쉬움")){%>selected<%}%>>쉬움</option>
 							<option value="보통" <%if(difficulty!=null && difficulty.equals("보통")){%>selected<%}%>>보통</option>
 							<option value="어려움" <%if(difficulty!=null && difficulty.equals("어려움")){%>selected<%}%>>어려움</option>
 						</select>
 					</td>
-					<td>열량</td>
-					<td>
-					<input type="text" name="calMore" <%if(calMore !=null && !calMore.equals(""))%> value="<%=calMore%>" />~
-					<input type="text" name="calUnder" <%if(calUnder !=null && !calUnder.equals(""))%> value="<%=calUnder%>"/>
+					<td style="width:40px; text-align:right;">열량</td>
+					<td style="width:100px;">
+					<input type="text" name="calMore" style="width:35px;" <%if(calMore !=null && !calMore.equals(""))%> class="input-box"  value="<%=calMore%>" />~
+					<input type="text" name="calUnder" style="width:35px;" <%if(calUnder !=null && !calUnder.equals(""))%> class="input-box"  value="<%=calUnder%>"/>
 					</td>
 				</tr> 
 				<tr> 
-					<td>작성자</td>
-					<td colspan='7'><input type="text" style="width:700px;" name="writer" <%if(writer!= null && !writer.equals(""))%> value="<%=writer%>"/></td>
+					<td class="title">작성자</td>
+					<td colspan='7'><input type="text" style="width:620px;" class="input-box" name="writer" <%if(writer!= null && !writer.equals(""))%> value="<%=writer%>"/></td>
 				</tr>
 				<tr>
-					<td>태그</td>
-					<td colspan='7'><input type="text" name="tag" style="width: 700px;" placeholder="태그명1,태그명2,.." <%if(tag!=null && !tag.equals(""))%> value="<%=tag%>"/></td>
+					<td class="title">태그</td>
+					<td colspan='7'><input type="text" name="tag" class="input-box" style="width: 620px;" placeholder="태그명1,태그명2,.." <%if(tag!=null && !tag.equals(""))%> value="<%=tag%>"/></td>
 				</tr>
 				<tr>
 					<td colspan='8'><input type="submit" value="검색"/></td>
@@ -329,7 +353,7 @@
 		</div>
 		<%}%>
 		<div class="total_recipe">
-			<h3>총 <%=count %>개의 레시피가 있습니다.</h3>
+			<div style="text-align:left; font-size:17px; float: left; width:667px; height:auto; overflow:hidden;">총 <span style="color:rgb(139, 195, 74); font-size:23px;"><%=count %></span>개의 레시피가 있습니다.</div>
 		</div>
 		<div class="sort_button">
 				<form action="recipeSearchList.jsp">
@@ -342,8 +366,10 @@
 					<input type="hidden" name="writer" value="<%=writer%>" />
 					<input type="hidden" name="tag" value="<%=tag%>" />
 					<input type="hidden" name="mode" value="num" />
-					<input type="submit" value="최신순"/>	
+					<input type="submit" class="buttn" <%if(mode.equals("num")){%> id="selected"<%}%> class="buttn" value="최신순"/>	
 				</form>
+		</div>
+		<div class="sort_button" style="float: left;">
 				<form action="recipeSearchList.jsp">
 					<input type="hidden" name="name" value="<%=name%>" />
 					<input type="hidden" name="ingredients" value="<%=ingredients%>" />
@@ -354,7 +380,7 @@
 					<input type="hidden" name="writer" value="<%=writer%>" />
 					<input type="hidden" name="tag" value="<%=tag%>" />
 					<input type="hidden" name="mode" value="rating"/>
-					<input type="submit" value="평점순"/>	
+					<input type="submit" class="buttn" <%if(mode.equals("rating")){%> id="selected"<%}%> class="buttn" value="평점순"/>	
 				</form>
 		</div>
 	</div>
@@ -366,19 +392,21 @@
 			for(int i = 0 ; i < searchRecipeList.size() ; i++){	
 					RecipeDTO recipe  = (RecipeDTO)searchRecipeList.get(i);
 					String idToName = dao.selectNameById(recipe.getWriter());
+					String ingredientes = recipe.getIngredients();
+					ingredientes = ingredientes.substring(1,ingredientes.length()-1);
 		%>
 		<div class="recipe" onclick="window.location='recipeContent.jsp?num=<%=recipe.getNum()%>'">
 			<div class="thumbnail">
-				<img width="150px" height="146px" src="/jnp/recipe/imgs/<%=recipe.getThumbnail()%>"/>
+				<img width="150px" height="146px" style="board-radius: 5px;" src="/jnp/recipe/imgs/<%=recipe.getThumbnail()%>"/>
 			</div>
 			<div class="info">
 				<div class='row title' ><%=recipe.getRecipeName() %></div>
 				<div class='row'>posted by <%=idToName %></div>
-				<div class='row'>평점: <%=recipe.getRating() %>(리뷰수)</div>
+				<div class='row'>평점 : <%=recipe.getRating() %>(리뷰수)</div>
 				<div class='row'>채식유형 : <%=recipe.getVegiType()%> | 난이도 : <%=recipe.getDifficulty()%> 
-				| 조리시간: <%=recipe.getCookingTime()%>분 | 분량: <%=recipe.getQuantity()%>인분 | 칼로리(1인분/Kcal): <%=recipe.getCal()%>Kcal		
+				| 조리시간 : <%=recipe.getCookingTime()%>분 | 분량 : <%=recipe.getQuantity()%>인분 | 칼로리(1인분/Kcal) : <%=recipe.getCal()%>Kcal		
 				</div>
-				<div class='row'>재료: <%= recipe.getIngredients()%></div>				
+				<div class='row'>재료 : <%=ingredientes%></div>				
 			</div>		
 		</div>		
 		<%	} 
