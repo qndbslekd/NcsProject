@@ -8,7 +8,9 @@
 	<title>Product Insert</title>
 	<link href="../resource/team05_style.css" type="text/css" rel="stylesheet"/>
 </head>
-<jsp:include page="../header.jsp"/>
+	<jsp:include page="../header.jsp" flush="false">
+		<jsp:param value="product" name="mode"/>
+	</jsp:include>
 <%if(session.getAttribute("memId") == null || !session.getAttribute("memId").equals("admin")){%>
 	<script>
 		alert("관리자만 이용할 수 있습니다.");
@@ -27,6 +29,7 @@
 			<td>제품명</td>
 			<td><input type="text" name="name" size="100" value="<%=dto.getName()%>"/></td>
 			<input type = "hidden" name = "num" value="<%=dto.getNum()%>"/>
+			
 		</tr>
 		<tr>
 			<td> 내용 </td>
@@ -45,7 +48,12 @@
 					<img src="/jnp/product/imgs/<%=dto.getProduct_img()%>">
 				<%} %>
 			</td>
-			<input type="hidden" value="<%=dto.getProduct_img()%>" name = "product_img_before" /> 
+			<%if(dto.getProduct_img()!=null){%>
+				<input type="hidden" value="<%=dto.getProduct_img()%>" name = "product_img_before" />
+			<%}else{ %>
+				<input type="hidden" name = "product_img_before" />
+			<%} %>
+			 
 		</tr>
 		<tr>
 			<td>수정할 이미지</td>

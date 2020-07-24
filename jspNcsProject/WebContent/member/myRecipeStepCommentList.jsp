@@ -1,3 +1,4 @@
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="jspNcsProject.dto.RecipeDTO"%>
 <%@page import="jspNcsProject.dao.RecipeDAO"%>
 <%@page import="java.util.List"%>
@@ -30,9 +31,9 @@
 	RecipeContentCommentDAO dao = RecipeContentCommentDAO.getInstance();
 	RecipeContentCommentDTO dto = new RecipeContentCommentDTO();
 	String memId = (String)session.getAttribute("memId");
-	
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
-	int pageSize = 3; // 한 페이지에서 보여줄 게시글의 수
+	int pageSize = 5; // 한 페이지에서 보여줄 게시글의 수
 	String pageNum = request.getParameter("pageNum");
 	if(pageNum == null){ // 처음 페이지를 킨 경우 null 값이 들어가니까 이 경우엔 pageNum에 1을 넣어줌 
 		pageNum ="1";
@@ -91,7 +92,7 @@
 	<table border="0" id="nonBorder">
 		<tr>
 			<td >
-				원글제목 <%= recipeboardDTO.getRecipeName() %>
+				원글제목 : <%= recipeboardDTO.getRecipeName() %>
 			</td>
 		</tr>
 		<tr>
@@ -99,12 +100,13 @@
 				댓글 내용 : <%= dto.getContent() %>
 			</td>		
 		</tr>
-		<tr style="border-bottom:1px solid black">
+		<tr>
 			<td>
-				시간 : <%= dto.getReg() %>
+				시간 : <%= sdf.format(dto.getReg()) %>
 			</td>
 		</tr>
 	</table>
+	<hr width="700px">
 	</div>
 	<%}
 	%>
