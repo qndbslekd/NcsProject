@@ -105,8 +105,7 @@ if(session.getAttribute("memId")==null){
 	</form> 
 </body>
 <%}else{
-	System.out.println("Session=!null redirect > main");
-	response.sendRedirect("main.jsp");
+	response.sendRedirect("../main.jsp");
 }
 %>
 <script type="text/javascript">

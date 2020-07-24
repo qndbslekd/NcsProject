@@ -5,19 +5,15 @@
 <head>
 <meta charset="utf-8">
 <link href="../resource/team05_style.css" type="text/css" rel="stylesheet"/>
-
 <title>header</title>
 <style>
-
 #header {
 	width: 1000px;
 	border-collapse: collapse;
 }
-
 #header .title {
 	font-size: 40px;
 }
-
 #header .tab {
 	width: 250px;
 	background-color: rgb(139, 195, 74);
