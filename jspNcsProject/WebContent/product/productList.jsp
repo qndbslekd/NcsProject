@@ -65,7 +65,10 @@
 		color: white;
 		cursor: pointer;
 		border-radius : 5px;
+<<<<<<< HEAD
 		
+=======
+>>>>>>> branch 'develop' of https://github.com/ysk0951/codinnnnng.git
 	}
 	
 	.total_recipe{
@@ -161,8 +164,8 @@ if (search == null || search.equals("")) {
 	
 	<div class="sub-wrapper">
 		<% if(session.getAttribute("memId")!= null&&session.getAttribute("memId").equals("admin")){ %>
-		<div>
-			<button  class="write_button" onclick="window.location='productInsertForm.jsp'" style="display: block;">제품 등록</button>
+		<div style="height:50px;">
+			<button  class="write_button" onclick="window.location='productInsertForm.jsp'" >제품 등록</button>
 		</div>
 		<%}%>
 		
