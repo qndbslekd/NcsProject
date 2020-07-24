@@ -113,7 +113,11 @@ System.out.println(dto);
 		<tr>
 			<td class="t">변경할 프로필 사진</td>
 			<td><input type="file" name="profile_img" /></td>
-			<input type ="hidden" name ="profile_img_before" value="<%=dto.getProfile_img()%>" />
+			<%if(dto.getProfile_img()!=null){%>
+				<input type ="hidden" name ="profile_img_before" value="<%=dto.getProfile_img()%>" />
+			<%}else{%>
+				<input type ="hidden" name ="profile_img_before" />
+			<%} %>
 		</tr>
 		<tr>
 			<td class="t">아이디*</td>

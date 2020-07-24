@@ -33,9 +33,9 @@ input {
 }
 </style>
 </head>
-	<jsp:include page="../header.jsp" flush="false">
+	<jsp:include page="../header.jsp" flush="false"> 
 		<jsp:param value="information" name="mode"/>
-	</jsp:include>/jsp:include>
+	</jsp:include>
 <%
 	String num = request.getParameter("num");
 	if((session.getAttribute("memId") == null||!session.getAttribute("memId").equals("admin"))){%>
@@ -49,11 +49,11 @@ input {
 				<table>
 					<tr> 
 						<td class="t">제목</td>
-						<td><input type="text" name="subject"/></td>
+						<td><input type="text" name="subject" required="required"/></td>
 					</tr> 
 					<tr>
 						<td class="t">내용</td>
-						<td><textarea name="content" cols="70" rows="15"></textarea></td>
+						<td><textarea name="content" cols="70" rows="15" required="required"></textarea></td>
 					</tr>
 					<tr>
 						<td class="t">파일</td>
@@ -61,9 +61,9 @@ input {
 					</tr>
 					<tr>
 						<td colspan="2">
-							<button type="submit" >등록</button>
-							<button type="reset" >재입력</button> 
-							<button onclick="window.location='informationList.jsp'">취소</button>
+							<button type="submit" class="grayButton" style="width: 80px; height: 30px; text-align: center" >등록</button>
+							<button type="reset" class="grayButton" style="width: 80px; height: 30px; text-align: center" >재입력</button> 
+							<button onclick="window.location='informationList.jsp'" class="grayButton" style="width: 80px; height: 30px; text-align: center">취소</button>
 						</td>
 					</tr>
 				</table>

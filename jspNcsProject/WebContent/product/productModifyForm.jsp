@@ -29,6 +29,7 @@
 			<td>제품명</td>
 			<td><input type="text" name="name" size="100" value="<%=dto.getName()%>"/></td>
 			<input type = "hidden" name = "num" value="<%=dto.getNum()%>"/>
+			
 		</tr>
 		<tr>
 			<td> 내용 </td>
@@ -47,7 +48,12 @@
 					<img src="/jnp/product/imgs/<%=dto.getProduct_img()%>">
 				<%} %>
 			</td>
-			<input type="hidden" value="<%=dto.getProduct_img()%>" name = "product_img_before" /> 
+			<%if(dto.getProduct_img()!=null){%>
+				<input type="hidden" value="<%=dto.getProduct_img()%>" name = "product_img_before" />
+			<%}else{ %>
+				<input type="hidden" name = "product_img_before" />
+			<%} %>
+			 
 		</tr>
 		<tr>
 			<td>수정할 이미지</td>
