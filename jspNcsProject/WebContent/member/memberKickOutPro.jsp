@@ -12,17 +12,17 @@
 		<%if(session.getAttribute("memId")==null){%>
 			<script>
 			alert("로그인 후 이용가능합니다.");
-			window.location="main.jsp";
+			window.location="../main.jsp";
 			</script>
 		<%}else if(!session.getAttribute("memId").toString().equals("admin")){ %>
 			<script>
 				alert("관리자 페이지 입니다.");
-				window.location="main.jsp";
+				window.location="../main.jsp";
 			</script>
 		<%}else if(request.getParameter("id")==null||request.getParameter("option")==null){ %>
 			<script>
 				alert("잘못된 접근입니다");
-				window.location="main.jsp";
+				window.location="../main.jsp";
 			</script>
 		<%}
 	}else{ 

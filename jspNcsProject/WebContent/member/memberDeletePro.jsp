@@ -50,7 +50,7 @@
 			<td> 회원 정보가 삭제 되었습니다. </td>
 		</tr>
 		<tr>
-			<td><button onclick="window.location='main.jsp'"> 메인으로 </button></td>
+			<td><button onclick="window.location='../main.jsp'"> 메인으로 </button></td>
 		</tr>
 	</table>
 		<%}else{%>
