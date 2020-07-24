@@ -48,6 +48,7 @@
 %>
 <%-- 게시판 형태 만들기 --%>
 <body>
+<h3> [레시피 게시판] </h3>
 	<%-- 게시글이 없을 때 --%>
 	<% if(count == 0){%>
 		<table>
@@ -63,30 +64,41 @@
 		dto =(RecipeDTO)myRecipeList.get(i);
 	%>
 	<div onclick="location.href='../recipe/recipeContent.jsp?num=<%= dto.getNum()%>'">
+
 	<table style="width:800">
+
 		<tr>
 			<td rowspan="4" width="150px">
 				<img src="../recipe/imgs/beach.jpg" width="150px" height="150px"/>
 			</td>
+
 			<td colspan="5" width="650px;">
+
 				제목 : <%= dto.getRecipeName() %>
 			</td>
 		</tr>
 		<tr>
-			<td colspan="5" >
-			평점:<%= dto.getRating() %>
+
+			<td colspan="5"> 
+			평점 : <%= dto.getRating() %>
+
 			</td>		
 		</tr>
 		<tr>
-			<td>채식유형: <%= dto.getVegiType() %></td>
-			<td>난이도: <%= dto.getDifficulty() %></td>
-			<td>조리시간:<%= dto.getCookingTime() %></td>	
-			<td>분량:<%= dto.getQuantity() %></td>	
-			<td>칼로리:<%= dto.getCal() %></td>				
+			<td>채식유형 : <%= dto.getVegiType() %></td>
+			<td>난이도 : <%= dto.getDifficulty() %></td>
+			<td>조리시간 : <%= dto.getCookingTime() %>분</td>	
+			<td>분량 : <%= dto.getQuantity() %>인분</td>	
+			<td>칼로리 : <%= dto.getCal() %>Cal</td>				
 		</tr>
 		<tr>
-			<td colspan="5" style="max-width:650px; height:auto;">
-			주재료 : <%= dto.getIngredients() %>
+
+			<td colspan="5" style="height:auto; border-bottom:1px solid black">
+			<%
+				String ingredients = dto.getIngredients();
+			%>
+			주재료 : <%= ingredients.substring(1, ingredients.length()-1) %>
+
 			</td>		
 		</tr>
 	</table>
