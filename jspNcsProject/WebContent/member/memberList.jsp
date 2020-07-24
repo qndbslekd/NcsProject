@@ -208,9 +208,9 @@
 					<td style="background-color: red;">
 					<%if(!memberList.get(i).getId().equals("admin")){
 						if(memberList.get(i).getState().equals("활동")){%>
-							<button onclick="window.location='memberKickOutPro.jsp?id=<%=memberList.get(i).getId() %>'" >강퇴</button>					
+							<button onclick="window.location='memberKickOutPro.jsp?id=<%=memberList.get(i).getId()%>&option=kickOff'" >강퇴</button>					
 					<%}else if(memberList.get(i).getState().equals("강퇴")){%>
-							<button onclick="window.location='memberKickOutPro.jsp?id=<%=memberList.get(i).getId() %>'" >강퇴취소</button>										
+							<button onclick="window.location='memberKickOutPro.jsp?id=<%=memberList.get(i).getId()%>&option=kickOffCancle'" >강퇴취소</button>										
 					<%}
 					}%>
 					</td>
