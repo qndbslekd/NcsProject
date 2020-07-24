@@ -60,16 +60,50 @@ System.out.println(dto);
 				"아이디 중복 체크",
 				"toolbar=no,location=no,status = no, menubar = no, scrollbars = no,resizable = no, width = 300,height = 200");
 	}
-</script>
+	
+	function confirmId(inputForm) {
+		if (!inputForm.id.value) {
+			alert("아이디를 입력하세요");
+			return;
+		}
+		var url = "confirmId.jsp?id=" + inputForm.id.value;
+		open(
+				url,
+				"아이디 중복 체크",
+				"toolbar=no,location=no,status = no, menubar = no, scrollbars = no,resizable = no, width = 300,height = 200");
+	}
+	function confirmName(inputForm) {
+		if (!inputForm.name.value) {
+			alert("활동명을 입력하세요");	
+			return;
+		}
+		var url = "confirmId.jsp?name=" + inputForm.name.value;
+		open(
+				url,
+				"아이디 중복 체크",
+				"toolbar=no,location=no,status = no, menubar = no, scrollbars = no,resizable = no, width = 300,height = 200");
+	}
+	
+	//회원가입, 회원정보 수정 유효성 검사
+	function check() {
+		var inputs = document.inputForm;
+		console.log(inputs);
+
+		if (inputs.pw.value != inputs.pwCh.value) {
+			alert("비밀번호확인을 동일하게 입력하세요");
+			return false;
+		}
+	}
+</script> 
 
 <body>
 	<h1 align="center">회원정보수정</h1>
-	<form method="post" action="memberModifyPro.jsp" enctype="multipart/form-data" name ="inputForm">
+	<form method="post" action="memberModifyPro.jsp" enctype="multipart/form-data" name ="inputForm" onsubmit="return check()">
 	<table>
 		<tr> 
 			<td class="t">기존 프로필 사진</td>
-			<td>
-				<%if(dto.getProfile_img()==null){%>
+			<td> 
+				<%if(dto.getProfile_img()==null||dto.getProfile_img().equals("null")){%>
 					<img src="/jnp/save/unnamed.gif" width="300px" height="300px">
 				<%}else{%>
 					<img src="/jnp/save/<%=dto.getProfile_img()%>" width="300px" height="300px">
