@@ -5,19 +5,15 @@
 <head>
 <meta charset="utf-8">
 <link href="../resource/team05_style.css" type="text/css" rel="stylesheet"/>
-
 <title>header</title>
 <style>
-
 #header {
 	width: 1000px;
 	border-collapse: collapse;
 }
-
 #header .title {
 	font-size: 40px;
 }
-
 #header .tab {
 	width: 250px;
 	background-color: rgb(139, 195, 74);
@@ -81,13 +77,13 @@
 			<td style="vertical-align:bottom; padding-bottom:10px;">
 			<%if(session.getAttribute("memId") == null){
 			%>
-				<button onclick="window.location='/jnp/member/loginForm.jsp'">로그인</button>
-				<button onclick="window.location='/jnp/member/signupForm.jsp'">회원가입</button>
+				<button class = "grayButton" style="width: 80px; height: 30px; text-align: center" onclick="window.location='/jnp/member/loginForm.jsp'">로그인</button>
+				<button class = "grayButton" style="width: 80px; height: 30px; text-align: center"  onclick="window.location='/jnp/member/signupForm.jsp'">회원가입</button>
 			</td>
 			<%}else{%>
 				<p><%=session.getAttribute("memName")%>님 환영합니다!</p>		
-				<button onclick="window.location='/jnp/logoutPro.jsp'">로그아웃</button>
-				<button onclick="window.location='/jnp/member/myPage.jsp'">마이페이지</button>
+				<button class = "grayButton" style="width: 80px; height: 30px; text-align: center" onclick="window.location='/jnp/logoutPro.jsp'">로그아웃</button>
+				<button class = "grayButton" style="width: 100px; height: 30px; text-align: center" onclick="window.location='/jnp/member/myPage.jsp'">마이페이지</button>
 			</td>
 			<%} %>
 		</tr>

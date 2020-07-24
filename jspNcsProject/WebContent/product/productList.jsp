@@ -15,7 +15,6 @@
 		margin-bottom : 50px;
 	}
 	#recipe-wrapper{
-		overflow: hidden;
 		width : 968px;
 		height: auto;
 		margin: 0 auto;
@@ -27,7 +26,6 @@
 		float: left;
 		margin: 20px 20px; 		
 	}
-	
 	.thumbnail {
 		height: 200px;
 		border-top : 1px solid black;	
@@ -35,25 +33,22 @@
 		border-left : 1px solid black;	
 		
 	}
-	
 	.info{
 		height: 100px;	
 		border: 1px solid black;	
 	}
-	
 	.info .row {	
+		overflow: hidden;
 		text-align: center;
-		height: 30px;
-		line-height: 30px;
+		height: 50px;
+		line-height: 50px;
 		color : black;		
 	}
-		
 	.sub-wrapper{
 		height: 70px;
 		width : 920px;
 		margin: 0 auto;
 	}
-	
 	.write_button{
 		background-color: green;
 		

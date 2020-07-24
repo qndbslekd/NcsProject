@@ -13,27 +13,28 @@
 </head>
 <jsp:include page="../header.jsp"></jsp:include>
 <style>
-	/* table td {
-		font-size:1.4em;
-		vertical-align:middle;
-	}
-	td * {
-		border-top : 2px solid #ccc; 
-		margin:0;
-		padding:0;
-		vertical-align:middle;
-		text-align:left;
-	} */
-	.paging{
-		width: 960px;
-		margin: 0 auto;
-		text-align: center;
-		
-	}
-	.page{
-		display: inline-block;
-		color : black;
-	}
+.t {	
+	border-top:2px solid #ccc;
+}
+
+.t>td{
+	font-size:1.4em;
+	text-align:center;
+	padding:5px;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+.paging{
+	width: 960px;
+	margin: 0 auto;
+	text-align: center;
+	
+}
+.page{
+	display: inline-block;
+	color : black;
+}
 </style>
 <%
 	int pageSize=10;
@@ -60,24 +61,27 @@
 		infoList = dao.getInfomation(startRow, endRow);
 	} 
 	number = count - (currPage -1) * pageSize;
+	
 %>
-<body>
+<body> 
 <br/>
 <h1 align="center"> 채식 정보 </h1>
+	<hr>
 	<form>
 	<%if(count == 0){ %>
+		<div style="margin: 20px;"></div>
 		<table>
-			<tr>
-				<td> 번호 </td> 
-				<td> 제목 </td>
-				<td> 내용 </td>
-				<td> 작성일 </td>
-			</tr>
-			<tr>
+			<tr class="t" >
+				<td > 번호 </td> 
+				<td > 제목 </td>
+				<td > 내용 </td>
+				<td > 작성일 </td>
+			</tr> 
+			<tr class="t">
 				<td colspan="4" > 정보글이 없습니다. </td>
 			</tr>
 		<%if(session.getAttribute("memId")!=null&&session.getAttribute("memId").equals("admin")){ %>
-			<tr>
+			<tr class="t">
 				<td>
 					<button type="button" onclick="window.location='informationInsertForm.jsp'">글쓰기</button>
 				</td>
@@ -85,18 +89,19 @@
 		<%}%>		
 		</table>
 	<%}else{%>
+		<div style="margin: 20px;"></div>
 		<table>
-			<tr>
+			<tr class="t" >
 				<td> 번호 </td>
 				<td> 제목 </td>
 				<td> 작성일 </td>
 			</tr>
 		<%for(int i =0;i<infoList.size();i++){
 			 %>
-			<tr>
+			<tr class="t">
 				<td><%=number--%></td>
 				<td><a href="information.jsp?num=<%=infoList.get(i).getNum()%>"><%=infoList.get(i).getSubject()%></a></td>
-				<td><a href="information.jsp?num=<%=infoList.get(i).getNum()%>"><%=infoList.get(i).getReg()%></a></td>
+				<td><a href="information.jsp?num=<%=infoList.get(i).getNum()%>"><%=sdf.format(infoList.get(i).getReg())%></a></td>
 			</tr>
 		<%} %>
 		<%if(session.getAttribute("memId")!=null&&session.getAttribute("memId").equals("admin")){ %>
@@ -132,6 +137,6 @@
 				<%}
 			}
 		%>
-		</div> 
+	</div> 
 </body>
 </html>
