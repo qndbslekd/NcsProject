@@ -47,11 +47,11 @@ input {
 				<table>
 					<tr> 
 						<td class="t">제목</td>
-						<td><input type="text" name="subject"/></td>
+						<td><input type="text" name="subject" required="required"/></td>
 					</tr> 
 					<tr>
 						<td class="t">내용</td>
-						<td><textarea name="content" cols="70" rows="15"></textarea></td>
+						<td><textarea name="content" cols="70" rows="15" required="required"></textarea></td>
 					</tr>
 					<tr>
 						<td class="t">파일</td>
