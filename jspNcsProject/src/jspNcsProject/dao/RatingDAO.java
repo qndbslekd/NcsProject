@@ -112,8 +112,8 @@ public class RatingDAO {
 			
 			conn = getConnection();
 			
-			String sql = "update recipe_board set rating=(select avg(rate) from rating where recipe_num=?) where num=?";
-			
+			//String sql = "update recipe_board set rating=(select avg(rate) from rating where recipe_num=?) where num=?";
+			String sql = "update recipe_board set rating=(SELECT ROUND(avg(rate),1)AS average from rating where recipe_num=?) where num=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			pstmt.setInt(2, num);
