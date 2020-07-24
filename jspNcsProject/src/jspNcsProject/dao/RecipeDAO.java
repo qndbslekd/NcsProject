@@ -428,16 +428,20 @@ public class RecipeDAO {
 	public ProductDTO selectProductByIngredient(String ingre) {
 		ProductDTO dto = null;
 		
-		String search = "%" + ingre + "%";
+		String search = "";
+		if(ingre.length() < 2) {
+			search = "name like '% " + ingre + " %'";
+		} else {
+			search = "name like '%" + ingre + "%'";
+		}
 		
 		try {
 			
 			conn = getConnection();
 			
-			String sql = "select * from product where name like ? order by recommend desc";
+			String sql = "select * from product where "+search+" order by recommend desc";
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setString(1, search);
 			
 			rs = pstmt.executeQuery();
 			
