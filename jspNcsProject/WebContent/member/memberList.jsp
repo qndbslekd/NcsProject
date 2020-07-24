@@ -32,7 +32,7 @@
 	if(session.getAttribute("memId")==null||!session.getAttribute("memId").toString().equals("admin")){%>
 		<script>
 			alert("관리자 페이지 입니다.");
-			window.location="main.jsp";
+			window.location="../main.jsp";
 		</script>
 	<%}else{
 		
@@ -101,7 +101,7 @@
 				<td> 가입한 회원이 없습니다.</td>
 			</tr>
 			<tr>
-				<td><button onclick="window.location='main.jsp'">메인으로</button></td>
+				<td><button onclick="window.location='../main.jsp'">메인으로</button></td>
 			</tr>				
 		</table>
 	<%}else{ %>
@@ -119,7 +119,7 @@
 				<td> 강퇴 </td>
 			</tr>
 			<%for(int i =0;i<memberList.size();i++){%>
-				<%if(memberList.get(i).getOffence_count()>=5){%>
+				<%if(memberList.get(i).getOffence_count()>=5){%> 
 				<tr>
 					<td style="background-color: red;"><%=memberList.get(i).getId()%></td>
 					<td style="background-color: red;"><%=memberList.get(i).getPw()%></td>

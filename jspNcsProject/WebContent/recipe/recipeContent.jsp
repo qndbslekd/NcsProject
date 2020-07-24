@@ -38,34 +38,38 @@
 </head>
 <%
 	request.setCharacterEncoding("UTF-8");
-	String pageNum = request.getParameter("pageNum");
-	if(pageNum==null) pageNum="1";
-	String memId = (String)session.getAttribute("memId");
-	int num = Integer.parseInt(request.getParameter("num"));
 	
-	SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
-	
-	RecipeDAO recipeDAO = RecipeDAO.getInstance();
-	RecipeDTO recipeBoard = new RecipeDTO();
-	
-	ScrapDAO scrapDAO = ScrapDAO.getInstance();
-	
-	recipeBoard = recipeDAO.selectRecipeBoard(num);
-	int contentNum = recipeBoard.getRecipeStep();
-	
-	RecipeContentDTO recipeContentdto = new RecipeContentDTO();
-	RecipeContentDAO recipeContentdao = RecipeContentDAO.getInstance();
-	
-	// recipeContentList : 레시피 조리단계  담아준 리스트 -> for문 돌려서 뽑기
-	List recipeContentList = recipeContentdao.selectRecipeContent(num);
-	
-	for(int i = 0; i < recipeContentList.size(); i++){
-		recipeContentdto = (RecipeContentDTO)recipeContentList.get(i);
-		System.out.println(recipeContentdto.getContent());		
-	}
-	
-	// 조리단계 댓글 dao
-	RecipeContentCommentDAO dao = null;
+	if(request.getParameter("num")==null){ %>
+		<script> alert("잘못된 접근입니다."); history.go(-1);</script>
+	<%}else{
+		String memId = (String)session.getAttribute("memId");
+			String pageNum = request.getParameter("pageNum");
+			if(pageNum==null) pageNum="1";
+			int num = Integer.parseInt(request.getParameter("num"));
+			
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+			
+			RecipeDAO recipeDAO = RecipeDAO.getInstance();
+			RecipeDTO recipeBoard = new RecipeDTO();
+			
+			ScrapDAO scrapDAO = ScrapDAO.getInstance();
+			
+			recipeBoard = recipeDAO.selectRecipeBoard(num);
+			int contentNum = recipeBoard.getRecipeStep();
+			
+			RecipeContentDTO recipeContentdto = new RecipeContentDTO();
+			RecipeContentDAO recipeContentdao = RecipeContentDAO.getInstance();
+			
+			// recipeContentList : 레시피 조리단계  담아준 리스트 -> for문 돌려서 뽑기
+			List recipeContentList = recipeContentdao.selectRecipeContent(num);
+			
+			for(int i = 0; i < recipeContentList.size(); i++){
+				recipeContentdto = (RecipeContentDTO)recipeContentList.get(i);
+				System.out.println(recipeContentdto.getContent());		
+			}
+			
+			// 조리단계 댓글 dao
+			RecipeContentCommentDAO dao = null;
 %>
 <body>
 	<jsp:include page="../header.jsp" flush="false" />
@@ -275,4 +279,6 @@
 	}
 	
 </script>
+<%
+	} %>
 </html>
