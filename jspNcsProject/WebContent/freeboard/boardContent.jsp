@@ -9,6 +9,35 @@
 <meta charset="UTF-8">
 <link href="../resource/team05_style.css" type="text/css" rel="stylesheet"/>
 <title>글 상세보기</title>
+<style>
+	#f-content{
+		margin-top: 70px;
+		width: 500px;
+		height: auto;
+		overflow: hidden;
+	}
+
+	#f-content tr{
+		height: 30px;
+	
+	}
+	#f-content td{
+		border-top: 1px solid #999;
+		border-buttom: 1px solid #999;
+		
+	}
+	
+	.contents {
+		width:500px;
+		height:500px;
+		resize : none;
+		border : 0px;
+		padding: 10px;
+	}
+	
+
+
+</style>
 </head>
 <%
 if(request.getParameter("num") == null){%>
@@ -46,40 +75,52 @@ if(request.getParameter("num") == null){%>
 	<jsp:include page="../header.jsp" flush="false">
 		<jsp:param value="freeboard" name="mode"/>
 	</jsp:include>
-		<table>
-		
-
+		<table id="f-content">
 			<tr>
-				<td>제목</td>			
+				<td>TITLE</td>			
 				<td><%=article.getTitle()%></td>		
 			</tr>
 			<tr>
-				<td>추천수</td>
+				<td>LIKE</td>
 				<td><%=article.getRecommend()%>
 				<%if(session.getAttribute("memId")!=null){%>
-				<td><button onclick="window.location='recommendArticle.jsp?freeboard_num=<%=article.getNum()%>&mem_id=<%=session.getAttribute("memId")%>&pageNum=<%=pageNum%>'">추천하기</button></td>
+				<button onclick="window.location='recommendArticle.jsp?freeboard_num=<%=article.getNum()%>&mem_id=<%=session.getAttribute("memId")%>&pageNum=<%=pageNum%>'">추천하기</button>
 				<%}%>
 			</tr>
 			<tr>
-				<td>조회수</td>
+				<td>HIT</td>
 				<td><%=article.getRead_count()%></td>
 			</tr>
 			<tr>
-				<td>작성자</td>
+				<td>WRITER</td>
 				<td><%=name%></td>		
 			</tr>
 			<tr>
-				<td>카테고리</td>
-				<td><%=article.getCategory()%></td>		
+				<td>CATEGORY</td>
+				<td>
+					<%if(article.getCategory().equals("notice")){%>공지사항<%}%>
+					<%if(article.getCategory().equals("question")){%>고민과질문<%}%>
+					<%if(article.getCategory().equals("freetalk")){%>잡담과일기<%}%>
+					<%if(article.getCategory().equals("information")){%>정보 공유<%}%>
+				
+				
+				
+				</td>	
+				
+					
 			</tr>
 			<tr>
-				<td>내용</td>
-				<td><textarea rows="20" cols="100" name="content" readonly><%=article.getContent()%></textarea></td>		
+				<td>CONTENT</td>
+				<td>
+					<textarea class="contents" readonly><%=article.getContent()%></textarea>
+				</td>		
 			</tr>
+			<%if(article.getImg() !=null && !article.getImg().equals("")){%>
 			<tr>
 				<td>이미지</td>
 				<td><img src="/jnp/freeboard/save/<%=article.getImg()%>" width="200px"/></td>		
 			</tr>
+			<%}%>
 			<tr>
 				<td colspan='2'>
 				<%if(article.getWriter().equals((String)session.getAttribute("memId"))){%>
