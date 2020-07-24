@@ -13,10 +13,10 @@
 			alert("로그인 후 이용하세요");
 			window.location="loginForm.jsp";
 		</script>
-	<%}else{
+	<%}else{ 
 %>
 <body>
-<br /><br />
+<br /><br /> 
 <h1 align="center"> 마이 페이지 </h1> 
 	<table>
 		<tr>
