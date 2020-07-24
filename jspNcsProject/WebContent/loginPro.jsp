@@ -8,7 +8,7 @@
 </head>
 <%
 	request.setCharacterEncoding("UTF-8");
-	
+
 	//TEST AUTOLOGIN
 	System.out.println("===LOGIN PRO===");
 	System.out.println("AUTO VAL :"+request.getParameter("auto"));
@@ -62,14 +62,8 @@
 			System.out.println("Cookie Set Test : "+c4.getName());
 		}
 		System.out.println("===LOGIN PRO END===");
-		
-			if(request.getParameter("history").equals("http://localhost:8080/jnp/member/loginPro.jsp")){
-				System.out.println("history : "+request.getParameter("history"));
-				response.sendRedirect("http://localhost:8080/jnp/main.jsp");
-			}else{
-				System.out.println("history : "+request.getParameter("history"));
-				response.sendRedirect(request.getParameter("history"));
-			}
+		System.out.println("history : "+request.getParameter("history"));
+		response.sendRedirect(request.getParameter("history")); 
 		}else if(res == 0){%>
 		<script>
 			alert("아이디와 비밀번호를 다시 확인해주세요");
