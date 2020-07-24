@@ -9,11 +9,19 @@
 	<title>제품 리스트</title>
 	<link href="../resource/team05_style.css" type="text/css" rel="stylesheet"/>
 <style>
-#search{
-		width : 800px;
-		margin-top : 50px;
-		margin-bottom : 50px;
+	#search{
+		height: 60px; 
+		width : 800px;  
 	}
+	#search .title{
+		width:80px;
+		font-size:17px;
+		text-align: right;
+	
+	}
+	#search .content{
+	}
+	
 	#recipe-wrapper{
 		overflow: hidden;
 		width : 968px;
@@ -27,33 +35,27 @@
 		float: left;
 		margin: 20px 20px; 		
 	}
-	
 	.thumbnail {
 		height: 200px;
-		border-top : 1px solid black;	
-		border-right : 1px solid black;	
-		border-left : 1px solid black;	
-		
+		border-radius : 5px;
 	}
-	
 	.info{
-		height: 100px;	
-		border: 1px solid black;	
+		overflow: hidden;
+		height: auto;
+		text-align: left;
 	}
-	
 	.info .row {	
+		overflow: hidden;
 		text-align: center;
-		height: 30px;
-		line-height: 30px;
+		height: 50px;
+		line-height: 50px;
 		color : black;		
 	}
-		
 	.sub-wrapper{
 		height: 70px;
 		width : 920px;
 		margin: 0 auto;
 	}
-	
 	.write_button{
 		background-color: green;
 		
@@ -71,6 +73,17 @@
 	.page{
 		display: inline-block;
 		color : black;
+	}
+	div .buttn{
+		width:70px;
+		float:left;
+		border: 1px solid #DADBD7;
+		padding: 3px 7px 3px 7px;
+		
+	}
+	div #selected{
+		background-color: #44b6b5;
+		color: white;
 	}
 </style>
 </head>
@@ -121,10 +134,12 @@ if (search == null || search.equals("")) {
 	}
 }
 %>
-<jsp:include page="../header.jsp" flush="false"/>
+	<jsp:include page="../header.jsp" flush="false">
+		<jsp:param value="product" name="mode"/>
+	</jsp:include>
 <body>
 	<form action="productList.jsp" method="get">
-		<table>
+		<table id="search">
 			<tr>
 				<td>
 					<select name="option">
@@ -134,7 +149,7 @@ if (search == null || search.equals("")) {
 					<input type="submit" value="검색" />
 				</td>
 			</tr>
-		</table>
+		</table> 
 	</form>
 	
 	<div class="sub-wrapper">
@@ -145,20 +160,19 @@ if (search == null || search.equals("")) {
 		<%}%>
 		
 		<div class="total_recipe">
-			<h3>총 <%=count %>개의 제품가 있습니다.</h3>		
-		</div>
-		
-		<div class="sort_button">
+			<div style="text-align:left; font-size:17px; float: left; width:743px;">총<span style="color:rgb(139, 195, 74); font-size:23px;"><%=count %></span>개의 제품이 있습니다.</div>		
+			<div class="sort_button" style="float: left;">
 				<%if(search==null||search.equals("")){%>
-				<button onclick="window.location='productList.jsp?mode=num'">최신순</button>
-				<button onclick="window.location='productList.jsp?mode=rating'">추천순</button>
+				<div class="buttn" <%if(mode.equals("num")){%> id="selected"<%}%> onclick="window.location='productList.jsp?mode=num'">최신순</div>
+				<div class="buttn"  <%if(mode.equals("rating")){%> id="selected"<%}%>onclick="window.location='productList.jsp?mode=rating'">추천순</div>
 				<%}else{ %>
-				<button onclick="window.location='productList.jsp?mode=num&option=<%=option%>&search=<%=search%>'">최신순</button>
-				<button onclick="window.location='productList.jsp?mode=rating&option=<%=option%>&search=<%=search%>'">추천순</button>
+				<div class="buttn" <%if(mode.equals("num")){%> id="selected"<%}%> onclick="window.location='productList.jsp?mode=num&option=<%=option%>&search=<%=search%>'">최신순</div>
+				<div class="buttn"  <%if(mode.equals("rating")){%> id="selected"<%}%> onclick="window.location='productList.jsp?mode=rating&option=<%=option%>&search=<%=search%>'">추천순</div>
 				<%} %>
+			</div>
 		</div>
 	</div>
-	<div id="recipe-wrapper">
+	<div id="recipe-wrapper" style="padding-top: 50px;">
 	<%if(productList==null){ %>
 		<h1 style="color:black;">등록된 제품이 없습니다.</h1>
 	<%}else{

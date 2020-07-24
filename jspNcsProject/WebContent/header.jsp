@@ -5,19 +5,15 @@
 <head>
 <meta charset="utf-8">
 <link href="../resource/team05_style.css" type="text/css" rel="stylesheet"/>
-
 <title>header</title>
 <style>
-
 #header {
 	width: 1000px;
 	border-collapse: collapse;
 }
-
 #header .title {
 	font-size: 40px;
 }
-
 #header .tab {
 	width: 250px;
 	background-color: rgb(139, 195, 74);
@@ -26,6 +22,13 @@
 	color:white;
 	font-size:20px;
 	cursor:pointer;
+}
+
+#header .tab:hover {
+	color:#edd713;
+}
+#header .tab:focus{
+	color:#edd713;
 }
 
 </style>
@@ -37,6 +40,8 @@
 	}
 </script> 
 <%
+	String mode = request.getParameter("mode");
+	if(mode == null) {mode="";}
 	System.out.println("===HEADER START===");
 	System.out.println("Header Session값 : "+session.getAttribute("memId"));
 	if(session.getAttribute("memId")==null){ //비로그인상태(세션없을때)
@@ -73,6 +78,7 @@
 	}
 %>
 <body>
+<div width="1100px">
 	<table id="header">
 			<td></td>
 			<td></td>
@@ -83,24 +89,25 @@
 			<td style="vertical-align:bottom; padding-bottom:10px;">
 			<%if(session.getAttribute("memId") == null){
 			%>
-				<button onclick="window.location='/jnp/member/loginForm.jsp'">로그인</button>
-				<button onclick="window.location='/jnp/member/signupForm.jsp'">회원가입</button>
+				<button class = "grayButton" style="width: 80px; height: 30px; text-align: center" onclick="window.location='/jnp/member/loginForm.jsp'">로그인</button>
+				<button class = "grayButton" style="width: 80px; height: 30px; text-align: center"  onclick="window.location='/jnp/member/signupForm.jsp'">회원가입</button>
 			</td>
 			<%}else{%>
 				<p><%=session.getAttribute("memName")%>님 환영합니다!</p>		
-				<button onclick="window.location='/jnp/logoutPro.jsp'">로그아웃</button>
-				<button onclick="window.location='/jnp/member/myPage.jsp'">마이페이지</button>
+				<button class = "grayButton" style="width: 80px; height: 30px; text-align: center" onclick="window.location='/jnp/logoutPro.jsp'">로그아웃</button>
+				<button class = "grayButton" style="width: 100px; height: 30px; text-align: center" onclick="window.location='/jnp/member/myPage.jsp'">마이페이지</button>
 			</td>
 			<%} %>
 		</tr>
 		<tr>
-			<td class="tab" onclick="window.location='/jnp/information/informationList.jsp'">채식정보</td>
-			<td class="tab" onclick="window.location='/jnp/recipe/recipeList.jsp?mode=num'">레시피</td>
-			<td class="tab" onclick="window.location='/jnp/product/productList.jsp'">제품</td>
-			<td class="tab" onclick="window.location='/jnp/freeboard/board.jsp'">자유게시판</td>
-			<td class="tab" onclick="window.location='mailto:admin@beginVegan.com'">문의하기</td>
+			<td class="tab" onclick="window.location='/jnp/information/informationList.jsp'" <%if(mode.equals("information")) { %>style="color:#edd713;"<%} %>>채식정보</td>
+			<td class="tab" onclick="window.location='/jnp/recipe/recipeList.jsp?mode=num'" <%if(mode.equals("recipe")) { %>style="color:#edd713;"<%} %>>레시피</td>
+			<td class="tab" onclick="window.location='/jnp/product/productList.jsp'" <%if(mode.equals("product")) { %>style="color:#edd713;"<%} %>>제품</td>
+			<td class="tab" onclick="window.location='/jnp/freeboard/board.jsp'"<%if(mode.equals("freeboard")) { %>style="color:#edd713;"<%} %>>자유게시판</td>
+			<td class="tab" onclick="window.location='/jnp/ask.jsp'"<%if(mode.equals("ask")) { %>style="color:#edd713;"<%} %>>문의하기</td>
 		</tr>
 	</table>
+	</div>
 	<br/>
 </body>
 </html>
