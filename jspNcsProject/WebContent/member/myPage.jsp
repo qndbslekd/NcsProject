@@ -13,7 +13,7 @@
 			alert("로그인 후 이용하세요");
 			window.location="loginForm.jsp";
 		</script>
-	<%}else{
+	<%}else{ 
 %>
 <body>
 <br /><br />
