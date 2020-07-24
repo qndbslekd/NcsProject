@@ -27,7 +27,6 @@
 		float: left;
 		margin: 20px 20px; 		
 	}
-	
 	.thumbnail {
 		height: 200px;
 		border-top : 1px solid black;	
@@ -35,12 +34,10 @@
 		border-left : 1px solid black;	
 		
 	}
-	
 	.info{
 		height: 100px;	
 		border: 1px solid black;	
 	}
-	
 	.info .row {	
 		text-align: center;
 		height: 30px;
