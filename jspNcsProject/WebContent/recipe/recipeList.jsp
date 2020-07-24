@@ -40,6 +40,7 @@
 	
 		width : 200px;
 		height : auto;
+		position: relative;
 		float: left;
 		margin: 20px 20px; 
 		overflow: hidden;		
@@ -107,6 +108,9 @@
 		border: 1px solid #999;
 	
 	}
+	.recipe_lst{
+		 list-style:none;
+	}
 
 </style>
 <script>
@@ -160,7 +164,7 @@
 			</tr>
 			<tr>
 				<td class="title">재료명</td>
-				<td colspan='7'><input type="text" name="ingredients" class="input-box" style="width: 620px;"placeholder="재료1,재료2,.."/></td>
+				<td colspan='7'><input type="text" name="ingredients" class="input-box" style="width:620px;"placeholder="재료1,재료2,.."/></td>
 			</tr>
 			<tr>
 				<td class="title">분류</td>
@@ -222,18 +226,19 @@
 		</div>
 		
 	</div>
-	
 	<div id="recipe-wrapper">
 	<%if(recipeList==null){ %>
 		<h1 style="color:black;">등록된 레시피가 없습니다.</h1>
 	<%}else{
 		RatingDAO dao = RatingDAO.getInstance();
-		
+		int cnt = 0;
 		for(int i = 0 ; i< recipeList.size() ; i++){
+			cnt += 1;
 			RecipeDTO recipe = (RecipeDTO)(recipeList.get(i));		
 			int rateCount = dao.getCountRating(recipe.getNum());
 			
-		%>
+			if(cnt%4 == 1){%><li class="recipe_lst"><%}%>
+
 			<div class="recipe" onclick="window.location='recipeContent.jsp?num=<%=recipe.getNum()%>'">
 				<div class="thumbnail">
 					<img width="198px" height="198px" style="border-radius:5px" src="/jnp/recipe/imgs/<%=recipe.getThumbnail()%>"/>
@@ -244,8 +249,9 @@
 					<div class="row"style="font-size:14px"><%=recipe.getRating()%>(<%=rateCount%>개의 평가)</div>			
 				</div>			
 			</div>
+			<%if(cnt%4 == 0){%></li><%}%>		
 	<%	}
-	}%>			
+	 }%>			
 	</div>
 	
 	<div class="paging">
