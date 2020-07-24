@@ -11,11 +11,9 @@
 	width: 1000px;
 	border-collapse: collapse;
 }
-
 #header .title {
 	font-size: 40px;
 }
-
 #header .tab {
 	width: 250px;
 	background-color: rgb(139, 195, 74);
