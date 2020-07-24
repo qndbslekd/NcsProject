@@ -13,22 +13,28 @@
 </head>
 <jsp:include page="../header.jsp"></jsp:include>
 <style>
-	.t {
-	text-align:center;
-	padding:20px;
+.t {	
 	border-top:2px solid #ccc;
+}
+
+.t>td{
 	font-size:1.4em;
-	}
-	.paging{
-		width: 960px;
-		margin: 0 auto;
-		text-align: center;
-		
-	}
-	.page{
-		display: inline-block;
-		color : black;
-	}
+	text-align:center;
+	padding:5px;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+.paging{
+	width: 960px;
+	margin: 0 auto;
+	text-align: center;
+	
+}
+.page{
+	display: inline-block;
+	color : black;
+}
 </style>
 <%
 	int pageSize=10;
@@ -62,8 +68,9 @@
 	<hr>
 	<form>
 	<%if(count == 0){ %>
+		<div style="margin: 20px;"></div>
 		<table>
-			<tr class="t">
+			<tr class="t" >
 				<td > 번호 </td> 
 				<td > 제목 </td>
 				<td > 내용 </td>
@@ -81,8 +88,9 @@
 		<%}%>		
 		</table>
 	<%}else{%>
+		<div style="margin: 20px;"></div>
 		<table>
-			<tr class="t">
+			<tr class="t" >
 				<td> 번호 </td>
 				<td> 제목 </td>
 				<td> 작성일 </td>
@@ -92,7 +100,7 @@
 			<tr class="t">
 				<td><%=number--%></td>
 				<td><a href="information.jsp?num=<%=infoList.get(i).getNum()%>"><%=infoList.get(i).getSubject()%></a></td>
-				<td><a href="information.jsp?num=<%=infoList.get(i).getNum()%>"><%=infoList.get(i).getReg()%></a></td>
+				<td><a href="information.jsp?num=<%=infoList.get(i).getNum()%>"><%=sdf.format(infoList.get(i).getReg())%></a></td>
 			</tr>
 		<%} %>
 		<%if(session.getAttribute("memId")!=null&&session.getAttribute("memId").equals("admin")){ %>
@@ -128,6 +136,6 @@
 				<%}
 			}
 		%>
-		</div> 
+	</div> 
 </body>
 </html>
