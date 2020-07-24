@@ -18,7 +18,7 @@
 	
 	
 	
-	int pageSize = 2; // 한 페이지에서 보여줄 게시글의 수
+	int pageSize = 3; // 한 페이지에서 보여줄 게시글의 수
 	String pageNum = request.getParameter("pageNum");
 	if(pageNum == null){ // 처음 페이지를 킨 경우 null 값이 들어가니까 이 경우엔 pageNum에 1을 넣어줌 
 		pageNum ="1";
@@ -69,7 +69,7 @@
 
 		<tr>
 			<td rowspan="4" width="150px">
-				<img src="../recipe/imgs/beach.jpg" width="150px" height="150px"/>
+				<img src="../recipe/imgs/<%= dto.getThumbnail() %>" width="150px" height="150px"/>
 			</td>
 
 			<td colspan="5" width="650px;">

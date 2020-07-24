@@ -8,7 +8,7 @@
 </head>
 <%
 	request.setCharacterEncoding("UTF-8");
-	
+
 	//TEST AUTOLOGIN
 	System.out.println("===LOGIN PRO===");
 	System.out.println("AUTO VAL :"+request.getParameter("auto"));
@@ -35,6 +35,7 @@
 		System.out.println("auto : " +auto);
 		System.out.println("name : " +name);
 	}
+	
 	if(res == 1){
 		session.setAttribute("memId", id);
 		session.setAttribute("memPw", pw);
@@ -62,8 +63,8 @@
 		}
 		System.out.println("===LOGIN PRO END===");
 		System.out.println("history : "+request.getParameter("history"));
-		response.sendRedirect(request.getParameter("history"));
-	}else if(res == 0){%>
+		response.sendRedirect(request.getParameter("history")); 
+		}else if(res == 0){%>
 		<script>
 			alert("아이디와 비밀번호를 다시 확인해주세요");
 			history.go(-1);
