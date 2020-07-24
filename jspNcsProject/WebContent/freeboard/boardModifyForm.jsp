@@ -28,6 +28,10 @@
 
 %>
 <body>
+	<jsp:include page="../header.jsp" flush="false">
+		<jsp:param value="freeboard" name="mode"/>
+	</jsp:include>
+	<br/>
 	<form action="boardModifyPro.jsp" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="writer" value="<%=article.getWriter()%>"/>
 		<input type="hidden" name="num" value="<%=num%>"/>
