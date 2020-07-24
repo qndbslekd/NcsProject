@@ -1,4 +1,4 @@
-<%@page import="jspNcsProject.dto.RecipeContentCommentDTO"%>
+ <%@page import="jspNcsProject.dto.RecipeContentCommentDTO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="jspNcsProject.dao.RecipeContentCommentDAO"%>
 <%@page import="java.util.List"%>
@@ -16,15 +16,24 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="../resource/team05_style.css">
 	<script>
+		// 팝업창 위치 관한 변수
+		var _width = '400';
+		var _height = '250';
+		
+		// 팝업 가운데 위치 시키기 위해서 중간 값 구해주기
+		var _left = Math.ceil((window.screen.width - _width)/2);
+		var _top = Math.ceil((window.screen.height - _height)/2);
+	
+	
 		// 조리단계별 댓글 or 답글 달기 
-		function openReplyForm(nowContentNum, recipeNum, reLevel, reStep, ref){			
-			if(reLevel >= 1){ // 답글을 이미 한번 단 경우
+		function openReplyForm(nowContentNum, recipeNum, reLevel, reStep, ref, cRef){			
+			if(cRef > 1){ // 답글을 이미 한번 단 경우
 				window.alert("답글 작성은 한번만 가능합니다");
 				return
 			}else{
 				
 				var url = 'recipeContentCommentInsertForm.jsp?contentNum='+nowContentNum+'&recipeNum='+recipeNum+'&reLevel='+reLevel+'&reStep='+reStep+'&ref='+ref;	
-				window.open(url, "댓글쓰기", "width=400, height=250, resizeable=no, scrollbars=no");
+				window.open(url, "댓글쓰기", "width="+ _width + ", height="+ _height + ", left=" + _left + ", top=" + _top + ", resizeable=no, scrollbars=no");
 				// window.open("open할 window", "이름", "팝업창옵션")
 			}
 		}
@@ -122,16 +131,19 @@
 						// 댓글의 name과 memName이 동일하면 수정삭제 뜨게					
 					%>
 							<input type="button" class="grayButton" value="수정" onclick="openModifyForm(<%=dto.getNum()%>);"/>
-							<input type="button" class="grayButton" value="삭제" onclick="openDeleteForm(<%=dto.getNum()%>)"/>
+							<input type="button" class="grayButton" value="삭제" onclick="openDeleteForm(<%=dto.getNum()%>, <%=dto.getRef()%>)"/>
 							
 					<%	}else if(session.getAttribute("memId").equals("admin")){ // 관리자면 수정 삭제 다 뜨게 %>	
 							<input type="button" class="grayButton" value="수정" onclick="openModifyForm(<%=dto.getNum()%>)"/>
-							<input type="button" class="grayButton" value="삭제" onclick="openDeleteForm(<%=dto.getNum()%>)"/>					
+							<input type="button" class="grayButton" value="삭제" onclick="openDeleteForm(<%=dto.getNum()%>, <%=dto.getRef()%>)"/>					
 					<% 	}else{ // 댓글쓴이 != 로그인 아이디 
 							if(recipeBoard.getWriter().equals(session.getAttribute("memId"))){ // 레시피글쓴이 == 로그인아이디 
 								int maxReLevel = dao.selectMaxRelevel(dto.getRef());
+					
+								int cRef = dao.countRef(dto);
+								System.out.println("답글개수 : " + cRef);
 					%>				
-								<input type="button" value="&#x1F4AC;답글쓰기" class="greenButton" style="padding:5px;"onclick="openReplyForm(<%= nowContentNum %>, <%= recipeNum %>, <%= maxReLevel %>, <%= reStep %>, <%= dto.getRef() %>);" />
+								<input type="button" value="&#x1F4AC;답글쓰기" class="greenButton" style="padding:5px;"onclick="openReplyForm(<%= nowContentNum %>, <%= recipeNum %>, <%= maxReLevel %>, <%= reStep %>, <%= dto.getRef() %>, <%=cRef %>);" />
 								<input type="button" value="&#128680;신고"class="grayButton" onclick="report('RCC','<%=dto.getNum()%>','<%=dto.getName()%>')"/>
 					<%		}else{	%>			
 								<input type="button" value="&#128680;신고"class="grayButton" onclick="report('RCC','<%=dto.getNum()%>','<%=dto.getName()%>')"/>
