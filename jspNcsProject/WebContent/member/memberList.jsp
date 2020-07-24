@@ -119,7 +119,7 @@
 				<td> 강퇴 </td>
 			</tr>
 			<%for(int i =0;i<memberList.size();i++){%>
-				<%if(memberList.get(i).getOffence_count()>=5){%>
+				<%if(memberList.get(i).getOffence_count()>=5){%> 
 				<tr>
 					<td style="background-color: red;"><%=memberList.get(i).getId()%></td>
 					<td style="background-color: red;"><%=memberList.get(i).getPw()%></td>
