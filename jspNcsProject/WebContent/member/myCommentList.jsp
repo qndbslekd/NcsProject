@@ -62,7 +62,14 @@
 <h1 align="center"> 내 댓글 목록 </h1> 
 <br />
 <form>
-	<table id="nonBorder"  style="width:804">
+	<table id="nonBorder"  style="width:700px;">
+		<tr>
+			<td colspan="3">
+				<div align="right" style="padding-right: 47px">
+				<input type="button" value="취소" class="myButton" onclick="window.location='myPage.jsp'" />
+				</div>
+			</td>
+		</tr>
 		<tr>
 			<td style="width:177px">
 				총 댓글 수 : <%= count %>
@@ -75,11 +82,11 @@
 					<option value="myFreeboardCommentList" <%if(option.equals("myFreeboardCommentList")){%>selected<%} %>>자유게시판</option>
 					<option value="myProductCommentList" <%if(option.equals("myProductCommentList")){%>selected<%} %>>제품</option>			
 				</select>	
-				<input type="submit" value="이동" />
+				<input type="submit" value="이동" class="myButton"/>
 			</td>
 			<td>
-				<input type="button" onclick="window.location='myList.jsp'" value="내 글 보기" />
-				<input type="button" onclick="window.location='myCommentList.jsp'" value="내 댓글 보기" />
+				<input type="button" onclick="window.location='myList.jsp'" class="myButton" value="내 글 보기" />
+				<input type="button" onclick="window.location='myCommentList.jsp'" class="myButton" value="내 댓글 보기"  style="color:white; background-color:rgb(139, 195, 74);margin-left:-6px;"/>
 			</td>
 		</tr>
 		<tr>

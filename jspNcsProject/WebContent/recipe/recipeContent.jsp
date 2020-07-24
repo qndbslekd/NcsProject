@@ -84,7 +84,8 @@
 				<span style="vertical-align:top; top:0px; width:40px;">
 				<%if (memId != null) {  if(!memId.equals(recipeBoard.getWriter())) {%>
 					<%String empty = ""; if(!scrapDAO.confirmScrap(num, memId)) { empty = "empty"; }%>
-					<img src="/jnp/recipe/imgs/<%=empty %>heart.png" width="40px" style="cursor:pointer;" onclick="scrap(<%=num%>,'<%=memId%>',<%=scrapDAO.confirmScrap(num, memId)%>)" />
+					<img src="/jnp/recipe/imgs/<%=empty %>heart.png" width="40px" style="cursor:pointer;" 
+						onclick="scrap(<%=num%>,'<%=memId%>',<%=scrapDAO.confirmScrap(num, memId)%>)" />
 				<%}else{%>
 					<div style="min-width:40px; display:inline-block;">&nbsp;</div>
 				<%} } else {%><div style="min-width:40px; display:inline-block;">&nbsp;</div><%} %>

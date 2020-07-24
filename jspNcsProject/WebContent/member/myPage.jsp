@@ -16,6 +16,7 @@
 	<%}else{
 %>
 <body>
+<br /><br />
 <h1 align="center"> 마이 페이지 </h1> 
 	<table>
 		<tr>
@@ -28,7 +29,7 @@
 		</tr>
 		<tr>
 			<td>
-				<a onclick="window.location='myList.jsp'"><img src="../resource/recipe_.png"><br/>내가 쓴 레시피/댓글</a>
+				<a onclick="window.location='myList.jsp'"><img src="../resource/recipe.png"><br/>내 글/댓글 목록</a>				
 			</td>
 			<td>
 				<a onclick="window.location='myScrapRecipe.jsp'"><img src="../resource/comment_.png"><br/>내가 찜한 레시피</a>
