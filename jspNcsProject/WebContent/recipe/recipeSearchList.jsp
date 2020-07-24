@@ -87,7 +87,14 @@
 	}
 	
 	.write_button{
-		background-color: green;
+		width:100px;
+		float:left;
+		border: 1px solid #DADBD7;
+		padding: 7px 10px 7px 10px;
+		background-color: rgb(139, 195, 74);
+		color: white;
+		cursor: pointer;
+		border-radius : 5px;
 		
 	}
 	
@@ -358,7 +365,7 @@
 	
 	<div class="sub-wrapper">
 		<% if(session.getAttribute("memId")!= null){ %>
-		<div>
+		<div style="height:50px;">
 			<button  class="write_button" onclick="window.location='recipeInsertForm.jsp'" >레시피 작성</button>
 		</div>
 		<%}%>
