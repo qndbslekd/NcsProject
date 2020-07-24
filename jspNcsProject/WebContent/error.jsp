@@ -11,7 +11,9 @@
 </style> 
 </head>
 <body>
-	<img  src="/jnp/resource/error.png" style="width: 100vw; height: 100vh" />
+	<a href="http://localhost:8080/jnp/main.jsp">
+		<img  src="/jnp/resource/404.png" style="width: 100vw; height: 100vh" />
+	</a>
 </body>
 </html>
  
