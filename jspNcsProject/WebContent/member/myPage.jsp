@@ -42,7 +42,7 @@
 		</tr>
 		<%if(session.getAttribute("memId").equals("admin")){ %>
 			<tr>
-				<td colspan="3"> <button class="grayButton" onclick="window.location='memberList.jsp'" style="width: 100px; height: 30px; text-align: center">관리자 페이지</button></td>
+				<td colspan="3"> <button class = "grayButton"  style="width: 100px; height: 30px; text-align: center" onclick="window.location='memberList.jsp'">관리자 페이지</button></td>
 			</tr>
 		<%}} %>
 	</table>
