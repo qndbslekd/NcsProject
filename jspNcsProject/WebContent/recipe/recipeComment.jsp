@@ -65,9 +65,9 @@
 			<td style="text-align:right; border:0px;"><%=sdf.format(dto.getReg()) %></td>
 		</tr>
 		<tr>
-			<td colspan="2" style="text-align:left;border:0px;padding-top:0px;">
+			<td colspan="2" style="text-align:left;border:0px;padding-top:5px;">
 				<%if (dto.getReceiver() !=null) { //만약 대댓글이라면 원본댓글 작성자 이름 넣어주기%>
-					<Strong><%= rDAO.selectNameById(dto.getReceiver()) %></Strong>&nbsp;&nbsp;
+					<strong><%= rDAO.selectNameById(dto.getReceiver()) %>&nbsp;&nbsp;</strong>
 				<%}%>
 				<%=dto.getContent() %>
 			</td>
@@ -94,7 +94,11 @@
 		
 			<table class="nonBorder">
 				<tr>
-					<td><textarea name="content" cols="70" rows="5" style="resize:none;" required></textarea></td><td><input type="submit" class="greenButton" value="댓글작성" style="height:100%"> </td>
+					<td rowspan="2" style="width:60px; height:60px; vertical-align:top;border:0px;"><img src="/jnp/save/<%=rDAO.selectImgById(memId)%>" style="width:60px; height:60px; border-radius:30px;"/></td>
+					<td style="text-align:left; border:0px;padding-bottom:2px;"><Strong> <%= rDAO.selectNameById(memId) %> </Strong>
+				</tr>
+				<tr>
+					<td><textarea name="content" cols="70" rows="5" style="resize:none; border:2px solid #ccc; border-radius:5px;" required></textarea></td><td><input type="submit" class="greenButton" value="댓글작성" style="height:100%"> </td>
 				</tr>
 			</table>
 		</form>

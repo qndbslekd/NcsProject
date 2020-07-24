@@ -39,39 +39,54 @@
 	.recipe{
 	
 		width : 200px;
-		height : 300px;
+		height : auto;
+		position: relative;
 		float: left;
-		margin: 20px 20px; 		
+		margin: 20px 20px; 
+		overflow: hidden;	
+		cursor: pointer;	
+	}
+	.recipe_lst{
+		 list-style:none;
 	}
 	
 	.thumbnail {
 		height: 200px;
-		border-top : 1px solid black;	
-		border-right : 1px solid black;	
-		border-left : 1px solid black;	
+		border-radius : 5px;
 		
 	}
 	
 	.info{
-		height: 100px;	
-		border: 1px solid black;	
+		overflow: hidden;
+		height: auto;
+		text-align: left;
+		
 	}
 	
-	.info .row {	
-		text-align: center;
-		height: 30px;
+	.info .row {
+		padding-left:5px;	
 		line-height: 30px;
-		color : black;		
+		color : black;	
+		overflow: hidden;
+		height: auto;	
 	}
+	
 		
 	.sub-wrapper{
-		height: 70px;
+		height: 30px;
 		width : 920px;
 		margin: 0 auto;
 	}
 	
 	.write_button{
-		background-color: green;
+		width:100px;
+		float:left;
+		border: 1px solid #DADBD7;
+		padding: 7px 10px 7px 10px;
+		background-color: rgb(139, 195, 74);
+		color: white;
+		cursor: pointer;
+		border-radius : 5px;
 		
 	}
 	
@@ -88,6 +103,25 @@
 		display: inline-block;
 		color : black;
 	}
+	div .buttn{
+		width:70px;
+		float:left;
+		border: 1px solid #DADBD7;
+		padding: 3px 7px 3px 7px;
+		cursor: pointer;
+		
+	}
+	div #selected{
+		background-color: #44b6b5;
+		color: white;
+		cursor: pointer;
+	}
+	
+	.input-box{
+		border: 1px solid #999;
+	
+	}
+
 
 </style>
 <script>
@@ -129,24 +163,26 @@
 		
 %>
 <body>
-	<jsp:include page="../header.jsp" flush="false"/>
+	<jsp:include page="../header.jsp" flush="false">
+		<jsp:param value="recipe" name="mode"/>
+	</jsp:include>
 	<form action="recipeSearchList.jsp" name="searchForm" method="post">
 		<input type="hidden" name="mode" value="num"/>
 		<table id="search">
 			<tr><td><td/></tr>
 			<tr>
 				<td class="title">요리명</td>
-				<td colspan='7'><input type="text" name="name" style="width: 620px;"/></td>
+				<td colspan='7'><input type="text" name="name" class="input-box"style="width: 620px;" /></td>
 			</tr>
 			<tr>
 				<td class="title">재료명</td>
-				<td colspan='7'><input type="text" name="ingredients" style="width: 620px;"placeholder="재료1,재료2,.."/></td>
+				<td colspan='7'><input type="text" name="ingredients" class="input-box" style="width:620px;"placeholder="재료1,재료2,.."/></td>
 			</tr>
 			<tr>
 				<td class="title">분류</td>
 				<td style="width:100px; text-align:right;">채식유형별</td>
 				<td style="width:150px;">
-					<select name="vegiType">
+					<select name="vegiType" class="input-box">
 						<option value="total" selected>전체</option>
 						<option value="vegan">비건</option>
 						<option value="lacto">락토</option>
@@ -160,7 +196,7 @@
 				</td>	
 				<td style="width:60px;text-align:right;">난이도별</td>
 				<td style="width:80px;">
-					<select name="difficulty">
+					<select name="difficulty" class="input-box">
 						<option value="전체" selected>전체</option>
 						<option value="쉬움">쉬움</option>
 						<option value="보통">보통</option>
@@ -169,17 +205,17 @@
 				</td>
 				<td style="width:40px; text-align:right;">열량</td>
 				<td style="width:100px;">
-				<input type="text" name="calMore" style="width:35px;"/> ~
-				<input type="text" name="calUnder" style="width:35px;"/>
+				<input type="text" name="calMore" style="width:35px;" class="input-box"/> ~
+				<input type="text" name="calUnder" style="width:35px;" class="input-box"/>
 				</td>
 			</tr>
 			<tr>
 				<td class="title">작성자</td>
-				<td colspan='7'><input type="text" name="writer" style="width: 620px;"/></td>
+				<td colspan='7'><input type="text" name="writer" class="input-box" style="width: 620px;"/></td>
 			</tr>
 			<tr>
 				<td class="title">태그</td>
-				<td colspan='7'><input type="text" name="tag" style="width: 620px;" placeholder="태그명1,태그명2,.."/></td>
+				<td colspan='7'><input type="text" name="tag" class="input-box" style="width: 620px;" placeholder="태그명1,태그명2,.."/></td>
 			</tr>
 			<tr>
 				<td colspan='8'><input type="submit" value="검색"/></td>
@@ -189,42 +225,54 @@
 	
 	<div class="sub-wrapper">
 		<% if(session.getAttribute("memId")!= null){ %>
-		<div>
+		<div style="height:50px;">
 			<button  class="write_button" onclick="window.location='recipeInsertForm.jsp'" >레시피 작성</button>
-		</div>
+		</div >
 		<%}%>
 		<div class="total_recipe">
-			<h3>총 <%=count %>개의 레시피가 있습니다.</h3>		
+			<div style="text-align:left; font-size:17px; float: left; width:743px;">총 <span style="color:rgb(139, 195, 74); font-size:23px;"><%=count %></span>개의 레시피가 있습니다.</div>
+			<div class="sort_button" style="float: left;">
+				<div class="buttn" <%if(mode.equals("num")){%> id="selected"<%}%> onclick="window.location='recipeList.jsp?mode=num'">최신순</div>
+				<div class="buttn" <%if(mode.equals("rating")){%> id="selected"<%}%> onclick="window.location='recipeList.jsp?mode=rating'">평점순</div>
+			</div>		
 		</div>
-		<div class="sort_button">
-				<button onclick="window.location='recipeList.jsp?mode=num'">최신순</button>
-				<button onclick="window.location='recipeList.jsp?mode=rating'">평점순</button>
-		</div>
+		
 	</div>
-	
 	<div id="recipe-wrapper">
 	<%if(recipeList==null){ %>
 		<h1 style="color:black;">등록된 레시피가 없습니다.</h1>
 	<%}else{
 		RatingDAO dao = RatingDAO.getInstance();
-		
+		int cnt = 0;
 		for(int i = 0 ; i< recipeList.size() ; i++){
+			cnt += 1;
 			RecipeDTO recipe = (RecipeDTO)(recipeList.get(i));		
 			int rateCount = dao.getCountRating(recipe.getNum());
 			
-		%>
+			if(cnt%4 == 1){%><li class="recipe_lst"><%}%>
+
 			<div class="recipe" onclick="window.location='recipeContent.jsp?num=<%=recipe.getNum()%>'">
 				<div class="thumbnail">
-					<img width="198px" height="198px" src="/jnp/recipe/imgs/<%=recipe.getThumbnail()%>"/>
+					<img width="198px" height="198px" style="border-radius:5px" src="/jnp/recipe/imgs/<%=recipe.getThumbnail()%>"/>
 				</div>
 				<div class="info">
-					<div class="row"><%=recipe.getRecipeName()%></div>
-					<div class="row">posted by <%=RecipeDao.selectNameById(recipe.getWriter()) %></div>
-					<div class="row"><%=recipe.getRating()%>(<%=rateCount%>개의 평가)</div>			
+					<div class="row" style="font-size:17px"><%=recipe.getRecipeName()%></div>
+					<div class="row" style="color:#999; font-weight:100;">posted by <%=RecipeDao.selectNameById(recipe.getWriter()) %></div>
+					<div class="row"style="font-size:14px">
+						<%
+						//평점 별 그림 넣기
+						for(int j = 0; j < (int)recipe.getRating() ; j++) {
+							%> <img src = "/jnp/recipe/imgs/star.png" width="12px" style="margin:0px auto; vertical-align:center"/> 
+						<%}%>
+						<%for(int j = 0; j < 5-(int)recipe.getRating() ; j++) {
+							%> <img src = "/jnp/recipe/imgs/emptyStar.png" width="12px"style="margin:0px auto; vertical-align:center"/> 
+						<%}%>
+					<%=recipe.getRating()%> (<%=rateCount%>)</div>			
 				</div>			
 			</div>
+			<%if(cnt%4 == 0){%></li><%}%>		
 	<%	}
-	}%>			
+	 }%>			
 	</div>
 	
 	<div class="paging">

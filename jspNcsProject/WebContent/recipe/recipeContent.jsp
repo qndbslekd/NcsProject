@@ -21,7 +21,6 @@
 <link rel="stylesheet" href="../resource/team05_style.css">	
  
 <style>
-
 #greenButton {
 	border:0px;
     color:white;
@@ -72,7 +71,9 @@
 			RecipeContentCommentDAO dao = null;
 %>
 <body>
-	<jsp:include page="../header.jsp" flush="false" />
+	<jsp:include page="../header.jsp" flush="false">
+		<jsp:param value="recipe" name="mode"/>
+	</jsp:include>
 	<br />
 	
 	<table class="nonBorder" style="max-width:1100px; min-width:1100px;">
@@ -83,7 +84,8 @@
 				<span style="vertical-align:top; top:0px; width:40px;">
 				<%if (memId != null) {  if(!memId.equals(recipeBoard.getWriter())) {%>
 					<%String empty = ""; if(!scrapDAO.confirmScrap(num, memId)) { empty = "empty"; }%>
-					<img src="/jnp/recipe/imgs/<%=empty %>heart.png" width="40px" style="cursor:pointer;" onclick="scrap(<%=num%>,'<%=memId%>',<%=scrapDAO.confirmScrap(num, memId)%>)" />
+					<img src="/jnp/recipe/imgs/<%=empty %>heart.png" width="40px" style="cursor:pointer;" 
+						onclick="scrap(<%=num%>,'<%=memId%>',<%=scrapDAO.confirmScrap(num, memId)%>)" />
 				<%}else{%>
 					<div style="min-width:40px; display:inline-block;">&nbsp;</div>
 				<%} } else {%><div style="min-width:40px; display:inline-block;">&nbsp;</div><%} %>
@@ -156,7 +158,7 @@
 					<tr>
 						<td> <img src="/jnp/save/<%=recipeDAO.selectImgById(recipeBoard.getWriter())%>" style="width:60px; height:60px; border-radius:30px; "/> </td>
 						<td><h2><%= recipeDAO.selectNameById(recipeBoard.getWriter())%></h2></td>
-						<td><button class = "greenButton" onclick="window.location='recipeSearchList.jsp?writer=<%=recipeBoard.getWriter()%>'">레시피 더 보기</button></td>
+						<td><button class = "greenButton" onclick="window.location='recipeSearchList.jsp?writer=<%=recipeDAO.selectNameById(recipeBoard.getWriter())%>'">레시피 더 보기</button></td>
 					</tr>
 				</table>
 			</td>
@@ -244,7 +246,6 @@
 	</div>
 </body>
 <script>
-
 	//댓글에 답댓글 달기
 	function rating(num) {
 		var width=150;

@@ -23,8 +23,77 @@
 		display: inline-block;
 		color : black;
 	}
+	
+	.list{
+		height: 280px;
+		width:1000px; 
+		align:center; 
+		margin:0 auto;
+	
+	}
+	.write_button{
+		width:90px;
+		float:left;
+		border: 1px solid #DADBD7;
+		padding: 5px 7px 5px 7px;
+		background-color: rgb(139, 195, 74);
+		color: white;
+		cursor: pointer;
+		border-radius : 5px;
+		font-size:15px;
+		
+	}
+	.buttn{
+		width:70px;
+		float:left;
+		border: 1px solid #DADBD7;
+		padding: 3px 7px 3px 7px;
+		cursor: pointer;
+		
+	}
+	#selected{
+		background-color: #44b6b5;
+		color: white;
+		cursor: pointer;
+	}
+	
+	table{
+		border-collapse: collapse;
+	
+	}
+	
+	.sub{
+		width:1000px;
+		margin: 0 auto;
+	
+	
+	}
 
 </style>
+<script>
+	function check(){
+		var inputs = document.searchForm;
+		var sel = inputs.sel.value;
+		var str ="";
+		if(sel != "total" && !inputs.search.value){
+			if(sel == "title"){
+				str+="제목을"
+			}
+			if(sel =="writer"){
+				str+="작성자를"
+			}
+			if(sel =="content"){
+				str+="내용을"
+			}
+			str +=" 입력하세요."
+			alert(str);
+			return false;
+		}
+		
+	}
+
+
+</script>
 </head>
 <%
 	request.setCharacterEncoding("utf-8");	
@@ -87,20 +156,27 @@
 				if(sel.equals("writer")){
 					//활동명->아이디
 					name = dao.selectIdByName(search);
-				}
-				whereQuery += "and category='"+category+"' and "+sel+" like '%"+name+"%'";
+					whereQuery += "and category='"+category+"' and "+sel+" like '%"+name+"%'";
+				}else{
+					whereQuery += "and category='"+category+"' and "+sel+" like '%"+search+"%'";
+				}		
 			}
+			
 		}else if(!category.equals("total") && sel.equals("total")){
 			whereQuery += "and category='"+category+"'";
+		
 		}else if(!sel.equals("total")){
-			if(sel.equals("writer")){
-				//활동명->아이디
-				name = dao.selectIdByName(search);
-			}
 			if(search!=null && !search.equals("")){
-				whereQuery += "and "+sel+" like '%"+name+"%'";
-			}	
+				if(sel.equals("writer")){
+					//활동명->아이디
+					name = dao.selectIdByName(search);
+					whereQuery += "and "+sel+" like '%"+name+"%'";
+				}else{
+					whereQuery += "and "+sel+" like '%"+search+"%'";
+				}		
+			}
 		}		
+		
 		count = dao.getArticlesCount(whereQuery);
 		System.out.println("검색리스트 요청 whereQuery:"+whereQuery +" count:"+count);
 		if(count > 0 ){
@@ -123,61 +199,41 @@
 		
 %>
 <body>
-	<jsp:include page="../header.jsp" flush="false"/>
-	<h1 align="center"></h1>
-	<table >
-	<%if(session.getAttribute("memId")!= null){ %>
+	<jsp:include page="../header.jsp" flush="false">
+		<jsp:param value="freeboard" name="mode"/>
+	</jsp:include>
+	<h1 align="center">자유게시판</h1>
+	<table class="sub">
 		<tr>
-			<td>
-				<button onclick="window.location='boardInsertForm.jsp'">글쓰기</button>			
+			<%if(session.getAttribute("memId")!= null){ %>
+			<td style="width:100px">
+				<button class="write_button" onclick="window.location='boardInsertForm.jsp'">글쓰기</button>			
 			</td>
-			<td colspan='5'>
-			</td>
+			<%}else{%>
+			<td></td>
+			<%} %>
 		</tr>
-	<%}%>
-	</table>
-	<form action="board.jsp" method="post">
-		<table>
-			<tr>
-				<td colspan='2'>
-					<p>새글 <%=newCount%>/<%=count%><p>
-				</td>
-				<td colspan='4'>
-					<select name="category">
-						<option value="total" <%if(category != null && category.equals("total")){%>selected<%}%>>카테고리</option>
-						<option value="notice" <%if(category != null && category.equals("notice")){%>selected<%}%>>공지사항</option>
-						<option value="question" <%if(category != null && category.equals("question")){%>selected<%}%>>고민과질문</option>
-						<option value="information" <%if(category != null && category.equals("information")){%>selected<%}%>>정보 공유</option>
-						<option value="freetalk" <%if(category != null && category.equals("freetalk")){%>selected<%}%>>잡담과일기</option>
-					</select>
-					<select name="sel">
-						<option value="total" <%if(sel != null && sel.equals("total")){%>selected<%}%>>검색조건</option>
-						<option value="title" <%if(sel != null && sel.equals("title")){%>selected<%}%>>제목</option>
-						<option value="content" <%if(sel != null && sel.equals("content")){%>selected<%}%>>내용</option>
-						<option value="writer" <%if(sel != null && sel.equals("writer")){%>selected<%}%>>작성자</option>
-					</select>
-					<input type="text" name="search"/>
-				</td>	
-				<td><input type="submit" value="검색"/></td>				
-			</tr>
-		</table>
-	</form>
-	<table>
 		<tr>
-			<td><button onclick="window.location='board.jsp?mode=reg&category=<%=category%>&sel=<%=sel%>&search=<%=search%>&pageNum=<%=pageNum%>'">최신순</button></td>
-			<td><button onclick="window.location='board.jsp?mode=read_count&category=<%=category%>&sel=<%=sel%>&search=<%=search%>&pageNum=<%=pageNum%>'">조회순</button></td>
-			<td><button onclick="window.location='board.jsp?mode=recommend&category=<%=category%>&sel=<%=sel%>&search=<%=search%>&pageNum=<%=pageNum%>'">추천순</button></td>
+			<td style="width:900px;">
+				<button class="buttn" <%if(mode.equals("reg")){%>id="selected"<%}%> onclick="window.location='board.jsp?mode=reg&category=<%=category%>&sel=<%=sel%>&search=<%=search%>&pageNum=<%=pageNum%>'">최신순</button>
+				<button class="buttn" <%if(mode.equals("read_count")){%>id="selected"<%}%> onclick="window.location='board.jsp?mode=read_count&category=<%=category%>&sel=<%=sel%>&search=<%=search%>&pageNum=<%=pageNum%>'">조회순</button>
+				<button class="buttn" <%if(mode.equals("recommend")){%>id="selected"<%}%> onclick="window.location='board.jsp?mode=recommend&category=<%=category%>&sel=<%=sel%>&search=<%=search%>&pageNum=<%=pageNum%>'">추천순</button>
+			</td>
+			
 		</tr>
+
+		
 	</table>
-	<table class="list" style="width:1000px; align:center; margin:auto;">
+	<table class="list" >
 		<thead>	
 		<tr>
-			<th>글번호</th>
-			<th>[말머리]</th>
-			<th>제목</th>
-			<th>글쓴이</th>
-			<th>조회수</th>
-			<th>추천수</th>
+			<th>NO</th>
+			<th>CATEGORY</th>
+			<th>TITLE</th>
+			<th>WRITER</th>
+			<th>DATE</th>
+			<th>HIT</th>
+			<th>LIKE</th>
 		</tr>
 		</thead>
 	<%if(count == 0){ %>
@@ -191,23 +247,24 @@
 				String name = dao.selectNameById(dto.getWriter());
 		%>
 		<tr>
-			<td <%if(i % 2 == 1) { %> class="even" <%} %> ><%=number--%></td>	
+			<td><%=number--%></td>	
 			<%if(dto.getCategory().equals("notice")){%>	
-			<td <%if(i % 2 == 1) { %> class="even" <%} %>>공지사항</td>
+			<td>공지사항</td>
 			<%} %>
 			<%if(dto.getCategory().equals("freetalk")){%>	
-			<td <%if(i % 2 == 1) { %> class="even" <%} %>>잡담과일기</td>
+			<td>잡담과일기</td>
 			<%} %>
 			<%if(dto.getCategory().equals("information")){%>	
-			<td <%if(i % 2 == 1) { %> class="even" <%} %>>정보 공유</td>
+			<td>정보 공유</td>
 			<%} %>
 			<%if(dto.getCategory().equals("question")){%>	
-			<td <%if(i % 2 == 1) { %> class="even" <%} %>>고민과질문</td>
+			<td>고민과질문</td>
 			<%} %>
-			<td <%if(i % 2 == 1) { %> class="even" <%} %> onclick="window.location='boardContent.jsp?num=<%=dto.getNum()%>&mode=<%=mode%>&category=<%=category%>&sel=<%=sel%>&search=<%=search%>&pageNum=<%=pageNum%>'"><%=dto.getTitle()%></td>
-			<td <%if(i % 2 == 1) { %> class="even" <%} %>><%=name%></td>
-			<td <%if(i % 2 == 1) { %> class="even" <%} %>><%=dto.getRead_count()%></td>
-			<td <%if(i % 2 == 1) { %> class="even" <%} %>><%=dto.getRecommend()%></td>
+			<td style="text-align:left;" onclick="window.location='boardContent.jsp?num=<%=dto.getNum()%>&mode=<%=mode%>&category=<%=category%>&sel=<%=sel%>&search=<%=search%>&pageNum=<%=pageNum%>'"><%=dto.getTitle()%></td>
+			<td ><%=name%></td>
+			<td><%=sdf.format(dto.getReg())%></td>
+			<td><%=dto.getRead_count()%></td>
+			<td><%=dto.getRecommend()%></td>
 		</tr>
 			<%}
 	}%>
@@ -236,6 +293,32 @@
 		}
 	%>	
 	</div>
+	<form action="board.jsp" method="post" name="searchForm" onsubmit="return check()">
+		<table>
+			<tr>
+				<td colspan='2'>
+					<p>새글 <%=newCount%>/<%=count%><p>
+				</td>
+				<td colspan='4'>
+					<select name="category">
+						<option value="total" <%if(category != null && category.equals("total")){%>selected<%}%>>카테고리</option>
+						<option value="notice" <%if(category != null && category.equals("notice")){%>selected<%}%>>공지사항</option>
+						<option value="question" <%if(category != null && category.equals("question")){%>selected<%}%>>고민과질문</option>
+						<option value="information" <%if(category != null && category.equals("information")){%>selected<%}%>>정보 공유</option>
+						<option value="freetalk" <%if(category != null && category.equals("freetalk")){%>selected<%}%>>잡담과일기</option>
+					</select>
+					<select name="sel">
+						<option value="total" <%if(sel != null && sel.equals("total")){%>selected<%}%>>검색조건</option>
+						<option value="title" <%if(sel != null && sel.equals("title")){%>selected<%}%>>제목</option>
+						<option value="content" <%if(sel != null && sel.equals("content")){%>selected<%}%>>내용</option>
+						<option value="writer" <%if(sel != null && sel.equals("writer")){%>selected<%}%>>작성자</option>
+					</select>
+					<input type="text" name="search"/>
+				</td>	
+				<td><input type="submit" value="검색"/></td>				
+			</tr>
+		</table>
+	</form>
 
 </body>
 </html>
