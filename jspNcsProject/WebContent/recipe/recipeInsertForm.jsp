@@ -7,49 +7,6 @@
 <title>레시피 작성</title>
 <link rel="stylesheet" href="../resource/team05_style.css">
 </head>
-<style>
-	.insertTable td {
-		font-size:20px;
-		vertical-align:middle;
-		padding:20px;
-	}
-	.h {
-		vertical-align:middle;
-		text-align:left;
-		margin-left:20px;
-	}
-	.t {
-		text-align:right;
-		padding:20px;
-		border-right:2px solid #ccc;
-		font-size:1.4em;
-	}
-	input[type="text"]{
-		border:1px solid #ccc;
-		border-radius:5px;
-		font-size:25px;
-		self-align:left;
-		margin-left:20px;
-		vertical-align:middle;
-	}
-	input[type="number"]{
-		border:1px solid #ccc;
-		border-radius:5px;
-		font-size:25px;
-		self-align:left;
-		margin-left:20px;
-		vertical-align:middle;
-	}
-	select, option {
-		border:1px solid #ccc;
-		border-radius:5px;
-		font-size:25px;
-		self-align:left;
-		margin-left:20px;
-		vertical-align:middle;
-	}
-	
-</style>
 <%
 	String memId = (String) session.getAttribute("memId");
 
@@ -58,7 +15,10 @@
 	<%} else { %>
 <body>
 
-<jsp:include page="../header.jsp"/>
+	<jsp:include page="../header.jsp" flush="false">
+		<jsp:param value="recipe" name="mode"/>
+	</jsp:include>
+
 	<br/>
 	<h1>레시피 작성</h1>
 	<br/>
@@ -86,7 +46,7 @@
 			</tr>
 			<tr>
 				<td class="t">요리 분량</td>
-				<td class="h"><input type="number" name="quantity" required style="width:50px" />인분</td>
+				<td class="h"><input type="number" name="quantity" required style="width:50px;" />인분</td>
 			</tr>
 			<tr>
 				<td class="t">요리 시간</td>
@@ -95,29 +55,34 @@
 			<tr>
 				<td class="t">난이도</td>
 				<td class="h">
-					<select name="difficulty" required  >
-						<option value="" disabled selected>난이도를 선택하세요</option>
-						<option value="쉬움">쉬움</option>
-						<option value="보통">보통</option>
-						<option value="어려움">어려움</option>
+					<select name="difficulty" required style="font-size:25px;" >
+						<option value="" disabled selected style="font-size:25px;">난이도를 선택하세요</option>
+						<option value="쉬움" style="font-size:25px;">쉬움</option>
+						<option value="보통" style="font-size:25px;">보통</option>
+						<option value="어려움" style="font-size:25px;">어려움</option>
 					</select>
 				</td>
 			</tr>
 			<tr>
 				<td class="t">칼로리</td>
-				<td class="h"><input type="number" name="cal" /></td>
+				<td class="h"><input type="number" name="cal" style="width:80px"/>kcal </td>
 			</tr>
 			<tr>
-				<td class="t">재료</td>
-				<td class="h"><input type="text" placeholder="예) 감자:1개, 양파:2개, 고추장:두스푼, ..." name="ingredients"/><br/> '재료명:분량,재료명:분량'의 형식으로 적어주세요</td>
+				<td class="t" style="vertical-align:top;">재료</td>
+				<%--<td class="h"><input type="text" placeholder="예) 감자:1개, 양파:2개, 고추장:두스푼, ..." name="ingredients"/><br/> '재료명:분량,재료명:분량'의 형식으로 적어주세요</td> --%>
+				<td class="h"><textarea cols="20" rows="10" placeholder="예) 
+감자 : 1개
+양파 : 2개
+고추장 : 두스푼
+..." name="ingredients" style="resize:none;overflow:visible;font-size:25px;"></textarea><br/> <span class="h" style="font-size:15px; color:#858585">재료명과 분량 사이에 콜론(:)을 꼭 넣어주세요</span></td>
 			</tr>
 			<tr>
 				<td class="t">요리 단계</td>
-				<td class="h"><input type="number" name="recipeStep" required />단계</td>
+				<td class="h"><input type="number" name="recipeStep" required style="width:50px"/>단계</td>
 			</tr>
 			<tr>
 				<td class="t">키워드</td>
-				<td class="h"><input type="text" placeholder="예) 태그,태그,태그 ..." name="tag" /></td>
+				<td class="h"><input type="text" placeholder="예) 태그, 태그, 태그 ..." name="tag" style="width:90%"/></td>
 			</tr>
 			<tr>
 			
