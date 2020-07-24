@@ -61,9 +61,9 @@ input {
 					</tr>
 					<tr>
 						<td colspan="2">
-							<button type="submit" >등록</button>
-							<button type="reset" >재입력</button> 
-							<button onclick="window.location='informationList.jsp'">취소</button>
+							<button type="submit" class="grayButton" style="width: 80px; height: 30px; text-align: center" >등록</button>
+							<button type="reset" class="grayButton" style="width: 80px; height: 30px; text-align: center" >재입력</button> 
+							<button onclick="window.location='informationList.jsp'" class="grayButton" style="width: 80px; height: 30px; text-align: center">취소</button>
 						</td>
 					</tr>
 				</table>
