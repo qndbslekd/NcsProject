@@ -61,6 +61,7 @@
 		infoList = dao.getInfomation(startRow, endRow);
 	} 
 	number = count - (currPage -1) * pageSize;
+	
 %>
 <body> 
 <br/>
