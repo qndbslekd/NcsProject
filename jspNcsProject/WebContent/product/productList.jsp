@@ -9,12 +9,21 @@
 	<title>제품 리스트</title>
 	<link href="../resource/team05_style.css" type="text/css" rel="stylesheet"/>
 <style>
-#search{
-		width : 800px;
-		margin-top : 50px;
-		margin-bottom : 50px;
+	#search{
+		height: 60px; 
+		width : 800px;  
 	}
+	#search .title{
+		width:80px;
+		font-size:17px;
+		text-align: right;
+	
+	}
+	#search .content{
+	}
+	
 	#recipe-wrapper{
+		overflow: hidden;
 		width : 968px;
 		height: auto;
 		margin: 0 auto;
@@ -121,7 +130,7 @@ if (search == null || search.equals("")) {
 	</jsp:include>
 <body>
 	<form action="productList.jsp" method="get">
-		<table>
+		<table id="search">
 			<tr>
 				<td>
 					<select name="option">
@@ -131,7 +140,7 @@ if (search == null || search.equals("")) {
 					<input type="submit" value="검색" />
 				</td>
 			</tr>
-		</table>
+		</table> 
 	</form>
 	
 	<div class="sub-wrapper">
@@ -142,10 +151,10 @@ if (search == null || search.equals("")) {
 		<%}%>
 		
 		<div class="total_recipe">
-			<h3>총 <%=count %>개의 제품가 있습니다.</h3>		
+			<h3 align="left">총 <%=count %>개의 제품이 있습니다.</h3>		
 		</div>
-		
-		<div class="sort_button">
+		<hr> 
+		<div class="sort_button" style="text-align: right;">
 				<%if(search==null||search.equals("")){%>
 				<button onclick="window.location='productList.jsp?mode=num'">최신순</button>
 				<button onclick="window.location='productList.jsp?mode=rating'">추천순</button>
