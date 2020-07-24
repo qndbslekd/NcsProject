@@ -25,7 +25,10 @@
     margin: 5px auto;
 }
 </style>
-<jsp:include page="../header.jsp"></jsp:include>
+	<jsp:include page="../header.jsp" flush="false">
+		<jsp:param value="product" name="mode"/>
+	</jsp:include>
+
 <%
 	if(request.getParameter("num")==null){%>
 		<script type="text/javascript">
