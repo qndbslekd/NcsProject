@@ -21,7 +21,6 @@
 <link rel="stylesheet" href="../resource/team05_style.css">	
  
 <style>
-
 #greenButton {
 	border:0px;
     color:white;
@@ -244,7 +243,6 @@
 	</div>
 </body>
 <script>
-
 	//댓글에 답댓글 달기
 	function rating(num) {
 		var width=150;
