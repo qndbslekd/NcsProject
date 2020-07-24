@@ -94,7 +94,11 @@
 		
 			<table class="nonBorder">
 				<tr>
-					<td><textarea name="content" cols="70" rows="5" style="resize:none;" required></textarea></td><td><input type="submit" class="greenButton" value="댓글작성" style="height:100%"> </td>
+					<td rowspan="2" style="width:60px; height:60px; vertical-align:top;border:0px;"><img src="/jnp/save/<%=rDAO.selectImgById(memId)%>" style="width:60px; height:60px; border-radius:30px;"/></td>
+					<td style="text-align:left; border:0px;padding-bottom:2px;"><Strong> <%= rDAO.selectNameById(memId) %> </Strong>
+				</tr>
+				<tr>
+					<td><textarea name="content" cols="70" rows="5" style="resize:none; border:2px solid #ccc; border-radius:5px;" required></textarea></td><td><input type="submit" class="greenButton" value="댓글작성" style="height:100%"> </td>
 				</tr>
 			</table>
 		</form>
