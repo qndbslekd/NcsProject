@@ -91,16 +91,18 @@
 					</td>
 				</tr>
 			</table>
-		<%} %>
+		<%} %> 
 	<%}%>
 </body>
 <script type="text/javascript">
 	function setId(){
 		opener.document.inputForm.id.value = "<%=id%>";
+		opener.document.inputForm.idConfirm.value = "true";
 		self.close();
 	}
 	function setName(){
 		opener.document.inputForm.name.value = "<%=name%>";
+		opener.document.inputForm.nameConfirm.value = "true";
 		self.close();
 	}
 </script>

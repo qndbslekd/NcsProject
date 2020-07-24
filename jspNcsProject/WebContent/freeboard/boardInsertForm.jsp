@@ -28,6 +28,10 @@
 
 %>
 <body>
+	<jsp:include page="../header.jsp" flush="false">
+		<jsp:param value="freeboard" name="mode"/>
+	</jsp:include>
+	<br/>
 <h1 align="center">글 작성하기</h1>
 <form action="boardInsertPro.jsp" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="num" value="<%=num %>"/>
