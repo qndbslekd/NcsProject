@@ -95,8 +95,8 @@ input[type="file"]{
 					<tr>
 						<td></td>
 						<td style="padding-top: 20px;">
-							<button type="submit" >수정</button>
-							<button type="button" onclick="window.location='informationList.jsp'">수정취소</button>
+							<button type="submit" class="grayButton" style="width: 80px; height: 30px; text-align: center" >수정</button>
+							<button type="button" class="grayButton" style="width: 80px; height: 30px; text-align: center" onclick="window.location='informationList.jsp'">수정취소</button>
 						</td>
 					</tr>	
 				<input type="hidden" value= "<%=information.getNum()%>" name="num"/>
