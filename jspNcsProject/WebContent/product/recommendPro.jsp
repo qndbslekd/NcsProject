@@ -26,8 +26,35 @@
 	
 		if(comment.equals("")){
 			//추천일경우만
-			dao.updateRecommend(request.getParameter("num"));
-			response.sendRedirect(request.getParameter("history"));
+			//추천한지 24시간이 안지난 경우
+			boolean isExistCookie = false;
+			Cookie[] cookies = request.getCookies();
+			for(Cookie cookie : cookies){
+				if(cookie.getName().equals("recommend")){
+					isExistCookie = true;
+					System.out.println("ON :"+isExistCookie);
+				}
+			}
+			
+			if(!isExistCookie){
+				Cookie recommend = new Cookie("recommend","on");
+				recommend.setMaxAge(60*60*24);
+				response.addCookie(recommend);
+				dao.updateRecommend(request.getParameter("num"));
+				%>
+				<script type="text/javascript">
+					alert("추천되었습니다");
+					window.location = "<%=request.getParameter("history")%>";
+				</script>
+				<%
+			}else{
+				%>
+				<script type="text/javascript">
+					alert("추천은 하루에 한번만 가능합니다");
+					history.go(-1);
+				</script>
+				<%
+			}
 		}else{
 			//댓글달기이 경우
 			System.out.println("num" + num);
