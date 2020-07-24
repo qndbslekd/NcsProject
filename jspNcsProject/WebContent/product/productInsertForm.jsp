@@ -6,7 +6,9 @@
 	<title>Product Insert</title>
 	<link href="../resource/team05_style.css" type="text/css" rel="stylesheet"/>
 </head>
-<jsp:include page="../header.jsp"/>
+	<jsp:include page="../header.jsp" flush="false">
+		<jsp:param value="product" name="mode"/>
+	</jsp:include>
 <%
 	if(session.getAttribute("memId") == null || !session.getAttribute("memId").equals("admin")){%>
 		<script>
