@@ -22,7 +22,10 @@
 		%> <script> alert("작성자만 삭제할 수 있습니다."); history.go(-1); </script><%
 	} else if(memId.equals("admin")){%>
 <body>
-	<jsp:include page="../header.jsp" flush="false"/>
+	<jsp:include page="../header.jsp" flush="false">
+		<jsp:param value="recipe" name="mode"/>
+	</jsp:include>
+
 		<table>
 			<tr>
 				<td>(관리자 권한) 글을 정말 삭제하시겠습니까? </td>
