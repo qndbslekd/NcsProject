@@ -49,7 +49,6 @@
 		width : 920px;
 		margin: 0 auto;
 	}
-	
 	.write_button{
 		background-color: green;
 		
