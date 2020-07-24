@@ -19,11 +19,11 @@
 			<input type="hidden" value="default" name="history" />
 			<tr>
 				<td>아이디</td>
-				<td><input type="text" name="id"/></td>
-			</tr>
+				<td><input type="text" name="id" required="required"/></td>
+			</tr> 
 			<tr>
 				<td>비밀번호</td>
-				<td><input type="password" name="pw"/></td>
+				<td><input type="password" name="pw" required="required"/></td>
 			</tr> 
 			<tr>
 				<td colspan="3" style="padding-top: 20px;">
@@ -38,7 +38,11 @@
 <!--로그인시 이전주소 값으로 가기-->
 <script type="text/javascript">
 	var form = document.login;
-	var back = document.referrer; 
+	var back = 'http://localhost:8080/jnp/main.jsp';
+	if(document.referrer!='http://localhost:8080/jnp/loginPro.jsp'){
+		back = document.referrer;
+		form.history.value = back;
+	}
 	form.history.value = back;
 </script>
 <%}else{ 
