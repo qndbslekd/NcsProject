@@ -43,6 +43,7 @@
 		back = document.referrer;
 		form.history.value = back;
 	}
+	form.history.value = back;
 </script>
 <%}else{ 
 	response.sendRedirect("../main.jsp");	
