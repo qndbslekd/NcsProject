@@ -164,6 +164,7 @@ if(session.getAttribute("memId")==null){
 			alert("주민번호 뒷자리는 숫자만 입력 가능합니다");
 			return false;
 		}
+		
 		if(inputs.idConfirm.value=='false'){
 			alert("아이디 중복확인을 해주세요");
 			return false;

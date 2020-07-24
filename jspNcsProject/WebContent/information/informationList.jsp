@@ -110,7 +110,7 @@
 			</tr>
 			<tr>
 				<td colspan="3">
-					<button type="button" onclick="window.location='informationInsertForm.jsp'">글쓰기</button>
+					<button type="button" onclick="window.location='informationInsertForm.jsp'" class="grayButton" style="width: 80px; height: 30px; text-align: center">글쓰기</button>
 				</td>
 			</tr>
 		<%} %>
