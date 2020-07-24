@@ -8,7 +8,7 @@
 <body>
 	<form method="post" action="test2.jsp" enctype="multipart/form-data" name ="inputForm" accept-charset="utf-8">
 		<td>
-			<input type="text" name="id_number1"  id= "test1" maxlength="6" size="6" />&nbsp;&nbsp;&nbsp;- 
+			<input type="text" name="id_number1"  id= "test1" minlegnth="6" size="6" />&nbsp;&nbsp;&nbsp;- 
 			<input type="text" name="id_number2"  id= "test2" maxlength="1" size="1" />******
 		</td>
 		<button type="button" class="grayButton" onclick="check()" style="width: 50px; height: 30px; text-align: center">가입</button>
@@ -24,16 +24,17 @@
 			return false;
 		}
 		 */
-		var re= /^[0-9]*$/;
+		var re1= /([0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[1,2][0-9]|3[0,1]))/;
+		var re2= /^[0-9]*$/;
 		var test1 = document.getElementById("test1").value;
 		var test2 = document.getElementById("test2").value;
-		if(!re.test(test1)){
+		if(!re1.test(test1)){
 			console.log(test1);
-			alert("주민번호는 숫자만 입력 가능합니다");
+			alert("주민번호앞자리는 6자리 숫자만 입력 가능합니다");
 			input.id_number1.focus;
 			return false; 
 		}
-		if(!re.test(test2)){
+		if(!re2.test(test2)){
 			console.log(test2);
 			alert("주민번호는 숫자만 입력 가능합니다");
 			input.id_number2.focus;
