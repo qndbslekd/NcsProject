@@ -248,7 +248,16 @@
 				<div class="info">
 					<div class="row" style="font-size:17px"><%=recipe.getRecipeName()%></div>
 					<div class="row" style="color:#999; font-weight:100;">posted by <%=RecipeDao.selectNameById(recipe.getWriter()) %></div>
-					<div class="row"style="font-size:14px"><%=recipe.getRating()%>(<%=rateCount%>개의 평가)</div>			
+					<div class="row"style="font-size:14px">
+						<%
+						//평점 별 그림 넣기
+						for(int j = 0; j < (int)recipe.getRating() ; j++) {
+							%> <img src = "/jnp/recipe/imgs/star.png" width="12px" style="margin:0px auto; vertical-align:center"/> 
+						<%}%>
+						<%for(int j = 0; j < 5-(int)recipe.getRating() ; j++) {
+							%> <img src = "/jnp/recipe/imgs/emptyStar.png" width="12px"style="margin:0px auto; vertical-align:center"/> 
+						<%}%>
+					<%=recipe.getRating()%> (<%=rateCount%>)</div>			
 				</div>			
 			</div>
 			<%if(cnt%4 == 0){%></li><%}%>		
