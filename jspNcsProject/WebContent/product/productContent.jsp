@@ -27,6 +27,11 @@
 </style>
 <jsp:include page="../header.jsp"></jsp:include>
 <%
+	if(request.getParameter("num")==null){%>
+		<script type="text/javascript">
+			window.location="productList.jsp";
+		</script>
+	<%}else{
 	String name = (String)session.getAttribute("memName");
 	if(name == null){
 		name = "";	
@@ -78,9 +83,6 @@
 				</td>
 			<tr>
 			<tr>
-				<td style="text-align: left; padding-top: 5px; padding-bottom: 5px;">
-					<h1>댓글</h1>
-				</td>
 				<td colspan="2" style="text-align: left; padding-top: 5px; padding-bottom: 5px;">
 					<h1>댓글</h1>
 				</td> 
@@ -156,6 +158,7 @@
 		</table>
 		</form> 
 	</body>
+	<%} %>
 	<script type="text/javascript">
 	function recommand(){
 		var back = window.location.href ; 
