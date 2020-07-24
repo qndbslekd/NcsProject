@@ -68,7 +68,13 @@ System.out.println(dto);
 	<table>
 		<tr> 
 			<td class="t">기존 프로필 사진</td>
-			<td><img src="/jnp/save/<%=dto.getProfile_img()%>" width="300px" height="300px"></td>  
+			<td>
+				<%if(dto.getProfile_img()==null){%>
+					<img src="/jnp/save/unnamed.gif" width="300px" height="300px">
+				<%}else{%>
+					<img src="/jnp/save/<%=dto.getProfile_img()%>" width="300px" height="300px">
+				<%} %>
+			</td>  
 		</tr>
 		<tr>
 			<td class="t">변경할 프로필 사진</td>
