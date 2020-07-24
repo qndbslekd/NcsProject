@@ -88,6 +88,31 @@ public class RecipeContentCommentDAO {
 		return list;
 	}
 	
+	// 레시피 답글 여부 체크해주기(ref 개수가 두개면 답글이 이미 있는 경우임)
+	public int countRef(RecipeContentCommentDTO dto) {	
+		int cRef = 0;
+		try {
+			conn = getConnection();
+			String sql ="select count(*) from recipe_content_comment where recipe_Num=? and content_Num=? and ref=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, dto.getRecipeNum());
+			pstmt.setInt(2, dto.getContentNum());
+			pstmt.setInt(3, dto.getRef());
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				cRef = rs.getInt(1);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(rs!=null) try {rs.close();}catch(Exception e) { e.printStackTrace();}
+			if(pstmt!=null) try {pstmt.close();}catch(Exception e) { e.printStackTrace();}
+			if(conn!=null) try {conn.close();}catch(Exception e) { e.printStackTrace();}
+		}	
+		return cRef;
+	}
+	
+	
 	// 레시피 댓글 or 답글 다는 메서드 ref로 체크해서 처리.
 	public void insertRecipeContentComment(RecipeContentCommentDTO dto) {
 		int ref = dto.getRef();
@@ -100,7 +125,7 @@ public class RecipeContentCommentDAO {
 
 		try{
 			conn = getConnection();
-			
+				
 			sql = "SELECT LAST_NUMBER FROM USER_SEQUENCES WHERE SEQUENCE_NAME=('RECIPE_CONTENT_COMMENT_SEQ')";
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
@@ -109,11 +134,7 @@ public class RecipeContentCommentDAO {
 				num = rs.getInt(1)-1;
 
 			}
-			System.out.println("ref = " + num);
-			if(reLevel == 1) {
-				System.out.println("답글 한개 이미 달음");
-				return;
-			}
+			
 			
 			if(ref == 0) { // 댓글인 경우 
 				sql = "update recipe_content_comment set re_step=re_step+1 where content_Num=? and re_step > ?";
@@ -138,7 +159,9 @@ public class RecipeContentCommentDAO {
 				pstmt.setTimestamp(8, dto.getReg());
 				
 				
-			}else{ // 댓글의 댓글인 경우(답글) ref는 0 이 아님 
+			}else{ // 댓글의 댓글인 경우(답글) ref는 1 이 아님 
+				
+		
 				// 댓글의 댓글일 경우 ref는 가져온 ref값 그대로 넣어주면됨
 				sql = "update recipe_content_comment set re_step=re_step+1 where content_Num=? and re_step > ?";
 				pstmt = conn.prepareStatement(sql);
@@ -249,7 +272,7 @@ public class RecipeContentCommentDAO {
 		int count=0;
 		try {
 			conn = getConnection();
-			String sql = "select count(ref) from RECIPE_CONTENT_COMMENT where ref=?";
+			String sql = "select count(*) from RECIPE_CONTENT_COMMENT where ref=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, ref);
 			rs = pstmt.executeQuery();

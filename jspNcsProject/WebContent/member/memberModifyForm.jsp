@@ -8,6 +8,34 @@
 	<title>Insert title here</title>
 	<link href="../resource/team05_style.css" rel="stylesheet" type="text/css">
 </head>
+<style>
+table td {
+	font-size:1.4em;
+	vertical-align:middle;
+}
+td * {
+	margin:0;
+	padding:0;
+	vertical-align:middle;
+	text-align:left;
+}
+.t {
+	text-align:right;
+	padding:20px;
+	border-right:2px solid #ccc;
+	font-size:1.4em;
+	padding-right: 60px;
+}
+input {
+	border:2px solid #ccc;
+	border-radius:5px;
+	font-size:1.4em;
+	self-align:left;
+	margin-left:20px;
+	vertical-align:middle;
+	
+}
+</style>
 <%if(session.getAttribute("memId")==null){%>
 	<script type="text/javascript">
 		alert("로그인후 이용해주세요.");
@@ -39,42 +67,43 @@ System.out.println(dto);
 	<form method="post" action="memberModifyPro.jsp" enctype="multipart/form-data" name ="inputForm">
 	<table>
 		<tr> 
-			<td>기존 프로필 사진</td>
-			<td><img src="/jnp/save/<%=dto.getProfile_img()%>"></td>  
+			<td class="t">기존 프로필 사진</td>
+			<td><img src="/jnp/save/<%=dto.getProfile_img()%>" width="300px" height="300px"></td>  
 		</tr>
 		<tr>
-			<td>변경할 프로필 사진</td>
+			<td class="t">변경할 프로필 사진</td>
 			<td><input type="file" name="profile_img" /></td>
-			<input type ="hidden" name ="profile_img_before" value="<%=dto.getProfile_img()%>"/>
+			<input type ="hidden" name ="profile_img_before" value="<%=dto.getProfile_img()%>" />
 		</tr>
 		<tr>
-			<td>아이디*</td>
+			<td class="t">아이디*</td>
 			<td><%=dto.getId() %></td>
 		</tr>
 		<tr>
-			<td>비밀번호*</td>
-			<td><input type="password" name="pw" value="<%=dto.getPw() %>"/></td>
+			<td class="t">비밀번호*</td>
+			<td><input type="password" name="pw" value="<%=dto.getPw() %>" required="required"/></td>
 		</tr>
 		<tr>
-			<td>비밀번호 확인*</td>
-			<td><input type="password" name="pwCh" /></td>
+			<td class="t">비밀번호 확인*</td>
+			<td><input type="password" name="pwCh" required="required"/></td>
 		</tr>
 		<tr>
-			<td>활동명*</td>
-			<td><input type="test" value="<%=dto.getName() %>" name = "name"/></td>
+			<td class="t">활동명*</td>
+			<td><input type="test" value="<%=dto.getName() %>" name = "name" required="required"/></td>
 		</tr>
 		<tr>
-			<td>활동명 중복체크</td>
-			<td><input type="button" value="중복확인" onclick="confirmName(this.form)"></td>
+			<td class="t">활동명 중복체크</td>
+			<td><button class="grayButton" type="button" onclick="confirmName(this.form)"
+			style="width: 80px; height: 30px; text-align: center">중복확인</button></td>
 		</tr>
 		<tr>
-			<td>주민번호*</td>  
+			<td class="t">주민번호*</td>  
 			<td><%=dto.getId_number().substring(0, 6)%>
-			-<%=dto.getId_number().charAt(dto.getId_number().length()-1) %>
+			-<%=dto.getId_number().charAt(dto.getId_number().length()-1) %>******
 			</td>
 		</tr> 
 		<tr>
-			<td>채식주의 타입 수정</td>
+			<td class="t">채식주의 타입 수정</td>
 			<td>
 				<select name="vegi_type">
 						<option value="none" <%if(dto.getVegi_type().equals("none")){%> selected="selected" <%}%>>Non-vegetarian</option>
@@ -89,10 +118,10 @@ System.out.println(dto);
 			</td>
 		</tr>
 		<tr>
-			<td colspan="2" align="center">
-				<input type="submit" value="수정"/>
-				<input type="reset" name="reset" value="재입력" />
-				<input type="button" value="취소" onclick="window.location='main.jsp'"/>
+			<td colspan="2" align="center" style="padding-top: 20px">
+				<button class="grayButton" type="submit" style="width: 50px; height: 30px; text-align: center">수정</button>
+				<button class="grayButton" type="reset" name="reset" style="width: 50px; height: 30px; text-align: center" >재입력</button>
+				<button class="grayButton" type="button" value="취소" style="width: 50px; height: 30px; text-align: center" onclick="window.location='main.jsp'">취소</button>
 			</td> 
 		</tr>
 	</table> 
