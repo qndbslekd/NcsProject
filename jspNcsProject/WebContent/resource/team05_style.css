@@ -7,6 +7,9 @@
 	font-size : 15px;
 	color:black;
 }
+*:focus {
+	outline:0;
+}
 table {
 	width: 500; 
 	margin: auto; 
@@ -167,3 +170,4 @@ a>*{
 	margin-bottom:5px;
 	vertical-align:middle;
 }
+

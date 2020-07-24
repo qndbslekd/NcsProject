@@ -22,6 +22,12 @@
 	font-size:20px;
 	cursor:pointer;
 }
+#header .tab:hover {
+	color:#edd713;
+}
+#header .tab:focus{
+	color:#edd713;
+}
 </style>
 </head>
 <script type="text/javascript">
@@ -31,6 +37,8 @@
 	}
 </script> 
 <%
+	String mode = request.getParameter("mode");
+	if(mode == null) {mode="";}
 	System.out.println("===HEADER START===");
 	System.out.println("Header Session값 : "+session.getAttribute("memId"));
 	if(session.getAttribute("memId")==null){ //비로그인상태(세션없을때)
@@ -67,6 +75,7 @@
 	}
 %>
 <body>
+<div width="1100px">
 	<table id="header">
 			<td></td>
 			<td></td>
@@ -88,13 +97,14 @@
 			<%} %>
 		</tr>
 		<tr>
-			<td class="tab" onclick="window.location='/jnp/information/informationList.jsp'">채식정보</td>
-			<td class="tab" onclick="window.location='/jnp/recipe/recipeList.jsp?mode=num'">레시피</td>
-			<td class="tab" onclick="window.location='/jnp/product/productList.jsp'">제품</td>
-			<td class="tab" onclick="window.location='/jnp/freeboard/board.jsp'">자유게시판</td>
-			<td class="tab" onclick="window.location='mailto:admin@beginVegan.com'">문의하기</td>
+			<td class="tab" onclick="window.location='/jnp/information/informationList.jsp'" <%if(mode.equals("information")) { %>style="color:#edd713;"<%} %>>채식정보</td>
+			<td class="tab" onclick="window.location='/jnp/recipe/recipeList.jsp?mode=num'" <%if(mode.equals("recipe")) { %>style="color:#edd713;"<%} %>>레시피</td>
+			<td class="tab" onclick="window.location='/jnp/product/productList.jsp'" <%if(mode.equals("product")) { %>style="color:#edd713;"<%} %>>제품</td>
+			<td class="tab" onclick="window.location='/jnp/freeboard/board.jsp'"<%if(mode.equals("freeboard")) { %>style="color:#edd713;"<%} %>>자유게시판</td>
+			<td class="tab" onclick="window.location='/jnp/ask.jsp'"<%if(mode.equals("ask")) { %>style="color:#edd713;"<%} %>>문의하기</td>
 		</tr>
 	</table>
+	</div>
 	<br/>
 </body>
 </html>

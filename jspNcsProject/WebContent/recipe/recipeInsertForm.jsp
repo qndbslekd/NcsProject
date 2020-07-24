@@ -15,7 +15,10 @@
 	<%} else { %>
 <body>
 
-<jsp:include page="../header.jsp"/>
+	<jsp:include page="../header.jsp" flush="false">
+		<jsp:param value="recipe" name="mode"/>
+	</jsp:include>
+
 	<br/>
 	<h1>레시피 작성</h1>
 	<br/>
