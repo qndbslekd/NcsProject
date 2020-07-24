@@ -12,6 +12,8 @@
 	//TEST AUTOLOGIN
 	System.out.println("===LOGIN PRO===");
 	System.out.println("AUTO VAL :"+request.getParameter("auto"));
+	String history = request.getParameter("history");
+	System.out.println("HISTORY : "+ history);
 	String id = request.getParameter("id");
 	String pw = request.getParameter("pw");
 	String auto ="n";
@@ -67,12 +69,12 @@
 		}else if(res == 0){%>
 		<script>
 			alert("아이디와 비밀번호를 다시 확인해주세요");
-			history.go(-1);
+			window.location='member/loginForm.jsp?history=<%=history%>';
 		</script>
 	<%}else if(res==-1){%>
 		<script>
 			alert("강퇴당한 회원입니다");
-			history.go(-1);
+			window.location='main.jsp';
 		</script>
 	<% }%>
 <body>
