@@ -45,6 +45,9 @@
 		margin: 20px 20px; 
 		overflow: hidden;		
 	}
+	.recipe_lst{
+		 list-style:none;
+	}
 	
 	.thumbnail {
 		height: 200px;
@@ -108,9 +111,7 @@
 		border: 1px solid #999;
 	
 	}
-	.recipe_lst{
-		 list-style:none;
-	}
+
 
 </style>
 <script>
