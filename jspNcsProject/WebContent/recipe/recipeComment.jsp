@@ -65,9 +65,9 @@
 			<td style="text-align:right; border:0px;"><%=sdf.format(dto.getReg()) %></td>
 		</tr>
 		<tr>
-			<td colspan="2" style="text-align:left;border:0px;padding-top:0px;">
+			<td colspan="2" style="text-align:left;border:0px;padding-top:5px;">
 				<%if (dto.getReceiver() !=null) { //만약 대댓글이라면 원본댓글 작성자 이름 넣어주기%>
-					<Strong><%= rDAO.selectNameById(dto.getReceiver()) %></Strong>&nbsp;&nbsp;
+					<strong><%= rDAO.selectNameById(dto.getReceiver()) %>&nbsp;&nbsp;</strong>
 				<%}%>
 				<%=dto.getContent() %>
 			</td>

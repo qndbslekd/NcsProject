@@ -25,7 +25,7 @@ if(session.getAttribute("memId")==null || !session.getAttribute("memId").equals(
 	
 	String subject = mr.getParameter("subject");
 	String content = mr.getParameter("content");
-	String info_img = mr.getFilesystemName("info_img");
+	String info_img = mr.getFilesystemName("info_img"); 
 	
 	InfomationDAO dao = InfomationDAO.getInstance();
 	dao.insertInfo(subject,content,info_img);
