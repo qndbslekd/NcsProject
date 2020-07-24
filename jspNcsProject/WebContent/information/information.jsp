@@ -66,11 +66,11 @@ input {
 				<tr> 
 					<td class="t">사진</td>
 					<td > 
-					<%if(information.getImg()==null){%>
-						<img src="../product/imgs/unnamed.gif" width="454px;" height="353px;" />
+					<%if(information.getImg()==null||information.getImg().equals("null")){%> 
+						<img src="img/unnamed.gif" width="454px;" height="353px;" />
 					<%}else{ %>
 						<img src="img/<%=information.getImg()%>" width="454px;" height="353px;" />
-					<%} %>
+					<%} %> 
 					</td>
 				</tr>
 				<tr>
