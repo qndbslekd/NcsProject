@@ -16,7 +16,7 @@
 	<%}else{ 
 %>
 <body>
-<br /><br />
+<br /><br /> 
 <h1 align="center"> 마이 페이지 </h1> 
 	<table>
 		<tr>
