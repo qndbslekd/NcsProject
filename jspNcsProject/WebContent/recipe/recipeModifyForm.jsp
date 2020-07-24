@@ -18,6 +18,9 @@
 	
 	RecipeDTO recipe = dao.selectRecipeBoard(num);
 	
+	//재료 콤마를 줄바꿈으로 바꿔서 보여주기
+	recipe.setIngredients(recipe.getIngredients().replace(",", "\n"));
+	
 	
 	String memId = (String) session.getAttribute("memId");
 	if(!memId.equals(recipe.getWriter()) && !memId.equals("admin")) {
@@ -28,7 +31,10 @@
 	
 %>
 <body>
-<jsp:include page="../header.jsp"/>
+	<jsp:include page="../header.jsp" flush="false">
+		<jsp:param value="recipe" name="mode"/>
+	</jsp:include>
+
 	<form action="recipeStepModifyForm.jsp" method="post">
 	<input type="hidden" name="num" value="<%=num %>" />
 		<table>

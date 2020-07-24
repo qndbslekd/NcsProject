@@ -25,6 +25,30 @@
 	}
 
 </style>
+<script>
+	function check(){
+		var inputs = document.searchForm;
+		var sel = inputs.sel.value;
+		var str ="";
+		if(sel != "total" && !inputs.search.value){
+			if(sel == "title"){
+				str+="제목을"
+			}
+			if(sel =="writer"){
+				str+="작성자를"
+			}
+			if(sel =="content"){
+				str+="내용을"
+			}
+			str +=" 입력하세요."
+			alert(str);
+			return false;
+		}
+		
+	}
+
+
+</script>
 </head>
 <%
 	request.setCharacterEncoding("utf-8");	
@@ -87,20 +111,27 @@
 				if(sel.equals("writer")){
 					//활동명->아이디
 					name = dao.selectIdByName(search);
-				}
-				whereQuery += "and category='"+category+"' and "+sel+" like '%"+name+"%'";
+					whereQuery += "and category='"+category+"' and "+sel+" like '%"+name+"%'";
+				}else{
+					whereQuery += "and category='"+category+"' and "+sel+" like '%"+search+"%'";
+				}		
 			}
+			
 		}else if(!category.equals("total") && sel.equals("total")){
 			whereQuery += "and category='"+category+"'";
+		
 		}else if(!sel.equals("total")){
-			if(sel.equals("writer")){
-				//활동명->아이디
-				name = dao.selectIdByName(search);
-			}
 			if(search!=null && !search.equals("")){
-				whereQuery += "and "+sel+" like '%"+name+"%'";
-			}	
+				if(sel.equals("writer")){
+					//활동명->아이디
+					name = dao.selectIdByName(search);
+					whereQuery += "and "+sel+" like '%"+name+"%'";
+				}else{
+					whereQuery += "and "+sel+" like '%"+search+"%'";
+				}		
+			}
 		}		
+		
 		count = dao.getArticlesCount(whereQuery);
 		System.out.println("검색리스트 요청 whereQuery:"+whereQuery +" count:"+count);
 		if(count > 0 ){
@@ -123,7 +154,9 @@
 		
 %>
 <body>
-	<jsp:include page="../header.jsp" flush="false"/>
+	<jsp:include page="../header.jsp" flush="false">
+		<jsp:param value="freeboard" name="mode"/>
+	</jsp:include>
 	<h1 align="center"></h1>
 	<table >
 	<%if(session.getAttribute("memId")!= null){ %>
@@ -136,7 +169,7 @@
 		</tr>
 	<%}%>
 	</table>
-	<form action="board.jsp" method="post">
+	<form action="board.jsp" method="post" name="searchForm" onsubmit="return check()">
 		<table>
 			<tr>
 				<td colspan='2'>

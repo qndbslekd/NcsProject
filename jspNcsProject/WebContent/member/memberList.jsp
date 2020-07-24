@@ -17,12 +17,24 @@
 </head>
 <jsp:include page="../header.jsp"></jsp:include>
 <style>
+.t {	
+	border-top:2px solid #ccc;
+}
+
+.t>td{
+	font-size:1.1em;
+	text-align:center; 
+	padding:5px;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
 .paging{
-		width: 960px;
-		margin: 0 auto;
-		text-align: center;
-		
-	}
+	width: 960px;
+	margin: 0 auto;
+	text-align: center;
+	
+}
 .page{
 	display: inline-block;
 	color : black;
@@ -32,7 +44,7 @@
 	if(session.getAttribute("memId")==null||!session.getAttribute("memId").toString().equals("admin")){%>
 		<script>
 			alert("관리자 페이지 입니다.");
-			window.location="main.jsp";
+			window.location="../main.jsp";
 		</script>
 	<%}else{
 		
@@ -50,7 +62,6 @@
 		System.out.println(endRow);
 		int count = 0;
 		int number = 0;
-		
 		MemberDAO dao = MemberDAO.getInstance();
 		
 		String option = request.getParameter("option");
@@ -93,23 +104,24 @@
 	%>
 
 <body>
-	<br/>
-	<h1 align="center"> 회원목록 </h1>
+	<br/> 
+	<h1 align="center"> 회원목록 </h1><hr>
+	<div style="margin: 20px;"></div>
 	<%if(count == 0){ %>
 		<table>
-			<tr>
+			<tr class="t">
 				<td> 가입한 회원이 없습니다.</td>
 			</tr>
-			<tr>
-				<td><button onclick="window.location='main.jsp'">메인으로</button></td>
+			<tr class="t">
+				<td><button onclick="window.location='../main.jsp'">메인으로</button></td>
 			</tr>				
 		</table>
 	<%}else{ %>
 		<table>
-			<tr>
+			<tr class="t">
 				<td> 회원 ID </td>
 				<td> PW </td>
-				<td> 생년월일 </td>
+				<td> 나이 </td>
 				<td> 성별 </td>
 				<td> 닉네임 </td>
 				<td> 가입일 </td>
@@ -120,13 +132,13 @@
 			</tr>
 			<%for(int i =0;i<memberList.size();i++){%>
 				<%if(memberList.get(i).getOffence_count()>=5){%> 
-				<tr>
+				<tr class="t">
 					<td style="background-color: red;"><%=memberList.get(i).getId()%></td>
 					<td style="background-color: red;"><%=memberList.get(i).getPw()%></td>
 					<td style="background-color: red;"><%=memberList.get(i).getAge()%></td>
 					<td style="background-color: red;"><%=memberList.get(i).getGender()%></td>
 					<td style="background-color: red;"><%=memberList.get(i).getName()%></td>
-					<td style="background-color: red;"><%=memberList.get(i).getRegdate()%></td>
+					<td style="background-color: red;"><%=sdf.format(memberList.get(i).getRegdate())%></td>
 					<td style="background-color: red;"><%=memberList.get(i).getOffence_count()%></td>
 					<td style="background-color: red;">
 						<%
@@ -196,21 +208,21 @@
 					<td style="background-color: red;">
 					<%if(!memberList.get(i).getId().equals("admin")){
 						if(memberList.get(i).getState().equals("활동")){%>
-							<button onclick="window.location='memberKickOutPro.jsp?id=<%=memberList.get(i).getId() %>'" >강퇴</button>					
+							<button onclick="window.location='memberKickOutPro.jsp?id=<%=memberList.get(i).getId()%>&option=kickOff'" >강퇴</button>					
 					<%}else if(memberList.get(i).getState().equals("강퇴")){%>
-							<button onclick="window.location='memberKickOutPro.jsp?id=<%=memberList.get(i).getId() %>'" >강퇴취소</button>										
+							<button onclick="window.location='memberKickOutPro.jsp?id=<%=memberList.get(i).getId()%>&option=kickOffCancle'" >강퇴취소</button>										
 					<%}
 					}%>
 					</td>
 				</tr>	
 				<%}else{%>
-				<tr> 
+				<tr class="t">
 					<td><%=memberList.get(i).getId()%></td>
 					<td><%=memberList.get(i).getPw()%></td>
 					<td><%=memberList.get(i).getAge()%></td>
 					<td><%=memberList.get(i).getGender()%></td>
 					<td><%=memberList.get(i).getName()%></td>
-					<td><%=memberList.get(i).getRegdate()%></td>
+					<td><%=sdf.format(memberList.get(i).getRegdate())%></td>
 					<td><%=memberList.get(i).getOffence_count()%>
 					</td>
 					<td>
@@ -291,10 +303,8 @@
 				</tr>
 			<%		}
 				}%>
-			<tr> 
-				<td colspan="10">
-					<button onclick="window.location='../main.jsp'">메인으로</button>
-					<button onclick="window.location='memberList.jsp?offence=1'">신고받은 회원 조회</button>
+			<tr class="t">
+				<td colspan="10" style="padding-top: 20px;">
 					<form action="memberList.jsp" method="get">
 					<select name="option">
 							<option value="id">id</option>
@@ -302,6 +312,8 @@
 					</select>
 					<input type="text" name="search" /> <input type="submit" value="검색" />
 					</form>
+						<button onclick="window.location='../main.jsp'">메인으로</button>
+					<button onclick="window.location='memberList.jsp?offence=1'">신고받은 회원 조회</button>
 				</td>
 			</tr>				 
 		</table>	
