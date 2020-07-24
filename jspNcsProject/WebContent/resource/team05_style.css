@@ -144,6 +144,15 @@ a>*{
 	text-decoration:none;
 	color:black;
 }
+
+.myButton{
+	border:0px;
+	border-radius:10px;
+	cursor:pointer;
+	outline:none;
+	padding:5px;
+}
+
 .insertTable td {
 	font-size:20px;
 	vertical-align:middle;
