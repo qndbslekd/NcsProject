@@ -13,6 +13,17 @@
 </head>
 <jsp:include page="../header.jsp"></jsp:include>
 <style>
+	/* table td {
+		font-size:1.4em;
+		vertical-align:middle;
+	}
+	td * {
+		border-top : 2px solid #ccc; 
+		margin:0;
+		padding:0;
+		vertical-align:middle;
+		text-align:left;
+	} */
 	.paging{
 		width: 960px;
 		margin: 0 auto;
@@ -57,7 +68,7 @@
 	<%if(count == 0){ %>
 		<table>
 			<tr>
-				<td> 번호 </td>
+				<td> 번호 </td> 
 				<td> 제목 </td>
 				<td> 내용 </td>
 				<td> 작성일 </td>
