@@ -71,7 +71,9 @@
 			RecipeContentCommentDAO dao = null;
 %>
 <body>
-	<jsp:include page="../header.jsp" flush="false" />
+	<jsp:include page="../header.jsp" flush="false">
+		<jsp:param value="recipe" name="mode"/>
+	</jsp:include>
 	<br />
 	
 	<table class="nonBorder" style="max-width:1100px; min-width:1100px;">

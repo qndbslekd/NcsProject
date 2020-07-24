@@ -9,7 +9,9 @@
 	<title>Insert title here</title>
 	<link href="../resource/team05_style.css" rel="stylesheet" type="text/css">
 </head>
-<jsp:include page="../header.jsp"></jsp:include>
+	<jsp:include page="../header.jsp" flush="false">
+		<jsp:param value="information" name="mode"/>
+	</jsp:include>
 <style>
 table td {
 	font-size:1.4em;
@@ -61,36 +63,40 @@ input[type="file"]{
 				<tr>
 					<td class="t">제목</td> 
 					<td style=" font-size: 100%;">
-						<input type="text" value="<%=information.getSubject()%>" name="subject" size="50"/>
+						<input type="text" value="<%=information.getSubject()%>" name="subject" size="50" required="required"/>
 					</td> 
 				</tr>
 					<tr>
 						<td class="t">사진</td>
 						<td>
-						<%if(information.getImg()==null){%>
-							<img src="../product/imgs/unnamed.gif" width="454px;" height="353px;" />
+						<%if(information.getImg()==null||information.getImg().equals("null")){%> 
+							<img src="img/unnamed.gif" width="454px;" height="353px;" />
 						<%}else{ %>
 							<img src="img/<%=information.getImg()%>" width="454px;" height="353px;" />
-						<%} %>
+						<%} %> 
 						</td>
 					</tr>
 					<tr>
 						<td class="t">수정할 이미지</td>
 						<td>
 							<input type = "file" name ="info_img">
-							<input type = "hidden" name = "info_img_before" value="<%=information.getImg()%>"/>
+							<%if(information.getImg()!=null){ %>
+								<input type = "hidden" name = "info_img_before" value="<%=information.getImg()%>"/>
+							<%}else{ %>
+								<input type = "hidden" name = "info_img_before" />
+							<%} %>
 						</td>
 					</tr>
 					<tr><td class="t">내용</td>
 						<td style="text-align: left; padding-left: 50px; padding-right: 50px; padding-top:20px;">
-							<textarea rows="20" cols="100" name="content"><%=information.getContent()%></textarea>
+							<textarea rows="20" cols="100" name="content" required="required"><%=information.getContent()%></textarea>
 						</td>
 					</tr>
 					<tr>
 						<td></td>
 						<td style="padding-top: 20px;">
-							<button type="submit" >수정</button>
-							<button type="button" onclick="window.location='informationList.jsp'">수정취소</button>
+							<button type="submit" class="grayButton" style="width: 80px; height: 30px; text-align: center" >수정</button>
+							<button type="button" class="grayButton" style="width: 80px; height: 30px; text-align: center" onclick="window.location='informationList.jsp'">수정취소</button>
 						</td>
 					</tr>	
 				<input type="hidden" value= "<%=information.getNum()%>" name="num"/>

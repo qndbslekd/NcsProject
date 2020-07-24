@@ -43,7 +43,9 @@ if(request.getParameter("num") == null){%>
 		
 %>
 <body>
-<jsp:include page="../header.jsp"/>
+	<jsp:include page="../header.jsp" flush="false">
+		<jsp:param value="freeboard" name="mode"/>
+	</jsp:include>
 		<table>
 		
 
