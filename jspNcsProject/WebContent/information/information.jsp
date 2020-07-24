@@ -61,9 +61,9 @@ input {
 					<td class="t">제목</td>
 					<td><%=information.getSubject() %></td>
 				</tr>
-				<tr>
+				<tr> 
 					<td class="t">사진</td>
-					<td>
+					<td > 
 					<%if(information.getImg()==null){%>
 						<img src="../product/imgs/unnamed.gif" width="454px;" height="353px;" />
 					<%}else{ %>
