@@ -46,6 +46,7 @@ if(document.getElementsByName("history")[0].value=='default'){
 	back = document.referrer;
 	form.history.value = back;
 }
+history.replaceState({}, null, location.pathname);
 </script>
 <%}else{ 
 	response.sendRedirect("../main.jsp");	
