@@ -33,7 +33,9 @@ input {
 }
 </style>
 </head>
-<jsp:include page="../header.jsp"></jsp:include>
+	<jsp:include page="../header.jsp" flush="false">
+		<jsp:param value="information" name="mode"/>
+	</jsp:include>/jsp:include>
 <%
 	String num = request.getParameter("num");
 	if((session.getAttribute("memId") == null||!session.getAttribute("memId").equals("admin"))){%>

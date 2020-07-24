@@ -148,8 +148,9 @@
 		
 %>
 <body>
-	<jsp:include page="../header.jsp" flush="false"/>
-	
+	<jsp:include page="../header.jsp" flush="false">
+		<jsp:param value="recipe" name="mode"/>
+	</jsp:include>
 	<form action="recipeSearchList.jsp" name="searchForm" method="post">
 		<input type="hidden" name="mode" value="num"/>
 		<table id="search">

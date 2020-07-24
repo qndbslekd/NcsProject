@@ -31,7 +31,10 @@
 	
 %>
 <body>
-<jsp:include page="../header.jsp"/>
+	<jsp:include page="../header.jsp" flush="false">
+		<jsp:param value="recipe" name="mode"/>
+	</jsp:include>
+
 	<form action="recipeStepModifyForm.jsp" method="post">
 	<input type="hidden" name="num" value="<%=num %>" />
 		<table>
