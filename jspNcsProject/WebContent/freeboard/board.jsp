@@ -31,6 +31,43 @@
 		margin:0 auto;
 	
 	}
+	.write_button{
+		width:90px;
+		float:left;
+		border: 1px solid #DADBD7;
+		padding: 5px 7px 5px 7px;
+		background-color: rgb(139, 195, 74);
+		color: white;
+		cursor: pointer;
+		border-radius : 5px;
+		font-size:15px;
+		
+	}
+	.buttn{
+		width:70px;
+		float:left;
+		border: 1px solid #DADBD7;
+		padding: 3px 7px 3px 7px;
+		cursor: pointer;
+		
+	}
+	#selected{
+		background-color: #44b6b5;
+		color: white;
+		cursor: pointer;
+	}
+	
+	table{
+		border-collapse: collapse;
+	
+	}
+	
+	.sub{
+		width:1000px;
+		margin: 0 auto;
+	
+	
+	}
 
 </style>
 <script>
@@ -165,25 +202,27 @@
 	<jsp:include page="../header.jsp" flush="false">
 		<jsp:param value="freeboard" name="mode"/>
 	</jsp:include>
-	<h2 align="center">자유게시판</h2>
-	<table >
-	<%if(session.getAttribute("memId")!= null){ %>
+	<h1 align="center">자유게시판</h1>
+	<table class="sub">
 		<tr>
-			<td>
-				<button onclick="window.location='boardInsertForm.jsp'">글쓰기</button>			
+			<%if(session.getAttribute("memId")!= null){ %>
+			<td style="width:100px">
+				<button class="write_button" onclick="window.location='boardInsertForm.jsp'">글쓰기</button>			
 			</td>
-			<td colspan='5'>
-			</td>
+			<%}else{%>
+			<td></td>
+			<%} %>
 		</tr>
-	<%}%>
-	</table>
-	
-	<table>
 		<tr>
-			<td><button onclick="window.location='board.jsp?mode=reg&category=<%=category%>&sel=<%=sel%>&search=<%=search%>&pageNum=<%=pageNum%>'">최신순</button></td>
-			<td><button onclick="window.location='board.jsp?mode=read_count&category=<%=category%>&sel=<%=sel%>&search=<%=search%>&pageNum=<%=pageNum%>'">조회순</button></td>
-			<td><button onclick="window.location='board.jsp?mode=recommend&category=<%=category%>&sel=<%=sel%>&search=<%=search%>&pageNum=<%=pageNum%>'">추천순</button></td>
+			<td style="width:900px;">
+				<button class="buttn" <%if(mode.equals("reg")){%>id="selected"<%}%> onclick="window.location='board.jsp?mode=reg&category=<%=category%>&sel=<%=sel%>&search=<%=search%>&pageNum=<%=pageNum%>'">최신순</button>
+				<button class="buttn" <%if(mode.equals("read_count")){%>id="selected"<%}%> onclick="window.location='board.jsp?mode=read_count&category=<%=category%>&sel=<%=sel%>&search=<%=search%>&pageNum=<%=pageNum%>'">조회순</button>
+				<button class="buttn" <%if(mode.equals("recommend")){%>id="selected"<%}%> onclick="window.location='board.jsp?mode=recommend&category=<%=category%>&sel=<%=sel%>&search=<%=search%>&pageNum=<%=pageNum%>'">추천순</button>
+			</td>
+			
 		</tr>
+
+		
 	</table>
 	<table class="list" >
 		<thead>	
