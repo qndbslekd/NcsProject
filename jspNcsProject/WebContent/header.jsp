@@ -5,10 +5,8 @@
 <head>
 <meta charset="utf-8">
 <link href="../resource/team05_style.css" type="text/css" rel="stylesheet"/>
-
 <title>header</title>
 <style>
-
 #header {
 	width: 1000px;
 	border-collapse: collapse;
