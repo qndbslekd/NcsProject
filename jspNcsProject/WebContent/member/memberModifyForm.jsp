@@ -122,7 +122,6 @@ System.out.println(dto);
 				<button class="grayButton" type="submit" style="width: 50px; height: 30px; text-align: center">수정</button>
 				<button class="grayButton" type="reset" name="reset" style="width: 50px; height: 30px; text-align: center" >재입력</button>
 				<button class="grayButton" type="button" value="취소" style="width: 50px; height: 30px; text-align: center" onclick="window.location='main.jsp'">취소</button>
-		
 			</td> 
 		</tr>
 	</table> 
