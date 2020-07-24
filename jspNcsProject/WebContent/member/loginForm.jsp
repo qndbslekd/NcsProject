@@ -41,12 +41,12 @@
 </body>	
 <!--로그인시 이전주소 값으로 가기-->
 <script type="text/javascript">
-if(document.getElementsByName("history")[0].value=='default'){
-	var form = document.login;
-	back = document.referrer;
-	form.history.value = back;
-}
-history.replaceState({}, null, location.pathname);
+	if(document.getElementsByName("history")[0].value=='default'){
+		var form = document.login;
+		back = document.referrer;
+		form.history.value = back;
+	}
+	history.replaceState({}, null, location.pathname);
 </script>
 <%}else{ 
 	response.sendRedirect("../main.jsp");	
