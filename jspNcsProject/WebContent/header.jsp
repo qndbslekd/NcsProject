@@ -28,7 +28,7 @@
 	color:#edd713;
 }
 #header .tab:focus{
-	color:#edd713;
+	color:#edd713; 
 }
 
 </style>
@@ -36,7 +36,7 @@
 <script type="text/javascript">
 	var nowUrl = window.location;
 	if(nowUrl == 'http://localhost:8080/jnp/header.jsp'){
-		window.location = 'information/information.jsp';
+		window.location = '/jnp/main.jsp';
 	}
 </script> 
 <%
