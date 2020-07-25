@@ -149,19 +149,19 @@
 									String seq = "";
 									if(urls[splitUrls].contains("RCC")){
 										seq = rccDao.selectSeqForMemberList(urls[splitUrls].substring(3));
-										%> <a href="http://localhost:8080/jnp/recipe/recipeContent.jsp?num=<%=seq%>">조리단계댓글</a>
+										%> <a href="/jnp/recipe/recipeContent.jsp?num=<%=seq%>">조리단계댓글</a>
 											<button type="button" onclick="window.open('memberOffenceUpdate.jsp?url=<%=urls[splitUrls] %>&id=<%=memberList.get(i).getId()%>','신고확정','toolbar=no,location=no,status = no, menubar = no, scrollbars = no,resizable = no, width = 500,height = 150');">
 											v</button>
 										<%
 									}else if(urls[splitUrls].contains("RC")){
 										seq = rcDao.selectSeqForMemberList(urls[splitUrls].substring(2));
-										%> <a href="http://localhost:8080/jnp/recipe/recipeContent.jsp?num=<%=seq%>">레시피댓글</a>
+										%> <a href="/jnp/recipe/recipeContent.jsp?num=<%=seq%>">레시피댓글</a>
 											<button type="button" onclick="window.open('memberOffenceUpdate.jsp?url=<%=urls[splitUrls] %>&id=<%=memberList.get(i).getId()%>','신고확정','toolbar=no,location=no,status = no, menubar = no, scrollbars = no,resizable = no, width = 500,height = 150');">
 											v</button>
 										<%
 									}else if(urls[splitUrls].contains("R")){
 										seq = urls[splitUrls].substring(1);
-										%> <a href="http://localhost:8080/jnp/recipe/recipeContent.jsp?num=<%=seq%>">레시피</a>
+										%> <a href="/jnp/recipe/recipeContent.jsp?num=<%=seq%>">레시피</a>
 											<button type="button" onclick="window.open('memberOffenceUpdate.jsp?url=<%=urls[splitUrls] %>&id=<%=memberList.get(i).getId()%>','신고확정','toolbar=no,location=no,status = no, menubar = no, scrollbars = no,resizable = no, width = 500,height = 150');">
 											v</button>
 										<%
@@ -171,13 +171,13 @@
 										boolean isComment = pDao.isComment(booleanCheckNum);
 										if(isComment){
 											seq = pDao.getSeq(booleanCheckNum);
-										%> <a href="http://localhost:8080/jnp/product/productContent.jsp?num=<%=seq%>">제품댓글</a>
+										%> <a href="/jnp/product/productContent.jsp?num=<%=seq%>">제품댓글</a>
 											<button type="button" onclick="window.open('memberOffenceUpdate.jsp?url=<%=urls[splitUrls] %>&id=<%=memberList.get(i).getId()%>','신고확정','toolbar=no,location=no,status = no, menubar = no, scrollbars = no,resizable = no, width = 500,height = 150');">
 											v</button>
 										<%
 										}else{
 											seq = urls[splitUrls].substring(2);
-										%> <a href="http://localhost:8080/jnp/product/productContent.jsp?num=<%=seq%>">제품</a>
+										%> <a href="/jnp/product/productContent.jsp?num=<%=seq%>">제품</a>
 											<button type="button" onclick="window.open('memberOffenceUpdate.jsp?url=<%=urls[splitUrls] %>&id=<%=memberList.get(i).getId()%>','신고확정','toolbar=no,location=no,status = no, menubar = no, scrollbars = no,resizable = no, width = 500,height = 150');">
 											v</button>
 										<%
@@ -188,14 +188,14 @@
 										if(isComment){
 											seq = fDao.getSeq(booleanCheckNum);
 											%>
-											 <a href="http://localhost:8080/jnp/freeboard/boardContent.jsp?num=<%=seq%>">제품댓글</a>
+											 <a href="/jnp/freeboard/boardContent.jsp?num=<%=seq%>">제품댓글</a>
 												<button type="button" onclick="window.open('memberOffenceUpdate.jsp?url=<%=urls[splitUrls] %>&id=<%=memberList.get(i).getId()%>','신고확정','toolbar=no,location=no,status = no, menubar = no, scrollbars = no,resizable = no, width = 500,height = 150');">
 												v</button>
 											<%
 										}
 									}else if(urls[splitUrls].contains("F")){
 										seq = urls[splitUrls].substring(1);
-										%> <a href="http://localhost:8080/jnp/freeboard/boardContent.jsp?num=<%=seq%>">자유게시판</a>
+										%> <a href="/jnp/freeboard/boardContent.jsp?num=<%=seq%>">자유게시판</a>
 											<button type="button" onclick="window.open('memberOffenceUpdate.jsp?url=<%=urls[splitUrls] %>&id=<%=memberList.get(i).getId()%>','신고확정','toolbar=no,location=no,status = no, menubar = no, scrollbars = no,resizable = no, width = 500,height = 150');">
 											v</button>
 										<%
@@ -235,19 +235,19 @@
 									String seq = "";
 									if(urls[splitUrls].contains("RCC")){
 										seq = rccDao.selectSeqForMemberList(urls[splitUrls].substring(3));
-										%> <a href="http://localhost:8080/jnp/recipe/recipeContent.jsp?num=<%=seq%>">조리단계댓글</a>
+										%> <a href="/jnp/recipe/recipeContent.jsp?num=<%=seq%>">조리단계댓글</a>
 											<button type="button" onclick="window.open('memberOffenceUpdate.jsp?url=<%=urls[splitUrls] %>&id=<%=memberList.get(i).getId()%>','신고확정','toolbar=no,location=no,status = no, menubar = no, scrollbars = no,resizable = no, width = 500,height = 150');">
 											v</button>
 										<%
 									}else if(urls[splitUrls].contains("RC")){
 										seq = rcDao.selectSeqForMemberList(urls[splitUrls].substring(2));
-										%> <a href="http://localhost:8080/jnp/recipe/recipeContent.jsp?num=<%=seq%>">레시피댓글</a>
+										%> <a href="/jnp/recipe/recipeContent.jsp?num=<%=seq%>">레시피댓글</a>
 											<button type="button" onclick="window.open('memberOffenceUpdate.jsp?url=<%=urls[splitUrls] %>&id=<%=memberList.get(i).getId()%>','신고확정','toolbar=no,location=no,status = no, menubar = no, scrollbars = no,resizable = no, width = 500,height = 150');">
 											v</button>
 										<%
 									}else if(urls[splitUrls].contains("R")){
 										seq = urls[splitUrls].substring(1);
-										%> <a href="http://localhost:8080/jnp/recipe/recipeContent.jsp?num=<%=seq%>">레시피</a>
+										%> <a href="/jnp/recipe/recipeContent.jsp?num=<%=seq%>">레시피</a>
 											<button type="button" onclick="window.open('memberOffenceUpdate.jsp?url=<%=urls[splitUrls] %>&id=<%=memberList.get(i).getId()%>','신고확정','toolbar=no,location=no,status = no, menubar = no, scrollbars = no,resizable = no, width = 500,height = 150');">
 											v</button>
 										<%
@@ -257,13 +257,13 @@
 										boolean isComment = pDao.isComment(booleanCheckNum);
 										if(isComment){
 											seq = pDao.getSeq(booleanCheckNum);
-										%> <a href="http://localhost:8080/jnp/product/productContent.jsp?num=<%=seq%>">제품댓글</a>
+										%> <a href="/jnp/product/productContent.jsp?num=<%=seq%>">제품댓글</a>
 											<button type="button" onclick="window.open('memberOffenceUpdate.jsp?url=<%=urls[splitUrls] %>&id=<%=memberList.get(i).getId()%>','신고확정','toolbar=no,location=no,status = no, menubar = no, scrollbars = no,resizable = no, width = 500,height = 150');">
 											v</button>
 										<%
 										}else{
 											seq = urls[splitUrls].substring(2);
-										%> <a href="http://localhost:8080/jnp/product/productContent.jsp?num=<%=seq%>">제품</a>
+										%> <a href="/jnp/product/productContent.jsp?num=<%=seq%>">제품</a>
 											<button type="button" onclick="window.open('memberOffenceUpdate.jsp?url=<%=urls[splitUrls] %>&id=<%=memberList.get(i).getId()%>','신고확정','toolbar=no,location=no,status = no, menubar = no, scrollbars = no,resizable = no, width = 500,height = 150');">
 											v</button>
 										<%
@@ -274,14 +274,14 @@
 										if(isComment){
 											seq = fDao.getSeq(booleanCheckNum);
 											%>
-											 <a href="http://localhost:8080/jnp/freeboard/boardContent.jsp?num=<%=seq%>">제품댓글</a>
+											 <a href="/jnp/freeboard/boardContent.jsp?num=<%=seq%>">제품댓글</a>
 												<button type="button" onclick="window.open('memberOffenceUpdate.jsp?url=<%=urls[splitUrls] %>&id=<%=memberList.get(i).getId()%>','신고확정','toolbar=no,location=no,status = no, menubar = no, scrollbars = no,resizable = no, width = 500,height = 150');">
 												v</button>
 											<%
 										}
 									}else if(urls[splitUrls].contains("F")){
 										seq = urls[splitUrls].substring(1);
-										%> <a href="http://localhost:8080/jnp/freeboard/boardContent.jsp?num=<%=seq%>">자유게시판</a>
+										%> <a href="/jnp/freeboard/boardContent.jsp?num=<%=seq%>">자유게시판</a>
 											<button type="button" onclick="window.open('memberOffenceUpdate.jsp?url=<%=urls[splitUrls] %>&id=<%=memberList.get(i).getId()%>','신고확정','toolbar=no,location=no,status = no, menubar = no, scrollbars = no,resizable = no, width = 500,height = 150');">
 											v</button>
 										<%
