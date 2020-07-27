@@ -112,7 +112,7 @@
 		
 	}
 	div #selected{
-		background-color: #44b6b5;
+		background-color: #8bc34a;
 		color: white;
 		cursor: pointer;
 	}
