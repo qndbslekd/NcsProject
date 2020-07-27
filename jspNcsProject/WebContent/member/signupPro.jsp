@@ -31,11 +31,14 @@ if(mr.getParameter("id")==null||mr.getParameter("pw")==null||mr.getParameter("na
 	String id_number2 = mr.getParameter("id_number2");
 	String vegi_type = mr.getParameter("vegi_type");
 	String profile_img = mr.getFilesystemName("profile_img");
+	if(profile_img == null) {
+		profile_img = "unnamed.gif";
+	}
 	System.out.println(path);
 	
 	MemberDAO dao = MemberDAO.getInstance();
 	MemberDTO dto = new MemberDTO();
-	
+	 
 	//dto setting
 	if(id_number2.equals("1")||id_number2.equals("3")){
 		dto.setGender("M");
