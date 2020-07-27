@@ -13,25 +13,26 @@
 			alert("로그인 후 이용하세요");
 			window.location="loginForm.jsp";
 		</script>
-	<%}else{
+	<%}else{ 
 %>
 <body>
+<br /><br /> 
 <h1 align="center"> 마이 페이지 </h1> 
 	<table>
 		<tr>
 			<td>
-				<a onclick="window.location='memberModifyForm.jsp'"><img src="../resource/modify_.png"><br/>정보 수정</a>
+				<a onclick="window.location='memberModifyForm.jsp'" style="cursor:pointer;"><img src="../resource/modify_.png"><br/>정보 수정</a>
 			</td>
 			<td>
-				<a onclick="window.location='memberDeleteForm.jsp'"><img src="../resource/delete_.png"><br/>회원 탈퇴</a>
+				<a onclick="window.location='memberDeleteForm.jsp'" style="cursor:pointer;"><img src="../resource/delete_.png"><br/>회원 탈퇴</a>
 			</td>
 		</tr>
 		<tr>
 			<td>
-				<a onclick="window.location='myList.jsp'"><img src="../resource/recipe_.png"><br/>내가 쓴 레시피/댓글</a>
+				<a onclick="window.location='myList.jsp'" style="cursor:pointer;"><img src="../resource/recipe_.png"><br/>내 글/댓글 목록</a>				
 			</td>
 			<td>
-				<a onclick="window.location='myScrapRecipe.jsp'"><img src="../resource/comment_.png"><br/>내가 찜한 레시피</a>
+				<a onclick="window.location='myScrapRecipe.jsp'" style="cursor:pointer;"><img src="../resource/comment_.png"><br/>내가 찜한 레시피</a>
 			</td>
 		</tr>
 		<tr>

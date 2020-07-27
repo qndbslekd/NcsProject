@@ -207,7 +207,6 @@ public class RecipeDAO {
 	//레시피 삭제
 	public void deleteRecipeBoard(int num) {
 		try {
-			conn = getConnection();
 			
 			//레시피 세부내용 댓글 삭제
 			RecipeContentCommentDAO rccDAO = RecipeContentCommentDAO.getInstance();
@@ -230,6 +229,7 @@ public class RecipeDAO {
 			sDAO.deleteScrapAllByNum(num);
 			
 			//레시피 태그 삭제
+			conn = getConnection();
 			String tag = instance.selectRecipeBoard(num).getTag();
 			
 			if(tag != null && !tag.equals("")) {
@@ -428,16 +428,20 @@ public class RecipeDAO {
 	public ProductDTO selectProductByIngredient(String ingre) {
 		ProductDTO dto = null;
 		
-		String search = "%" + ingre + "%";
+		String search = "";
+		if(ingre.length() < 2) {
+			search = "name like '% " + ingre + " %'";
+		} else {
+			search = "name like '%" + ingre + "%'";
+		}
 		
 		try {
 			
 			conn = getConnection();
 			
-			String sql = "select * from product where name like ? order by recommend desc";
+			String sql = "select * from product where "+search+" order by recommend desc";
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setString(1, search);
 			
 			rs = pstmt.executeQuery();
 			
