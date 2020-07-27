@@ -7,6 +7,7 @@
 	<title>Insert title here</title>
 	<link href="../resource/team05_style.css" rel="stylesheet" type="text/css">
 </head>
+<jsp:include page="../header.jsp"></jsp:include>
 <%
 	if(session.getAttribute("memId") == null||request.getParameter("pw")==null){%>
 		<%if(session.getAttribute("memId") == null){%>
