@@ -583,12 +583,14 @@ public class MemberDAO {
 						if(!tmp[indexTmp].equals(url)) {
 							System.out.print("V");
 							afterUrl += tmp[indexTmp]+",";
-						} 
+						}
 						System.out.println();
 					}
 					System.out.println("update Query : "+afterUrl);
 					if(!afterUrl.equals(",")) {
 						sql = "UPDATE MEMBER SET OFFENCE_URL = ? WHERE id = ?";
+						afterUrl = afterUrl.substring(0, afterUrl.length()-1);
+						System.out.println("ROLLBACK URL : "+afterUrl);
 						pstmt = conn.prepareStatement(sql);
 						pstmt.setString(1, afterUrl);
 						pstmt.setString(2, id);
