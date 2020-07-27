@@ -121,8 +121,10 @@ if(request.getParameter("num") == null){%>
 				<td colspan='2'>
 				<%if(article.getWriter().equals((String)session.getAttribute("memId"))){%>
 					<input type="button" value="수정" onclick="window.location='boardModifyForm.jsp?num=<%=article.getNum()%>'"/>
-					<input type="button" value="삭제" onclick="deleteArticle('<%=num%>')"/>
 				<%}%>
+				<%if(article.getWriter().equals((String)session.getAttribute("memId")) || ((String)session.getAttribute("memId")).equals("admin")){ %>
+					<input type="button" value="삭제" onclick="deleteArticle('<%=num%>')"/>
+				<%} %>
 				<%if(session.getAttribute("memId")!=null && !(article.getWriter().equals((String)session.getAttribute("memId")))){%>
 					<input type="button" value="신고" onclick="report('F','<%=article.getNum()%>','<%=article.getWriter()%>')" />
  				<%}%>
