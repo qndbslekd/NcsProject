@@ -43,7 +43,8 @@
 		position: relative;
 		float: left;
 		margin: 20px 20px; 
-		overflow: hidden;		
+		overflow: hidden;	
+		cursor: pointer;	
 	}
 	.recipe_lst{
 		 list-style:none;
@@ -78,7 +79,14 @@
 	}
 	
 	.write_button{
-		background-color: green;
+		width:100px;
+		float:left;
+		border: 1px solid #DADBD7;
+		padding: 7px 10px 7px 10px;
+		background-color: rgb(139, 195, 74);
+		color: white;
+		cursor: pointer;
+		border-radius : 5px;
 		
 	}
 	
@@ -100,11 +108,13 @@
 		float:left;
 		border: 1px solid #DADBD7;
 		padding: 3px 7px 3px 7px;
+		cursor: pointer;
 		
 	}
 	div #selected{
 		background-color: #44b6b5;
 		color: white;
+		cursor: pointer;
 	}
 	
 	.input-box{
@@ -215,16 +225,16 @@
 	
 	<div class="sub-wrapper">
 		<% if(session.getAttribute("memId")!= null){ %>
-		<div>
+		<div style="height:50px;">
 			<button  class="write_button" onclick="window.location='recipeInsertForm.jsp'" >레시피 작성</button>
-		</div>
+		</div >
 		<%}%>
 		<div class="total_recipe">
 			<div style="text-align:left; font-size:17px; float: left; width:743px;">총 <span style="color:rgb(139, 195, 74); font-size:23px;"><%=count %></span>개의 레시피가 있습니다.</div>
 			<div class="sort_button" style="float: left;">
 				<div class="buttn" <%if(mode.equals("num")){%> id="selected"<%}%> onclick="window.location='recipeList.jsp?mode=num'">최신순</div>
 				<div class="buttn" <%if(mode.equals("rating")){%> id="selected"<%}%> onclick="window.location='recipeList.jsp?mode=rating'">평점순</div>
-			</div>		
+			</div>		 
 		</div>
 		
 	</div>
