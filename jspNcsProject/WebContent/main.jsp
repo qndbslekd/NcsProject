@@ -27,6 +27,9 @@
 		height:auto;
 		
 	}
+	.recipe {
+		cursor:pointer;
+	}
 </style>
 <%
 String memId = (String) session.getAttribute("memId");
@@ -88,7 +91,7 @@ if(memId != null) {	//로그인 한 상태면 로그인 정보 가져오기
 
 				 %>
 					<td style="padding:15px;vertical-align:top;"> 
-						<div class="recipe" onclick="window.location='recipeContent.jsp?num=<%=dto.getNum()%>'">
+						<div class="recipe" onclick="window.location='/jnp/recipe/recipeContent.jsp?num=<%=dto.getNum()%>'">
 							<div class="thumbnail">
 								<img width="198px" height="198px" style="border-radius:5px" src="/jnp/recipe/imgs/<%=dto.getThumbnail()%>"/>
 							</div>
@@ -136,7 +139,7 @@ if(memId != null) {	//로그인 한 상태면 로그인 정보 가져오기
 					
 					%>
 						<td style="padding:15px;vertical-align:top;"> 
-							<div class="recipe" onclick="window.location='recipeContent.jsp?num=<%=dto.getNum()%>'">
+							<div class="recipe" onclick="window.location='/jnp/recipe/recipeContent.jsp?num=<%=dto.getNum()%>'">
 								<div class="thumbnail">
 									<img width="198px" height="198px" style="border-radius:5px" src="/jnp/recipe/imgs/<%=dto.getThumbnail()%>"/>
 								</div>
@@ -170,7 +173,7 @@ if(memId != null) {	//로그인 한 상태면 로그인 정보 가져오기
 	<tr>
 		<td colspan="3" style="text-align:left; vertical-align:middle"><img src="resource/leaf.png" style="width:25px; margin:0; padding:0; bottom:0;"/> <span style="font-size:1.3em">추천 제품</span></td>
 		<td style="text-align:right;">
-			<a href="product/productList.jsp" style="color:black;">+more</a>
+			<a href="jnp/product/productList.jsp" style="color:black;">+more</a>
 		</td>
 	</tr>
 	<tr>
@@ -188,7 +191,7 @@ if(memId != null) {	//로그인 한 상태면 로그인 정보 가져오기
 			for( int i = 0; i < y; i++) {
 				ProductDTO dto = (ProductDTO) productList.get(i); %>
 					<td style="padding:15px;vertical-align:top;"> 
-						<div class="recipe" onclick="product/productContent.jsp?num=<%=dto.getNum()%>'">
+						<div class="recipe" onclick="window.location='/jnp/product/productContent.jsp?num=<%=dto.getNum()%>'">
 							<div class="thumbnail">
 								<img width="198px" height="198px" style="border-radius:5px" src="/jnp/product/imgs/<%=dto.getProduct_img()%>"/>
 							</div>
@@ -240,7 +243,7 @@ if(mostTag == null) { //찜한 레시피가 없을 때 : 전체 레시피 중 �
 					int rateCount = Rtdao.getCountRating(dto.getNum()); %>
 					
 						<td style="padding:15px;vertical-align:top;"> 
-							<div class="recipe" onclick="window.location='recipeContent.jsp?num=<%=dto.getNum()%>'">
+							<div class="recipe" onclick="window.location='/jnp/recipe/recipeContent.jsp?num=<%=dto.getNum()%>'">
 								<div class="thumbnail">
 									<img width="198px" height="198px" style="border-radius:5px" src="/jnp/recipe/imgs/<%=dto.getThumbnail()%>"/>
 								</div>
@@ -291,7 +294,7 @@ if(mostTag == null) { //찜한 레시피가 없을 때 : 전체 레시피 중 �
 					int rateCount = Rtdao.getCountRating(dto.getNum()); %>
 					
 						<td style="padding:15px;vertical-align:top;"> 
-							<div class="recipe" onclick="window.location='recipeContent.jsp?num=<%=dto.getNum()%>'">
+							<div class="recipe" onclick="window.location='/jnp/recipe/recipeContent.jsp?num=<%=dto.getNum()%>'">
 								<div class="thumbnail">
 									<img width="198px" height="198px" style="border-radius:5px" src="/jnp/recipe/imgs/<%=dto.getThumbnail()%>"/>
 								</div>
