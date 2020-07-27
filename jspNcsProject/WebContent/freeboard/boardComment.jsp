@@ -9,6 +9,29 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+	#comment_list{
+		width: 700px;
+	}
+	
+
+	.content {
+		overflow:hidden;
+		height:auto;
+		text-align:left; 
+		padding-left:30px;
+		padding-bottom: 15px;
+
+	}
+	.re_content{
+		overflow:hidden;
+		height:auto;
+		vertical-align: middle;
+		text-align:left; 
+	}
+
+
+</style>
 <script>
 	function check(){
 		var inputs = document.commentform;
@@ -48,22 +71,31 @@
 %>
 
 <body>
-	<table class="comment_list">		
+	<table id="comment_list">		
 		<%if(commentList == null){%>
 			<tr>
+				<td><p style="color:black; font-size:30px; font-weight:700; text-align:left;">댓글</p></td>
+				
+			</tr>
+
+			<tr style="border-top:1px solid black; border-bottom:1px solid black; height:100px;">
 				<td>작성된 댓글이 없습니다.</td>
 			</tr>
-		<%}else{
+		<%}else{%>
+			<tr><td><p style="color:black; font-size:30px; font-weight:700;">댓글</p></td></tr>
+		
+		<% 
 			for(int i = 0 ; i<commentList.size();i++){
 				BoardCommentDTO comment = (BoardCommentDTO)commentList.get(i);
 				String name = dao.selectNameById(comment.getWriter());
 				String img = dao.selectImgById(comment.getWriter());
 				if(comment.getRe_level()==0){
 				%>
-				<tr>
-					<td rowspan='2'><img width="60px" height="60px" src="/jnp/save/<%=img%>"/></td>
-					<td><%=name%></td>
-					<td>
+				
+				<tr style="border-top:1px solid #999;">		
+					<td style="width:60px;"rowspan='2'><img style="width:60px; height:60px; border-radius:30px;" src="/jnp/save/<%=img%>"/></td>
+					<td><p style="font-weight:bold; font-size:15px;"><%=name%></p></td>
+					<td style="text-align:left;">
 					<% if(loginId !=null && loginId.equals(comment.getWriter())){ %>
 						<button onclick="modifyComment('<%=comment.getComment_num()%>')">수정</button>
 					<%}%>
@@ -75,20 +107,20 @@
 						<button onclick="report('FC','<%=comment.getComment_num()%>','<%=comment.getWriter()%>')">신고</button>
 					<%} %>
 					</td>
-					<td><%=sdf.format(comment.getReg())%></td>
+					<td colspan='4'><p style="text-align:right;"><%=sdf.format(comment.getReg())%></p></td>
 				</tr>
 				<tr>
-					<td colspan='4'><%=comment.getContent()%></td>		
-				</tr>	
+					<td class="content" colspan='4'><%=comment.getContent()%></td>		
+				</tr>
 		<% 		}else{
 					String receiverName = dao.selectNameById(comment.getReceiver());
 					String img2 = dao.selectImgById(comment.getWriter());
 		%>
-				<tr>
-					<td rowspan='2'><img width="20px" src="/jnp/freeboard/img/replyImg.png"/></td>
-					<td rowspan='2'><img width="60px" height="60px" src="/jnp/save/<%=img2%>"/></td>
-					<td><%=name%></td>
-					<td><% if(loginId !=null && loginId.equals(comment.getWriter())){ %>
+				<tr style="border-top:1px solid #999;">
+					<td rowspan='2' style="width:20px;"><img width="20px" src="/jnp/freeboard/img/replyImg.png"/></td>
+					<td rowspan='2' style="width:60px;"><img style="width:60px; height:60px; border-radius:30px;" src="/jnp/save/<%=img2%>"/></td>
+					<td style="width:100px;"><p style="font-weight:bold;"><%=name%></p></td>
+					<td style="text-align:left;"><% if(loginId !=null && loginId.equals(comment.getWriter())){ %>
 						<button onclick="modifyComment('<%=comment.getComment_num()%>')">수정</button>
 					<%}%>
 					<%if (loginId !=null && (loginId.equals(comment.getWriter())|| loginId.equals("admin"))){%>
@@ -98,21 +130,25 @@
 						<button onclick="reply('<%=freeboard_num%>','<%=comment.getRef()%>','<%=comment.getRe_level()%>','<%=comment.getWriter()%>')">답글</button>
 						<button onclick="report('FC','<%=comment.getComment_num()%>','<%=comment.getWriter()%>')">신고</button>
 					<%} %></td>
-					<td><%=sdf.format(comment.getReg())%></td>
+					<td style="text-align:right;"><%=sdf.format(comment.getReg())%></td>
 				</tr>
 				<tr>
-					<td><%=receiverName%></td>
-					<td><%=comment.getContent()%></td>
+					<td><p style="font-weight:bold;"><%=receiverName%></p></td>
+					<td colspan='4' class="re_content"><%=comment.getContent()%></td>
 				</tr>
 		<% 		}
 			}
 		}%>
 	</table>
+	<br/>
+	<br/>
 	<%if(session.getAttribute("memId")!=null){%>
 	<form action="boardCommentPro.jsp" method="post" name="commentform" onsubmit="return check()">
 		<input type="hidden" name="freeboard_num" value="<%=freeboard_num%>"/>
 		<input type="hidden" name="writer" value="<%=session.getAttribute("memId")%>"/>		
 		<table class="comment_input">
+			<tr>
+			</tr>
 			<tr>
 				<td><textarea name="content" cols="70" rows="3" style="resize:none;"></textarea></td> 
 				<td><input type="submit" value="댓글작성"/></td>

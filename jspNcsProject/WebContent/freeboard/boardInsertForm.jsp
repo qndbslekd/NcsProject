@@ -6,6 +6,34 @@
 <meta charset="UTF-8">
 <title>자유게시판 글 작성하기</title>
 <link href="../resource/team05_style.css" type="text/css" rel="stylesheet"/>
+<style>
+	#f-content{
+		margin-top: 70px;
+		width: 700px;
+		height: auto;
+		overflow: hidden;
+	}
+
+	#f-content tr{
+		height: 30px;
+	
+	}
+	#f-content td{
+		border-top: 1px solid #999;
+		border-buttom: 1px solid #999;
+		
+	}
+	
+	.contents {
+		width:300px;
+		height:500px;
+		resize : none;
+		border : 0px;
+		padding: 10px;
+	}
+
+
+</style>
 </head>
 <%
 	if(session.getAttribute("memId") == null ){%>
@@ -39,18 +67,17 @@
 		<input type="hidden" name="re_step" value="<%=re_step %>"/>
 		<input type="hidden" name="re_level" value="<%=re_level%>"/>
 		<input type="hidden" name="writer" value="<%=session.getAttribute("memId")%>"/>
-	<table>
+	<table id="f-content">
 		<tr>
-			<td>제목</td>
-			
-			<td><input type="text" name="title" <%if(reCh==true){%>value="[re]"<%}%>/></td>		
+			<td style="width:100px;">제목</td>		
+			<td><input type="text" name="title" style="width:300px" <%if(reCh==true){%>value="[re]"<%}%>/></td>		
 		</tr>
 		<tr>
-			<td>작성자</td>
+			<td style="width:100px;">작성자</td>
 			<td><%=session.getAttribute("memName")%></td>		
 		</tr>
 		<tr>
-			<td>카테고리</td>
+			<td style="width:100px;">카테고리</td>
 			<td>
 				<select name="category">
 				<%	if(session.getAttribute("memId")!= null && ((String)(session.getAttribute("memId"))).equals("admin")){%>
@@ -63,13 +90,14 @@
 			</td>		
 		</tr>
 		<tr>
-			<td>내용</td>
-			<td><textarea rows="20" cols="100" name="content"></textarea></td>		
+			<td style="width:100px;">내용</td>
+			<td><textarea rows="20" cols="100" name="content" class="contents"></textarea></td>		
 		</tr>
 		<tr>
-			<td>이미지</td>
+			<td style="width:100px;">이미지</td>
 			<td><input type="file" name="img"/></td>		
 		</tr>
+		<tr><td>&nbsp;</td></tr>
 		<tr>
 			<td colspan='2'>
 				<input type="submit" value="작성"/>
