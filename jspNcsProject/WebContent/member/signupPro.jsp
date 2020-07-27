@@ -35,7 +35,7 @@ if(mr.getParameter("id")==null||mr.getParameter("pw")==null||mr.getParameter("na
 	
 	MemberDAO dao = MemberDAO.getInstance();
 	MemberDTO dto = new MemberDTO();
-	
+	 
 	//dto setting
 	if(id_number2.equals("1")||id_number2.equals("3")){
 		dto.setGender("M");
