@@ -207,7 +207,6 @@ public class RecipeDAO {
 	//레시피 삭제
 	public void deleteRecipeBoard(int num) {
 		try {
-			conn = getConnection();
 			
 			//레시피 세부내용 댓글 삭제
 			RecipeContentCommentDAO rccDAO = RecipeContentCommentDAO.getInstance();
@@ -230,6 +229,7 @@ public class RecipeDAO {
 			sDAO.deleteScrapAllByNum(num);
 			
 			//레시피 태그 삭제
+			conn = getConnection();
 			String tag = instance.selectRecipeBoard(num).getTag();
 			
 			if(tag != null && !tag.equals("")) {
@@ -246,6 +246,7 @@ public class RecipeDAO {
 			
 			
 			//레시피 정보 삭제
+			conn = getConnection();
 			String sql = "delete from recipe_board where num=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, num);
