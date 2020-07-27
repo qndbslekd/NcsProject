@@ -136,7 +136,7 @@
 	}
 	#selected{
 
-		background-color: #44b6b5;
+		background-color: #8bc34a;
 		color: white;
 	}
 </style>
@@ -199,21 +199,7 @@
 			whereQuery += (" and difficulty='"+difficulty+"'");
 		}
 	}
-	//칼로리 검색
-	
-	if((calMore!=null  && !calMore.equals("") )|| (calUnder!=null && !calUnder.equals(""))){//둘중 하나라도 값이 있을때	
-		if((!calMore.equals("") && calMore!=null ) &&  (!calUnder.equals("") && calMore!=null)){ // 둘다 있는경우
-			int calMoreNum = Integer.parseInt(calMore);
-			int calUnderNum = Integer.parseInt(calUnder);
-			whereQuery +=(" and cal >= "+ calMoreNum + " and cal<="+calUnderNum);
-		}else if((!calMore.equals("") && calMore!=null )){//이상값만 있는경우
-			int calMoreNum = Integer.parseInt(calMore);
-			whereQuery += (" and cal >= "+calMoreNum);
-		}else if((!calUnder.equals("") && calUnder!=null)){ //이하값만 있는경우
-			int calUnderNum = Integer.parseInt(calUnder);
-			whereQuery += (" and cal <= "+calUnderNum);
-		}
-	}	
+
 	//칼로리 검색	
 	if(( calMore!=null && !calMore.equals("") )|| (calUnder!= null && !calUnder.equals(""))){//둘중 하나라도 값이 있을때	
 		if(( calMore!=null  && !calMore.equals("")) && (calUnder!=null && !calUnder.equals(""))){ // 둘다 있는경우
