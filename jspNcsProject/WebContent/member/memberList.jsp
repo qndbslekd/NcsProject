@@ -226,7 +226,6 @@
 					<td><%=memberList.get(i).getOffence_count()%>
 					</td>
 					<td>
-					
 						<%
 							if(memberList.get(i).getOffence_url()!=null){
 								String[] urls = memberList.get(i).getOffence_url().split(",");
