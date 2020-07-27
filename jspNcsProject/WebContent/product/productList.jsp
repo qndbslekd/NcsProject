@@ -57,8 +57,14 @@
 		margin: 0 auto;
 	}
 	.write_button{
-		background-color: green;
-		
+		width:100px;
+		float:left;
+		border: 1px solid #DADBD7;
+		padding: 7px 10px 7px 10px;
+		background-color: rgb(139, 195, 74);
+		color: white;
+		cursor: pointer;
+		border-radius : 5px;
 	}
 	
 	.total_recipe{
@@ -82,7 +88,7 @@
 		
 	}
 	div #selected{
-		background-color: #44b6b5;
+		background-color: #8bc34a;
 		color: white;
 	}
 </style>
@@ -154,7 +160,7 @@ if (search == null || search.equals("")) {
 	
 	<div class="sub-wrapper">
 		<% if(session.getAttribute("memId")!= null&&session.getAttribute("memId").equals("admin")){ %>
-		<div>
+		<div style="height:50px;">
 			<button  class="write_button" onclick="window.location='productInsertForm.jsp'" >제품 등록</button>
 		</div>
 		<%}%>
@@ -163,7 +169,7 @@ if (search == null || search.equals("")) {
 			<div style="text-align:left; font-size:17px; float: left; width:743px;">총<span style="color:rgb(139, 195, 74); font-size:23px;"><%=count %></span>개의 제품이 있습니다.</div>		
 			<div class="sort_button" style="float: left;">
 				<%if(search==null||search.equals("")){%>
-				<div class="buttn" <%if(mode.equals("num")){%> id="selected"<%}%> onclick="window.location='productList.jsp?mode=num'">최신순</div>
+				<div class="buttn"  <%if(mode.equals("num")){%> id="selected"<%}%> onclick="window.location='productList.jsp?mode=num'">최신순</div>
 				<div class="buttn"  <%if(mode.equals("rating")){%> id="selected"<%}%>onclick="window.location='productList.jsp?mode=rating'">추천순</div>
 				<%}else{ %>
 				<div class="buttn" <%if(mode.equals("num")){%> id="selected"<%}%> onclick="window.location='productList.jsp?mode=num&option=<%=option%>&search=<%=search%>'">최신순</div>

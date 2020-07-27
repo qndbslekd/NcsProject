@@ -78,12 +78,12 @@ input {
 					<td style="text-align: left; padding-left: 50px; padding-right: 50px; padding-top:20px;">
 					<textarea readonly="readonly" rows="20" cols="100" style="border: none"><%=information.getContent()%></textarea></td>
 				</tr>
-				<%if(id.equals("admin")){ %>
 					<tr>
 						<td></td>
-						<td style="padding-top: 20px;">
-							<button onclick="window.location = 'InformationModifyForm.jsp?num=<%=num%>'" >수정페이지로 이동</button>
-							<button onclick="window.location = 'InformationDeletePro.jsp?num=<%=num%>'" >삭제</button>
+						<td style="padding-top: 20px; padding-right: 20px;"><button class="grayButton" style="width: 80px; height: 30px; text-align: center" onclick="window.location='informationList.jsp'" >목록으로</button>
+					<%if(id.equals("admin")){ %>
+							<button class="grayButton" style="width: 150px; height: 30px; text-align: center" onclick="window.location = 'InformationModifyForm.jsp?num=<%=num%>'" >수정페이지로 이동</button>
+							<button class="grayButton" style="width: 80px; height: 30px; text-align: center" onclick="window.location = 'InformationDeletePro.jsp?num=<%=num%>'" >삭제</button>
 						</td>
 					</tr>
 				<%}%>

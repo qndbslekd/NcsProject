@@ -9,6 +9,14 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+	.comment_list{
+		width: 600px;
+	}
+	
+
+
+</style>
 <script>
 	function check(){
 		var inputs = document.commentform;
@@ -51,18 +59,26 @@
 	<table class="comment_list">		
 		<%if(commentList == null){%>
 			<tr>
+				<td><p style="color:black; font-size:30px; font-weight:700; text-align:left;">댓글</p></td>
+				
+			</tr>
+			<tr>
 				<td>작성된 댓글이 없습니다.</td>
 			</tr>
-		<%}else{
+		<%}else{%>
+			<tr><td><p style="color:black; font-size:30px; font-weight:700;">댓글</p></td></tr>
+		
+		<% 
 			for(int i = 0 ; i<commentList.size();i++){
 				BoardCommentDTO comment = (BoardCommentDTO)commentList.get(i);
 				String name = dao.selectNameById(comment.getWriter());
 				String img = dao.selectImgById(comment.getWriter());
 				if(comment.getRe_level()==0){
 				%>
-				<tr>
+				
+				<tr class="comment">		
 					<td rowspan='2'><img width="60px" height="60px" src="/jnp/save/<%=img%>"/></td>
-					<td><%=name%></td>
+					<td><p style="font-weight:bold;"><%=name%></p></td>
 					<td>
 					<% if(loginId !=null && loginId.equals(comment.getWriter())){ %>
 						<button onclick="modifyComment('<%=comment.getComment_num()%>')">수정</button>
@@ -83,11 +99,12 @@
 		<% 		}else{
 					String receiverName = dao.selectNameById(comment.getReceiver());
 					String img2 = dao.selectImgById(comment.getWriter());
+				
 		%>
 				<tr>
 					<td rowspan='2'><img width="20px" src="/jnp/freeboard/img/replyImg.png"/></td>
 					<td rowspan='2'><img width="60px" height="60px" src="/jnp/save/<%=img2%>"/></td>
-					<td><%=name%></td>
+					<td ><p style="font-weight:bold;"><%=name%></p></td>
 					<td><% if(loginId !=null && loginId.equals(comment.getWriter())){ %>
 						<button onclick="modifyComment('<%=comment.getComment_num()%>')">수정</button>
 					<%}%>
@@ -101,7 +118,7 @@
 					<td><%=sdf.format(comment.getReg())%></td>
 				</tr>
 				<tr>
-					<td><%=receiverName%></td>
+					<td><p style="font-weight:bold;"><%=receiverName%></p></td>
 					<td><%=comment.getContent()%></td>
 				</tr>
 		<% 		}
@@ -113,6 +130,9 @@
 		<input type="hidden" name="freeboard_num" value="<%=freeboard_num%>"/>
 		<input type="hidden" name="writer" value="<%=session.getAttribute("memId")%>"/>		
 		<table class="comment_input">
+			<tr>
+
+			</tr>
 			<tr>
 				<td><textarea name="content" cols="70" rows="3" style="resize:none;"></textarea></td> 
 				<td><input type="submit" value="댓글작성"/></td>

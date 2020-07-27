@@ -40,9 +40,14 @@
 	
 		width : 200px;
 		height : auto;
+		position: relative;
 		float: left;
 		margin: 20px 20px; 
-		overflow: hidden;		
+		overflow: hidden;	
+		cursor: pointer;	
+	}
+	.recipe_lst{
+		 list-style:none;
 	}
 	
 	.thumbnail {
@@ -74,7 +79,14 @@
 	}
 	
 	.write_button{
-		background-color: green;
+		width:100px;
+		float:left;
+		border: 1px solid #DADBD7;
+		padding: 7px 10px 7px 10px;
+		background-color: rgb(139, 195, 74);
+		color: white;
+		cursor: pointer;
+		border-radius : 5px;
 		
 	}
 	
@@ -96,17 +108,20 @@
 		float:left;
 		border: 1px solid #DADBD7;
 		padding: 3px 7px 3px 7px;
+		cursor: pointer;
 		
 	}
 	div #selected{
-		background-color: #44b6b5;
+		background-color: #8bc34a;
 		color: white;
+		cursor: pointer;
 	}
 	
 	.input-box{
 		border: 1px solid #999;
 	
 	}
+
 
 </style>
 <script>
@@ -161,7 +176,7 @@
 			</tr>
 			<tr>
 				<td class="title">재료명</td>
-				<td colspan='7'><input type="text" name="ingredients" class="input-box" style="width: 620px;"placeholder="재료1,재료2,.."/></td>
+				<td colspan='7'><input type="text" name="ingredients" class="input-box" style="width:620px;"placeholder="재료1,재료2,.."/></td>
 			</tr>
 			<tr>
 				<td class="title">분류</td>
@@ -210,31 +225,32 @@
 	
 	<div class="sub-wrapper">
 		<% if(session.getAttribute("memId")!= null){ %>
-		<div>
+		<div style="height:50px;">
 			<button  class="write_button" onclick="window.location='recipeInsertForm.jsp'" >레시피 작성</button>
-		</div>
+		</div >
 		<%}%>
 		<div class="total_recipe">
 			<div style="text-align:left; font-size:17px; float: left; width:743px;">총 <span style="color:rgb(139, 195, 74); font-size:23px;"><%=count %></span>개의 레시피가 있습니다.</div>
 			<div class="sort_button" style="float: left;">
 				<div class="buttn" <%if(mode.equals("num")){%> id="selected"<%}%> onclick="window.location='recipeList.jsp?mode=num'">최신순</div>
 				<div class="buttn" <%if(mode.equals("rating")){%> id="selected"<%}%> onclick="window.location='recipeList.jsp?mode=rating'">평점순</div>
-			</div>		
+			</div>		 
 		</div>
 		
 	</div>
-	
 	<div id="recipe-wrapper">
 	<%if(recipeList==null){ %>
 		<h1 style="color:black;">등록된 레시피가 없습니다.</h1>
 	<%}else{
 		RatingDAO dao = RatingDAO.getInstance();
-		
+		int cnt = 0;
 		for(int i = 0 ; i< recipeList.size() ; i++){
+			cnt += 1;
 			RecipeDTO recipe = (RecipeDTO)(recipeList.get(i));		
 			int rateCount = dao.getCountRating(recipe.getNum());
 			
-		%>
+			if(cnt%4 == 1){%><li class="recipe_lst"><%}%>
+
 			<div class="recipe" onclick="window.location='recipeContent.jsp?num=<%=recipe.getNum()%>'">
 				<div class="thumbnail">
 					<img width="198px" height="198px" style="border-radius:5px" src="/jnp/recipe/imgs/<%=recipe.getThumbnail()%>"/>
@@ -242,11 +258,21 @@
 				<div class="info">
 					<div class="row" style="font-size:17px"><%=recipe.getRecipeName()%></div>
 					<div class="row" style="color:#999; font-weight:100;">posted by <%=RecipeDao.selectNameById(recipe.getWriter()) %></div>
-					<div class="row"style="font-size:14px"><%=recipe.getRating()%>(<%=rateCount%>개의 평가)</div>			
+					<div class="row"style="font-size:14px">
+						<%
+						//평점 별 그림 넣기
+						for(int j = 0; j < (int)recipe.getRating() ; j++) {
+							%> <img src = "/jnp/recipe/imgs/star.png" width="12px" style="margin:0px auto; vertical-align:center"/> 
+						<%}%>
+						<%for(int j = 0; j < 5-(int)recipe.getRating() ; j++) {
+							%> <img src = "/jnp/recipe/imgs/emptyStar.png" width="12px"style="margin:0px auto; vertical-align:center"/> 
+						<%}%>
+					<%=recipe.getRating()%> (<%=rateCount%>)</div>			
 				</div>			
 			</div>
+			<%if(cnt%4 == 0){%></li><%}%>		
 	<%	}
-	}%>			
+	 }%>			
 	</div>
 	
 	<div class="paging">
