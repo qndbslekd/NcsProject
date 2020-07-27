@@ -84,7 +84,8 @@
 				<span style="vertical-align:top; top:0px; width:40px;">
 				<%if (memId != null) {  if(!memId.equals(recipeBoard.getWriter())) {%>
 					<%String empty = ""; if(!scrapDAO.confirmScrap(num, memId)) { empty = "empty"; }%>
-					<img src="/jnp/recipe/imgs/<%=empty %>heart.png" width="40px" style="cursor:pointer;" onclick="scrap(<%=num%>,'<%=memId%>',<%=scrapDAO.confirmScrap(num, memId)%>)" />
+					<img src="/jnp/recipe/imgs/<%=empty %>heart.png" width="40px" style="cursor:pointer;" 
+						onclick="scrap(<%=num%>,'<%=memId%>',<%=scrapDAO.confirmScrap(num, memId)%>)" />
 				<%}else{%>
 					<div style="min-width:40px; display:inline-block;">&nbsp;</div>
 				<%} } else {%><div style="min-width:40px; display:inline-block;">&nbsp;</div><%} %>
@@ -155,9 +156,11 @@
 			<td colspan="3" style="border-top:2px solid #ccc;">
 				<table class="nonBorder">
 					<tr>
-						<td> <img src="/jnp/save/<%=recipeDAO.selectImgById(recipeBoard.getWriter())%>" style="width:60px; height:60px; border-radius:30px; "/> </td>
+						<td> 						
+							<img src="/jnp/save/<%=recipeDAO.selectImgById(recipeBoard.getWriter())%>" style="width:60px; height:60px; border-radius:30px; "/> 
+						</td>
 						<td><h2><%= recipeDAO.selectNameById(recipeBoard.getWriter())%></h2></td>
-						<td><button class = "greenButton" onclick="window.location='recipeSearchList.jsp?writer=<%=recipeBoard.getWriter()%>'">레시피 더 보기</button></td>
+						<td><button class = "greenButton" onclick="window.location='recipeSearchList.jsp?writer=<%=recipeDAO.selectNameById(recipeBoard.getWriter())%>'">레시피 더 보기</button></td>
 					</tr>
 				</table>
 			</td>
@@ -276,6 +279,7 @@
 			var offenceCode = code+commentNum;
 			location.href= "../member/offenceMember.jsp?offenceUrl="+offenceCode+"&member="+member;
 		}		
+		
 	}
 	
 </script>

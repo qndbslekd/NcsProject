@@ -12,6 +12,7 @@
 	#nonBorder {
 		border:0px;
 	}
+
 </style>
 </head>
 <%
@@ -50,30 +51,39 @@
 <jsp:include page="../header.jsp" flush="false"/>
 <br /><br />
 <h1 align="center"> 내 글 목록 </h1> 
+
 <br />
 <form>
-	<table id="nonBorder" style="width:700">
+	<table id="nonBorder" style="width:700px;" >
 		<tr>
-			<td style="width:177px">
+			<td colspan="3">
+				<div align="right" style="padding-right: 47px">
+				<input type="button" value="취소" class="myButton" onclick="window.location='myPage.jsp'" />
+				</div>
+			</td>
+		</tr>
+		<tr style="height:30px">
+			<td style="width:177px;">
 				<%-- 여긴 select option 값에 따라서 계속 변할 예정  --%>
-				총 게시글 수 : <%= count %>
+				&nbsp;&nbsp;&nbsp;총 게시글 수 : <%= count %>
 			</td>
 			
 			<td style="width:309px">
-				<select name="option" style="width:129px">
+				<select name="option" style="width:129px; margin-left: 50px;">
 					<option value="myRecipeList">레시피</option>
 					<option value="myFreeboardList" <%if(option.equals("myFreeboardList")){%>selected<%} %>>자유게시판</option>
 				</select>	
-				<input type="submit" value="이동" />
+				<input type="submit" class="myButton" value="이동" />
 			</td>
 			<td style="width:318px">
-				<input type="button" onclick="window.location='myList.jsp'" value="내 글 보기" />
-				<input type="button" onclick="window.location='myCommentList.jsp'" value="내 댓글 보기" />
+				<input type="button" onclick="window.location='myList.jsp'" value="내 글 보기" 
+				class="myButton" style="margin-left:18px; color:white; background-color:rgb(139, 195, 74);"/>
+				<input type="button" onclick="window.location='myCommentList.jsp'" value="내 댓글 보기" class="myButton" style="margin-left:-6px;" />
 
 			</td>
 		</tr>
 		<tr>
-			<td colspan="5">
+			<td colspan="5" width="804">
 				<% if(option.equals("myRecipeList")){%>
 					<br />
 					<jsp:include page="myRecipeList.jsp" flush="false" >
@@ -87,10 +97,9 @@
 						<jsp:param value="<%= option %>" name="option"/>
 		 			</jsp:include>	
 				<%} %>
-		 				
-	
 			</td>	
 		</tr>
+
 	</table>
 </form>
 
