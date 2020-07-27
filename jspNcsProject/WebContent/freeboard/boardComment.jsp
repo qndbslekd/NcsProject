@@ -65,14 +65,17 @@
 			<tr>
 				<td>작성된 댓글이 없습니다.</td>
 			</tr>
-		<%}else{
+		<%}else{%>
+			<tr><td><p style="color:black; font-size:30px; font-weight:700;">댓글</p></td></tr>
+		
+		<% 
 			for(int i = 0 ; i<commentList.size();i++){
 				BoardCommentDTO comment = (BoardCommentDTO)commentList.get(i);
 				String name = dao.selectNameById(comment.getWriter());
 				String img = dao.selectImgById(comment.getWriter());
 				if(comment.getRe_level()==0){
 				%>
-				<tr><td><p style="color:black; font-size:30px; font-weight:700;">댓글</p></td></tr>
+				
 				<tr class="comment">		
 					<td rowspan='2'><img width="60px" height="60px" src="/jnp/save/<%=img%>"/></td>
 					<td><p style="font-weight:bold;"><%=name%></p></td>
