@@ -302,7 +302,6 @@ public class MemberDAO {
 		}
 		return result;
 	}
-	
 	public List getSearchMemberList(int start, int end) {
 		List memberList = new ArrayList<MemberDTO>();
 		try {
