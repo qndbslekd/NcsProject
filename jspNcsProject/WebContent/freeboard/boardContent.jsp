@@ -122,7 +122,7 @@ if(request.getParameter("num") == null){%>
 				<%if(article.getWriter().equals((String)session.getAttribute("memId"))){%>
 					<input type="button" value="수정" onclick="window.location='boardModifyForm.jsp?num=<%=article.getNum()%>'"/>
 				<%}%>
-				<%if(article.getWriter().equals((String)session.getAttribute("memId")) || ((String)session.getAttribute("memId")).equals("admin")){ %>
+				<%if(article.getWriter().equals((String)session.getAttribute("memId")) || (session.getAttribute("memId")!=null && ((String)session.getAttribute("memId")).equals("admin"))){ %>
 					<input type="button" value="삭제" onclick="deleteArticle('<%=num%>')"/>
 				<%} %>
 				<%if(session.getAttribute("memId")!=null && !(article.getWriter().equals((String)session.getAttribute("memId")))){%>
