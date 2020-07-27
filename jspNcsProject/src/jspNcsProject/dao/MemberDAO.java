@@ -36,6 +36,7 @@ public class MemberDAO {
 	}
 	public int insertMember(MemberDTO dto) {
 		int result = 0;
+		
 		try {
 			//11개
 			String sql = "INSERT INTO MEMBER values(?,?,?,?,?,?,?,?,0,?,'활동',sysdate)";
