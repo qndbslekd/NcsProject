@@ -562,7 +562,6 @@ public class MemberDAO {
 		return mostTag;
 	}
 	//신고확정, 신고취소
-	//확정했다가 취소하는경우 추가해야함
 	public boolean updateOffence(String option,String url,String id) {
 		boolean isCommit = false;
 		try {
