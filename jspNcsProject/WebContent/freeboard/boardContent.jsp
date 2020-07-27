@@ -12,7 +12,7 @@
 <style>
 	#f-content{
 		margin-top: 70px;
-		width: 500px;
+		width: 700px;
 		height: auto;
 		overflow: hidden;
 	}
@@ -69,6 +69,15 @@ if(request.getParameter("num") == null){%>
 	
 	//추천기능
 	RecommendDAO Rdao = RecommendDAO.getInstance();
+
+	//추천여부확인
+	boolean ch = false;
+	if(session.getAttribute("memId") != null){
+		String mem_id = (String)session.getAttribute("memId");
+		ch = Rdao.checkRecommend(num,mem_id);	
+	}
+	
+	 
 	
 		
 %>
@@ -84,9 +93,11 @@ if(request.getParameter("num") == null){%>
 			<tr>
 				<td>LIKE</td>
 				<td><%=article.getRecommend()%>
-				<%if(session.getAttribute("memId")!=null){%>
-				<button onclick="window.location='recommendArticle.jsp?freeboard_num=<%=article.getNum()%>&mem_id=<%=session.getAttribute("memId")%>&pageNum=<%=pageNum%>'">추천하기</button>
-				<%}%>
+				<%if(session.getAttribute("memId")!=null && ch == false){%>
+				<img src="/jnp/freeboard/img/emptyheart.png" style="width:20px;" onclick="window.location='recommendArticle.jsp?freeboard_num=<%=article.getNum()%>&mem_id=<%=session.getAttribute("memId")%>&pageNum=<%=pageNum%>'"/>
+				<%}else if(session.getAttribute("memId")!=null && ch == true){%>
+				<img src="/jnp/freeboard/img/heart.png" style="width:20px;" onclick="window.location='recommendArticle.jsp?freeboard_num=<%=article.getNum()%>&mem_id=<%=session.getAttribute("memId")%>&pageNum=<%=pageNum%>'"/>
+				<%} %>
 			</tr>
 			<tr>
 				<td>HIT</td>
