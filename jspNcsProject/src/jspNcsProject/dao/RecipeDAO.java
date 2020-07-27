@@ -246,7 +246,6 @@ public class RecipeDAO {
 			
 			
 			//레시피 정보 삭제
-			conn = getConnection();
 			String sql = "delete from recipe_board where num=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, num);
