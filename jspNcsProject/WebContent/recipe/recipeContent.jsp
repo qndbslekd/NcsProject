@@ -156,7 +156,9 @@
 			<td colspan="3" style="border-top:2px solid #ccc;">
 				<table class="nonBorder">
 					<tr>
-						<td> <img src="/jnp/save/<%=recipeDAO.selectImgById(recipeBoard.getWriter())%>" style="width:60px; height:60px; border-radius:30px; "/> </td>
+						<td> 						
+							<img src="/jnp/save/<%=recipeDAO.selectImgById(recipeBoard.getWriter())%>" style="width:60px; height:60px; border-radius:30px; "/> 
+						</td>
 						<td><h2><%= recipeDAO.selectNameById(recipeBoard.getWriter())%></h2></td>
 						<td><button class = "greenButton" onclick="window.location='recipeSearchList.jsp?writer=<%=recipeDAO.selectNameById(recipeBoard.getWriter())%>'">레시피 더 보기</button></td>
 					</tr>
@@ -277,6 +279,7 @@
 			var offenceCode = code+commentNum;
 			location.href= "../member/offenceMember.jsp?offenceUrl="+offenceCode+"&member="+member;
 		}		
+		
 	}
 	
 </script>
