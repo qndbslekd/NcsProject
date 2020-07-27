@@ -28,6 +28,7 @@
 	}
 	
 	.contents {
+		border: 1px solid black;
 		width:500px;
 		height:500px;
 		resize : none;
@@ -102,12 +103,7 @@ if(request.getParameter("num") == null){%>
 					<%if(article.getCategory().equals("question")){%>고민과질문<%}%>
 					<%if(article.getCategory().equals("freetalk")){%>잡담과일기<%}%>
 					<%if(article.getCategory().equals("information")){%>정보 공유<%}%>
-				
-				
-				
-				</td>	
-				
-					
+				</td>				
 			</tr>
 			<tr>
 				<td>CONTENT</td>
@@ -134,8 +130,8 @@ if(request.getParameter("num") == null){%>
 				</td>		
 			</tr>
 		</table>
-	</form>
-	
+	</form>	
+	<br/>	
 	<jsp:include page="boardComment.jsp">
 		<jsp:param value="<%=num%>" name="num"/>
 	</jsp:include>
