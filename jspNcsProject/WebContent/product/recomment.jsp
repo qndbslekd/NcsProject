@@ -12,15 +12,25 @@
 	||request.getParameter("num")==null){%>
 	<%if(session.getAttribute("memName")==null){%>
 	<script type="text/javascript">
+	if(!window.opener){ 
+		alert("올바른 접근이 아닙니다");
+		window.location = '../main.jsp';
+	}else{
 			alert("로그인 후 가능합니다");
 			opener.location = "http://localhost:8080/jnp/member/loginForm.jsp";
 			window.close();
+	}
 	</script>
 	<%}else{%>
 	<script type="text/javascript">
+	if(!window.opener){ 
+		alert("올바른 접근이 아닙니다");
+		window.location = '../main.jsp';
+	}else{
 			alert("올바른 접근이 아닙니다");
 			opener.location = "http://localhost:8080/jnp/product/productList.jsp";
 			window.close();
+	}
 	</script>
 	<%} %>
 <%}else{
@@ -40,4 +50,5 @@
 	</form>
 </body>
 <%} %>
+
 </html>
