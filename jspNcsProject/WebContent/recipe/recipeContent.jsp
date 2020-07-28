@@ -280,8 +280,9 @@
 			location.href= "../member/offenceMember.jsp?offenceUrl="+offenceCode+"&member="+member;
 		}		
 	}
-	
-</script>
+
+
+	</script>
 <%
 	} %>
 </html>
