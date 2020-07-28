@@ -75,7 +75,7 @@
 			</tr>
 			<tr>
 				<td class="t" style="vertical-align:top;">재료</td>
-				<td class="h"><textarea cols="20" rows="10" placeholder="예) 
+				<td class="h"><textarea cols="40" rows="10" placeholder="예) 
 감자 : 1개
 양파 : 2개
 고추장 : 두스푼

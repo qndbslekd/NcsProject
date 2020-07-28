@@ -36,10 +36,13 @@
 	String ingredients = mr.getParameter("ingredients");
 	String tag = mr.getParameter("tag");
 	
+	
+	System.out.println("받아온 재료 : " + ingredients );
 	//재료 다듬어서 저장하기
 	String ingre = ",";
 	//줄바꿈을 콤마로 바꾸기
-	ingredients.replace("\n", ",");
+	ingredients = ingredients.replaceAll("\n", ",");
+	System.out.println("중간 재료 : " + ingredients );
 	//콤마 기준으로 나누기
 	String[] ingreSplit = ingredients.split(",");
 	
@@ -52,6 +55,7 @@
 	}
 	
 	ingredients = ingre;
+	System.out.println("넣는 재료 : " + ingre);
 	
 	
 	//태그 다듬어서 저장하기
