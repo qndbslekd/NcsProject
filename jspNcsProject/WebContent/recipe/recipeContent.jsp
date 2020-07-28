@@ -156,7 +156,9 @@
 			<td colspan="3" style="border-top:2px solid #ccc;">
 				<table class="nonBorder">
 					<tr>
-						<td> <img src="/jnp/save/<%=recipeDAO.selectImgById(recipeBoard.getWriter())%>" style="width:60px; height:60px; border-radius:30px; "/> </td>
+						<td> 						
+							<img src="/jnp/save/<%=recipeDAO.selectImgById(recipeBoard.getWriter())%>" style="width:60px; height:60px; border-radius:30px; "/> 
+						</td>
 						<td><h2><%= recipeDAO.selectNameById(recipeBoard.getWriter())%></h2></td>
 						<td><button class = "greenButton" onclick="window.location='recipeSearchList.jsp?writer=<%=recipeDAO.selectNameById(recipeBoard.getWriter())%>'">레시피 더 보기</button></td>
 					</tr>
@@ -190,12 +192,10 @@
 					
 					Set keySet = ingre.keySet();
 					Iterator ir = keySet.iterator();
-					int counts = 0;
 					while(ir.hasNext()) {	
 						String key = (String) ir.next(); 
-						String value = ingre.get(key);
-						counts++;%>
-					<tr <%if(counts % 2 == 0) { %> style="background-color:#cbeda4;"<%} %> >
+						String value = ingre.get(key);%>
+					<tr>
 						<td class="lineTable" style="width:100px; text-align:left; padding:10px;"> <%= key%> </td>
 						<td class="lineTable" style="width:100px; text-align:right;padding:10px;"> <%= value%></td>
 					</tr>				
@@ -278,8 +278,9 @@
 			location.href= "../member/offenceMember.jsp?offenceUrl="+offenceCode+"&member="+member;
 		}		
 	}
-	
-</script>
+
+
+	</script>
 <%
 	} %>
 </html>

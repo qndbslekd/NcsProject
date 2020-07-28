@@ -83,7 +83,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td colspan="5">
+			<td colspan="5" width="804">
 				<% if(option.equals("myRecipeList")){%>
 					<br />
 					<jsp:include page="myRecipeList.jsp" flush="false" >
