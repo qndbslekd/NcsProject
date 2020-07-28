@@ -9,7 +9,7 @@
 <style>
 	#f-content{
 		margin-top: 70px;
-		width: 500px;
+		width: 700px;
 		height: auto;
 		overflow: hidden;
 	}
