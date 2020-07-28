@@ -90,7 +90,7 @@
 		recipeboardDTO = recipeboardDAO.selectRecipeBoard(recipeNum);
 	%>
 	<div onclick="location.href='../recipe/recipeContent.jsp?num=<%= recipeboardDTO.getNum()%>'">
-	<table border="0" id="nonBorder">
+	<table id="nonBorder" style="width:700px; text-align: left;">
 		<tr>
 			<td >
 				원글제목 : <%= recipeboardDTO.getRecipeName() %>
