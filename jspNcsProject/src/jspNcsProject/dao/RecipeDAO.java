@@ -465,7 +465,7 @@ public class RecipeDAO {
 			ArrayList myRecipeList = null;
 			try {
 				conn = getConnection();
-				String sql = "SELECT rb.* FROM(SELECT rownum AS r, rb.* FROM (SELECT rb.* FROM RECIPE_BOARD rb WHERE writer = ? ORDER BY rb.reg asc) rb)rb WHERE r >= ? AND r <= ?";
+				String sql = "SELECT rb.* FROM(SELECT rownum AS r, rb.* FROM (SELECT rb.* FROM RECIPE_BOARD rb WHERE writer = ? ORDER BY rb.reg desc) rb)rb WHERE r >= ? AND r <= ?";
 				
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, writer);
