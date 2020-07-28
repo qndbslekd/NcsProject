@@ -48,10 +48,10 @@
 		<input type="hidden" name="tag" value="<%=tag%>"/>
 		<input type="hidden" name="cookingTime" value="<%=cookingTime%>"/>
 
-		<table>
+		<table class="insertTable">
 			<tr>
-				<td>대표 이미지 등록</td>
-				<td colspan="3"><input type="file" name="thumbnail"/></td>
+				<td  class="t">대표 이미지 등록</td>
+				<td  class="h" colspan="3"><input type="file" name="thumbnail"/></td>
 			</tr>
 			<tr>
 				<td colspan="4">요리 세부 내용</td>
@@ -62,15 +62,17 @@
 				if(i-1 < contents.size()) dto = (RecipeContentDTO) contents.get(i-1);
 			%>		
 			<tr>
-				<td><h2><%=i %></h2></td>
-				<td><input type="text" name="step<%=i%>" required <% if (dto != null) { %>value="<%=dto.getContent()%>" <%} %>/></td>
-				<td><input type="file" name="img<%=i %>"/></td>
+				<td class="t" rowspan="2" style="vertical-align:top;"><h1 style="margin:0"><%=i %></h1></td>
+				<td class="h" style="padding-bottom:3px;"><textarea name="step<%=i%>" placeholder="<%=i%>번째 조리과정을 입력하세요" style="width:600px; height:100px; resize:none;" required><%=dto.getContent()%></textarea></td>
+			</tr>
+			<tr>
+				<td class="h" style="padding-top:0px;"><input type="file" name="img<%=i %>" style="width:400px; margin-left:20px;"/></td>
 			</tr>
 			<%} %>
 			
 			<tr>
-				<td colspan="4"><input type="button" onclick="history.back()" value="돌아가기">
-				<input type="submit" value="작성하기"/></td>
+				<td colspan="4"><input type="button" onclick="history.back()" class="greenButton" value="돌아가기">
+				<input type="submit" class="greenButton"  value="작성하기"/></td>
 			</tr>
 		</table>
 		

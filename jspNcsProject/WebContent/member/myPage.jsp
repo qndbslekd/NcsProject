@@ -6,14 +6,18 @@
 	<title>Insert title here</title>
 	<link href="../resource/team05_style.css" rel="stylesheet" type="text/css">
 </head>
+
+
 <jsp:include page="../header.jsp"></jsp:include>
 <%
-	if(session.getAttribute("memId") == null){%>
+	if(session.getAttribute("memId") == null){
+	%>
 		<script>
 			alert("로그인 후 이용하세요");
 			window.location="loginForm.jsp";
 		</script>
 	<%}else{ 
+		
 %>
 <body>
 <br /><br /> 
