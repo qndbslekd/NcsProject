@@ -76,17 +76,17 @@
 		dto =(FreeBoardDTO)myFreeContentList.get(i);
 	%>
 	<div onclick="location.href='../freeboard/boardContent.jsp?num=<%= dto.getNum()%>'">
-	<table style="width:700;">
+	<table style="width:700px; text-align: left;">
 		<tr>
-			<td>
+			<td style="width:55px">
 				[<%= dto.getCategory() %>]  
 			</td>
-			<td>
+			<td style="width:560px">
 				<%= dto.getTitle() %>
 			</td>
 		</tr>
 		<tr>
-			<td colspan="2">
+			<td colspan="2" style="width:500px">
 				내용: <%= dto.getContent() %>
 			</td>	
 		</tr>
