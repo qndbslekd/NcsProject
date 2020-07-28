@@ -48,6 +48,7 @@ if(memId != null) {	//로그인 한 상태면 로그인 정보 가져오기
 %>
 <body>
 <jsp:include page="header.jsp" flush="false" />
+<br/>
 <table>
 	<tr>
 		<td>태그 순위 : </td>
@@ -113,7 +114,7 @@ if(memId != null) {	//로그인 한 상태면 로그인 정보 가져오기
 					</td>
 				<%} 
 				for(int i = 0; i < 4-z; i++) {%>
-				<td width="200" height="250"></td>
+				<td width="200" height="250" style="padding:13px;"></td>
 			<%} %>
 			</tr>
 		<%} else {	//채식주의자 %>
@@ -161,7 +162,7 @@ if(memId != null) {	//로그인 한 상태면 로그인 정보 가져오기
 						</td>
 				<%}
 				for(int i = 0; i < 4-y; i++) {%>
-				<td width="200" height="250"></td>
+				<td width="200" height="250" style="padding:13px;"></td>
 				<%} 
 		}
 		%>
@@ -173,7 +174,7 @@ if(memId != null) {	//로그인 한 상태면 로그인 정보 가져오기
 	<tr>
 		<td colspan="3" style="text-align:left; vertical-align:middle"><img src="resource/leaf.png" style="width:25px; margin:0; padding:0; bottom:0;"/> <span style="font-size:1.3em">추천 제품</span></td>
 		<td style="text-align:right;">
-			<a href="jnp/product/productList.jsp" style="color:black;">+more</a>
+			<a href="/jnp/product/productList.jsp" style="color:black;">+more</a>
 		</td>
 	</tr>
 	<tr>
@@ -203,7 +204,7 @@ if(memId != null) {	//로그인 한 상태면 로그인 정보 가져오기
 					</td>
 				<%}
 				for(int i = 0; i < 4-y; i++) {%>
-				<td width="200" height="250"></td>
+				<td width="200" height="250" style="padding:13px;"></td>
 				<%} 
 	} %>
 			
@@ -265,7 +266,7 @@ if(mostTag == null) { //찜한 레시피가 없을 때 : 전체 레시피 중 �
 						</td>
 				<%}
 				for(int i = 0; i < 4-yy; i++) {%>
-				<td width="200" height="250"></td>
+				<td width="200" height="250" style="padding:13px;"></td>
 				<%} } %>
 			</tr>
 </table>
@@ -316,7 +317,7 @@ if(mostTag == null) { //찜한 레시피가 없을 때 : 전체 레시피 중 �
 						</td>
 				<%}
 				for(int i = 0; i < 4-y; i++) {%>
-				<td width="200" height="250"></td>
+				<td width="200" height="250" style="padding:13px;"></td>
 				<%} %>
 			</tr>
 

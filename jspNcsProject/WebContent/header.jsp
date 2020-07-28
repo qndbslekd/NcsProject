@@ -78,7 +78,7 @@
 	}
 %>
 <body>
-<div width="1100px">
+<div style="width:1100px; margin:auto;">
 	<table id="header">
 			<td></td>
 			<td></td>
