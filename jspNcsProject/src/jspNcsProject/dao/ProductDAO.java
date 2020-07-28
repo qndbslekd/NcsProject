@@ -423,6 +423,24 @@ public class ProductDAO {
 		return result;
 	}
 	
+	public int modifycomment(String num, String modifycomment) {
+		int result = 0;
+		try {
+			String sql = "update product set detail=? where num=?";
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, modifycomment);
+			pstmt.setInt(2, Integer.parseInt(num));
+			result = pstmt.executeUpdate();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(rs!=null)try {rs.close();} catch (Exception e) {e.printStackTrace();}
+			if(pstmt!=null)try {pstmt.close();} catch (Exception e) {e.printStackTrace();}
+			if(conn!=null)try {conn.close();} catch (Exception e) {e.printStackTrace();}
+		}
+		return result;
+	}
 
 	// 작성자 닉네임으로 댓글+답글 총개수 가져오기
 	public int getMyProductCommnetCount(String name) {
