@@ -428,7 +428,7 @@ public class FreeBoardDAO {
 		ArrayList myFreeContentList = null;
 		try {
 			conn = getConnection();
-			String sql = "SELECT f.* FROM(SELECT rownum AS r, f.* FROM (SELECT f.* FROM FREEBOARD f WHERE writer = ? ORDER BY f.reg asc) f)f WHERE r >= ? AND r <= ?";
+			String sql = "SELECT f.* FROM(SELECT rownum AS r, f.* FROM (SELECT f.* FROM FREEBOARD f WHERE writer = ? ORDER BY f.reg desc) f)f WHERE r >= ? AND r <= ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, writer);
 			pstmt.setInt(2, start);

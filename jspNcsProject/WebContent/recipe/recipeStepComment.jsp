@@ -23,15 +23,13 @@
 		// 팝업 가운데 위치 시키기 위해서 중간 값 구해주기
 		var _left = Math.ceil((window.screen.width - _width)/2);
 		var _top = Math.ceil((window.screen.height - _height)/2);
-	
-	
+		
 		// 조리단계별 댓글 or 답글 달기 
 		function openReplyForm(nowContentNum, recipeNum, reLevel, reStep, ref, cRef){			
 			if(cRef > 1){ // 답글을 이미 한번 단 경우
 				window.alert("답글 작성은 한번만 가능합니다");
 				return
-			}else{
-				
+			}else{				
 				var url = 'recipeContentCommentInsertForm.jsp?contentNum='+nowContentNum+'&recipeNum='+recipeNum+'&reLevel='+reLevel+'&reStep='+reStep+'&ref='+ref;	
 				window.open(url, "댓글쓰기", "width="+ _width + ", height="+ _height + ", left=" + _left + ", top=" + _top + ", resizeable=no, scrollbars=no");
 				// window.open("open할 window", "이름", "팝업창옵션")
@@ -47,11 +45,29 @@
 			if(confirm("댓글을 삭제하시겠습니까?")==true) {
 				window.location="recipeStepCommentDeletePro.jsp?num=" + num+"&ref="+ref;
 			}
-		}
-		
-		
+		}				
 	</script>
 </head>
+<style>
+	#contentNum{
+		width:40px; 
+		height:40px;
+		border-radius:20px; 
+		border:0px; 
+		color:white; 
+		background-color: rgb(139, 195, 74); 
+		top:10px; text-align:center; 
+		vertical-align:middle; 
+		font-size:1.5em; 
+		font-weight:800; 
+		cursor:default;"
+	}
+	#span1{
+		font-size:18px; 
+		margin-bottom:7px; 
+		background:linear-gradient(to top, #cceba9 50%, transparent 50%);	
+	}
+</style>
 
 <%
 	request.setCharacterEncoding("UTF-8");
@@ -75,8 +91,7 @@
 	for(int i = 0; i < recipeContentList.size(); i++){
 		recipeContentdto = (RecipeContentDTO)recipeContentList.get(i);
 		System.out.println(recipeContentdto.getContent());		
-	}
-	
+	}	
 	// 조리단계 댓글 dao
 	RecipeContentCommentDAO dao = null;
 %>
@@ -93,17 +108,18 @@
 		int recipeNum = recipeContentdto.getRecipeNum();		
 		%>				
 		<tr>
-			<td style="width:70px; vertical-align:top;"><button style="width:40px; height:40px;border-radius:20px; border:0px; color:white; background-color: rgb(139, 195, 74); top:10px; text-align:center; vertical-align:middle; font-size:1.5em; font-weight:800; cursor:default;"><%= nowContentNum%></button></td>
+			<td style="width:70px; vertical-align:top;">
+				<button id="contentNum"><%= nowContentNum%></button>
+			</td>
 			<td style="width:600px; vertical-align:top; text-align:left; padding-top:15px;">
-				<span style="font-size:18px; margin-bottom:7px; background:linear-gradient(to top, #cceba9 50%, transparent 50%);"><%= recipeContentdto.getContent() %></span>
+				<span id="span1"><%= recipeContentdto.getContent() %></span>
 				 <table class="nonBorder" style="margin:3px; left:0px;">
 				<%
 				List recipeContentCommentlist = null;
 				dao = RecipeContentCommentDAO.getInstance();
 				recipeContentCommentlist = dao.selectRecipeContentComment(i+1, num);
 				if(recipeContentCommentlist != null){ //if5									
-					for(int k = 1; k <= recipeContentCommentlist.size(); k++){ //for1
-			
+					for(int k = 1; k <= recipeContentCommentlist.size(); k++){ //for1		
 						RecipeContentCommentDTO dto = (RecipeContentCommentDTO)recipeContentCommentlist.get(k-1);
 						reStep = dto.getReStep();
 						reLevel = dto.getReLevel();
@@ -113,8 +129,7 @@
 					<% // 댓글 들여쓰기 처리
 						int wid = 0;
 						if(dto.getReLevel() > 0){ //if4
-							wid = 20*(dto.getReLevel());
-						
+							wid = 20*(dto.getReLevel());						
 					%>
 						<div style="width:<%= wid %>px; display:inline-block;" >&nbsp;</div>
 						<%} // if4 끝%>
@@ -138,12 +153,11 @@
 							<input type="button" class="grayButton" value="삭제" onclick="openDeleteForm(<%=dto.getNum()%>, <%=dto.getRef()%>)"/>					
 					<% 	}else{ // 댓글쓴이 != 로그인 아이디 
 							if(recipeBoard.getWriter().equals(session.getAttribute("memId"))){ // 레시피글쓴이 == 로그인아이디 
-								int maxReLevel = dao.selectMaxRelevel(dto.getRef());
-					
-								int cRef = dao.countRef(dto);
-								System.out.println("답글개수 : " + cRef);
+								int maxReLevel = dao.selectMaxRelevel(dto.getRef());				
+								int cRef = dao.countRef(dto);								
 					%>				
-								<input type="button" value="&#x1F4AC;답글쓰기" class="greenButton" style="padding:5px;"onclick="openReplyForm(<%= nowContentNum %>, <%= recipeNum %>, <%= maxReLevel %>, <%= reStep %>, <%= dto.getRef() %>, <%=cRef %>);" />
+								<input type="button" value="&#x1F4AC;답글쓰기" class="greenButton" style="padding:5px;
+									"onclick="openReplyForm(<%= nowContentNum %>, <%= recipeNum %>, <%= maxReLevel %>, <%= reStep %>, <%= dto.getRef() %>, <%=cRef %>);" />
 								<input type="button" value="&#128680;신고"class="grayButton" onclick="report('RCC','<%=dto.getNum()%>','<%=dto.getName()%>')"/>
 					<%		}else{	%>			
 								<input type="button" value="&#128680;신고"class="grayButton" onclick="report('RCC','<%=dto.getNum()%>','<%=dto.getName()%>')"/>
@@ -155,10 +169,8 @@
 					<%} // for1 끝								
 				} // if5끝 %>						
 			</tr>					
-		</table>
-			
-			</td>
-			 
+		</table>			
+			</td>		 
 			<%
 				if(session.getAttribute("memId") == null ){// 로그아웃 상태면 댓글쓰기 안보임		
 				}else if(recipeBoard.getWriter().equals(session.getAttribute("memId"))){// 레시피글작성자가 로그인한거면 댓글쓰기 안보임
@@ -166,8 +178,7 @@
 				
 				<td style="width:80px; vertical-align:top;">	 		
 						<input type="button" value="댓글쓰기" class="greenButton" style="padding:5px;"onclick="openReplyForm(<%= nowContentNum %>, <%= recipeNum %>, <%= reLevel %>, <%= reStep %>, <%= 0 %>);" />
-						<%-- function 호출할 때 해당 조리단계 관한 변수 보내줌  --%>
-				
+						<%-- function 호출할 때 해당 조리단계 관한 변수 보내줌  --%>				
 				</td>
 			<%}%>
 			
@@ -177,7 +188,7 @@
 			</td>
 			<%} %>
 		</tr>
-	<% // 이거 아니라고ㅠ
+	<% 
 	} // 조리과정 제일 큰 for문
 	%>
 	</table>
