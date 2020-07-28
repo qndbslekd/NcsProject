@@ -105,6 +105,9 @@
 						
 						<%if(session.getAttribute("memId")!=null){ %>
 							<%if(session.getAttribute("memId").equals("admin")||session.getAttribute("memName").equals(comment.get(i).getName())){ %>
+							<%if(!session.getAttribute("memName").equals("관리자")){ %>
+										<button class="grayButton" type="button" onclick="modifyFn('<%=comment.get(i).getNum()%>','<%=comment.get(i).getName()%>','<%=dto.getNum()%>')">수정</button>
+									<%} %>
 									<button class="grayButton" type="button" onclick="deleteFn('<%=comment.get(i).getNum()%>','<%=comment.get(i).getName()%>','<%=dto.getNum()%>')">삭제</button>	
 							<%} %>
 						<%} %>
@@ -131,6 +134,9 @@
 								<%} %>
 							<%if(session.getAttribute("memId")!=null){ %>	
 								<%if(session.getAttribute("memId").equals("admin")||session.getAttribute("memName").equals(recoment.get(j).getName())){ %>
+									<%if(!session.getAttribute("memName").equals("관리자")){ %>
+										<button class="grayButton" type="button" onclick="modifyFn('<%=recoment.get(j).getNum()%>','<%=recoment.get(j).getName()%>','<%=dto.getNum()%>')">수정</button>
+									<%} %>
 								<button class="grayButton" type="button" onclick="deleteFn('<%=recoment.get(j).getNum()%>','<%=recoment.get(j).getName()%>','<%=dto.getNum()%>')">삭제</button>
 								<%} %>
 							<%} %>
@@ -200,6 +206,13 @@
 		if(confirm("이 댓글을 삭제하시겠습니까?")==true) {
 			location.href= "deleteComment.jsp?num="+num+"&name="+name+"&backNum="+backNum;
 		}
+	}
+	function modifyFn(num, name,backNum){
+			
+			var url = "modifyComment.jsp?num="+num+"&name="+name+"&backNum="+backNum; 
+			var name = "댓글 달기";
+			var option = "width=600,height=,left=600,toolbar=no,menubar=no,location=no,scrollbar=no,status=no,resizable=no";
+			window.open(url,name,option);
 	}
 	</script>
 </html>
