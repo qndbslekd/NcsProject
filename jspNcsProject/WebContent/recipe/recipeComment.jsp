@@ -50,12 +50,28 @@
 	<table class="nonBorder" style="width:700px;"  >
 		<tr>
 			<%if (dto.getReLevel()>0) {%><td rowspan="2" width="20px;" style="vertical-align:top;border:0px;"><img src="/jnp/recipe/imgs/replyImg.png" width="10px"/></td><%} %>
-			<td rowspan="2" style="width:60px; height:60px; vertical-align:top;border:0px;"><img src="/jnp/save/<%=rDAO.selectImgById(dto.getName())%>" style="width:60px; height:60px; border-radius:30px;"/></td>
+			<td rowspan="2" style="width:80px; height:0px; vertical-align:top;border:0px; padding:0">
+				<div style="position: absolute;margin:auto;width:80px; height:80px; text-align:center; vertical-align:middle;">
+					<div style="width:60px; height:60px; position: relative; margin:auto; display:inline-block; top:10px;">
+						<img src="/jnp/save/<%=rDAO.selectImgById(dto.getName())%>" style="width:60px; height:60px; border-radius:30px;"/>
+					</div>
+				</div>
+				<%if(dto.getName().equals(rDAO.selectRecipeBoard(num).getWriter())) {
+					%>
+				<div style="position: absolute; display:block;">
+					<div style="position: relative; width:80px; height:80px; text-align:left;">
+						<img src="/jnp/recipe/imgs/chef.png" style="width:25px; height:25px;left:0px; top:0px; transform:rotate(350deg)"/>
+					</div>
+				</div>
+				<%} %>
+			</td>
 			<td style="text-align:left; border:0px;padding-bottom:2px;">
 			<Strong> <%= rDAO.selectNameById(dto.getName()) %> </Strong>
 			<%if (memId != null) { %>
-					<%if (dto.getName().equals(memId)) {//내가 쓴 댓글이면 수정버튼%><button class="grayButton" onclick="modifyComment(<%=dto.getNum()%>)">수정</button><%} %>
-					<%if (dto.getName().equals(memId) || memId.equals("admin")) {//내가 쓴 댓글(혹은 관리자)이면 삭제버튼%><button class="grayButton" onclick="deleteComment(<%=dto.getNum()%>)">삭제</button>
+					<%if (dto.getName().equals(memId) || memId.equals("admin")) {//내가 쓴 댓글(혹은 관리자)이면 수정삭제답글버튼%>
+						<button class="grayButton" style="background-color:rgb(139, 195, 74); color:white" onclick="reply(<%=dto.getNum()%>)" >&#x1F4AC;답글</button> 
+						<button class="grayButton" onclick="modifyComment(<%=dto.getNum()%>)">수정</button>
+						<button class="grayButton" onclick="deleteComment(<%=dto.getNum()%>)">삭제</button>
 					<%} else { //아니면 답글, 신고버튼%> &nbsp;&nbsp;
 						<button class="grayButton" style="background-color:rgb(139, 195, 74); color:white" onclick="reply(<%=dto.getNum()%>)" >&#x1F4AC;답글</button> 
 						<button class="grayButton" onclick="report('RC','<%=dto.getNum()%>','<%=dto.getName()%>')" >&#128680;신고</button> 

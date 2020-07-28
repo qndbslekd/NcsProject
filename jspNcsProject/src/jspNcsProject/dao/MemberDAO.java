@@ -36,6 +36,7 @@ public class MemberDAO {
 	}
 	public int insertMember(MemberDTO dto) {
 		int result = 0;
+		
 		try {
 			//11개
 			String sql = "INSERT INTO MEMBER values(?,?,?,?,?,?,?,?,0,?,'활동',sysdate)";
@@ -301,7 +302,6 @@ public class MemberDAO {
 		}
 		return result;
 	}
-	
 	public List getSearchMemberList(int start, int end) {
 		List memberList = new ArrayList<MemberDTO>();
 		try {
@@ -405,7 +405,7 @@ public class MemberDAO {
 		}
 		return memberList;
 	}
-	
+ 	
 	//회원 강퇴
 	public int kickOffMember(String id,String option) {
 		int result=0;
@@ -421,6 +421,10 @@ public class MemberDAO {
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, "활동");
 				pstmt.setString(2, id);
+				pstmt.executeUpdate();
+				String subSql = "update member set OFFENCE_COUNT = 0 where id = ?";
+				pstmt = conn.prepareStatement(subSql);
+				pstmt.setString(1, id);
 				result = pstmt.executeUpdate();
 			}
 			System.out.println("result"+result);
@@ -562,7 +566,6 @@ public class MemberDAO {
 		return mostTag;
 	}
 	//신고확정, 신고취소
-	//확정했다가 취소하는경우 추가해야함
 	public boolean updateOffence(String option,String url,String id) {
 		boolean isCommit = false;
 		try {
@@ -582,12 +585,14 @@ public class MemberDAO {
 						if(!tmp[indexTmp].equals(url)) {
 							System.out.print("V");
 							afterUrl += tmp[indexTmp]+",";
-						} 
+						}
 						System.out.println();
 					}
 					System.out.println("update Query : "+afterUrl);
 					if(!afterUrl.equals(",")) {
 						sql = "UPDATE MEMBER SET OFFENCE_URL = ? WHERE id = ?";
+						afterUrl = afterUrl.substring(0, afterUrl.length()-1);
+						System.out.println("ROLLBACK URL : "+afterUrl);
 						pstmt = conn.prepareStatement(sql);
 						pstmt.setString(1, afterUrl);
 						pstmt.setString(2, id);
@@ -624,6 +629,8 @@ public class MemberDAO {
 					System.out.println("update Query : "+afterUrl);
 					if(!afterUrl.equals(",")) {
 						sql = "UPDATE MEMBER SET OFFENCE_URL = ? WHERE id = ?";
+						afterUrl = afterUrl.substring(0, afterUrl.length()-1);
+						System.out.println("ROLLBACK URL : "+afterUrl);
 						pstmt = conn.prepareStatement(sql);
 						pstmt.setString(1, afterUrl);
 						pstmt.setString(2, id);

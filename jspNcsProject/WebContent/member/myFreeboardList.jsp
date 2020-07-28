@@ -1,3 +1,4 @@
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.List"%>
 <%@page import="jspNcsProject.dto.FreeBoardDTO"%>
 <%@page import="jspNcsProject.dao.FreeBoardDAO"%>
@@ -28,6 +29,7 @@
 	FreeBoardDAO dao = FreeBoardDAO.getInstance();
 	FreeBoardDTO dto = new FreeBoardDTO();
 	String memId = (String)session.getAttribute("memId");
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 	
 	int pageSize = 2; // 한 페이지에서 보여줄 게시글의 수
 	String pageNum = request.getParameter("pageNum");
@@ -74,26 +76,27 @@
 		dto =(FreeBoardDTO)myFreeContentList.get(i);
 	%>
 	<div onclick="location.href='../freeboard/boardContent.jsp?num=<%= dto.getNum()%>'">
-	<table style="width:700;">
+	<table style="width:700px; text-align: left;">
 		<tr>
-			<td>
-				말머리 : <%= dto.getCategory() %>  
+			<td style="width:55px">
+				[<%= dto.getCategory() %>]  
 			</td>
-			<td>
-				제목 : <%= dto.getTitle() %>
+			<td style="width:560px">
+				<%= dto.getTitle() %>
 			</td>
 		</tr>
 		<tr>
-			<td colspan="2">
+			<td colspan="2" style="width:500px">
 				내용: <%= dto.getContent() %>
 			</td>	
 		</tr>
-		<tr style="border-bottom:1px solid black">
+		<tr>
 			<td colspan="2">
-				시간 : <%= dto.getReg() %>
+				시간 : <%= sdf.format(dto.getReg())%>
 			</td>		
 		</tr>
 	</table>
+		<hr width="700px">
 	</div>
 	<%}
 	%>

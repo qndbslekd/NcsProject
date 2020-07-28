@@ -48,6 +48,7 @@
 	}
 	.recipe_lst{
 		 list-style:none;
+		 overflow:auto;
 	}
 	
 	.thumbnail {
@@ -112,7 +113,7 @@
 		
 	}
 	div #selected{
-		background-color: #44b6b5;
+		background-color: #8bc34a;
 		color: white;
 		cursor: pointer;
 	}
@@ -133,7 +134,7 @@
 </head>
 <%
 	
-	int pageSize =20;
+	int pageSize =12;
 	//최신순
 	
 	String pageNum = request.getParameter("pageNum");
@@ -234,7 +235,7 @@
 			<div class="sort_button" style="float: left;">
 				<div class="buttn" <%if(mode.equals("num")){%> id="selected"<%}%> onclick="window.location='recipeList.jsp?mode=num'">최신순</div>
 				<div class="buttn" <%if(mode.equals("rating")){%> id="selected"<%}%> onclick="window.location='recipeList.jsp?mode=rating'">평점순</div>
-			</div>		
+			</div>		 
 		</div>
 		
 	</div>

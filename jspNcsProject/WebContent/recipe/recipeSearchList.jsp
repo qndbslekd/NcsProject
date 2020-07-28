@@ -12,7 +12,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>레시피 검색 리스트</title>
 <style>
 	#search{
 		height: 250px;
@@ -136,7 +136,7 @@
 	}
 	#selected{
 
-		background-color: #44b6b5;
+		background-color: #8bc34a;
 		color: white;
 	}
 </style>
@@ -199,21 +199,7 @@
 			whereQuery += (" and difficulty='"+difficulty+"'");
 		}
 	}
-	//칼로리 검색
-	
-	if((calMore!=null  && !calMore.equals("") )|| (calUnder!=null && !calUnder.equals(""))){//둘중 하나라도 값이 있을때	
-		if((!calMore.equals("") && calMore!=null ) &&  (!calUnder.equals("") && calMore!=null)){ // 둘다 있는경우
-			int calMoreNum = Integer.parseInt(calMore);
-			int calUnderNum = Integer.parseInt(calUnder);
-			whereQuery +=(" and cal >= "+ calMoreNum + " and cal<="+calUnderNum);
-		}else if((!calMore.equals("") && calMore!=null )){//이상값만 있는경우
-			int calMoreNum = Integer.parseInt(calMore);
-			whereQuery += (" and cal >= "+calMoreNum);
-		}else if((!calUnder.equals("") && calUnder!=null)){ //이하값만 있는경우
-			int calUnderNum = Integer.parseInt(calUnder);
-			whereQuery += (" and cal <= "+calUnderNum);
-		}
-	}	
+
 	//칼로리 검색	
 	if(( calMore!=null && !calMore.equals("") )|| (calUnder!= null && !calUnder.equals(""))){//둘중 하나라도 값이 있을때	
 		if(( calMore!=null  && !calMore.equals("")) && (calUnder!=null && !calUnder.equals(""))){ // 둘다 있는경우
@@ -292,13 +278,12 @@
 	
 %>
 </head>
+<jsp:include page="../header.jsp" flush="false">
+	<jsp:param value="recipe" name="mode"/>
+</jsp:include>
 <body>
 	<form action="recipeSearchList.jsp" name="searchForm" method="post">
 		<input type="hidden" name="mode" value="num"/>
-		<jsp:include page="../header.jsp" flush="false">
-			<jsp:param value="recipe" name="mode"/>
-		</jsp:include>
-
 			<table id="search">
 				<tr><td></td></tr>
 				<tr>
