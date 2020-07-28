@@ -450,7 +450,7 @@ public class ProductDAO {
 		ArrayList myProductCommentList = null;
 		try {
 			conn = getConnection();
-			String sql = "SELECT p.* FROM(SELECT rownum AS r, p.* FROM (SELECT p.* FROM PRODUCT p WHERE name = ? AND re_level=1 ORDER BY p.reg ASC) p)p WHERE r >=? AND r <= ?";
+			String sql = "SELECT p.* FROM(SELECT rownum AS r, p.* FROM (SELECT p.* FROM PRODUCT p WHERE name = ? AND re_level=1 ORDER BY p.reg desc) p)p WHERE r >=? AND r <= ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, name);
 			pstmt.setInt(2, start);
