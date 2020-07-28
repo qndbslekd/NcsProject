@@ -7,6 +7,12 @@
 <title>레시피 작성</title>
 <link rel="stylesheet" href="../resource/team05_style.css">
 </head>
+<script>
+	function question(){
+		var win = window.open("recipeListVegiTypeInfo.jsp","채식유형 정보","width=900,height=850,left=500,top=500,scrollbars=yes,")
+		
+	}
+</script>
 <%
 	String memId = (String) session.getAttribute("memId");
 
@@ -33,7 +39,7 @@
 				<td class="h" style="padding-left:40px;"><%=session.getAttribute("memName") %><input type="hidden" name="writer"  style="border:0px;" value="<%=memId%>" /></td>
 			</tr>
 			<tr>
-				<td class="t">채식유형</td>
+				<td class="t">채식유형 <img src="./imgs/question.png" width="20px" height="20px" onclick="question()" /></td>
 				<td class="h" style="text-align:left">
 					<input type="radio" name="vegiType" value="vegan" required />비건<br/>
 					<input type="radio" name="vegiType" value="lacto" required />락토<br/>
@@ -69,12 +75,13 @@
 			</tr>
 			<tr>
 				<td class="t" style="vertical-align:top;">재료</td>
-				<%--<td class="h"><input type="text" placeholder="예) 감자:1개, 양파:2개, 고추장:두스푼, ..." name="ingredients"/><br/> '재료명:분량,재료명:분량'의 형식으로 적어주세요</td> --%>
 				<td class="h"><textarea cols="20" rows="10" placeholder="예) 
 감자 : 1개
 양파 : 2개
 고추장 : 두스푼
-..." name="ingredients" style="resize:none;overflow:visible;font-size:25px;"></textarea><br/> <span class="h" style="font-size:15px; color:#858585">재료명과 분량 사이에 콜론(:)을 꼭 넣어주세요</span></td>
+..." name="ingredients" style="resize:none;overflow:visible;font-size:25px;"></textarea><br/> 
+				<span class="h" style="font-size:15px; color:#858585">재료명과 분량 사이에 콜론(:)을 꼭 넣어주세요</span>
+			</td>
 			</tr>
 			<tr>
 				<td class="t">요리 단계</td>
