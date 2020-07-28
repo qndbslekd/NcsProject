@@ -48,6 +48,7 @@
 	}
 	.recipe_lst{
 		 list-style:none;
+		 overflow:auto;
 	}
 	
 	.thumbnail {
