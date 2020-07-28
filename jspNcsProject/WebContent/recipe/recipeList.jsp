@@ -134,7 +134,7 @@
 </head>
 <%
 	
-	int pageSize =20;
+	int pageSize =12;
 	//최신순
 	
 	String pageNum = request.getParameter("pageNum");
