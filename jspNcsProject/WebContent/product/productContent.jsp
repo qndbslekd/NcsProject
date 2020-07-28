@@ -104,7 +104,7 @@
 						<%} %>
 						
 						<%if(session.getAttribute("memId")!=null){ %>
-							<%if(session.getAttribute("memId").equals("admin")||session.getAttribute("memId").equals(comment.get(i).getName())){ %>
+							<%if(session.getAttribute("memId").equals("admin")||session.getAttribute("memName").equals(comment.get(i).getName())){ %>
 									<button class="grayButton" type="button" onclick="deleteFn('<%=comment.get(i).getNum()%>','<%=comment.get(i).getName()%>','<%=dto.getNum()%>')">삭제</button>	
 							<%} %>
 						<%} %>
