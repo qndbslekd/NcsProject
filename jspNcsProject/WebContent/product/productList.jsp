@@ -65,10 +65,6 @@
 		color: white;
 		cursor: pointer;
 		border-radius : 5px;
-<<<<<<< HEAD
-		
-=======
->>>>>>> branch 'develop' of https://github.com/ysk0951/codinnnnng.git
 	}
 	
 	.total_recipe{
