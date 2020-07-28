@@ -144,6 +144,8 @@ if(request.getParameter("num") == null){%>
 	<br/>	
 	<jsp:include page="boardComment.jsp">
 		<jsp:param value="<%=num%>" name="num"/>
+		<jsp:param value="<%=pageNum%>" name="pageNum"/>
+		
 	</jsp:include>
 </body>
 <%} %>

@@ -54,6 +54,7 @@
 <%	}else{
 
 	int freeboard_num = Integer.parseInt(request.getParameter("num"));//글번호
+	int pageNum = Integer.parseInt(request.getParameter("pageNum"));//글번호
 	String form = request.getParameter("form");//modify, insert
 	
 
@@ -145,6 +146,7 @@
 	<%if(session.getAttribute("memId")!=null){%>
 	<form action="boardCommentPro.jsp" method="post" name="commentform" onsubmit="return check()">
 		<input type="hidden" name="freeboard_num" value="<%=freeboard_num%>"/>
+		<input type="hidden" name="pageNum" value="<%=pageNum%>"/>
 		<input type="hidden" name="writer" value="<%=session.getAttribute("memId")%>"/>		
 		<table class="comment_input">
 			<tr>
