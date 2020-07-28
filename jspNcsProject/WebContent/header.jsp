@@ -78,8 +78,9 @@
 	}
 %>
 <body>
-<div width="1100px">
+<div style="width:1100px; margin:auto;">
 	<table id="header">
+		<tr>
 			<td></td>
 			<td></td>
 			<td class="title" style="padding-top:20px;">
@@ -92,6 +93,7 @@
 				<button class = "grayButton" style="width: 80px; height: 30px; text-align: center" onclick="window.location='/jnp/member/loginForm.jsp'">로그인</button>
 				<button class = "grayButton" style="width: 80px; height: 30px; text-align: center"  onclick="window.location='/jnp/member/signupForm.jsp'">회원가입</button>
 			</td>
+			<td>
 			<%}else{%>
 				<p><%=session.getAttribute("memName")%>님 환영합니다!</p>		
 				<button class = "grayButton" style="width: 80px; height: 30px; text-align: center" onclick="window.location='/jnp/logoutPro.jsp'">로그아웃</button>

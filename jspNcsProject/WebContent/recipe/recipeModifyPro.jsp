@@ -48,9 +48,10 @@
 	String tag = mr.getParameter("tag");
 	String cookingTime = mr.getParameter("cookingTime");
 	
-	
 	//재료 다듬어서 저장하기
 		String ingre = ",";
+		//줄바꿈을 콤마로 바꾸기
+		ingredients = ingredients.replaceAll("\n", ",");
 		//콤마 기준으로 나누기
 		String[] ingreSplit = ingredients.split(",");
 		

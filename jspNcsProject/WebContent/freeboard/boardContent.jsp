@@ -119,15 +119,12 @@ if(request.getParameter("num") == null){%>
 			<tr>
 				<td>CONTENT</td>
 				<td>
+					<%if(article.getImg() !=null && !article.getImg().equals("")){%>
+					<img src="/jnp/freeboard/save/<%=article.getImg()%>" width="500px"/>
+					<%}%>
 					<textarea class="contents" readonly><%=article.getContent()%></textarea>
 				</td>		
 			</tr>
-			<%if(article.getImg() !=null && !article.getImg().equals("")){%>
-			<tr>
-				<td>이미지</td>
-				<td><img src="/jnp/freeboard/save/<%=article.getImg()%>" width="200px"/></td>		
-			</tr>
-			<%}%>
 			<tr>
 				<td colspan='2'>
 				<%if(article.getWriter().equals((String)session.getAttribute("memId"))){%>
@@ -147,6 +144,8 @@ if(request.getParameter("num") == null){%>
 	<br/>	
 	<jsp:include page="boardComment.jsp">
 		<jsp:param value="<%=num%>" name="num"/>
+		<jsp:param value="<%=pageNum%>" name="pageNum"/>
+		
 	</jsp:include>
 </body>
 <%} %>
