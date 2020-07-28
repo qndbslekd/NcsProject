@@ -6,7 +6,33 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>글 상세보기</title>
+<title>글 수정폼</title>
+<script>
+	#f-content{
+		margin-top: 70px;
+		width: 700px;
+		height: auto;
+		overflow: hidden;
+	}
+	
+	#f-content tr{
+		height: 30px;
+	
+	}
+	#f-content td{
+		border-top: 1px solid #999;
+		border-buttom: 1px solid #999;
+		
+	}
+	
+	.contents {
+		width:300px;
+		height:500px;
+		resize : none;
+		border : 0px;
+		padding: 10px;
+	}
+</script>
 </head>
 <%
 
@@ -35,7 +61,7 @@
 	<form action="boardModifyPro.jsp" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="writer" value="<%=article.getWriter()%>"/>
 		<input type="hidden" name="num" value="<%=num%>"/>
-		<table>
+		<table id="f-content">
 			<tr>
 				<td>제목</td>			
 			<td><input type="text" name="title" value="<%=article.getTitle()%>"/></td>		
