@@ -279,6 +279,7 @@
 			var offenceCode = code+commentNum;
 			location.href= "../member/offenceMember.jsp?offenceUrl="+offenceCode+"&member="+member;
 		}		
+		
 	}
 	
 </script>
