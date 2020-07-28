@@ -25,7 +25,8 @@
 	}
 	
 	.list{
-		height: 280px;
+		overflow: hidden;
+		height: auto;
 		width:1000px; 
 		align:center; 
 		margin:0 auto;
@@ -52,7 +53,7 @@
 		
 	}
 	#selected{
-		background-color: #44b6b5;
+		background-color: #8bc34a;
 		color: white;
 		cursor: pointer;
 	}
@@ -214,7 +215,8 @@
 			<%} %>
 		</tr>
 		<tr>
-			<td style="width:900px;">
+			<td style="width:780px;"></td>
+			<td >
 				<button class="buttn" <%if(mode.equals("reg")){%>id="selected"<%}%> onclick="window.location='board.jsp?mode=reg&category=<%=category%>&sel=<%=sel%>&search=<%=search%>&pageNum=<%=pageNum%>'">최신순</button>
 				<button class="buttn" <%if(mode.equals("read_count")){%>id="selected"<%}%> onclick="window.location='board.jsp?mode=read_count&category=<%=category%>&sel=<%=sel%>&search=<%=search%>&pageNum=<%=pageNum%>'">조회순</button>
 				<button class="buttn" <%if(mode.equals("recommend")){%>id="selected"<%}%> onclick="window.location='board.jsp?mode=recommend&category=<%=category%>&sel=<%=sel%>&search=<%=search%>&pageNum=<%=pageNum%>'">추천순</button>
@@ -266,7 +268,7 @@
 			<td><%=dto.getRead_count()%></td>
 			<td><%=dto.getRecommend()%></td>
 		</tr>
-			<%}
+		<%}
 	}%>
 	</table>
 	
