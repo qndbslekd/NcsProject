@@ -341,7 +341,7 @@ public class RecipeContentCommentDAO {
 		ArrayList myStepCommentList = null;
 		try {
 			conn = getConnection();
-			String sql = "SELECT rcc.* FROM(SELECT rownum AS r, rcc.* FROM (SELECT rcc.* FROM RECIPE_CONTENT_COMMENT rcc WHERE name = ? ORDER BY rcc.reg ASC) rcc)rcc WHERE r >= ? AND r <= ?"; 
+			String sql = "SELECT rcc.* FROM(SELECT rownum AS r, rcc.* FROM (SELECT rcc.* FROM RECIPE_CONTENT_COMMENT rcc WHERE name = ? ORDER BY rcc.reg desc) rcc)rcc WHERE r >= ? AND r <= ?"; 
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, writer);
 			pstmt.setInt(2, start);
