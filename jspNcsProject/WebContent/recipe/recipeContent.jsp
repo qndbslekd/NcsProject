@@ -192,12 +192,10 @@
 					
 					Set keySet = ingre.keySet();
 					Iterator ir = keySet.iterator();
-					int counts = 0;
 					while(ir.hasNext()) {	
 						String key = (String) ir.next(); 
-						String value = ingre.get(key);
-						counts++;%>
-					<tr <%if(counts % 2 == 0) { %> style="background-color:#cbeda4;"<%} %> >
+						String value = ingre.get(key);%>
+					<tr>
 						<td class="lineTable" style="width:100px; text-align:left; padding:10px;"> <%= key%> </td>
 						<td class="lineTable" style="width:100px; text-align:right;padding:10px;"> <%= value%></td>
 					</tr>				
@@ -279,10 +277,10 @@
 			var offenceCode = code+commentNum;
 			location.href= "../member/offenceMember.jsp?offenceUrl="+offenceCode+"&member="+member;
 		}		
-		
 	}
-	
-</script>
+
+
+	</script>
 <%
 	} %>
 </html>

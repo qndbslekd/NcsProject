@@ -77,8 +77,6 @@ public class RecipeCommentDAO {
 				} while(rs.next());
 			}
 			
-					
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -90,9 +88,6 @@ public class RecipeCommentDAO {
 		return list;
 	}
 	
-	
-	
-	
 	//댓글 작성
 	public void insertRecipeComment(RecipeCommentDTO dto) {
 		try {
@@ -100,12 +95,6 @@ public class RecipeCommentDAO {
 			conn = getConnection();
 			
 			if(dto.getRef()!=0) {//받아온 ref값이 있다면(대댓글이라면)
-
-				//기존 댓글들 re_step 하나씩 뒤로 미뤄주기 (새로 달린 대댓글이 위로)
-//				String sql = "update recipe_comment set re_step=re_step+1 where ref=?";
-//				pstmt = conn.prepareStatement(sql);
-//				pstmt.setInt(1, dto.getRef());
-//				pstmt.executeUpdate();
 				
 				String sql = "insert into recipe_comment values(recipe_comment_seq.nextVal, ?,?,?,?,?,?,sysdate)";
 				pstmt = conn.prepareStatement(sql);
@@ -249,7 +238,7 @@ public class RecipeCommentDAO {
 			ArrayList myCommentList = null;
 			try {
 				conn = getConnection();
-				String sql = "SELECT rc.* FROM(SELECT rownum AS r, rc.* FROM (SELECT rc.* FROM RECIPE_COMMENT rc WHERE name = ? ORDER BY rc.reg ASC) rc)rc WHERE r >=? AND r <= ?";
+				String sql = "SELECT rc.* FROM(SELECT rownum AS r, rc.* FROM (SELECT rc.* FROM RECIPE_COMMENT rc WHERE name = ? ORDER BY rc.reg desc) rc)rc WHERE r >=? AND r <= ?";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, writer);
 				pstmt.setInt(2, start);
