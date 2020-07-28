@@ -130,7 +130,7 @@
 								<button class="grayButton" type="button" onclick="report('<%=recoment.get(j).getNum()%>','<%=offenceIdByName%>')">&#128680;신고</button>
 								<%} %>
 							<%if(session.getAttribute("memId")!=null){ %>	
-								<%if(session.getAttribute("memId").equals("admin")||session.getAttribute("memId").equals(recoment.get(j).getName())){ %>
+								<%if(session.getAttribute("memId").equals("admin")||session.getAttribute("memName").equals(recoment.get(j).getName())){ %>
 								<button class="grayButton" type="button" onclick="deleteFn('<%=recoment.get(j).getNum()%>','<%=recoment.get(j).getName()%>','<%=dto.getNum()%>')">삭제</button>
 								<%} %>
 							<%} %>
