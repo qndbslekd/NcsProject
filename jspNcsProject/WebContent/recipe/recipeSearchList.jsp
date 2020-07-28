@@ -12,7 +12,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>레시피 검색 리스트</title>
 <style>
 	#search{
 		height: 250px;
@@ -278,13 +278,12 @@
 	
 %>
 </head>
+<jsp:include page="../header.jsp" flush="false">
+	<jsp:param value="recipe" name="mode"/>
+</jsp:include>
 <body>
 	<form action="recipeSearchList.jsp" name="searchForm" method="post">
 		<input type="hidden" name="mode" value="num"/>
-		<jsp:include page="../header.jsp" flush="false">
-			<jsp:param value="recipe" name="mode"/>
-		</jsp:include>
-
 			<table id="search">
 				<tr><td></td></tr>
 				<tr>

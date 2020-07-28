@@ -54,6 +54,7 @@
 <%	}else{
 
 	int freeboard_num = Integer.parseInt(request.getParameter("num"));//글번호
+	int pageNum = Integer.parseInt(request.getParameter("pageNum"));//글번호
 	String form = request.getParameter("form");//modify, insert
 	
 
@@ -94,7 +95,7 @@
 				
 				<tr style="border-top:1px solid #999;">		
 					<td style="width:60px;"rowspan='2'><img style="width:60px; height:60px; border-radius:30px;" src="/jnp/save/<%=img%>"/></td>
-					<td><p style="font-weight:bold; font-size:15px;"><%=name%></p></td>
+					<td><p style="font-weight:bold; font-size:15px; width:100px;"><%=name%></p></td>
 					<td style="text-align:left;">
 					<% if(loginId !=null && loginId.equals(comment.getWriter())){ %>
 						<button onclick="modifyComment('<%=comment.getComment_num()%>')">수정</button>
@@ -145,6 +146,7 @@
 	<%if(session.getAttribute("memId")!=null){%>
 	<form action="boardCommentPro.jsp" method="post" name="commentform" onsubmit="return check()">
 		<input type="hidden" name="freeboard_num" value="<%=freeboard_num%>"/>
+		<input type="hidden" name="pageNum" value="<%=pageNum%>"/>
 		<input type="hidden" name="writer" value="<%=session.getAttribute("memId")%>"/>		
 		<table class="comment_input">
 			<tr>

@@ -24,6 +24,7 @@
 	
 
 	int freeboard_num = Integer.parseInt(request.getParameter("freeboard_num"));
+	int pageNum = Integer.parseInt(request.getParameter("pageNum"));
 	String strRef = request.getParameter("ref");
 	String StrRe_level = request.getParameter("re_level");
 	String receiver = request.getParameter("receiver");
@@ -56,7 +57,7 @@
 		
 	<%}else{%>
 		<script>alert("댓글이 작성되었습니다.")</script>	
-	<%	String url ="boardContent.jsp?num="+freeboard_num;
+	<%	String url ="boardContent.jsp?num="+freeboard_num+"&pageNum="+pageNum;
 		response.sendRedirect(url);
 	}
 } %>

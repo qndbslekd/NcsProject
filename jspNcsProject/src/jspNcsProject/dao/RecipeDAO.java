@@ -246,6 +246,7 @@ public class RecipeDAO {
 			
 			
 			//레시피 정보 삭제
+			conn = getConnection();
 			String sql = "delete from recipe_board where num=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, num);
@@ -389,7 +390,6 @@ public class RecipeDAO {
 		String ingredients = null;
 		
 		try {
-			
 			conn = getConnection();
 			
 			String sql = "select ingredients from recipe_board where num=?";
@@ -410,8 +410,6 @@ public class RecipeDAO {
 				String[] ingre2 = ingre1[i].split(":");
 				ingre.put(ingre2[0], ingre2[1]);
 			}
-			
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -419,7 +417,6 @@ public class RecipeDAO {
 			if(pstmt != null)try {pstmt.close();}catch(Exception e) {e.printStackTrace();}
 			if(conn != null)try {conn.close();}catch(Exception e) {e.printStackTrace();}
 		}
-		
 		
 		return ingre;
 	}
@@ -469,7 +466,7 @@ public class RecipeDAO {
 			ArrayList myRecipeList = null;
 			try {
 				conn = getConnection();
-				String sql = "SELECT rb.* FROM(SELECT rownum AS r, rb.* FROM (SELECT rb.* FROM RECIPE_BOARD rb WHERE writer = ? ORDER BY rb.reg asc) rb)rb WHERE r >= ? AND r <= ?";
+				String sql = "SELECT rb.* FROM(SELECT rownum AS r, rb.* FROM (SELECT rb.* FROM RECIPE_BOARD rb WHERE writer = ? ORDER BY rb.reg desc) rb)rb WHERE r >= ? AND r <= ?";
 				
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, writer);

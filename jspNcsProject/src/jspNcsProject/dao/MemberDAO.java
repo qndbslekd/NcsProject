@@ -405,7 +405,7 @@ public class MemberDAO {
 		}
 		return memberList;
 	}
-	
+ 	
 	//회원 강퇴
 	public int kickOffMember(String id,String option) {
 		int result=0;
@@ -421,6 +421,10 @@ public class MemberDAO {
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, "활동");
 				pstmt.setString(2, id);
+				pstmt.executeUpdate();
+				String subSql = "update member set OFFENCE_COUNT = 0 where id = ?";
+				pstmt = conn.prepareStatement(subSql);
+				pstmt.setString(1, id);
 				result = pstmt.executeUpdate();
 			}
 			System.out.println("result"+result);
