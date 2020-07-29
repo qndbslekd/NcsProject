@@ -513,5 +513,27 @@ public class FreeBoardDAO {
 		return result;
 	}
 	
+	public void fixArticle(int num, String ch) {
+		try {
+			conn = getConnection();
+			String sql="";
+			if(ch.equals("F")) {
+				sql = "update freeboard set fix = 'T' where num = ?";
+				
+			}else if(ch.equals("T")) {
+				sql = "update freeboard set fix='F' where num=?";
+				
+			}			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			pstmt.executeQuery();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(pstmt != null)try {pstmt.close();}catch(Exception e) {e.printStackTrace();}
+			if(conn != null)try {conn.close();}catch(Exception e) {e.printStackTrace();}
+		}
+	}
 
 }
