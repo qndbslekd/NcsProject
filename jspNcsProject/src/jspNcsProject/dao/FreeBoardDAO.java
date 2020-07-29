@@ -1,3 +1,4 @@
+
 package jspNcsProject.dao;
 
 import java.sql.Connection;
@@ -37,6 +38,8 @@ public class FreeBoardDAO {
 			String sql = "select count(*) from freeboard";
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
+			
+			
 			if(rs.next()) {
 				count = rs.getInt(1);
 			}
@@ -142,9 +145,7 @@ public class FreeBoardDAO {
 					article.setReg(rs.getTimestamp("reg"));
 					article.setRecommend(rs.getInt("recommend"));
 					article.setRead_count(rs.getInt("read_count"));
-					article.setRef(rs.getInt("ref"));
-					article.setRe_level(rs.getInt("re_level"));
-					article.setRe_step(rs.getInt("re_step"));
+					article.setFix(rs.getString("fix"));
 					articles.add(article);
 				}while(rs.next());
 			}
@@ -184,9 +185,7 @@ public class FreeBoardDAO {
 					article.setReg(rs.getTimestamp("reg"));
 					article.setRecommend(rs.getInt("recommend"));
 					article.setRead_count(rs.getInt("read_count"));
-					article.setRef(rs.getInt("ref"));
-					article.setRe_level(rs.getInt("re_level"));
-					article.setRe_step(rs.getInt("re_step"));
+					article.setFix(rs.getString("fix"));
 					articles.add(article);
 				}while(rs.next());
 			}
@@ -229,9 +228,7 @@ public class FreeBoardDAO {
 				article.setReg(rs.getTimestamp("reg"));
 				article.setRead_count(rs.getInt("read_count"));
 				article.setRecommend(rs.getInt("recommend"));
-				article.setRef(rs.getInt("ref"));
-				article.setRe_level(rs.getInt("re_level"));
-				article.setRe_step(rs.getInt("re_step"));
+				article.setFix(rs.getString("fix"));
 				article.setImg(rs.getString("img"));
 			}		
 		} catch (Exception e) {
@@ -245,36 +242,13 @@ public class FreeBoardDAO {
 	}
 	
 	public void insertArticle(FreeBoardDTO article) {
-		int num = article.getNum();
-		int ref= article.getRef();
-		int re_level = article.getRe_level();
-		int re_step = article.getRe_step();
-		int number = 0; 
 		try {		
 			conn=  getConnection();
 			String sql = "select max(num) from freeboard";
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
-			if(rs.next()) { 
-				number = rs.getInt(1)+1;
-			}else {
-				number = 1;
-			}
-			if(num != 0) {//답글쓰기
-				sql = "update freeboard set re_step= re_step+1 where ref=? and re_step>?";
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setInt(1, ref);
-				pstmt.setInt(2, re_step);
-				pstmt.executeQuery();
-				re_step = re_step+1;
-				re_level = re_level+1;
-				
-			}else {//글쓰기
-				ref = number;
-				re_step = 0;
-				re_level = 0;
-			}		
-			sql = "insert into freeboard values(freeboard_seq.nextVal,?,?,?,?,sysdate,?,?,?,?,?,?)";
+			
+			sql = "insert into freeboard values(freeboard_seq.nextVal,?,?,?,?,sysdate,?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, article.getTitle());
 			pstmt.setString(2, article.getWriter());
@@ -282,10 +256,8 @@ public class FreeBoardDAO {
 			pstmt.setString(4, article.getContent());
 			pstmt.setInt(5, article.getRead_count());
 			pstmt.setInt(6, article.getRecommend());
-			pstmt.setInt(7, ref);
-			pstmt.setInt(8, re_step);
-			pstmt.setInt(9, re_level);
-			pstmt.setString(10, article.getImg());
+			pstmt.setString(7, article.getImg());
+			pstmt.setString(8, "F");
 			pstmt.executeQuery();		
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -321,11 +293,10 @@ public class FreeBoardDAO {
 	
 	public void deleteArticle(int num) {
 		try {
-			FreeBoardDTO article = selectArticle(num,"board");
 			conn= getConnection();
-			String sql = "delete from freeboard where ref=?";
+			String sql = "delete from freeboard where num=?";
 			pstmt =conn.prepareStatement(sql);
-			pstmt.setInt(1, article.getRef());
+			pstmt.setInt(1, num);
 			pstmt.executeUpdate();
 			
 			sql="delete from freeboard_comment where freeboard_num=?";
@@ -442,11 +413,9 @@ public class FreeBoardDAO {
 					content.setContent(rs.getString("content"));
 					content.setImg(rs.getString("img"));
 					content.setNum(rs.getInt("num"));
-					content.setRe_level(rs.getInt("re_level"));
-					content.setRe_step(rs.getInt("re_step"));
 					content.setRead_count(rs.getInt("read_count"));
 					content.setRecommend(rs.getInt("recommend"));
-					content.setRef(rs.getInt("ref"));
+					content.setFix(rs.getString("fix"));
 					content.setReg(rs.getTimestamp("reg"));
 					content.setTitle(rs.getString("title"));
 					content.setWriter(writer);		
@@ -505,11 +474,9 @@ public class FreeBoardDAO {
 				article.setContent(rs.getString("content"));
 				article.setImg(rs.getString("img"));
 				article.setNum(num);
-				article.setRe_level(rs.getInt("re_level"));
-				article.setRe_step(rs.getInt("re_step"));
 				article.setRead_count(rs.getInt("read_count"));
 				article.setRecommend(rs.getInt("recommend"));
-				article.setRef(rs.getInt("ref"));
+				article.setFix(rs.getString("fix"));
 				article.setReg(rs.getTimestamp("reg"));
 				article.setTitle(rs.getString("title"));
 				article.setWriter(rs.getString("writer"));		

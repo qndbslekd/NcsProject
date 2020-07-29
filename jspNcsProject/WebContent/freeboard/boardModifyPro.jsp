@@ -36,7 +36,7 @@
 	String category = mr.getParameter("category");
 	String content = mr.getParameter("content");
 	
-	FreeBoardDTO article = new FreeBoardDTO(num,title,writer,category,content,null,0,0,0,0,0,img);
+	FreeBoardDTO article = new FreeBoardDTO(num,title,writer,category,content,null,0,0,null,img);
 	
 	//db저장
 	FreeBoardDAO dao = FreeBoardDAO.getInstance();
