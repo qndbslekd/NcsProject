@@ -20,7 +20,7 @@ if(request.getParameter("num") != null) {
 	RecipeCommentDAO dao = RecipeCommentDAO.getInstance();
 	RecipeCommentDTO comment = dao.selectRecipeComment(num);
 	
-	if(memId.equals(comment.getName())) {
+	if(memId.equals(comment.getName())||memId.equals("admin")) {
 		dao.deleteRecipeComment(num);
 		%> <script> alert("삭제되었습니다."); location.href = document.referrer; </script> <%
 	} else {
