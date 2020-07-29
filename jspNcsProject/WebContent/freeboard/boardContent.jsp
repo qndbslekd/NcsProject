@@ -49,14 +49,19 @@ if(request.getParameter("num") == null){%>
 }else{
 	int num = Integer.parseInt(request.getParameter("num"));
 
+	
 	String pageNum = request.getParameter("pageNum");
+	if(pageNum == null || pageNum.equals("") || pageNum.equals("null")){
+		pageNum = "1";
+	}
+	
 	String mode= request.getParameter("mode");
 	String category = request.getParameter("category");
 	String sel = request.getParameter("sel");
 	String search = request.getParameter("search");
 	
 	String route = request.getParameter("route");
-	if(route==null || route.equals("")){
+	if(route== null || route.equals("")){
 		route = "board";
 	}
 	
