@@ -48,9 +48,6 @@
 	if(request.getParameter("num") != null && !request.getParameter("num").equals("")) reCh= true;
 	if(reCh==true){
 		num = Integer.parseInt(request.getParameter("num"));
-		ref = Integer.parseInt(request.getParameter("ref"));
-		re_level = Integer.parseInt(request.getParameter("re_level"));
-		re_step = Integer.parseInt(request.getParameter("re_step"));
 	}
 
 
@@ -63,9 +60,6 @@
 <h1 align="center">글 작성하기</h1>
 <form action="boardInsertPro.jsp" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="num" value="<%=num %>"/>
-		<input type="hidden" name="ref" value="<%=ref%>"/>
-		<input type="hidden" name="re_step" value="<%=re_step %>"/>
-		<input type="hidden" name="re_level" value="<%=re_level%>"/>
 		<input type="hidden" name="writer" value="<%=session.getAttribute("memId")%>"/>
 	<table id="f-content">
 		<tr>
