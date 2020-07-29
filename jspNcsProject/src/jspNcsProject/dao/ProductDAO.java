@@ -413,6 +413,11 @@ public class ProductDAO {
 			pstmt.setInt(1, Integer.parseInt(num));
 			pstmt.setString(2, name);
 			result = pstmt.executeUpdate();
+			
+			String sql_ ="delete from product where re_step=?";
+			pstmt = conn.prepareStatement(sql_);
+			pstmt.setInt(1, Integer.parseInt(num));
+			result = pstmt.executeUpdate();
 		}catch (Exception e) {
 			e.printStackTrace();
 		}finally {

@@ -49,14 +49,19 @@ if(request.getParameter("num") == null){%>
 }else{
 	int num = Integer.parseInt(request.getParameter("num"));
 
+	
 	String pageNum = request.getParameter("pageNum");
+	if(pageNum == null || pageNum.equals("") || pageNum.equals("null")){
+		pageNum = "1";
+	}
+	
 	String mode= request.getParameter("mode");
 	String category = request.getParameter("category");
 	String sel = request.getParameter("sel");
 	String search = request.getParameter("search");
 	
 	String route = request.getParameter("route");
-	if(route==null || route.equals("")){
+	if(route== null || route.equals("")){
 		route = "board";
 	}
 	
@@ -76,6 +81,7 @@ if(request.getParameter("num") == null){%>
 		String mem_id = (String)session.getAttribute("memId");
 		ch = Rdao.checkRecommend(num,mem_id);	
 	}
+	
 	
 	 
 	
@@ -119,15 +125,12 @@ if(request.getParameter("num") == null){%>
 			<tr>
 				<td>CONTENT</td>
 				<td>
+					<%if(article.getImg() !=null && !article.getImg().equals("")){%>
+					<img src="/jnp/freeboard/save/<%=article.getImg()%>" width="500px"/>
+					<%}%>
 					<textarea class="contents" readonly><%=article.getContent()%></textarea>
 				</td>		
 			</tr>
-			<%if(article.getImg() !=null && !article.getImg().equals("")){%>
-			<tr>
-				<td>이미지</td>
-				<td><img src="/jnp/freeboard/save/<%=article.getImg()%>" width="200px"/></td>		
-			</tr>
-			<%}%>
 			<tr>
 				<td colspan='2'>
 				<%if(article.getWriter().equals((String)session.getAttribute("memId"))){%>
@@ -139,6 +142,13 @@ if(request.getParameter("num") == null){%>
 				<%if(session.getAttribute("memId")!=null && !(article.getWriter().equals((String)session.getAttribute("memId")))){%>
 					<input type="button" value="신고" onclick="report('F','<%=article.getNum()%>','<%=article.getWriter()%>')" />
  				<%}%>
+ 				<%if(session.getAttribute("memId")!=null && session.getAttribute("memId").equals("admin")){
+ 					if(article.getFix().equals("F")){%>
+ 						<input type="button" value="고정" onclick="window.location='FixArticlePro.jsp?num=<%=article.getNum()%>'" />
+ 				<% 	}else{%>
+ 						<input type="button" value="고정해제" onclick="window.location=''" />
+ 				<% 	}		
+ 				}%>
 					<input type="button" value="뒤로" onclick="window.location='board.jsp?mode=<%=mode%>&category=<%=category%>&sel=<%=sel%>&search=<%=search%>&pageNum=<%=pageNum%>'"/>
 				</td>		
 			</tr>
@@ -147,6 +157,8 @@ if(request.getParameter("num") == null){%>
 	<br/>	
 	<jsp:include page="boardComment.jsp">
 		<jsp:param value="<%=num%>" name="num"/>
+		<jsp:param value="<%=pageNum%>" name="pageNum"/>
+		
 	</jsp:include>
 </body>
 <%} %>
