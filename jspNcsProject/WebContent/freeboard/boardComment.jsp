@@ -104,7 +104,7 @@
 						<button onclick="deleteComment('<%=comment.getComment_num()%>')">삭제</button>
 					<%}%>
 					<% if(loginId !=null && !loginId.equals(comment.getWriter()) &&!loginId.equals("admin") ){ %>
-						<button onclick="reply('<%=freeboard_num%>','<%=comment.getRef()%>','<%=comment.getRe_level()%>','<%=comment.getWriter()%>')">답글</button>
+						<button onclick="reply('<%=freeboard_num%>','<%=comment.getRef()%>','<%=comment.getRe_level()%>','<%=comment.getWriter()%>','<%=pageNum%>')">답글</button>
 						<button onclick="report('FC','<%=comment.getComment_num()%>','<%=comment.getWriter()%>')">신고</button>
 					<%} %>
 					</td>
@@ -170,9 +170,9 @@
 <script>
 
 	//리댓달기 창
-	function reply(freeboard_num, ref, re_level, receiver) {
+	function reply(freeboard_num, ref, re_level, receiver,pageNum) {
 		
-		var url = "boardCommentReplyForm.jsp?freeboard_num="+freeboard_num+"&ref="+ref+"&re_level="+re_level+"&receiver="+receiver;
+		var url = "boardCommentReplyForm.jsp?freeboard_num="+freeboard_num+"&ref="+ref+"&re_level="+re_level+"&receiver="+receiver+"&pageNum="+pageNum;
 		var name = "댓글 달기";
 		var option = "width=600,height=,left=600,toolbar=no,menubar=no,location=no,scrollbar=no,status=no,resizable=no";
 		
