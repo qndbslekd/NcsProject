@@ -64,7 +64,6 @@
 			
 			for(int i = 0; i < recipeContentList.size(); i++){
 				recipeContentdto = (RecipeContentDTO)recipeContentList.get(i);
-				System.out.println(recipeContentdto.getContent());		
 			}
 			
 			// 조리단계 댓글 dao
@@ -134,6 +133,9 @@
 				<%= recipeBoard.getCal() %>kcal
 			</td>
 			<td></td>
+		</tr>
+		<tr>
+			<td colspan="6"></td>
 		</tr>
 		<tr style="border-top:2px solid #ccc;vertical-align:middle;padding:10px;">
 			<td></td>
