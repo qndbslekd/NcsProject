@@ -10,6 +10,7 @@
 <title>myRecipeList</title>
 <link href="../resource/team05_style.css" type="text/css" rel="stylesheet"/>
 </head>
+
 <%
 	request.setCharacterEncoding("UTF-8");
 	RecipeDAO dao = RecipeDAO.getInstance();
@@ -63,7 +64,7 @@
 	<% for(int i = 0 ; i < myRecipeList.size(); i++){
 		dto =(RecipeDTO)myRecipeList.get(i);
 	%>
-	<div onclick="location.href='../recipe/recipeContent.jsp?num=<%= dto.getNum()%>'">
+	<div class="recipe" onclick="location.href='../recipe/recipeContent.jsp?num=<%= dto.getNum()%>'">
 
 	<table style="width:800">
 

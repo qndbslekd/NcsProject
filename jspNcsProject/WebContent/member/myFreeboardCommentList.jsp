@@ -87,8 +87,8 @@
 		FreeBoardDTO freeboardDTO = new FreeBoardDTO();
 		freeboardDTO = freeboardDAO.selectParentArticle(num);
 	%>
-	<div onclick="location.href='../freeboard/boardContent.jsp?num=<%=num%>'">
-	<table id="nonBorder" style="width:700px; text-align: left;">
+	<div class="recipe" onclick="location.href='../freeboard/boardContent.jsp?num=<%=num%>'">
+	<table  id="nonBorder" style="width:700px; text-align: left;">
 		<tr>
 			<td >
 				원글제목 : <%= freeboardDTO.getTitle() %>
