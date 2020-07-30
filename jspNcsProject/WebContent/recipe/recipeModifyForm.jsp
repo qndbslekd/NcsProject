@@ -80,7 +80,7 @@
 			</tr>
 			<tr>
 				<td class="t">칼로리</td>
-				<td><input type="number" name="cal" <%if(recipe.getCal() > 0) {  %>value="<%=recipe.getCal()%>"<%} %> required/></td>
+				<td class="h"><input type="number" name="cal" <%if(recipe.getCal() > 0) {  %>value="<%=recipe.getCal()%>"<%} %> required style="width:80px"/>kcal</td>
 			</tr>
 			<tr>
 				<td class="t" style="vertical-align:top;">재료</td>
