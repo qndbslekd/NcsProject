@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>레시피 작성</title>
-<link rel="stylesheet" href="../resource/team05_style.css">
+<link rel="stylesheet" href="../../resource/team05_style.css">
 </head>
 <script>
 	function question(){
@@ -17,11 +17,11 @@
 	String memId = (String) session.getAttribute("memId");
 
 	if(memId==null) { %>
-	<script> alert("로그인 후 이용해주세요."); window.location="../member/loginForm.jsp"; </script>
-	<%} else { %>
+	<script> alert("로그인 후 이용해주세요."); window.location="../../member/loginForm.jsp"; </script>
+	<%} else { 	%>
 <body>
 
-	<jsp:include page="../header.jsp" flush="false">
+	<jsp:include page="../../header.jsp" flush="false">
 		<jsp:param value="recipe" name="mode"/>
 	</jsp:include>
 
@@ -39,7 +39,7 @@
 				<td class="h" style="padding-left:40px;"><%=session.getAttribute("memName") %><input type="hidden" name="writer"  style="border:0px;" value="<%=memId%>" /></td>
 			</tr>
 			<tr>
-				<td class="t">채식유형 <img src="./imgs/question.png" width="20px" height="20px" onclick="question()" /></td>
+				<td class="t">채식유형 <img src="../imgs/question.png" width="20px" height="20px" onclick="question()" /></td>
 				<td class="h" style="text-align:left">
 					<input type="radio" name="vegiType" value="vegan" required />비건<br/>
 					<input type="radio" name="vegiType" value="lacto" required />락토<br/>
@@ -75,13 +75,16 @@
 			</tr>
 			<tr>
 				<td class="t" style="vertical-align:top;">재료</td>
-				<td class="h"><textarea cols="40" rows="10" placeholder="예) 
-감자 : 1개
-양파 : 2개
-고추장 : 두스푼
-..." name="ingredients" style="resize:none;overflow:visible;font-size:25px;"></textarea><br/> 
-				<span class="h" style="font-size:15px; color:#858585">재료명과 분량 사이에 콜론(:)을 꼭 넣어주세요</span>
-			</td>
+				<td class="h">
+				<table id="ingreTable" style="padding:3px">
+					<tr>
+						<td style="padding:3px"><input type="text" name="ingre1" style="width:150px" placeholder="재료명" required /> </td>
+						<td style="padding:3px"><input type="text" name="amount1" style="width:150px" placeholder="분량" required /></td>
+						<td style="padding:3px"><input type="button" onclick="insertIngre()" class="greenButton" value="추가"/></td>
+						<td style="padding:3px; width:60px">&nbsp;</td>
+					</tr>
+				</table>
+				</td>
 			</tr>
 			<tr>
 				<td class="t">요리 단계</td>
@@ -101,4 +104,22 @@
 
 </body>
 <%} %>
+<script>
+	function insertIngre() {
+		oTbl = document.getElementById("ingreTable");
+		var oRow = oTbl.insertRow();
+		oRow.onmouseover=function(){oTbl.clickedRowIndex=this.rowIndex}; //clickedRowIndex - 클릭한 Row의 위치를 확인;
+		var oCell = oRow.insertCell();
+
+	//삽입될 Form Tag
+	  var frmTag = "<td style='padding:3px'><input type=text name=ingre style=width:150px; placeholder='재료명' required></td><td style='padding:3px'><input type=text name=amount style=width:150px; placeholder='분량'required></td> ";
+	  frmTag += "<td style='padding:3px'><input type=button onclick=insertIngre() class=greenButton value='추가' /></td><td style='padding:3px'><input type=button value='삭제' class=grayButton onClick='removeRow()' style='cursor:pointer;'></td>";
+	  oRow.innerHTML = frmTag;
+	}
+	
+	//Row 삭제
+	function removeRow() {
+	  oTbl.deleteRow(oTbl.clickedRowIndex);
+	}
+</script>
 </html>
