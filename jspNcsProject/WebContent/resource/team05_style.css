@@ -179,4 +179,11 @@ a>*{
 	margin-bottom:5px;
 	vertical-align:middle;
 }
+.recipe{
+	border:2px solid white;
+	cursor:pointer;
+}
+.recipe:hover{
+	border:2px solid #8bc34a;
+}
 

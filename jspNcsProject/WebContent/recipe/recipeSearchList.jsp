@@ -46,14 +46,17 @@
 		overflow: hidden;
 		/*border: 1px solid black;*/
 		margin: 20px auto;
-		 		
+		cursor:pointer;
+		border:2px solid white;
+	}
+	#searchRecipe-wrapper .recipe:hover {
+		border:2px solid #8bc34a;
 	}
 	
 	#searchRecipe-wrapper .thumbnail{
 		width: 150px;
 		height:146px;
 		margin: 1px 1px;
-		
 		float: left;
 	}
 	
