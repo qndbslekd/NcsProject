@@ -142,11 +142,11 @@ if(request.getParameter("num") == null){%>
 				<%if(session.getAttribute("memId")!=null && !(article.getWriter().equals((String)session.getAttribute("memId")))){%>
 					<input type="button" value="신고" onclick="report('F','<%=article.getNum()%>','<%=article.getWriter()%>')" />
  				<%}%>
- 				<%if(session.getAttribute("memId")!=null && session.getAttribute("memId").equals("admin")){
+ 				<%if(session.getAttribute("memId")!=null && session.getAttribute("memId").equals("admin") && !article.getCategory().equals("notice")){
  					if(article.getFix().equals("F")){%>
- 						<input type="button" value="고정" onclick="window.location='FixArticlePro.jsp?num=<%=article.getNum()%>'" />
+ 						<input type="button" value="고정" onclick="window.location='fixArticlePro.jsp?num=<%=article.getNum()%>&mode=<%=mode%>&category=<%=category%>&sel=<%=sel%>&search=<%=search%>&pageNum=<%=pageNum%>&ch=<%=article.getFix() %>'" />
  				<% 	}else{%>
- 						<input type="button" value="고정해제" onclick="window.location=''" />
+ 						<input type="button" value="고정해제" onclick="window.location='fixArticlePro.jsp?num=<%=article.getNum()%>&mode=<%=mode%>&category=<%=category%>&sel=<%=sel%>&search=<%=search%>&pageNum=<%=pageNum%>&ch=<%=article.getFix() %>'" />
  				<% 	}		
  				}%>
 					<input type="button" value="뒤로" onclick="window.location='board.jsp?mode=<%=mode%>&category=<%=category%>&sel=<%=sel%>&search=<%=search%>&pageNum=<%=pageNum%>'"/>
