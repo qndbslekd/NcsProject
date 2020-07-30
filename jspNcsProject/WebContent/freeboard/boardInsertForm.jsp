@@ -20,7 +20,6 @@
 	}
 	#f-content td{
 		border-top: 1px solid #999;
-		border-buttom: 1px solid #999;
 		
 	}
 	
@@ -28,8 +27,9 @@
 		width:300px;
 		height:500px;
 		resize : none;
-		border : 0px;
+		border : 1px solid #999;
 		padding: 10px;
+		margin: 10px;
 	}
 
 
@@ -91,7 +91,6 @@
 			<td style="width:100px;">이미지</td>
 			<td><input type="file" name="img"/></td>		
 		</tr>
-		<tr><td>&nbsp;</td></tr>
 		<tr>
 			<td colspan='2'>
 				<input type="submit" value="작성"/>
