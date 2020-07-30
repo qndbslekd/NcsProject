@@ -101,6 +101,9 @@
 		RecipeContentCommentDAO rccDao = RecipeContentCommentDAO.getInstance(); 
 		ProductDAO pDao = ProductDAO.getInstance();
 		FreeBoardDAO fDao = FreeBoardDAO.getInstance();
+		
+		
+		
 	%>
 
 <body>
@@ -319,14 +322,25 @@
 		<br/>
 		<div class="paging">
 		<%
-			if(count >0){
-				int pageCount = count / pageSize + (count % pageSize == 0 ? 0 : 1);
-				int pageBlock = 10;		
-				int startPage = (int)((currPage-1)/pageBlock)*pageBlock +1;	// 1 11 21 ...
-				int endPage = startPage + pageBlock -1;	// 10 20 30 ...
-				if(endPage > pageCount) endPage = pageCount;
+			int pageCount = count / pageSize + (count % pageSize == 0 ? 0 : 1);
+			int pageBlock = 10;		
+			int startPage = (int)((currPage-1)/pageBlock)*pageBlock +1;	// 1 11 21 ...
+			int endPage = startPage + pageBlock -1;	// 10 20 30 ...
+			if(endPage > pageCount) endPage = pageCount;
+		
+			if(count >0 && offence !=null){
 				if(startPage > pageBlock){%>
-					<div class="page" onclick="window.location='memberList.jsp?pageNum=<%=startPage-pageBlock%>'">&lt;</div>
+					<div class="page" onclick="window.location='memberList.jsp?pageNum=<%=startPage-pageBlock%>&offence=<%=offence%>'">&lt;</div>
+				<%}
+				for(int i =startPage; i<= endPage; i++){%>
+					<div class="page" onclick="window.location='memberList.jsp?pageNum=<%=i%>&offence=<%=offence%>'">&nbsp;<%=i %></div>
+				<%}
+				if(endPage < pageCount){%>
+					<div class="page" onclick="window.location='memberList.jsp?pageNum=<%=startPage+pageBlock%>&offence=<%=offence%>'">&gt;</div>
+				<%}
+			}else if(count >0 && offence == null){
+				if(startPage > pageBlock){%>
+				<div class="page" onclick="window.location='memberList.jsp?pageNum=<%=startPage-pageBlock%>'">&lt;</div>
 				<%}
 				for(int i =startPage; i<= endPage; i++){%>
 					<div class="page" onclick="window.location='memberList.jsp?pageNum=<%=i%>'">&nbsp;<%=i %></div>
