@@ -135,7 +135,22 @@
 			</td>
 			<td></td>
 		</tr>
-		<tr><td>&nbsp;</td></tr>
+		<tr style="border-top:2px solid #ccc;vertical-align:middle;padding:10px;">
+			<td></td>
+			<td style="padding:20px;margin:20px;">
+				<img src="/jnp/recipe/imgs/icon_url_copy.gif" style="width:50px; height:50px; border-radius:25px;"/>
+			</td>
+			<td style="padding:20px;margin:20px;">
+				<img src="/jnp/recipe/imgs/icon_sns_ks.png" style="width:50px; height:50px; border-radius:25px;"/>
+			</td>
+			<td style="padding:20px;margin:20px;">
+				<img src="/jnp/recipe/imgs/icon_sns_t.png" style="width:50px; height:50px; border-radius:25px;"/>
+			</td>
+			<td style="padding:20px;margin:20px;">
+				<img src="/jnp/recipe/imgs/icon_sns_f.png" style="width:50px; height:50px; border-radius:25px;"/>
+			</td>
+			<td></td>
+		</tr>
 		<tr>
 			<td colspan="3" style="border-top:2px solid #ccc;border-right:2px solid #ccc;border-bottom:2px solid #ccc;">
 				<span> 평점 : </span> 
@@ -278,6 +293,16 @@
 			location.href= "../member/offenceMember.jsp?offenceUrl="+offenceCode+"&member="+member;
 		}		
 	}
+	//url 복사
+	function CopyUrlToClipboard(){
+		var f = document.clipboard.url;
+		f.value = document.location.href;
+		f.select() ;
+		therange=f.createTextRange() ;
+		therange.execCommand("Copy");
+		alert("클립보드로 URL이 복사되었습니다.");
+	}
+
 
 
 	</script>
