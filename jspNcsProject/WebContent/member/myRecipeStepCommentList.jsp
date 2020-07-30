@@ -88,7 +88,7 @@
 		RecipeDTO recipeboardDTO = new RecipeDTO();
 		recipeboardDTO = recipeboardDAO.selectRecipeBoard(recipeNum);
 	%>
-	<div onclick="location.href='../recipe/recipeContent.jsp?num=<%= recipeboardDTO.getNum()%>'">
+	<div class="recipe" onclick="location.href='../recipe/recipeContent.jsp?num=<%= recipeboardDTO.getNum()%>'">
 	<table id="nonBorder" style="width:700px; text-align: left;">
 		<tr>
 			<td >
