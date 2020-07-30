@@ -124,8 +124,9 @@
 						reStep = dto.getReStep();
 						reLevel = dto.getReLevel();
 				%>
-			<tr>
-				<td align="left" style="padding:2px">
+				
+			<tr style="max-height:10px;height:10px">
+				<td style="padding:2px; padding-top:10px;vertical-align:top;max-width:400px;text-align:left;" rowspan="2" >
 					<% // 댓글 들여쓰기 처리
 						int wid = 0;
 						if(dto.getReLevel() > 0){ //if4
@@ -133,11 +134,11 @@
 					%>
 						<div style="width:<%= wid %>px; display:inline-block;" >&nbsp;</div>
 						<%} // if4 끝%>
-						<img src="imgs/replyImg.png" width="11" />
-					"<%= dto.getContent()  %>"
-					</td>
-				<td style="padding:2px;"> | <%=recipeDAO.selectNameById(dto.getName()) %></td>
-				<td style="padding:2px"> 
+						<div style="display:inline-block;vertical-align:top; "><img src="imgs/replyImg.png" width="11"  height="11"/></div>
+					<div style="display:inline-block; max-width:<%=340-wid%>px;">"<%= dto.getContent()  %>"</div>
+				</td>
+				<td style="padding:2px;max-height:40px;height:40px"> <span style="vertical-align:middle;">| <%=recipeDAO.selectNameById(dto.getName()) %></span></td>
+				<td style="padding:2px;max-height:40px;height:40px;text-align:left"> 
 					<% 
 					if(session.getAttribute("memId") == null){//if3 로그아웃 상태%>
 					
@@ -166,6 +167,11 @@
 					}//if3의 else끝	
 					%>				
 			  	</td>
+			  	</tr>
+			  	<tr style="min-height:1px;padding:0px;">
+			  		<td style="padding:0; min-height:1px;"><div style="width:1px; height:1px; display:block"></div></td>
+			  		<td style="padding:0; min-height:1px;"><div style="width:1px; height:1px; display:block"></div></td>
+			  	</tr>
 					<%} // for1 끝								
 				} // if5끝 %>						
 			</tr>					
