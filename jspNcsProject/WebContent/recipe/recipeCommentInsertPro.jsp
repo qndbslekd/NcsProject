@@ -34,8 +34,9 @@ if(comment.getReceiver()!=null) { %>
 <script>
 	alert("댓글이 작성되었습니다.");
 </script>
-<%response.sendRedirect("recipeContent.jsp?num="+num); 
-} %>
+<%
+response.sendRedirect("/jnp/recipe/recipeContent.jsp?num="+num); 	
+}%>
 
 <body>
 
