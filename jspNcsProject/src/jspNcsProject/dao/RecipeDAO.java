@@ -436,7 +436,7 @@ public class RecipeDAO {
 			
 			conn = getConnection();
 			
-			String sql = "select * from product where "+search+" order by recommend desc";
+			String sql = "select * from product where "+search+" and re_level=0 order by recommend desc";
 			pstmt = conn.prepareStatement(sql);
 			
 			
