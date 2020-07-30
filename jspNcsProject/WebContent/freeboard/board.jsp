@@ -193,10 +193,16 @@
 			newCount = dao.getArticlesCount(new Timestamp(today_todate.getTime()));
 			articleList = dao.selectAllArticle(startRow, endRow, mode);
 		}
-		//System.out.println("전체리스트요청, mode:"+mode +" count:"+count+" newCount:"+ newCount);
 	}
 	
 	number = count -(currPage-1)*pageSize;
+	
+	//고정 리스트 가져오기
+	int fCount = dao.getFixedArticleCount();
+	List fixedArticles  = null;
+	if(fCount>0){
+		fixedArticles = dao.selectAllfixedArticle();	
+	}
 		
 %>
 <body>
@@ -242,11 +248,39 @@
 		<tr>
 			<td colspan='6'>게시글이 없습니다.</td>
 		</tr>			
-	<%}else{	
-			for(int i = 0; i< articleList.size();i++){
-				FreeBoardDTO dto = (FreeBoardDTO)(articleList.get(i));
-				//활동명 받아오기
-				String name = dao.selectNameById(dto.getWriter());
+	<%}else{
+		if(fCount > 0){
+			for(int i = 0 ; i< fixedArticles.size(); i++){
+				FreeBoardDTO fixedArticle = (FreeBoardDTO)(fixedArticles.get(i));
+				String name = dao.selectNameById(fixedArticle.getWriter());%>
+		<tr>
+			<%if(fixedArticle.getCategory().equals("notice")){%>	
+			<td><strong>공 지</strong></td>
+			<%}else{ %>
+			<td><strong>★</strong></td>
+			<%}%>
+			<%if(fixedArticle.getCategory().equals("notice")){%>	
+			<td>공지사항</td>
+			<%}else if(fixedArticle.getCategory().equals("freetalk")){%>	
+			<td>잡담과일기</td>
+			<%}else if(fixedArticle.getCategory().equals("information")){%>	
+			<td>정보 공유</td>
+			<%}else if(fixedArticle.getCategory().equals("question")){%>	
+			<td>고민과질문</td>
+			<%} %>
+			<td style="text-align:left;" onclick="window.location='boardContent.jsp?num=<%=fixedArticle.getNum()%>&mode=<%=mode%>&category=<%=category%>&sel=<%=sel%>&search=<%=search%>&pageNum=<%=pageNum%>'"><%=fixedArticle.getTitle()%></td>
+			<td ><%=name%></td>
+			<td><%=sdf.format(fixedArticle.getReg())%></td>
+			<td><%=fixedArticle.getRead_count()%></td>
+			<td><%=fixedArticle.getRecommend()%></td>
+		</tr>
+			<% }		
+		}
+		
+		for(int i = 0; i< articleList.size();i++){
+			FreeBoardDTO dto = (FreeBoardDTO)(articleList.get(i));
+			//활동명 받아오기
+			String name = dao.selectNameById(dto.getWriter());
 		%>
 		<tr>
 			<td><%=number--%></td>	
@@ -304,7 +338,6 @@
 				<td colspan='4'>
 					<select name="category">
 						<option value="total" <%if(category != null && category.equals("total")){%>selected<%}%>>카테고리</option>
-						<option value="notice" <%if(category != null && category.equals("notice")){%>selected<%}%>>공지사항</option>
 						<option value="question" <%if(category != null && category.equals("question")){%>selected<%}%>>고민과질문</option>
 						<option value="information" <%if(category != null && category.equals("information")){%>selected<%}%>>정보 공유</option>
 						<option value="freetalk" <%if(category != null && category.equals("freetalk")){%>selected<%}%>>잡담과일기</option>
