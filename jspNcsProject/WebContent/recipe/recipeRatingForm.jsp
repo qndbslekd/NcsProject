@@ -43,7 +43,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td><input type="submit" value="평점 주기" /> </td>
+						<td><input type="submit" class="greenButton" value="평점 주기" /> </td>
 					</tr>
 				</table>
 			</form>

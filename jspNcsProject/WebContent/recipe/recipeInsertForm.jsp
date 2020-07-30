@@ -52,11 +52,11 @@
 			</tr>
 			<tr>
 				<td class="t">요리 분량</td>
-				<td class="h"><input type="number" name="quantity" required style="width:50px;" />인분</td>
+				<td class="h"><input type="number"  min="1" max="99" name="quantity" required style="width:50px;" />인분</td>
 			</tr>
 			<tr>
 				<td class="t">요리 시간</td>
-				<td class="h"><input type="number" name="cookingTime" required style="width:50px"/>분</td>
+				<td class="h"><input type="number"  min="1" max="9999" name="cookingTime" required style="width:50px"/>분</td>
 			</tr>
 			<tr>
 				<td class="t">난이도</td>
@@ -71,7 +71,7 @@
 			</tr>
 			<tr>
 				<td class="t">칼로리</td>
-				<td class="h"><input type="number" name="cal" style="width:80px" required/>kcal </td>
+				<td class="h"><input type="number"  min="0" max="99999" name="cal" style="width:80px" required/>kcal </td>
 			</tr>
 			<tr>
 				<td class="t" style="vertical-align:top;">재료</td>

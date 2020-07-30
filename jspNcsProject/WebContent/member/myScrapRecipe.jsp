@@ -11,6 +11,14 @@
 <link rel="stylesheet" href="../resource/team05_style.css">
 </head>
 <style>
+	.recipe {
+		cursor:pointer;
+		border:2px solid white;
+	}
+	.recipe:hover{
+		border:2px solid #8bc34a;
+	}
+	
 	#search{
 			width : 800px;
 			margin-top : 50px;
@@ -35,7 +43,7 @@
 		width: 150px;
 		height:146px;
 		margin: 1px 1px;
-		border: 1px solid black;
+		border: 1px solid #ccc;
 		float: left;
 	}
 	
@@ -43,7 +51,7 @@
 		width: 692px;
 		height: 146px;	
 		margin: 1px 1px;
-		border: 1px solid black;
+		border: 1px solid #ccc;
 		float: left;			
 	}
 	
@@ -149,8 +157,8 @@ if(memId == null) {
 			<div class="thumbnail">
 				<img width="150px" height="146px" src="/jnp/recipe/imgs/<%=recipe.getThumbnail()%>"/>
 			</div>
-			<div class="info">
-				<div class='row title' ><%=recipe.getRecipeName() %></div>
+			<div class="info" >
+				<div class='row title' ><%=recipe.getRecipeName() %><div align="right" style="float:right;"><button class="greenButton" onclick="UnScrap(<%=recipe.getNum()%>)" style="margin:5px 0px 5px 5px;padding:3px 10px">찜 해제</button></div></div>
 				<div class='row'>posted by <%=recipe.getWriter() %></div>
 				<div class='row'>평점: <%=recipe.getRating() %>(리뷰수)</div>
 				<div class='row'>채식유형 : <%=recipe.getVegiType()%> | 난이도 : <%=recipe.getDifficulty()%> 
@@ -159,7 +167,6 @@ if(memId == null) {
 				<%--<div class='row'>재료: <%= recipe.getIngredients().substring(1,recipe.getIngredients().length()-1)%></div>--%>				
 			</div>		
 		</div>
-		<div align="right"><button class="greenButton" onclick="UnScrap(<%=recipe.getNum()%>)" style="margin-right:60px; margin-top:3px; padding:3px 10px">찜 해제</button></div>		
 		<%	} 
 	 } %>		
 	</div>
@@ -198,6 +205,7 @@ if(memId == null) {
 		if(confirm("찜 해제하시겠습니까?")==true) {
 			location.href = "../recipe/recipeScrap.jsp?num="+num+"&scraper=<%=memId%>"+"&did=true&pageNum=<%=pageNum%>&prePage=../member/myScrapRecipe";
 		}
+		event.stopPropagation();
 		
 	}
 </script>
