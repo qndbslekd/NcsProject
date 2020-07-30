@@ -70,7 +70,7 @@
 			<tr>
 			<td colspan="2" style="border-top:2px solid #ccc; border-bottom:2px solid #ccc; padding-top: 30px; padding-bottom: 30px;">
 				<h1 style="display: inline;"><%=dto.getName() %></h1>
-				<button onclick = "recommand()">추천 <%=dto.getRecommend()%></button>
+				<button onclick = "recommand()" style="cursor:pointer;">추천 <%=dto.getRecommend()%></button>
 			</td>
 			</tr> 
 			<tr>
@@ -159,8 +159,8 @@
 			<%if(name.equals("관리자")){ %>
 			<tr>
 				<td colspan="2">
-					<button type="button" onclick="window.location = 'productModifyForm.jsp?num=<%=dto.getNum() %>'" >글 수정</button>
-					<button type="button" onclick="window.location = 'productDeletePro.jsp?num=<%=dto.getNum() %>'" >삭제하기</button>
+					<button type="button" style="cursor:pointer;" onclick="window.location = 'productModifyForm.jsp?num=<%=dto.getNum() %>'" >글 수정</button>
+					<button type="button" style="cursor:pointer;" onclick="window.location = 'productDeletePro.jsp?num=<%=dto.getNum() %>'" >삭제하기</button>
 				</td>
 			</tr>
 			<% }%>
