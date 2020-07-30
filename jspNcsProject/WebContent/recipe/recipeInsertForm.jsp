@@ -88,7 +88,7 @@
 				<td class="h"><input type="number" name="recipeStep" required style="width:50px"/>단계</td>
 			</tr>
 			<tr>
-				<td class="t">키워드</td>
+				<td class="t">태그</td>
 				<td class="h"><input type="text" placeholder="예) 태그, 태그, 태그 ..." name="tag" style="width:90%"/></td>
 			</tr>
 			<tr>
