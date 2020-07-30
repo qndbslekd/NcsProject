@@ -71,7 +71,7 @@
 			</tr>
 			<tr>
 				<td class="t">칼로리</td>
-				<td class="h"><input type="number" name="cal" style="width:80px"/>kcal </td>
+				<td class="h"><input type="number" name="cal" style="width:80px" required/>kcal </td>
 			</tr>
 			<tr>
 				<td class="t" style="vertical-align:top;">재료</td>

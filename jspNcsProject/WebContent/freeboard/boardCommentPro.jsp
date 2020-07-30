@@ -10,8 +10,6 @@
 </head>
 <%
 	request.setCharacterEncoding("utf-8");
-
-	System.out.println(request.getParameter("freeboard_num") == null);
 	
 	if(session.getAttribute("memId") == null || request.getParameter("freeboard_num") == null){%>
 		<script>
