@@ -252,6 +252,7 @@ if(mostTag == null) { //찜한 레시피가 없을 때 : 전체 레시피 중 �
 									<div class="row" style="font-size:17px;"><%=dto.getRecipeName()%></div>
 									<div class="row" style="color:#999; font-weight:100;">posted by <%=Rdao.selectNameById(dto.getWriter()) %></div>
 									<div class="row"style="font-size:14px">
+									
 										<%
 										//평점 별 그림 넣기
 										for(int j = 0; j < (int)dto.getRating() ; j++) {
