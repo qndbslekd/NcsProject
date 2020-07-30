@@ -84,7 +84,7 @@
 		ProductDTO productDTO = new ProductDTO();
 		productDTO = dao.selectProdcut(num);
 	%>
-	<div onclick="location.href='../product/productContent.jsp?num=<%= productDTO.getNum()%>'">
+	<div class="recipe" onclick="location.href='../product/productContent.jsp?num=<%= productDTO.getNum()%>'">
 	<table id="nonBorder" style="width:700px; text-align: left;">
 		<tr>
 			<td >

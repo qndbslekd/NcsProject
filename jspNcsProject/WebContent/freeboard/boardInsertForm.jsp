@@ -79,7 +79,7 @@
 				<%	}%>			
 					<option value="question">고민과 질문</option>
 					<option value="information">정보 공유</option>
-					<option value="freetalk">잡담과일기</option>			
+					<option value="freetalk">잡담과일기</option>		 
 				</select>
 			</td>		
 		</tr>
