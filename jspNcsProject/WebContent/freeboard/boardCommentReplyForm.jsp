@@ -27,7 +27,7 @@
 	 int ref = Integer.parseInt(request.getParameter("ref"));
 	 int re_level = Integer.parseInt(request.getParameter("re_level"));
 	 String receiver = request.getParameter("receiver");
-
+	 String pageNum= request.getParameter("pageNum");
 %>
 <body>
 	<form action="boardCommentPro.jsp" method="post" name="commentForm" onsubmit="return check()">
@@ -36,6 +36,7 @@
 		<input type="hidden" name="re_level" value="<%=re_level%>"/>
 		<input type="hidden" name="receiver" value="<%=receiver%>"/>
 		<input type="hidden" name="writer" value="<%=session.getAttribute("memId")%>"/>
+		<input type="hidden" name="pageNum" value="<%=pageNum %>"/>
 		<table>
 			<tr>
 				<td><textarea name="content" cols="70" rows="3" style="resize:none;"></textarea></td>
