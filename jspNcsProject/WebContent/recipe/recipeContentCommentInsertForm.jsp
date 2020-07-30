@@ -35,7 +35,7 @@
 		<table>
 			<tr>
 				<td colspan="2">
-					<input type="text" name="commentContent" required/>
+					<textarea rows="5" cols="30" name="commentContent" required></textarea>
 				</td>
 			</tr>
 			<tr>
