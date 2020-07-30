@@ -127,7 +127,7 @@
 	function reply(num) {
 		var url = "recipeCommentReplyInsertForm.jsp?num=" + num;
 		var name = "댓글 달기";
-		var option = "width=400,height=400,left=600,toolbar=no,menubar=no,location=no,scrollbar=no,status=no,resizable=no";
+		var option = "width=800,height=200,left=510,top=440,toolbar=no,menubar=no,location=no,scrollbar=no,status=no,resizable=no";
 		
 		window.open(url,name,option);
 		
@@ -145,7 +145,7 @@
 	function modifyComment(num) {
 		var url = "recipeCommentModifyForm.jsp?num=" +num;
 		var name = "댓글 수정하기";
-		var option = "width=550,height=400,left=600,toolbar=no,menubar=no,location=no,scrollbar=no,status=no,resizable=no";
+		var option = "width=800,height=300,left=510,top=390,toolbar=no,menubar=no,location=no,scrollbar=no,status=no,resizable=no";
 		
 		window.open(url,name,option);
 	}

@@ -69,6 +69,16 @@
 	
 	
 	}
+	
+	.fixedArticle{
+		background-color: #d6e0f5;
+	
+	}
+	
+	.list-title{
+		
+		border-bottom: 1px solid black;
+	}
 
 </style>
 <script>
@@ -234,7 +244,7 @@
 	</table>
 	<table class="list" >
 		<thead>	
-		<tr>
+		<tr class="list-title">
 			<th>NO</th>
 			<th>CATEGORY</th>
 			<th>TITLE</th>
@@ -253,7 +263,7 @@
 			for(int i = 0 ; i< fixedArticles.size(); i++){
 				FreeBoardDTO fixedArticle = (FreeBoardDTO)(fixedArticles.get(i));
 				String name = dao.selectNameById(fixedArticle.getWriter());%>
-		<tr>
+		<tr class="fixedArticle">
 			<%if(fixedArticle.getCategory().equals("notice")){%>	
 			<td><strong>공 지</strong></td>
 			<%}else{ %>
@@ -268,7 +278,7 @@
 			<%}else if(fixedArticle.getCategory().equals("question")){%>	
 			<td>고민과질문</td>
 			<%} %>
-			<td style="text-align:left;" onclick="window.location='boardContent.jsp?num=<%=fixedArticle.getNum()%>&mode=<%=mode%>&category=<%=category%>&sel=<%=sel%>&search=<%=search%>&pageNum=<%=pageNum%>'"><%=fixedArticle.getTitle()%></td>
+			<td style="text-align:left;" onclick="window.location='boardContent.jsp?num=<%=fixedArticle.getNum()%>&mode=<%=mode%>&category=<%=category%>&sel=<%=sel%>&search=<%=search%>&pageNum=<%=pageNum%>'"><strong><%=fixedArticle.getTitle()%></strong></td>
 			<td ><%=name%></td>
 			<td><%=sdf.format(fixedArticle.getReg())%></td>
 			<td><%=fixedArticle.getRead_count()%></td>
