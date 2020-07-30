@@ -11,15 +11,13 @@ public class FreeBoardDTO {
 	private Timestamp reg;
 	private int read_count;
 	private int recommend;
-	private int ref;
-	private int re_step;
-	private int re_level;
+	private String fix;// "T" or "F"
 	private String img;
 		
 	public FreeBoardDTO() {}
 	
 	public FreeBoardDTO(int num, String title, String writer, String category, String content, Timestamp reg,
-			int read_count, int recommend, int ref, int re_step, int re_level, String img) {
+			int read_count, int recommend, String fix, String img) {
 		super();
 		this.num = num;
 		this.title = title;
@@ -29,11 +27,11 @@ public class FreeBoardDTO {
 		this.reg = reg;
 		this.read_count = read_count;
 		this.recommend = recommend;
-		this.ref = ref;
-		this.re_step = re_step;
-		this.re_level = re_level;
+		this.fix = fix;
 		this.img = img;
 	}
+
+
 
 	public int getNum() {
 		return num;
@@ -87,24 +85,15 @@ public class FreeBoardDTO {
 	public void setRecommend(int recommend) {
 		this.recommend = recommend;
 	}
-	public int getRef() {
-		return ref;
+	
+	public String getFix() {
+		return fix;
 	}
-	public void setRef(int ref) {
-		this.ref = ref;
+
+	public void setFix(String fix) {
+		this.fix = fix;
 	}
-	public int getRe_step() {
-		return re_step;
-	}
-	public void setRe_step(int re_step) {
-		this.re_step = re_step;
-	}
-	public int getRe_level() {
-		return re_level;
-	}
-	public void setRe_level(int re_level) {
-		this.re_level = re_level;
-	}
+
 	public String getImg() {
 		return img;
 	}
@@ -112,18 +101,5 @@ public class FreeBoardDTO {
 		this.img = img;
 	}
 
-	@Override
-	public String toString() {
-		return "FreeBoardDTO [num=" + num + ", title=" + title + ", writer=" + writer + ", category=" + category
-				+ ", content=" + content + ", reg=" + reg + ", read_count=" + read_count + ", recommend=" + recommend
-				+ ", ref=" + ref + ", re_step=" + re_step + ", re_level=" + re_level + ", img=" + img + "]";
-	}
-	
-	
-	
-	
-	
-	
-	
 	
 }
