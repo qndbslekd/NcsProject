@@ -35,7 +35,7 @@ public class FreeBoardDAO {
 		int count = 0;
 		try {
 			conn =getConnection();
-			String sql = "select count(*) from freeboard";
+			String sql = "select count(*) from freeboard WHERE category NOT IN ('notice')";
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			
@@ -59,7 +59,7 @@ public class FreeBoardDAO {
 		int count = 0;
 		try {
 			conn =getConnection();
-			String sql = "select count(*) from freeboard "+whereQuery;		
+			String sql = "select count(*) from freeboard "+whereQuery +" and category NOT IN ('notice')";		
 			pstmt = conn.prepareStatement(sql);;
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
@@ -81,7 +81,7 @@ public class FreeBoardDAO {
 		System.out.println(date);
 		try {
 			conn =getConnection();
-			String sql = "select count(*) from freeboard where reg >= ?";
+			String sql = "select count(*) from freeboard where reg >= ? and category NOT IN ('notice')";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setTimestamp(1, date);
 			rs = pstmt.executeQuery();
@@ -103,7 +103,7 @@ public class FreeBoardDAO {
 		int count = 0;
 		try {
 			conn =getConnection();
-			String sql = "select count(*) from freeboard "+whereQuery+" and reg>=?";
+			String sql = "select count(*) from freeboard "+whereQuery+" and reg>=? and category NOT IN ('notice')";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setTimestamp(1, date);
 			rs = pstmt.executeQuery();
@@ -127,7 +127,7 @@ public class FreeBoardDAO {
 		try {
 			conn = getConnection();
 			String sql = "SELECT a.*from(SELECT rownum r, b.* "
-					+ "from(SELECT * FROM freeboard ORDER BY "+mode+" DESC)b ORDER BY "+mode+" DESC)a "
+					+ "from(SELECT * FROM freeboard WHERE category NOT IN ('notice') ORDER BY "+mode+" DESC)b ORDER BY "+mode+" DESC)a "
 					+ "WHERE r>=? AND r<=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, startRow);
@@ -167,7 +167,7 @@ public class FreeBoardDAO {
 			
 			conn = getConnection();
 			String sql = "SELECT a.*from(SELECT rownum r, b.* "
-					+ "from(SELECT * FROM freeboard "+whereQuery+" ORDER BY "+mode+" DESC)b ORDER BY "+mode+" DESC)a "
+					+ "from(SELECT * FROM freeboard "+whereQuery+" and category NOT IN ('notice') ORDER BY "+mode+" DESC)b ORDER BY "+mode+" DESC)a "
 					+ "WHERE r>=? AND r<=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, startRow);
@@ -198,6 +198,65 @@ public class FreeBoardDAO {
 			if (conn != null)	try {conn.close();} catch (Exception e) {e.printStackTrace();}			
 		}	
 		return articles;
+	}
+	//고정된 글 가져오기
+	public ArrayList selectAllfixedArticle() {
+		ArrayList fixedArticles = null;
+		try {
+			conn= getConnection();
+			String sql = "select * from freeboard where fix='T' order by case when category in ('notice') then 0 else 1 end, category, num desc";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				fixedArticles = new ArrayList();
+				do {
+					FreeBoardDTO article = new FreeBoardDTO();
+					article.setNum(rs.getInt("num"));
+					article.setTitle(rs.getString("title"));
+					article.setWriter(rs.getString("writer"));
+					article.setCategory(rs.getString("category"));
+					article.setContent(rs.getString("content"));
+					article.setReg(rs.getTimestamp("reg"));
+					article.setRecommend(rs.getInt("recommend"));
+					article.setRead_count(rs.getInt("read_count"));
+					article.setFix(rs.getString("fix"));
+					fixedArticles.add(article);		
+				}while(rs.next());
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null)	try {rs.close();} catch (Exception e) {e.printStackTrace();	}
+			if (pstmt != null)	try {pstmt.close();	} catch (Exception e) {	e.printStackTrace();}
+			if (conn != null)	try {conn.close();} catch (Exception e) {e.printStackTrace();}			
+		}
+			
+		return fixedArticles;
+	
+	}
+	
+	public int getFixedArticleCount() {
+		int count =0;
+		try {
+			conn= getConnection();
+			String sql = "select count(*) from freeboard where fix='T'";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null)	try {rs.close();} catch (Exception e) {e.printStackTrace();	}
+			if (pstmt != null)	try {pstmt.close();	} catch (Exception e) {	e.printStackTrace();}
+			if (conn != null)	try {conn.close();} catch (Exception e) {e.printStackTrace();}			
+		}
+			
+		return count;
+	
 	}
 	
 	public FreeBoardDTO selectArticle(int num, String route) {
@@ -242,11 +301,19 @@ public class FreeBoardDAO {
 	}
 	
 	public void insertArticle(FreeBoardDTO article) {
+		String fix = "";
+		if(article.getCategory().equals("notice")) { 
+			fix="T";
+		}else {
+			fix="F";
+		}
+		
 		try {		
 			conn=  getConnection();
 			String sql = "select max(num) from freeboard";
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
+
 			
 			sql = "insert into freeboard values(freeboard_seq.nextVal,?,?,?,?,sysdate,?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
@@ -257,7 +324,7 @@ public class FreeBoardDAO {
 			pstmt.setInt(5, article.getRead_count());
 			pstmt.setInt(6, article.getRecommend());
 			pstmt.setString(7, article.getImg());
-			pstmt.setString(8, "F");
+			pstmt.setString(8, fix);
 			pstmt.executeQuery();		
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -512,6 +579,31 @@ public class FreeBoardDAO {
 		}
 		return result;
 	}
+	
+	//게시글 고정 | 고정해제
+	public void fixArticle(int num, String ch) {
+		try {
+			conn = getConnection();
+			String sql="";
+			if(ch.equals("F")) {
+				sql = "update freeboard set fix = 'T' where num = ?";
+				
+			}else if(ch.equals("T")) {
+				sql = "update freeboard set fix='F' where num=?";
+				
+			}			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			pstmt.executeQuery();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(pstmt != null)try {pstmt.close();}catch(Exception e) {e.printStackTrace();}
+			if(conn != null)try {conn.close();}catch(Exception e) {e.printStackTrace();}
+		}
+	}
+	
 	
 
 }
