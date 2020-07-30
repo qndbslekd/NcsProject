@@ -17,7 +17,8 @@
 메일 : admin@beginVegan.com <button class="greenButton" onclick="window.location='mailto:admin@beginVegan.com'" >메일 보내기</button>
 
 
-
+<br/>
+<br/>
 
 </body>
 </html>
