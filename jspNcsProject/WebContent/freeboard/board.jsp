@@ -149,7 +149,7 @@
 	if(sel != null &&sel.equals("null")) {sel=null;}
 	if(search != null &&search.equals("null")) {search=null;}
 	
-	System.out.println("category:"+category+" sel:"+sel+" search:"+search);
+
 	
 	
 	
@@ -189,7 +189,6 @@
 		}		
 		
 		count = dao.getArticlesCount(whereQuery);
-		System.out.println("검색리스트 요청 whereQuery:"+whereQuery +" count:"+count);
 		if(count > 0 ){
 			//검색 요청한 글 리스트 가져오기
 			newCount = dao.getArticlesCount(new Timestamp(today_todate.getTime()),whereQuery);

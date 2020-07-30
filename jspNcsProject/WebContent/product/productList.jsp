@@ -152,7 +152,7 @@ if (search == null || search.equals("")) {
 						<option value="name">제품명</option>
 						<option value="ingredients">성분</option>
 					</select> <input type="text" name="search" placeholder="성분ex)인공감미료" />
-					<input type="submit" value="검색" />
+					<input type="submit" value="검색" style="cursor:pointer;"/>
 				</td>
 			</tr>
 		</table> 
@@ -169,8 +169,8 @@ if (search == null || search.equals("")) {
 			<div style="text-align:left; font-size:17px; float: left; width:743px;">총<span style="color:rgb(139, 195, 74); font-size:23px;"><%=count %></span>개의 제품이 있습니다.</div>		
 			<div class="sort_button" style="float: left;">
 				<%if(search==null||search.equals("")){%>
-				<div class="buttn"  <%if(mode.equals("num")){%> id="selected"<%}%> onclick="window.location='productList.jsp?mode=num'">최신순</div>
-				<div class="buttn"  <%if(mode.equals("rating")){%> id="selected"<%}%>onclick="window.location='productList.jsp?mode=rating'">추천순</div>
+				<div class="buttn"  <%if(mode.equals("num")){%> id="selected"<%}%> onclick="window.location='productList.jsp?mode=num'" style="cursor:pointer;">최신순</div>
+				<div class="buttn"  <%if(mode.equals("rating")){%> id="selected"<%}%>onclick="window.location='productList.jsp?mode=rating'" style="cursor:pointer;">추천순</div>
 				<%}else{ %>
 				<div class="buttn" <%if(mode.equals("num")){%> id="selected"<%}%> onclick="window.location='productList.jsp?mode=num&option=<%=option%>&search=<%=search%>'">최신순</div>
 				<div class="buttn"  <%if(mode.equals("rating")){%> id="selected"<%}%> onclick="window.location='productList.jsp?mode=rating&option=<%=option%>&search=<%=search%>'">추천순</div>
@@ -186,14 +186,14 @@ if (search == null || search.equals("")) {
 			ProductDTO product = (ProductDTO)(productList.get(i));
 		%>
 			<div class="recipe" onclick="window.location='productContent.jsp?num=<%=product.getNum()%>'">
-				<div class="thumbnail"> 
+				<div class="thumbnail" style="cursor:pointer;"> 
 					<%if(product.getProduct_img()!=null){%>
 					<img width="198px" height="198px" src="/jnp/product/imgs/<%=product.getProduct_img()%>"/>
 					<%}else{%>
 					<img width="198px" height="198px" src="/jnp/product/imgs/unnamed.gif"/>
 					<%}%>
 				</div>
-				<div class="info">
+				<div class="info" style="cursor:pointer;">
 					<div class="row"><%=product.getName()%></div>
 					<%-- <div class="row">대표성분 :<%
 						if(product.getIngredients().contains(",")){
@@ -210,7 +210,7 @@ if (search == null || search.equals("")) {
 							out.print(product.getIngredients());
 						}
 					%></div> --%>
-					<div class="row">추천 :<%=product.getRecommend()%></div>
+					<div class="row" style="cursor:pointer;">추천 :<%=product.getRecommend()%></div>
 				</div>			
 			</div>
 	<%	}
@@ -228,14 +228,14 @@ if (search == null || search.equals("")) {
 			if(endPage > pageCount) endPage = pageCount; 
 			
 			if(startPage > pageBlock){%>
-				<div class="page" onclick="window.location='productList.jsp?pageNum=<%=startPage-pageBlock%>'">&lt;</div>
+				<div class="page" style="cursor:pointer;" onclick="window.location='productList.jsp?pageNum=<%=startPage-pageBlock%>'">&lt;</div>
 			<%}
 			for(int i = startPage ; i<= endPage; i++){%>
-				<div class="page" onclick="window.location='productList.jsp?pageNum=<%=i%>'">&nbsp;<%=i %></div>	
+				<div class="page" style="cursor:pointer;" onclick="window.location='productList.jsp?pageNum=<%=i%>'">&nbsp;<%=i %></div>	
 			<%
 			}			
 			if(endPage > pageCount){%>
-				<div class="page" onclick="window.location='productList.jsp?pageNum=<%=startPage+pageBlock%>'">&gt;</div>		
+				<div class="page" style="cursor:pointer;" onclick="window.location='productList.jsp?pageNum=<%=startPage+pageBlock%>'">&gt;</div>		
 			<%}	
 		}
 	%>

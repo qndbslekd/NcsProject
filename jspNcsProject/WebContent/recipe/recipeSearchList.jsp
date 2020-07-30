@@ -46,14 +46,17 @@
 		overflow: hidden;
 		/*border: 1px solid black;*/
 		margin: 20px auto;
-		 		
+		cursor:pointer;
+		border:2px solid white;
+	}
+	#searchRecipe-wrapper .recipe:hover {
+		border:2px solid #8bc34a;
 	}
 	
 	#searchRecipe-wrapper .thumbnail{
 		width: 150px;
 		height:146px;
 		margin: 1px 1px;
-		
 		float: left;
 	}
 	
@@ -161,7 +164,6 @@
 	String calMore = request.getParameter("calMore");// 칼로리 하한선
 	String calUnder = request.getParameter("calUnder");//칼로리 상한선
 
-	System.out.println("name : "+ name +" writer:"+writer);
 	String tag = request.getParameter("tag");
 	//where절 쿼리 처리
 	String whereQuery="where 1=1";	
@@ -169,13 +171,14 @@
 	
 	RecipeDAO dao = RecipeDAO.getInstance();
 	
-	if( name!=null && !name.equals("")){
+	if( name!=null && (!name.equals("")&&  !name.equals("null"))){
 		//앞뒤 공백제거
 		name = name.trim();
 		whereQuery += (" and recipe_name like '%"+name+"%'");
 	}
 	//재료로 검색
- 	if( ingredients!=null && !ingredients.equals("")){
+	
+ 	if( ingredients!=null && (!ingredients.equals("") && !ingredients.equals("null"))){
 		String[] splitIngredients = ingredients.split(",");// 구분자로 재료구분
 		
 		for(int i = 0 ; i < splitIngredients.length ; i++){//재료명 앞뒤 공백제거
@@ -187,21 +190,21 @@
 		
 	}
 	//채식 타입으로 검색
-	if(vegiType!=null  && !vegiType.equals("")){
+	if(vegiType!=null  && (!vegiType.equals("") &&!vegiType.equals("null"))){
 		if(!vegiType.equals("total")){
 			whereQuery += (" and vegi_type ='"+vegiType+"'");
 		}	
 	}
 	
 	//난이도로 검색
-	if(difficulty!=null && !difficulty.equals("") ){
+	if(difficulty!=null && (!difficulty.equals("") && !difficulty.equals("null"))){
 		if(!difficulty.equals("전체")){
 			whereQuery += (" and difficulty='"+difficulty+"'");
 		}
 	}
 
 	//칼로리 검색	
-	if(( calMore!=null && !calMore.equals("") )|| (calUnder!= null && !calUnder.equals(""))){//둘중 하나라도 값이 있을때	
+	if(( calMore!=null && (!calMore.equals("") && !calMore.equals("null")))|| (calUnder!= null && (!calUnder.equals("") && !calUnder.equals("null")))){//둘중 하나라도 값이 있을때	
 		if(( calMore!=null  && !calMore.equals("")) && (calUnder!=null && !calUnder.equals(""))){ // 둘다 있는경우
 			int calMoreNum = Integer.parseInt(calMore);
 			int calUnderNum = Integer.parseInt(calUnder);
@@ -218,7 +221,7 @@
 
 	
 	//작가 검색
-	if(writer!=null && !writer.equals("")){
+	if(writer!=null && (!writer.equals("") && !writer.equals("null"))){
 		writer = writer.trim();//앞뒤 공백제거
 		String writerToId = dao.selectIdByName(writer);
 		System.out.println("검색 writer:"+writer+" id변환:"+writerToId);
@@ -227,7 +230,7 @@
 		
 	//태그 검색;
 	List tagList = null;
-	if( tag!=null && !tag.equals("")){
+	if( tag!=null && (!tag.equals("") && !tag.equals("null"))){
 		String[] tags = tag.split(",");// 구분자로 재료구분
 		//태그목록 검색할 where절 쿼리
 		String tagWhereQuery = "where 1=1";
@@ -288,11 +291,11 @@
 				<tr><td></td></tr>
 				<tr>
 					<td class="title">요리명</td>
-					<td colspan='7'><input type="text" style="width:620px;" class="input-box" name="name" <%if(name!= null && !name.equals(""))%>value="<%=name%>" /></td>
+					<td colspan='7'><input type="text" style="width:620px;" class="input-box" name="name" <%if(name!= null && !name.equals("") && !name.equals("null"))%>value="<%=name%>" /></td>
 				</tr>
 				<tr>
 					<td class="title">재료명</td>
-					<td colspan='7'><input type="text" style="width:620px;"class="input-box" name="ingredients" placeholder="재료1,재료2,.." <%if(ingredients!=null && !ingredients.equals(""))%>value="<%=ingredients%>" /></td>
+					<td colspan='7'><input type="text" style="width:620px;"class="input-box" name="ingredients" placeholder="재료1,재료2,.." <%if(ingredients!=null && !ingredients.equals("") && !ingredients.equals("null"))%>value="<%=ingredients%>" /></td>
 				</tr>
 				<tr>
 					<td class="title">분류</td>
@@ -322,17 +325,17 @@
 					</td>
 					<td style="width:40px; text-align:right;">열량</td>
 					<td style="width:100px;">
-					<input type="text" name="calMore" style="width:35px;" <%if(calMore !=null && !calMore.equals(""))%> class="input-box"  value="<%=calMore%>" />~
-					<input type="text" name="calUnder" style="width:35px;" <%if(calUnder !=null && !calUnder.equals(""))%> class="input-box"  value="<%=calUnder%>"/>
+					<input type="text" name="calMore" style="width:35px;" <%if(calMore !=null && !calMore.equals("") && !calMore.equals("null"))%> class="input-box"  value="<%=calMore%>" />~
+					<input type="text" name="calUnder" style="width:35px;" <%if(calUnder !=null && !calUnder.equals("")  && !calUnder.equals("null"))%> class="input-box"  value="<%=calUnder%>"/>
 					</td>
 				</tr> 
 				<tr> 
 					<td class="title">작성자</td>
-					<td colspan='7'><input type="text" style="width:620px;" class="input-box" name="writer" <%if(writer!= null && !writer.equals(""))%> value="<%=writer%>"/></td>
+					<td colspan='7'><input type="text" style="width:620px;" class="input-box" name="writer" <%if(writer!= null && !writer.equals("") && !writer.equals("null"))%> value="<%=writer%>"/></td>
 				</tr>
 				<tr>
 					<td class="title">태그</td>
-					<td colspan='7'><input type="text" name="tag" class="input-box" style="width: 620px;" placeholder="태그명1,태그명2,.." <%if(tag!=null && !tag.equals(""))%> value="<%=tag%>"/></td>
+					<td colspan='7'><input type="text" name="tag" class="input-box" style="width: 620px;" placeholder="태그명1,태그명2,.." <%if(tag!=null && !tag.equals("") && !tag.equals("null"))%> value="<%=tag%>"/></td>
 				</tr>
 				<tr>
 					<td colspan='8'><input type="submit" value="검색"/></td>
