@@ -57,8 +57,8 @@
 	<table id="nonBorder" style="width:700px;" >
 		<tr>
 			<td colspan="3">
-				<div align="right" style="padding-right: 47px">
-				<input type="button" value="취소" class="myButton" onclick="window.location='myPage.jsp'" />
+				<div align="right" style="padding-right: 43px">
+				<input type="button" value="마이페이지로" class="myButton" onclick="window.location='myPage.jsp'" />
 				</div>
 			</td>
 		</tr>

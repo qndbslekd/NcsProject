@@ -66,7 +66,7 @@
 		<tr>
 			<td colspan="3">
 				<div align="right" style="padding-right: 47px">
-				<input type="button" value="취소" class="myButton" onclick="window.location='myPage.jsp'" />
+				<input type="button" value="마이페이지로" class="myButton" onclick="window.location='myPage.jsp'" />
 				</div>
 			</td>
 		</tr>

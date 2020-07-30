@@ -75,7 +75,7 @@
 	<% for(int i = 0 ; i < myFreeContentList.size(); i++){
 		dto =(FreeBoardDTO)myFreeContentList.get(i);
 	%>
-	<div onclick="location.href='../freeboard/boardContent.jsp?num=<%= dto.getNum()%>'">
+	<div class="recipe" onclick="location.href='../freeboard/boardContent.jsp?num=<%= dto.getNum()%>'">
 	<table style="width:700px; text-align: left;">
 		<tr>
 			<td style="width:55px">
