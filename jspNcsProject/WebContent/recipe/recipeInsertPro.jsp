@@ -39,6 +39,8 @@
 	
 	//재료 다듬어서 저장하기
 	String ingre = ",";
+	//모든 콤마를 슬래시로 바꾸기
+	ingredients = ingredients.replaceAll(",", "/");
 	//줄바꿈을 콤마로 바꾸기
 	ingredients = ingredients.replaceAll("\n", ",");
 	//콤마 기준으로 나누기
