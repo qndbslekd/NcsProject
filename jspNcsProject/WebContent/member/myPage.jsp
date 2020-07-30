@@ -24,7 +24,7 @@
 <h1 align="center"> 마이 페이지 </h1> 
 	<table>
 		<tr>
-			<td>
+			<td style="padding-right: 30px">
 				<a onclick="window.location='memberModifyForm.jsp'" style="cursor:pointer;"><img src="../resource/modify_.png"><br/>정보 수정</a>
 			</td>
 			<td>
@@ -32,7 +32,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td>
+			<td style="padding-right: 30px">
 				<a onclick="window.location='myList.jsp'" style="cursor:pointer;"><img src="../resource/recipe_.png"><br/>내 글/댓글 목록</a>				
 			</td>
 			<td>
