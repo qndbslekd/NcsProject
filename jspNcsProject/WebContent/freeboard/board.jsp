@@ -277,7 +277,7 @@
 			<%}else if(fixedArticle.getCategory().equals("question")){%>	
 			<td>고민과질문</td>
 			<%} %>
-			<td style="text-align:left;" onclick="window.location='boardContent.jsp?num=<%=fixedArticle.getNum()%>&mode=<%=mode%>&category=<%=category%>&sel=<%=sel%>&search=<%=search%>&pageNum=<%=pageNum%>'"><strong><%=fixedArticle.getTitle()%></strong></td>
+			<td style="text-align:left; cursor: pointer;" onclick="window.location='boardContent.jsp?num=<%=fixedArticle.getNum()%>&mode=<%=mode%>&category=<%=category%>&sel=<%=sel%>&search=<%=search%>&pageNum=<%=pageNum%>'"><strong><%=fixedArticle.getTitle()%></strong></td>
 			<td ><%=name%></td>
 			<td><%=sdf.format(fixedArticle.getReg())%></td>
 			<td><%=fixedArticle.getRead_count()%></td>
