@@ -92,7 +92,7 @@
 		width:100px;
 		float:left;
 		border: 1px solid #DADBD7;
-		padding: 7px 10px 7px 10px;
+		padding: 7px 7px 7px 7px;
 		background-color: rgb(139, 195, 74);
 		color: white;
 		cursor: pointer;
@@ -134,7 +134,8 @@
 	.buttn{		
 		float:left;
 		border: 1px solid #DADBD7;
-		padding: 5px 24px 5px 24px;		
+		padding: 5px 20px 5px 20px;		
+		cursor:pointer;
 	}
 	#selected{
 
@@ -469,5 +470,7 @@
 		}
 	%>
 	</div>
+	<br/>
+		<jsp:include page="../footer.jsp" flush="false"/>
 </body>
 </html>

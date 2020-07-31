@@ -59,6 +59,8 @@
 		alert("비밀번호를 잘못 기입하셨습니다.")
 		history.go(-1);
 	</script>
+	<br/>
+		<jsp:include page="../footer.jsp" flush="false"/>
 </body>
 		<%} 
 	}%>

@@ -324,5 +324,9 @@ if(mostTag == null) { //찜한 레시피가 없을 때 : 전체 레시피 중 �
 
 </table>
 <%} %>
+<br/>
+<br/>
+
+<jsp:include page="footer.jsp" flush="false"/>
 </body>
 </html>  

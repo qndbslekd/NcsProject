@@ -99,6 +99,7 @@
 		</tr>
 	</table>
 </form>
+<jsp:include page="../footer.jsp" flush="false"/>
 </body>
 <%}%>
 </html>

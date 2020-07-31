@@ -241,5 +241,7 @@ if (search == null || search.equals("")) {
 	%>
 
 	</div>
+	<br/>
+	<jsp:include page="../footer.jsp" flush="false"/>
 </body>
 </html>

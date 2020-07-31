@@ -261,7 +261,10 @@
 	%>	
 		<button onclick="window.location='recipeList.jsp?pageNum=<%=pageNum%>'">목록</button>
 	</div>
+	<br/>
+		<jsp:include page="../footer.jsp" flush="false"/>
 </body>
+
 <script>
 	//댓글에 답댓글 달기
 	function rating(num) {

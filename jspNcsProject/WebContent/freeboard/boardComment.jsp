@@ -164,7 +164,6 @@
 			</tr>
 		</table>
 	<%}%>
-	
 </body>
 <%}%>
 <script>

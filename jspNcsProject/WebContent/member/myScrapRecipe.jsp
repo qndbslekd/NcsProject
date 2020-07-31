@@ -199,6 +199,8 @@ if(memId == null) {
 	</div>
 	<br/>
 	<button class="greenButton" onclick="window.location='myPage.jsp'">마이페이지로</button>
+<br/>
+		<jsp:include page="../footer.jsp" flush="false"/>
 </body>
 <script>
 	function UnScrap(num) {

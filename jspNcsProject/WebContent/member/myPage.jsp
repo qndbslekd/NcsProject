@@ -47,9 +47,11 @@
 		</tr>
 		<%if(session.getAttribute("memId").equals("admin")){ %>
 			<tr>
-				<td colspan="3" style="padding-top: 5px;"> <button class = "grayButton"  style="width: 100px; height: 30px; text-align: center" onclick="window.location='memberList.jsp'">관리자 페이지</button></td>
+				<td colspan="3" style="padding-top: 5px;"> <button class = "grayButton"  style="width: 110px; height: 30px; text-align: center" onclick="window.location='memberList.jsp'">관리자 페이지</button></td>
 			</tr>
 		<%}} %>
 	</table>
+<br/>
+<jsp:include page="../footer.jsp" flush="false"/>
 </body>
 </html>

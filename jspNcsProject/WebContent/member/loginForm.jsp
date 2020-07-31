@@ -38,6 +38,8 @@
 			</tr>
 		</table>
 	</form>
+	<br/>
+		<jsp:include page="../footer.jsp" flush="false"/>
 </body>	
 <!--로그인시 이전주소 값으로 가기-->
 <script type="text/javascript">
