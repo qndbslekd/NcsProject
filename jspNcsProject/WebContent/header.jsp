@@ -98,15 +98,15 @@
 			<td> </td>
 		</tr>
 		<tr>
-		<td class="tab"> </td>
-		<td class="tab"> </td>
+		<td class="tab" style="cursor:default;"> </td>
+		<td class="tab" style="cursor:default;"> </td>
 			<td class="tab" onclick="window.location='/jnp/information/informationList.jsp'" <%if(mode.equals("information")) { %>style="color:#edd713;"<%} %>>채식정보</td>
 			<td class="tab" onclick="window.location='/jnp/recipe/recipeList.jsp?mode=num'" <%if(mode.equals("recipe")) { %>style="color:#edd713;"<%} %>>레시피</td>
 			<td class="tab" onclick="window.location='/jnp/product/productList.jsp'" <%if(mode.equals("product")) { %>style="color:#edd713;"<%} %>>제품</td>
 			<td class="tab" onclick="window.location='/jnp/freeboard/board.jsp'"<%if(mode.equals("freeboard")) { %>style="color:#edd713;"<%} %>>자유게시판</td>
 			<td class="tab" onclick="window.location='/jnp/ask.jsp'"<%if(mode.equals("ask")) { %>style="color:#edd713;"<%} %>>문의하기</td>
-			<td class="tab"> </td>
-			<td class="tab"> </td>
+			<td class="tab" style="cursor:default;"> </td>
+			<td class="tab" style="cursor:default;"> </td>
 		</tr>
 	</table>
 	</div>
