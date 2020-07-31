@@ -127,9 +127,10 @@
 	.tag{		
 		padding: 5px;
 		display: inline-block;
-		background-color: gray;
+		background-color: #DADAD9;
 		border-radius: 10px;
 		margin: 5px 0;
+		cursor: pointer;
 	}
 	.buttn{		
 		float:left;
