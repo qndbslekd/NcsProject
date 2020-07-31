@@ -33,7 +33,7 @@
 		width : 200px;
 		height : 300px;
 		float: left;
-		margin: 20px 20px; 		
+		margin: 15px 15px; 		
 	}
 	.thumbnail {
 		height: 200px;
@@ -241,5 +241,7 @@ if (search == null || search.equals("")) {
 	%>
 
 	</div>
+	<br/>
+	<jsp:include page="../footer.jsp" flush="false"/>
 </body>
 </html>

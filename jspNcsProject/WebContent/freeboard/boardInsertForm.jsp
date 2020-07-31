@@ -94,11 +94,12 @@
 		<tr>
 			<td colspan='2'>
 				<input type="submit" value="작성"/>
-				<input type="button" value="취소" onclick="histoy.go(-1)"/>
+				<input type="button" value="취소" onclick="history.go(-1)"/>
 			</td>		
 		</tr>
 	</table>
 </form>
+<jsp:include page="../footer.jsp" flush="false"/>
 </body>
 <%}%>
 </html>

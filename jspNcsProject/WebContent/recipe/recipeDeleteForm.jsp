@@ -35,6 +35,8 @@
 				<td><input type="button" value="돌아가기" onclick="history.back()"/> <input type="button" value="삭제하기" onclick="window.location='recipeDeletePro.jsp?num=<%=num%>'"/></td>
 			</tr>
 		</table>	
+		<br/>
+		<jsp:include page="../footer.jsp" flush="false"/>
 </body>
 
 	<%} else {%>
@@ -54,7 +56,8 @@
 			</tr>
 		</table>	
 	</form>
-
+<br/>
+		<jsp:include page="../footer.jsp" flush="false"/>
 </body>
 <%} %>
 </html>

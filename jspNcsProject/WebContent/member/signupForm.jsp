@@ -106,6 +106,8 @@ if(session.getAttribute("memId")==null){
 		</tr>
 	</table> 
 	</form> 
+	<br/>
+	<jsp:include page="../footer.jsp" flush="false"/>
 </body>
 <%}else{
 	response.sendRedirect("../main.jsp");

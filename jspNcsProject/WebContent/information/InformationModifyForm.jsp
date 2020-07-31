@@ -103,5 +103,7 @@ input[type="file"]{
 			</table>
 		</form>
 		</body>
+		<br/>
+		<jsp:include page="../footer.jsp" flush="false"/>
 	<%} %>
 </html>

@@ -51,6 +51,8 @@
 		</tr>
 	</table>
 </form>
+<br/>
+		<jsp:include page="../footer.jsp" flush="false"/>
 </body>
 <%} %>
 </html>

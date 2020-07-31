@@ -79,6 +79,14 @@
 		
 		border-bottom: 1px solid black;
 	}
+	
+	.link {
+		cursor:pointer;
+	}
+	
+	.link:hover, .link strong:hover {
+		color:#ccc;
+	}
 
 </style>
 <script>
@@ -277,7 +285,7 @@
 			<%}else if(fixedArticle.getCategory().equals("question")){%>	
 			<td>고민과질문</td>
 			<%} %>
-			<td style="text-align:left;" onclick="window.location='boardContent.jsp?num=<%=fixedArticle.getNum()%>&mode=<%=mode%>&category=<%=category%>&sel=<%=sel%>&search=<%=search%>&pageNum=<%=pageNum%>'"><strong><%=fixedArticle.getTitle()%></strong></td>
+			<td class="link" style="text-align:left; cursor: pointer;" onclick="window.location='boardContent.jsp?num=<%=fixedArticle.getNum()%>&mode=<%=mode%>&category=<%=category%>&sel=<%=sel%>&search=<%=search%>&pageNum=<%=pageNum%>'"><strong><%=fixedArticle.getTitle()%></strong></td>
 			<td ><%=name%></td>
 			<td><%=sdf.format(fixedArticle.getReg())%></td>
 			<td><%=fixedArticle.getRead_count()%></td>
@@ -305,7 +313,7 @@
 			<%if(dto.getCategory().equals("question")){%>	
 			<td>고민과질문</td>
 			<%} %>
-			<td style="text-align:left;" onclick="window.location='boardContent.jsp?num=<%=dto.getNum()%>&mode=<%=mode%>&category=<%=category%>&sel=<%=sel%>&search=<%=search%>&pageNum=<%=pageNum%>'"><%=dto.getTitle()%></td>
+			<td class="link" style="text-align:left;" onclick="window.location='boardContent.jsp?num=<%=dto.getNum()%>&mode=<%=mode%>&category=<%=category%>&sel=<%=sel%>&search=<%=search%>&pageNum=<%=pageNum%>'"><%=dto.getTitle()%></td>
 			<td ><%=name%></td>
 			<td><%=sdf.format(dto.getReg())%></td>
 			<td><%=dto.getRead_count()%></td>
@@ -363,6 +371,6 @@
 			</tr>
 		</table>
 	</form>
-
+<jsp:include page="../footer.jsp" flush="false"/>
 </body>
 </html>

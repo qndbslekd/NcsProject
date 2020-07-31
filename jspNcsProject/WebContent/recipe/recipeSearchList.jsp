@@ -17,7 +17,6 @@
 	#search{
 		height: 250px;
 		width : 800px;
-		margin-top : 50px;
 		margin-bottom : 50px;
 		background-color : #DADBD7;
 	}
@@ -93,7 +92,7 @@
 		width:100px;
 		float:left;
 		border: 1px solid #DADBD7;
-		padding: 7px 10px 7px 10px;
+		padding: 7px 7px 7px 7px;
 		background-color: rgb(139, 195, 74);
 		color: white;
 		cursor: pointer;
@@ -128,19 +127,35 @@
 	.tag{		
 		padding: 5px;
 		display: inline-block;
-		background-color: gray;
+		background-color: #DADAD9;
 		border-radius: 10px;
 		margin: 5px 0;
+		cursor: pointer;
 	}
 	.buttn{		
 		float:left;
 		border: 1px solid #DADBD7;
-		padding: 5px 24px 5px 24px;		
+		padding: 5px 20px 5px 20px;		
+		cursor:pointer;
 	}
 	#selected{
 
 		background-color: #8bc34a;
 		color: white;
+	}
+	
+	.totalview{
+		width:90px;
+		margin-left: 904px; 
+		margin-bottom: 10px; 
+		margin-top: 40px; 
+		color: black; 
+		cursor:pointer; 
+		font-size:13px; 
+		background-color : color;
+		border : 1px solid #999;
+		padding: 2px 0px 2px 0px;
+		border-radius: 5px;
 	}
 </style>
 <script>
@@ -271,7 +286,6 @@
 	}
 		
 	List searchRecipeList = dao.searchRecipeList(startRow, endRow, whereQuery, mode);
-	System.out.println("검색 쿼리:"+whereQuery);
 
 	//리스트 글수
 	int count = 0;
@@ -281,14 +295,17 @@
 	
 %>
 </head>
-<jsp:include page="../header.jsp" flush="false">
-	<jsp:param value="recipe" name="mode"/>
-</jsp:include>
+
+
 <body>
+	<jsp:include page="../header.jsp" flush="false">
+		<jsp:param value="recipe" name="mode"/>
+	</jsp:include>
+	<div class="totalview" onclick="window.location='recipeList.jsp'">전체보기</div>
 	<form action="recipeSearchList.jsp" name="searchForm" method="post">
 		<input type="hidden" name="mode" value="num"/>
 			<table id="search">
-				<tr><td></td></tr>
+				<tr><td>&nbsp; </td></tr>
 				<tr>
 					<td class="title">요리명</td>
 					<td colspan='7'><input type="text" style="width:620px;" class="input-box" name="name" <%if(name!= null && !name.equals("") && !name.equals("null"))%>value="<%=name%>" /></td>
@@ -454,5 +471,7 @@
 		}
 	%>
 	</div>
+	<br/>
+		<jsp:include page="../footer.jsp" flush="false"/>
 </body>
 </html>
