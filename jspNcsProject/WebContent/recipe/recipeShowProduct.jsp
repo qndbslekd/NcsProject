@@ -55,10 +55,10 @@ if(maxSize > 0) {
 			ProductDTO dto = (ProductDTO) recommendList.get(i);
 		%>
 		<td>
-			<span onclick="window.location='../product/productContent.jsp?num=<%=dto.getNum()%>'" style="width:200px; height:200px; text-align:center;">
-				<img src = "/jnp/product/imgs/<%= dto.getProduct_img() %>" style="display:block; height:150px; margin:auto;"/>
+			<div onclick="window.location='../product/productContent.jsp?num=<%=dto.getNum()%>'" style="width:200px; height:200px; text-align:center;" class="recipe">
+				<img src = "/jnp/product/imgs/<%= dto.getProduct_img() %>" style="display:block; height:150px; max-width:200px; margin:auto;"/>
 				<%=dto.getName() %>
-			</span>
+			</div>
 		</td>
 		<%} %>
 	</tr>
