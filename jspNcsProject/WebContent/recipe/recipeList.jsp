@@ -42,7 +42,7 @@
 		height : auto;
 		position: relative;
 		float: left;
-		margin: 20px 20px; 
+		margin: 15px 15px; 
 		overflow: hidden;	
 		cursor: pointer;	
 	}
