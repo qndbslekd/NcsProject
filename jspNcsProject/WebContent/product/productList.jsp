@@ -33,7 +33,7 @@
 		width : 200px;
 		height : 300px;
 		float: left;
-		margin: 20px 20px; 		
+		margin: 15px 15px; 		
 	}
 	.thumbnail {
 		height: 200px;

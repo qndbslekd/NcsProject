@@ -1,9 +1,11 @@
 @charset "UTF-8";
 
 @font-face { font-family: 'InfinitySans-RegularA1'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/InfinitySans-RegularA1.woff') format('woff'); font-weight: normal; font-style: normal; }
+@import url(https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@1.0/nanumsquare.css);
+
 /* 테마 색 #8bc34a */
 * {
-	font-family: 'InfinitySans-RegularA1';
+    font-family: 'NanumSquare', sans-serif;	
 	font-size : 15px;
 	color:black;
 }
@@ -18,12 +20,12 @@ table {
 	padding:5px;
 }
 table * {
-	font-family: 'InfinitySans-RegularA1';
+    font-family: 'NanumSquare', sans-serif;	
 	font-size : 15px;
 	vertical-align:middle;
 }
 body {
-	font-family: 'InfinitySans-RegularA1';
+    font-family: 'NanumSquare', sans-serif;	
 	font-size : 15px;
 	COLOR: black;
 	LINE-HEIGHT: 160%;
@@ -31,7 +33,7 @@ body {
 	text-align:center;
 }
 h1 {
-	font-family: 'InfinitySans-RegularA1';
+    font-family: 'NanumSquare', sans-serif;	
 	font-size : 30px;
 	font-weight : 700;
 }
