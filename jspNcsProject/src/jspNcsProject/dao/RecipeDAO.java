@@ -84,6 +84,7 @@ public class RecipeDAO {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+					
 		} finally {
 			if(rs!=null)try { rs.close();}catch(Exception e) {e.printStackTrace();}
 			if(pstmt!=null)try { pstmt.close();}catch(Exception e) {e.printStackTrace();}
