@@ -139,6 +139,7 @@ System.out.println(dto);
 			<td class="t">활동명 중복체크</td>
 			<td><button class="grayButton" type="button" onclick="confirmName(this.form)"
 			style="width: 80px; height: 30px; text-align: center">중복확인</button></td>
+			<input type = "hidden" name = "nameConfirm" value="false" />
 		</tr>
 		<tr>
 			<td class="t">주민번호*</td>  
