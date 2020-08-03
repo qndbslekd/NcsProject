@@ -44,7 +44,7 @@ MemberDTO loginMember = null;
 if(memId != null) {	//로그인 한 상태면 로그인 정보 가져오기
 	loginMember = Mdao.modifyData(memId);
 }
-
+ 
 %>
 <body>
 <jsp:include page="header.jsp" flush="false" />
