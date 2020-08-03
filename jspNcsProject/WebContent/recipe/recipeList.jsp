@@ -103,6 +103,11 @@
 	.page{
 		display: inline-block;
 		color : black;
+		cursor:pointer;
+		font-size:20px;
+	}
+	.page:hover{
+		color:#8bc34a;
 	}
 	div .buttn{
 		width:70px;
